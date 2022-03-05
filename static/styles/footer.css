@@ -2,33 +2,63 @@
     --footer-background-color: rgb(34,34,34);
 
     --footer-text-color: white;
+
+    --footer-font-title-size: 35px;
+    --footer-font-title-color: rgb(172, 172, 172);
+    --footer-font-item-size: 22px;
+
+}
+
+/* Everything in the footer should have the same background and text color  */
+footer, footer * 
+{
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
 }
 
 footer
 {
-    background-color: var(--footer-background-color);
-    color: var(--footer-text-color);
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+    height: 100%;
 }
 
 .footer-container
 {
-    display: inline-block;
-    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
 }
 
 .footer-container-title
 {
-    margin: 0;
-    background-color: var(--footer-background-color);
-    color: var(--footer-text-color);
+    font-size: var(--footer-font-title-size);
+    color: var(--footer-font-title-color);
+    margin-bottom: 0;
 }
 
-.footer-container-contents
+.footer-list
 {
-    background-color: var(--footer-background-color);
-    color: var(--footer-text-color);
-    font-size: 10px;
-    padding-right: -20%;
+    padding: 0;
+    list-style: none;
+}
 
+.footer-list a
+{
+    text-decoration: none;
+}
 
+.footer-list a:hover
+{
+    transition: 0.2s;
+    color: rgb(255, 187, 0)
+}
+
+.footer-list-item
+{
+    margin: 0;
+    padding: 5px;
+    font-size: var(--footer-font-item-size);
 }
