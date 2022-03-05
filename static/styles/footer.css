@@ -3,9 +3,10 @@
 
     --footer-text-color: white;
 
-    --footer-font-title-size: 35px;
+    --footer-font-title-size: 25px;
     --footer-font-title-color: rgb(172, 172, 172);
-    --footer-font-item-size: 22px;
+    --footer-font-item-size: 15px;
+    --footer-font-item-color: rgb(204, 203, 203);
 
 }
 
@@ -16,13 +17,13 @@ footer, footer *
     color: var(--footer-text-color);
 }
 
-footer
+#footer
 {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
+    padding-right: 50px;
+    padding-bottom: 40px;
     justify-content: center;
-    height: 100%;
 }
 
 .footer-container
@@ -30,6 +31,7 @@ footer
     display: flex;
     flex-direction: column;
     margin-right: 50px;
+    margin-left: 50px;
 }
 
 .footer-container-title
@@ -47,13 +49,14 @@ footer
 
 .footer-list a
 {
+    color: var(--footer-font-item-color);
     text-decoration: none;
 }
 
 .footer-list a:hover
 {
     transition: 0.2s;
-    color: rgb(255, 187, 0)
+    color: white;
 }
 
 .footer-list-item
@@ -61,4 +64,30 @@ footer
     margin: 0;
     padding: 5px;
     font-size: var(--footer-font-item-size);
+}
+
+#footer-contact-info p
+{
+    color: var(--footer-font-item-color);
+    font-size: var(--footer-font-item-size);
+}
+
+#footer-restaurant-name
+{
+    margin-top: 70px;
+    color: white;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+#footer-restaurant-desc
+{
+    width: 500px;
+}
+
+#credits
+{
+    padding: 0;
+    text-align: center;
+    padding-bottom: 50px;
 }
