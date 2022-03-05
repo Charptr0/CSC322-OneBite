@@ -1,0 +1,32 @@
+:root {
+    --footer-background-color: rgb(34,34,34);
+
+    --footer-text-color: white;
+}
+
+footer
+{
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+    text-align: center;
+}
+
+.footer-container
+{
+    display: inline-block;
+    margin: 20px;
+}
+
+.footer-container-title
+{
+    margin: 0;
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+}
+
+.footer-container-contents
+{
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+    font-size: 10px;
+}

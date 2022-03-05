@@ -1,6 +1,20 @@
+:root {
+    --general-background-color: white;
+    --general-text-color: black;
+
+    --general-font-size: 50px;
+}
+
+*
+{
+    background-color: var(--general-background-color);
+    color: var(--general-text-color);
+
+    font-size: var(--font-size);
+}
+
 body
 {
-    background-color: black;
-    color: white;
+    margin: 0;
 }
 
