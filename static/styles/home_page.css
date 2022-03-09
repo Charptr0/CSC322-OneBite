@@ -1,0 +1,93 @@
+:root {
+    --general-background-color: rgb(211, 211, 211);
+    --general-text-color: rgb(78, 78, 78);
+
+    --general-font-size: 50px;
+}
+
+*
+{
+    background-color: var(--general-background-color);
+    color: var(--general-text-color);
+
+    font-size: var(--font-size);
+}
+
+html 
+{
+    height: 100%;
+}
+
+body
+{
+    min-height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* centers the welcome message */
+h1 {
+    font-size: 75px;
+    line-height: 0.9em;
+    text-align: center;
+}
+
+/* centers the recommended dishes inside the split screen */
+h2 {
+    font-size: 35px;
+    line-height: 0.9em;
+    text-align: center;
+}
+
+/* vertical line to split the most popular vs highest rated dishes */
+.vertical-line {
+    border-left: 1.25px solid rgb(78, 78, 78);
+    flex: 0;
+}
+
+/* split screen container */
+.split-container {
+    display: flex;
+}
+
+/* left screen for most popular dishes*/
+#split-left {
+    flex: 1;
+}
+
+/* right screen for highest rated dishes */
+#split-right {
+    flex: 1;
+}
+
+/* centers dish info within each split screen */
+#dish-info {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.align-left {
+    width: 33.33333%;
+    text-align: left;
+}
+
+.align-center {
+    width: 33.33333%;
+    text-align: center;
+}
+
+.align-right {
+    width: 33.33333%;
+    text-align: right;
+}
+
+.food-pics {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
