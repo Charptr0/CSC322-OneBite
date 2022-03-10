@@ -1,3 +1,87 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    /* edit font
+    font-size: ;
+    font-family:
+    line-height:
+    color:
+    background:
+    ;*/
+}
+
+.container{
+    width: 100%;
+    height: auto;
+    margin: 1rem auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr 3fr);
+    justify-content: space-between;
+    grid-gap: 1rem;
+    align-items: start;
+}
+
+.gridItem{
+    background: deepskyblue;
+    padding: 10px;
+    border: black 1px solid;
+}
+
+.gridimg{
+    display: inline-grid;
+    height: 100px;
+    width: 100px;
+    margin: 0;
+    image-rendering: high-quality;
+}
+
+.itemName{
+    font-size: 1.5rem;
+}
+.itemDes{
+    font-size: 1rem;
+}
+
+.category{
+    margin: 1rem;
+    line-height: 1rem;
+    font-size: 1.9rem;
+}
+
+
+@media (max-width: 600px) {
+    .container{
+        grid-template-columns: repeat(2, 1fr 3fr);
+    }
+
+}
+@media (max-width: 500px) {
+    .container{
+        grid-template-columns: 1fr 3fr;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**=========================================
 .main-container{
     margin: 0 auto;
 }
@@ -17,7 +101,7 @@
 
 }
 
-/*
+
 grid setup
 
 .grid-container{
@@ -25,7 +109,7 @@ grid setup
     grid-template-columns:50% 50% ;
     grid-template-rows: 20rem 20rem;
     background: deepskyblue;
-}*/
+}
 
 .grid-appetizer{
     display: grid;
@@ -44,4 +128,4 @@ grid setup
     grid-template-columns:50% 50% ;
     grid-template-rows: 20rem 20rem;
     background: deepskyblue;
-}
+}**/
