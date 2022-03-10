@@ -1,0 +1,47 @@
+.main-container{
+    margin: 0 auto;
+}
+
+.gridimg{
+    height: 19rem;
+    width: 19rem;
+    position: absolute;
+    overflow: hidden;
+    margin: 1rem;
+    display: block;
+}
+.gridtxt{
+    position: relative;
+    left: 37%;
+    margine: 1rem;
+
+}
+
+/*
+grid setup
+
+.grid-container{
+    display: grid;
+    grid-template-columns:50% 50% ;
+    grid-template-rows: 20rem 20rem;
+    background: deepskyblue;
+}*/
+
+.grid-appetizer{
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 20rem 20rem;
+    background: deepskyblue;
+}
+.grid-entree{
+    display: grid;
+    grid-template-columns:50% 50% ;
+    grid-template-rows: 20rem 20rem;
+    background: deepskyblue;
+}
+.grid-dessertDrinks{
+    display: grid;
+    grid-template-columns:50% 50% ;
+    grid-template-rows: 20rem 20rem;
+    background: deepskyblue;
+}
