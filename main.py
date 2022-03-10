@@ -5,12 +5,12 @@ app = Flask(__name__)
 RANDOM_MSG = "Hello World"
 
 # Create a home route
-@app.route("/111")
+@app.route("/")
 def home():
     return render_template("base.html", message=RANDOM_MSG)
 
 # Menu page start
-@app.route("/")
+@app.route("/menu/")
 def menu():
     return render_template("menu.html")
 
