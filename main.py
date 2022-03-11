@@ -19,6 +19,11 @@ def homePage():
 def menu():
     return render_template("menu.html")
 
+
+@app.route("/login/")
+def loginPage():
+    return render_template('login_page.html')
+
 # Run the app
 if __name__ == "__main__":
     app.run(debug=True)
