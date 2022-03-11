@@ -9,6 +9,11 @@ RANDOM_MSG = "Hello World"
 def home():
     return render_template("base.html", message=RANDOM_MSG)
 
+# Create a route to the home page
+@app.route("/home/")
+def homePage():
+    return render_template("home_page.html")
+    
 # Menu page start
 @app.route("/menu/")
 def menu():

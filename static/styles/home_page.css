@@ -1,0 +1,171 @@
+:root {
+    --general-background-color: rgb(211, 211, 211);
+    --general-text-color: rgb(78, 78, 78);
+
+    --general-font-size: 50px;
+}
+
+*
+{
+    background-color: var(--general-background-color);
+    color: var(--general-text-color);
+
+    font-size: var(--font-size);
+}
+
+html 
+{
+    height: 100%;
+}
+
+body
+{
+    min-height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* makes backgrounds transparent */
+.transparent {
+    background: transparent;
+}
+
+/* inserts background image for top banner */
+#top-welcome {
+    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
+    object-fit: fill;
+    height: 25%;
+}
+
+/* container for all elements */
+.main-container {
+    display: flex;
+    height: 100%;
+}
+
+/* container for top banner */
+.welcome-container {
+    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
+    object-fit: fill;
+    height: 25%;
+}
+
+/* contains welcome and motto */
+.welcome-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    margin-top: auto;
+    height: 100%;
+}
+
+/* centers the welcome message */
+h1 {
+    font-size: 25px;
+    color:rgb(211, 211, 211);
+    letter-spacing: 0.17em;
+    line-height: 0.9em;
+    text-align: center;
+    font-family: 'Nunito Sans';
+}
+
+/* motto elements */
+.motto {
+    height: 15%;
+}
+
+.motto-spacing {
+    text-align: center;
+    color:rgba(211, 211, 211, 0.562);
+}
+
+.motto-height {
+    bottom: 28%;
+    position: relative;
+}
+
+#every {
+    height: 45%;
+    margin-left: 15%;
+    position: relative;
+}
+
+/* container for top 3 most popular dishes */
+.most-popular {
+    height: 33.33333%;
+}
+
+/* container for top 3 highest rated dishes */
+.highest-rated {
+    height: 33.33333%;
+}
+
+
+/* centers the recommended dishes inside the split screen */
+h2 {
+    font-size: 35px;
+    line-height: 0.9em;
+    text-align: center;
+    letter-spacing: 0.15em;
+    font-family: 'Nunito Sans';
+}
+
+/* vertical line to split the most popular vs highest rated dishes */
+.vertical-line {
+    border-left: 1.25px solid rgb(78, 78, 78);
+    flex: 0;
+}
+
+/* split screen container */
+.split-container {
+    display: flex;
+}
+
+/* left screen for first dish*/
+#split-left {
+    flex: 1;
+}
+
+/* center screen for second dish */
+#split-center {
+    flex: 1;
+}
+
+/* right screen for third dish */
+#split-right {
+    flex: 1;
+}
+
+/* centers dish info within each split screen */
+#dish-info {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+.align-left {
+    width: 66.66666%;
+    text-align: left;
+}
+
+.align-right {
+    width: 33.33333%;
+    text-align: right;
+}
+
+.food-pics {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+/* vertical line to to style dish info */
+.vertical-line {
+    border-left: 1.25px solid rgb(78, 78, 78);
+    flex: 0;
+}

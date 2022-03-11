@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home_page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/login_page.css') }}">
     <title>{% block titlePage %}
@@ -29,6 +31,7 @@
     {% block mainContent %}
         <!-- Put all content for different websites here -->
         <!-- NOT HERE, USE JINJA SYNTAX AND PUT ALL THE CONTENT IN ANOTHER HTML FILE -->
+        <a href = "{{ url_for('homePage') }}"></a>
         <a href = "{{ url_for('loginPage') }}"></a> 
 
     {% endblock mainContent %}
