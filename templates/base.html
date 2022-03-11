@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home_page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login_page.css') }}">
+
+    {% block links %}
+        
+    {% endblock links %}
+
     <title>{% block titlePage %}
         Base Template
     {% endblock titlePage %}</title>
@@ -19,10 +21,10 @@
     <nav>
         <div id="navbar">
             <ul class="navbar-list">
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Home</a></li>
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">About</a></li>
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Menu</a></li>
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Login</a></li>
+                <li class="navbar-list-item"><a href="{{ url_for("homePage") }}">Home</a></li>
+                <li class="navbar-list-item"><a href="https://google.com">About</a></li>
+                <li class="navbar-list-item"><a href="https://google.com">Menu</a></li>
+                <li class="navbar-list-item"><a href="{{ url_for("loginPage") }}">Login</a></li>
             </ul>
         </div>
     </nav>

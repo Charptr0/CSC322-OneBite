@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home_page.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
+{% endblock links %}
+
 {% block titlePage %} Home | Restaurant {% endblock %}
 
 {% block mainContent %}
