@@ -13,6 +13,11 @@ def home():
 @app.route("/home/")
 def homePage():
     return render_template("home_page.html")
+    
+# Menu page start
+@app.route("/menu/")
+def menu():
+    return render_template("menu.html")
 
 # Run the app
 if __name__ == "__main__":

@@ -1,0 +1,66 @@
+:root {
+    --navbar-background-color: rgb(34,34,34);
+
+    --navbar-text-color: white;
+    --navbar-hover-color: black;
+    --navbar-active-color: blue;
+
+    --navbar-font-item-size: 15px;
+    --navbar-font-item-color: rgb(204, 203, 203);
+}
+
+navbar, nav * 
+{
+    background-color: var(--navbar-background-color);
+    color: var(--navbar-text-color);
+}
+
+/* main navbar container */
+#navbar
+{
+    flex-wrap: wrap;
+}
+
+.navbar-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar-list a
+{
+    color: var(--navbar-font-item-color);
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar-list a:hover {
+    background-color: var(--navbar-hover-color);
+}
+
+.navbar-list-item {
+    size: var(--navbar-font-item-size);
+    float: left;
+    border-right: 1px solid black;
+}
+
+.navbar-list-item:last-child {
+    float: right;
+}
+
+.active {
+    background-color: var(--navbar-active-color);
+}
+
+@media screen and (max-width: 600px) {
+    .navbar-list-item {
+        float: none;
+        width: 100%;
+    }
+}
