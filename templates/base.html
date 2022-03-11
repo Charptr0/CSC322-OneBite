@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
 
     <title>{% block titlePage %}
         Base Template
@@ -13,7 +14,16 @@
 </head>
 <body>
     <!-- navbar should go here -->
-
+    <nav>
+        <div id="navbar">
+            <ul class="navbar-list">
+                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Home</a></li>
+                <li class="navbar-list-item"><a href="https://google.com" target="_blank">About</a></li>
+                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Menu</a></li>
+                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Login</a></li>
+            </ul>
+        </div>
+    </nav>
     <!-- navbar should go here -->
 
     {% block mainContent %}
