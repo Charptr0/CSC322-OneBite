@@ -2,12 +2,10 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-RANDOM_MSG = "Hello World"
-
-# Create a home route
+# Create a home page
 @app.route("/")
 def home():
-    return render_template("base.html", message=RANDOM_MSG)
+    return render_template("home_page.html")
 
 # Create a route to the home page
 @app.route("/home/")
