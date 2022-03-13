@@ -52,6 +52,12 @@ def privacyPolicy():
     '''
     return render_template("privacy.html")
 
+@app.route("/customer-support")
+def customerSupport():
+    '''
+    Route to the customer support page
+    '''
+    return render_template("customer-support.html")
 
 # Run the app
 if __name__ == "__main__":
