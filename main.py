@@ -38,6 +38,21 @@ def pageNotFound(e):
     '''
     return render_template("404.html")
 
+@app.route("/tos")
+def tos():
+    '''
+    Route to the terms of service page
+    '''
+    return render_template("tos.html")
+
+@app.route("/privacy")
+def tos():
+    '''
+    Route to the privacy policy page
+    '''
+    return render_template("privacy.html")
+
+
 # Run the app
 if __name__ == "__main__":
     app.run(debug=True)
