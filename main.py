@@ -46,7 +46,7 @@ def tos():
     return render_template("tos.html")
 
 @app.route("/privacy")
-def tos():
+def privacyPolicy():
     '''
     Route to the privacy policy page
     '''
