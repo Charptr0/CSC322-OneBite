@@ -59,6 +59,13 @@ def customerSupport():
     '''
     return render_template("customer-support.html")
 
+@app.route("/careers")
+def careers():
+    '''
+    Route to the careers page
+    '''
+    return render_template("careers.html")
+
 # Run the app
 if __name__ == "__main__":
     app.run(debug=True)
