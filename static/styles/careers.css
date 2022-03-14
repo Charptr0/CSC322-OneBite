@@ -14,10 +14,15 @@
     cursor: pointer;
 }
 
+.job-position a
+{
+    text-decoration: none;
+}
+
 .job-position:hover
 {
-    transition: 0.2s;
-    
+    transition: 0.5s;
+    background-color: rgb(216, 216, 216);
 }
 
 .career-container
@@ -30,6 +35,24 @@
 
 .career-position-title
 {
-    font-size: 30px;
+    font-size: 35px;
+}
+
+@media screen and (max-width: 600px)
+{
+    .career-container
+    {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media screen and (max-width: 600px)
+{
+    .career-container
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
