@@ -5,22 +5,20 @@
 
 <div class="fullBody">
     <br> <br>
-    <h1>LOGIN</h1>
+    <h1>Register</h1>
     <hr class="solid">
     <div id = "form">
         <form>
+            <label for="Email">Email:</label>
+            <input type="text" id ="email" name = "email"> <br> <br>
             <label for="Username">Username:</label>
             <input type="text" id ="username" name = "username"> <br> <br>
             <label for="Password">Password:</label>
             <input type="text" id ="password" name = "password"> <br> <br>
-            <input type="submit" id = "lgnbutton" value = "Sign In">
+            <input type="submit" id = "Regbutton" value = "Register">
         </form>
     </div>
     <hr class="solid">
-    <div id = "options">
-        <a href = "{{ url_for('forgotpassPage') }}">Forgot Password</a>
-        <a href = "{{ url_for('newuserPage') }}">New User</a>
-    </div>
 
 </div>
 
