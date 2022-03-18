@@ -4,3 +4,4 @@ bin
 lib
 .DS.Store
 pyvenv.cfg
+.DS_Store

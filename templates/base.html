@@ -7,22 +7,36 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/login_page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/forgot_pass.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_user.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% block links %}
+        
+    {% endblock links %}
+
     <title>{% block titlePage %}
         Base Template
     {% endblock titlePage %}</title>
 </head>
 <body>
-    <!-- navbar should go here -->
     <nav>
         <div id="navbar">
+            <label class="navbar-hamburger-menu" for="toggle">&#9776;</label>
+            <input type="checkbox" id="toggle"/>
             <ul class="navbar-list">
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Home</a></li>
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">About</a></li>
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Menu</a></li>
-                <li class="navbar-list-item"><a href="https://google.com" target="_blank">Login</a></li>
+                <a href="{{ url_for("homePage") }}"><img class="logo-icon" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w"/></a>
+                <!--<div class="navbar-centered">-->
+                    <li class="navbar-list-item"><a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a></li>
+                    <li class="navbar-list-item"><a href="https://google.com"><i class="fa fa-fw fa-info"></i>About</a></li>
+                    <li class="navbar-list-item"><a href="https://google.com"><i class="fa fa-fw fa-book"></i>Menu</a></li>
+                <!--</div>-->
+                <!--<div class="navbar-right">-->
+                    <li class="navbar-list-item"><a href="{{ url_for("loginPage") }}"><i class="fa fa-fw fa-user"></i>Login</a></li>
+                <!--</div>-->
             </ul>
         </div>
     </nav>
@@ -31,7 +45,8 @@
     {% block mainContent %}
         <!-- Put all content for different websites here -->
         <!-- NOT HERE, USE JINJA SYNTAX AND PUT ALL THE CONTENT IN ANOTHER HTML FILE -->
-        
+
+        <a href = "{{ url_for('homePage') }}"></a>
         <a href = "{{ url_for('loginPage') }}"></a> 
         <a href = "{{ url_for('forgotpassPage') }}"></a> 
         <a href = "{{ url_for('newuserPage') }}"></a> 
@@ -53,10 +68,10 @@
             <div class="footer-container" id="footer-follow-us">
                 <h3 class="footer-container-title">Follow Us</h3>
                 <ul class="footer-list">
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Twitter</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Instagram</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Youtube</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">LinkedIn</a></li>
+                    <li class="footer-list-item"><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                    <li class="footer-list-item"><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li class="footer-list-item"><a href="https://youtube.com" target="_blank">Youtube</a></li>
+                    <li class="footer-list-item"><a href="https://www.linkedin.com/" target="_blank">Linkedin</a></li>
                 </ul>
             </div>
 
@@ -64,21 +79,21 @@
                 <h3 class="footer-container-title">Resources</h3>
                 <ul class="footer-list">
                     <li class="footer-list-item"><a href="https://google.com" target="_blank">About Us</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">FAQs</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Privacy Policy</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Terms of Service</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Customer Support</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("faqs") }}">FAQs</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("privacyPolicy") }}">Privacy Policy</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("tos") }}">Terms of Service</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("customerSupport")}}">Customer Support</a></li>
                 </ul>
             </div>
     
             <div class="footer-container">
                 <h3 class="footer-container-title">Careers</h3>
                 <ul class="footer-list">
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Chefs</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Deliveries</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Managers</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Developers</a></li>
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">Other Openings</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("careers")}}">Chefs</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("careers")}}">Deliveries</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("careers")}}">Managers</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("careers")}}">Developers</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("careers")}}">Other Openings</a></li>
                 </ul>
             </div>
         </div>

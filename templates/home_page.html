@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home_page.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
+{% endblock links %}
+
+{% block titlePage %} Home | Restaurant {% endblock %}
+
+{% block mainContent %}
+<div id = "main-container" class = "transparent">
+    <div class = "welcome-container transparent">
+        <div class = "welcome-message transparent">
+            <h1 class = "transparent">WELCOME TO RESTAURANT_NAME</h1>
+            <div class = "motto transparent">
+                <div class = "motto-spacing transparent" style = "font-size: 80px; letter-spacing: 0.1em;">
+                    Joy with
+                </div>
+                <img id = "every" class = "transparent" src = "https://see.fontimg.com/api/renderfont4/K7GOD/eyJyIjoiZnMiLCJoIjoxMzAsInciOjIwMDAsImZzIjo2NSwiZmdjIjoiI0RDQzhDOCIsImJnYyI6IiNGRkZGRkYiLCJ0IjoxfQ/ZXZlcnk/hendrickson.png" alt="every-motto.">
+                <div class = "motto-spacing motto-height transparent" style = "font-size: 80px; letter-spacing: 0.1em;">
+                    bite.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id = "most-popular" class = "top-dishes">
+        <br>
+        <h2>TRY OUR MOST POPULAR DISHES...</h2>
+        <div class = "split-container">
+            <div id = "split-left">
+                <div class = top-dishes>
+                    <img class = "food-pics" src = "https://images.unsplash.com/photo-1560180474-e8563fd75bab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60">
+                    <div id = "dish-info">
+                        <p class = "align-left">Name of Dish</p>
+                        <p class = "align-right">Price of Dish</p>
+                    </div>
+                    <p style = "text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style = "text-align: center;"><i>Allergens</i></p>
+                </div>
+            </div>
+            <div id = "split-center">
+                <div class = top-dishes>
+                    <img class = "food-pics" src = "https://images.unsplash.com/photo-1590301157284-ab2f8707bdc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60">
+                    <div id = "dish-info">
+                        <p class = "align-left">Name of Dish</p>
+                        <p class = "align-right">Price of Dish</p>
+                    </div>
+                    <p style = "text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style = "text-align: center;"><i>Allergens</i></p>
+                </div>
+            </div>
+            <div id = "split-right">
+                <div class = top-dishes>
+                    <img class = "food-pics" src = "https://images.unsplash.com/photo-1594834749740-74b3f6764be4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nzl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60">
+                    <div id = "dish-info">
+                        <p class = "align-left">Name of Dish</p>
+                        <p class = "align-right">Price of Dish</p>
+                    </div>
+                    <p style = "text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style = "text-align: center;"><i>Allergens</i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id = "highest-rated" class = "top-dishes">
+        <br>
+        <h2>TRY OUR HIGHEST RATED DISHES...</h2>
+        <div class = "split-container">
+            <div id = "split-left">
+                <div class = top-dishes>
+                    <img class = "food-pics" src = "https://images.unsplash.com/photo-1624300603538-1207400f4116?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60">
+                    <div id = "dish-info">
+                        <p class = "align-left">Name of Dish</p>
+                        <p class = "align-right">Price of Dish</p>
+                    </div>
+                    <p style = "text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style = "text-align: center;"><i>Allergens</i></p>
+                </div>
+            </div>
+            <div id = "split-center">
+                <div class = top-dishes>
+                    <img class = "food-pics" src = "https://images.unsplash.com/photo-1546549032-9571cd6b27df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                    <div id = "dish-info">
+                        <p class = "align-left">Name of Dish</p>
+                        <p class = "align-right">Price of Dish</p>
+                    </div>
+                    <p style = "text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style = "text-align: center;"><i>Allergens</i></p>
+                </div>
+            </div>
+            <div id = "split-right">
+                <div class = top-dishes>
+                    <img class = "food-pics" src = "https://images.unsplash.com/photo-1560179304-6fc1d8749b23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60">
+                    <div id = "dish-info">
+                        <p class = "align-left">Name of Dish</p>
+                        <p class = "align-right">Price of Dish</p>
+                    </div>
+                    <p style = "text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p style = "text-align: center;"><i>Allergens</i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
