@@ -92,9 +92,8 @@ body
 
 .motto-height {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -80%);
+    transform: translate(-50%, -95%);
 }
 
 /* container for top 3 most popular dishes */
@@ -126,6 +125,7 @@ body
 /* split screen container */
 .split-container {
     display: flex;
+    flex-direction: row;
 }
 
 /* left screen for first dish*/
@@ -173,4 +173,17 @@ body
 .vertical-line {
     border-left: 1.25px solid rgb(78, 78, 78);
     flex: 0;
+}
+
+@media screen and (max-width: 600px)
+{
+    .split-container {
+        flex-direction: column;
+    }
+    .food-pics {
+        width: 60%;
+    }
+    #dish-info {
+        width: 60%;
+    }
 }
