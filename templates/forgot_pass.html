@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block titlePage %} Login | Restaurant {% endblock %}
+
+{% block mainContent %}
+
+<div class="fullBody">
+    <br> <br>
+    <h1>Forgot Password</h1>
+    <hr class="solid">
+    <div id = "form">
+        <form>
+            <label for="Email">Email:</label>
+            <input type="text" id ="email" name = "email"> <br> <br>
+            <label for="Old Password">Old Password:</label>
+            <input type="text" id ="oldpass" name = "oldpass"> <br> <br>
+            <label for="New Password">New Password:</label>
+            <input type="text" id ="New password" name = "newpass"> <br> <br>
+            <input type="submit" id = "rstPassbutton" value = "Reset Password">
+        </form>
+    </div>
+    <hr class="solid">
+
+</div>
+
+{% endblock %}
