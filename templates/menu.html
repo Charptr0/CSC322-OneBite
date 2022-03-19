@@ -1,264 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Menu</title>
-         <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu.css') }}">
-    </head>
+{% extends 'base.html' %}
 
-    <!--
-    Ignore this section, unless reference is required
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu.css') }}">
+{% endblock links %}
 
-    layouts:
+{% block titlePage %}Menu{% endblock %}
 
-    grid item setup:
+{% block mainContent %}
 
-    <dev class="gridItem">
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        item name
-                    </dev>
-                    <dev class="itemDes">
-                        <br>item description
-                    </dev>
-                </dev>
+<dev class="Title", style="text-align: center">Menu</dev>
 
-    -->
+    <dev class="category">Appetizer</dev>
+        <dev class="container">
 
-        <body>
-
-        <!include navigation bar below>
-
-
-
-        <h1 style="text-align: center">Menu</h1>
- <!----------------------------------------------------------------------------------------------------------------------------------->
-
-        <dev class="category">Appetizer</dev>
-            <dev class="container">
-
-                <!item 1>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item2>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item 3>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item4>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
+            <!item 1>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
             </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item2>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item 3>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item4>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+        </dev>
 
  <!----------------------------------------------------------------------------------------------------------------------------------->
 
-        <dev class="category">Entree</dev>
-            <dev class="container">
+    <dev class="category">Entree</dev>
+        <dev class="container">
 
-                <!item 1>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item2>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item 3>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item4>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
+            <!item 1>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
             </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item2>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item 3>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item4>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+        </dev>
 
  <!----------------------------------------------------------------------------------------------------------------------------------->
-        <dev class="category">Dessert and Drinks</dev>
-            <dev class="container">
 
-                <!item 1>
+    <dev class="category">Dessert and Drinks</dev>
+        <dev class="container">
 
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
+            <!item 1>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
                 </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
                 </dev>
-
-                <!item2>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item 3>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
-                <!item4>
-
-                <dev class="gridItem">
-                    <!item image setup>
-                    <img class="gridimg" src="..\static\assets\test.jpg">
-                </dev>
-                <dev class="gridItem">
-                    <dev class="itemName">
-                        <!item name goes below>
-                        item name item name item name item
-                    </dev>
-                    <dev class="itemDes">
-                        <!item description goes below>
-                        <br>item description item description item description item description item description
-                    </dev>
-                </dev>
-
             </dev>
 
-            <!include footer below>
+            <!item2>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
 
-        </body>
-</html>
+            <!item 3>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+
+            <!item4>
+            <dev class="gridItem">
+                <!item image setup>
+                <img class="gridimg" src="..\static\assets\test.jpg">
+            </dev>
+            <dev class="gridItem">
+                <dev class="itemName">
+                    <!item name goes below>
+                    item name item name item name item
+                </dev>
+                <dev class="itemDes">
+                    <!item description goes below>
+                    <br>item description item description item description item description item description
+                </dev>
+            </dev>
+        </dev>
+
+{% endblock %}

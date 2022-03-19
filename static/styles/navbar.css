@@ -5,7 +5,7 @@
     --navbar-hover-color: black;
     --navbar-active-color: blue;
 
-    --navbar-font-item-size: 15px;
+    --navbar-font-item-size: 20px;
     --navbar-font-item-color: rgb(204, 203, 203);
 }
 
@@ -21,15 +21,39 @@ navbar, nav *
     flex-wrap: wrap;
 }
 
+.navbar-hamburger-menu {
+    margin:  0 40px 0 0;
+    font-size: 40px;
+    line-height: 70px;
+    display: none;
+}
+
+#toggle {
+    display: none;
+}
+
+.logo-icon {
+    position: absolute;
+    height: 65px;
+    width: 150px;
+    top: 0;
+    left: 0;
+}
+
 .navbar-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     top: 0;
     width: 100%;
     z-index: 999;
+    text-align: center;
 }
 
 .navbar-list a
@@ -37,31 +61,72 @@ navbar, nav *
     color: var(--navbar-font-item-color);
     display: block;
     text-align: center;
+    padding: 20px 15px;
+    text-decoration: none;
+    width: 100px;
+    /*float: left;
+    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-size: 17px;*/
 }
 
 .navbar-list a:hover {
     background-color: var(--navbar-hover-color);
+    text-transform: uppercase;
+    transition: 0.5s;
 }
 
-.navbar-list-item {
-    size: var(--navbar-font-item-size);
-    float: left;
-    border-right: 1px solid black;
-}
-
-.navbar-list-item:last-child {
-    float: right;
-}
-
-.active {
+.navbar-list a.active {
     background-color: var(--navbar-active-color);
 }
 
-@media screen and (max-width: 600px) {
-    .navbar-list-item {
-        float: none;
+.navbar-list-item {
+    font-size: var(--navbar-font-item-size);
+    display: flex;
+    text-align: center;
+    width: 150px;
+    height: 65px;
+}
+
+/*.navbar-centered {
+    float: none;
+    position: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.navbar-right {
+    float: right;
+}*/
+
+.navbar-list-item:last-child {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .navbar-hamburger-menu {
+        display: block;
+        cursor: pointer;
+    }
+    .navbar-list {
+        text-align: center;
         width: 100%;
+        display: none;
+    }
+    .navbar-list-item {
+        display: block;
+        margin: 0;
+        position: left;
+    }
+    #toggle:checked + .navbar-list {
+        display: block;
+    }
+    .logo-icon {
+        height: 50px;
+        width: 150px;
     }
 }

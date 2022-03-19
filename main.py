@@ -24,6 +24,15 @@ def loginPage():
     '''
     return render_template('login_page.html')
 
+@app.route("/forgotpass/")
+def forgotpassPage():
+    return render_template('forgot_pass.html')
+
+
+@app.route("/newuser/")
+def newuserPage():
+    return render_template('new_user.html')
+
 @app.route("/faqs")
 def faqs():
     '''
