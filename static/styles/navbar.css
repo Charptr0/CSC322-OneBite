@@ -52,6 +52,7 @@ navbar, nav *
     align-items: center;
     top: 0;
     width: 100%;
+    z-index: 999;
     text-align: center;
 }
 
