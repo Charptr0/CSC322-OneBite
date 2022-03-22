@@ -2,8 +2,10 @@
     --navbar-background-color: rgb(34,34,34);
 
     --navbar-text-color: white;
-    --navbar-hover-color: black;
+    --navbar-hover-color: white;
     --navbar-active-color: blue;
+    --navbar-hover-text-color: black;
+    --navbar-active-text-color: orange;
 
     --navbar-font-item-size: 20px;
     --navbar-font-item-color: rgb(204, 203, 203);
@@ -12,13 +14,7 @@
 navbar, nav * 
 {
     background-color: var(--navbar-background-color);
-    color: var(--navbar-text-color);
-}
-
-/* main navbar container */
-#navbar
-{
-    flex-wrap: wrap;
+    color: var(--navbar-font-item-color);
 }
 
 .navbar-hamburger-menu {
@@ -26,6 +22,8 @@ navbar, nav *
     font-size: 40px;
     line-height: 70px;
     display: none;
+    float: none;
+    transform: translate(50%, -5%);
 }
 
 #toggle {
@@ -34,99 +32,100 @@ navbar, nav *
 
 .logo-icon {
     position: absolute;
-    height: 65px;
+    height: 55px;
     width: 150px;
     top: 0;
     left: 0;
 }
 
-.navbar-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    display: flex;
+.navbar {
     position: relative;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    width: 100%;
-    z-index: 999;
-    text-align: center;
+    overflow: hidden;
+    background-color: var(--navbar-background-color);
 }
 
-.navbar-list a
-{
+.navbar i {
+    background-color: var(--navbar-background-color);
     color: var(--navbar-font-item-color);
-    display: block;
-    text-align: center;
-    padding: 20px 15px;
-    text-decoration: none;
-    width: 100px;
-    /*float: left;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;*/
 }
 
-.navbar-list a:hover {
-    background-color: var(--navbar-hover-color);
+.navbar i:hover {
+    background-color: var(--navbar-font-item-color);
+    color: var(--navbar-background-color);
+}
+
+.navbar a {
+    float:  left;
+    color: var(--navbar-font-item-color);
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: var(--navbar-font-item-size);
+    background-color: var(--navbar-background-color);
+}
+
+.navbar a:hover {
+    background-color: var(--navbar-font-item-color);
+    color: var(--navbar-background-color);
     text-transform: uppercase;
     transition: 0.5s;
 }
 
-.navbar-list a.active {
+.navbar a.active {
     background-color: var(--navbar-active-color);
+    color: var(--navbar-active-text-color);
 }
 
-.navbar-list-item {
-    font-size: var(--navbar-font-item-size);
-    display: flex;
-    text-align: center;
-    width: 150px;
-    height: 65px;
-}
-
-/*.navbar-centered {
+.navbar-centered a {
     float: none;
-    position: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(50%, -50%);
 }
 
 .navbar-right {
-    float: right;
-}*/
-
-.navbar-list-item:last-child {
-    position: absolute;
-    top: 0;
     right: 0;
+    top: 5px;
+    position: absolute;
+}
+
+.navbar-all {
+    display: none;
 }
 
 @media only screen and (max-width: 800px) {
     .navbar-hamburger-menu {
         display: block;
         cursor: pointer;
+        position: sticky;
     }
-    .navbar-list {
+
+    .navbar-centered {
+        display: none;
+    }
+
+    .navbar-right {
+        display: none;
+    }
+
+    .navbar-all {
         text-align: center;
         width: 100%;
         display: none;
     }
-    .navbar-list-item {
-        display: block;
+
+    .navbar-all a {
         margin: 0;
-        position: left;
+        display: block;
+        float: none;
+        transform: translate(0%, 0%);
     }
-    #toggle:checked + .navbar-list {
+
+    #toggle:checked + .navbar-all {
         display: block;
     }
+
     .logo-icon {
-        height: 50px;
+        height: 70px;
         width: 150px;
     }
 }
+
