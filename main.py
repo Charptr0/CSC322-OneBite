@@ -9,6 +9,10 @@ def homePage():
     Route to the home page
     '''
     return render_template("home_page.html")
+
+@app.route("/about")
+def aboutPage():
+    return render_template("about.html")
     
 @app.route("/menu/")
 def menu():
