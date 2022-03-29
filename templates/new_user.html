@@ -1,25 +1,40 @@
 {% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_user.css') }}">
+{% endblock links %}
+
 {% block titlePage %} Login | Restaurant {% endblock %}
 
 {% block mainContent %}
 
-<div class="fullBody">
-    <br> <br>
-    <h1>Register</h1>
-    <hr class="solid">
-    <div id = "form">
-        <form>
-            <label for="Email">Email:</label>
-            <input type="text" id ="email" name = "email"> <br> <br>
-            <label for="Username">Username:</label>
-            <input type="text" id ="username" name = "username"> <br> <br>
-            <label for="Password">Password:</label>
-            <input type="text" id ="password" name = "password"> <br> <br>
-            <input type="submit" id = "Regbutton" value = "Register">
-        </form>
-    </div>
-    <hr class="solid">
+<div id = "backgroundNew">
+    <h1 id = "newuserHeader">New User</h1>
+    <hr id = "newuserhr1">
+    <div id = "containernew">
+        <div id = "everythingnew">
+            <form action="register" id = "registerwholeform">
+                <div id = "registerform">
+                    <label for="Email">Email:</label>
+                    <input type="text" id = "email" name="email"> <br><br>
 
+                    <label for="Phone">Phone:</label>
+                    <input type="text" id = "phone" name="phone"> <br><br>
+
+                    <label for="Name">Full Name:</label>
+                    <input type="text" id = "name" name="name"> <br><br>
+
+                    <label for="Password">Password:</label>
+                    <input type="text" id = "password" name="password"> <br><br>
+                </div>
+                    <input type="submit" id = "registerbutton" value = "Register">
+                
+            </form>
+        </div>
+
+    </div>
+    <hr id = "newuserhr2">
 </div>
+
 
 {% endblock %}

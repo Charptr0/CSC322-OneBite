@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/forgot_pass.css') }}">
+{% endblock links %}
+
+
 {% block titlePage %} Login | Restaurant {% endblock %}
 
 {% block mainContent %}
+<div id = "backgroundForgot">
+    <h1 id = "forgotHeader">Forgot Password</h1>
+    <hr id = "forgotpasshr1">
+    <div id = "containerforgot">
+        <div id = everythingforgot>
+            <form action="submit" id = "forgotform">
+                <div id = "emailpassform">
+                    <label for="Email1">Email:</label>
+                    <input type="text" id = "email" name = "email"> <br> <br>
+                
 
-<div class="fullBody">
-    <br> <br>
-    <h1>Forgot Password</h1>
-    <hr class="solid">
-    <div id = "form">
-        <form>
-            <label for="Email">Email:</label>
-            <input type="text" id ="email" name = "email"> <br> <br>
-            <label for="Old Password">Old Password:</label>
-            <input type="text" id ="oldpass" name = "oldpass"> <br> <br>
-            <label for="New Password">New Password:</label>
-            <input type="text" id ="New password" name = "newpass"> <br> <br>
-            <input type="submit" id = "rstPassbutton" value = "Reset Password">
-        </form>
+                    <label for="New Password">New Password:</label>
+                    <input type="text" id = "newpass" name = "newpass"> <br> <br>
+                </div>
+                <input type="submit" id = "newpassbutton" value = "Submit">
+            </form>
+        </div>
     </div>
-    <hr class="solid">
-
+    <hr id = "forgotpasshr2">
 </div>
 
 {% endblock %}
