@@ -1,5 +1,7 @@
+{% extends 'base.html' %}
+
 {% block links %}
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
 {% endblock links %}
 
 {% block titlePage %}
@@ -7,6 +9,47 @@
 {% endblock titlePage %}
 
 {% block mainContent %}
-    <h2>About</h2>
+    <div class="cover">
+        <h2 class="title">About Us</h2>
+    </div>
+
+    <div id="about-us-intro" class="about-container">
+        <h3 class="about-container-title">Since 1998...</h3>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+            Ex velit amet doloremque praesentium nesciunt doloribus modi aut, 
+            dignissimos et odit! Ab aspernatur quam minima exercitationem dicta hic! Autem, hic fugit?
     
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non excepturi incidunt consequuntur laudantium, 
+            debitis quia consectetur deleniti sapiente. 
+            Cumque aperiam quibusdam dolore vitae, neque dicta explicabo nisi necessitatibus consectetur iste?
+        </p>
+    </div>
+
+    <div id="meet-the-staff" class="about-container">
+        <h3 class="about-container-title">Meet our Staff</h3>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+            Ex velit amet doloremque praesentium nesciunt doloribus modi aut, 
+            dignissimos et odit! Ab aspernatur quam minima exercitationem dicta hic! Autem, hic fugit?
+    
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non excepturi incidunt consequuntur laudantium, 
+            debitis quia consectetur deleniti sapiente. 
+            Cumque aperiam quibusdam dolore vitae, neque dicta explicabo nisi necessitatibus consectetur iste?
+        </p>
+    </div>
+
+    <div id="opening-time" class="about-container">
+        <h3 class="about-container-title">Opening Times</h3>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+            Ex velit amet doloremque praesentium nesciunt doloribus modi aut, 
+            dignissimos et odit! Ab aspernatur quam minima exercitationem dicta hic! Autem, hic fugit?
+    
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non excepturi incidunt consequuntur laudantium, 
+            debitis quia consectetur deleniti sapiente. 
+            Cumque aperiam quibusdam dolore vitae, neque dicta explicabo nisi necessitatibus consectetur iste?
+        </p>
+    </div>
+
 {% endblock mainContent %}
