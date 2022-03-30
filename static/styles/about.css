@@ -1,0 +1,25 @@
+.about-container
+{
+    font-size: 20px;
+    padding: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.about-container-title
+{
+    font-size: 50px;
+}
+
+#opening-times
+{
+    list-style: none;
+    text-align: center;
+    padding:  0;
+}
+
+#opening-times li
+{
+    font-size: 20px;
+    margin: 5px;
+}
