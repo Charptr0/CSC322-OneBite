@@ -23,3 +23,43 @@
     font-size: 20px;
     margin: 5px;
 }
+
+.chef-img
+{
+    border-radius: 50%;
+    display: block;
+}
+
+.chef-name
+{
+    font-size: 30px;
+}
+
+.chef-desc
+{
+    font-size: 20px;
+    margin-top: -20px;
+    width: 80%;
+}
+
+.chef-profile 
+{
+    overflow: auto;
+    margin: 20px;
+}
+
+.chef-img 
+{
+    float: left
+}
+
+.chef-content 
+{
+    margin-left: 200px
+}
+
+.chef-name 
+{
+    margin-top: -1px;
+    font-size: 40px;
+}
