@@ -1,21 +1,3 @@
-/**{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}*/
-
-/*body{
-    edit font
-    font-size: ;
-    font-family:
-    line-height:
-    color:
-    background:;
-}*/
-.Title{
-    margin-top: 2rem;
-    font-size: 3rem;
-}
 .container{
     width: 100%;
     height: auto;
