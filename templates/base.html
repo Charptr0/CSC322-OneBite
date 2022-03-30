@@ -32,7 +32,7 @@
             </div> -->
             <div class="navbar-right">
                 <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                <a href="https://google.com"><i class="fa fa-fw fa-info"></i>About</a>
+                <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
                 <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
                 <a href="{{ url_for("loginPage") }}"><i class="fa fa-fw fa-user"></i>Login</a>
             </div>
@@ -87,7 +87,7 @@
             <div class="footer-container">
                 <h3 class="footer-container-title">Resources</h3>
                 <ul class="footer-list">
-                    <li class="footer-list-item"><a href="https://google.com" target="_blank">About Us</a></li>
+                    <li class="footer-list-item"><a href="{{ url_for("aboutPage") }}">About Us</a></li>
                     <li class="footer-list-item"><a href="{{ url_for("faqs") }}">FAQs</a></li>
                     <li class="footer-list-item"><a href="{{ url_for("privacyPolicy") }}">Privacy Policy</a></li>
                     <li class="footer-list-item"><a href="{{ url_for("tos") }}">Terms of Service</a></li>
