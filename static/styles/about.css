@@ -71,10 +71,36 @@
         margin-left: 5%;
         margin-right: 5%;
     }
+
+    .chef-desc
+    {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .chef-name
+    {
+        margin-bottom: -5px;
+    }
 }
 
 @media screen and (max-width: 600px)
 {
-    
+    .about-container
+    {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .chef-img
+    {
+        float: none;
+    }
+
+    .chef-content
+    {
+        margin-left: 0;
+    }
 }
 
