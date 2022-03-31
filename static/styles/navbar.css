@@ -2,7 +2,7 @@
     --navbar-background-color: rgb(34,34,34);
 
     --navbar-text-color: white;
-    --navbar-hover-color: white;
+    --navbar-hover-color: rgb(255, 255, 255);
     --navbar-active-color: blue;
     --navbar-hover-text-color: black;
     --navbar-active-text-color: orange;
@@ -45,13 +45,8 @@ navbar, nav *
 }
 
 .navbar i {
-    background-color: var(--navbar-background-color);
+    background-color: transparent;
     color: var(--navbar-font-item-color);
-}
-
-.navbar i:hover {
-    background-color: var(--navbar-font-item-color);
-    color: var(--navbar-background-color);
 }
 
 .navbar a {
@@ -65,10 +60,9 @@ navbar, nav *
 }
 
 .navbar a:hover {
-    background-color: var(--navbar-font-item-color);
+    background-color: rgb(142, 142, 142);
     color: var(--navbar-background-color);
-    text-transform: uppercase;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 
 .navbar a.active {
