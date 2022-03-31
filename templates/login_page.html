@@ -6,11 +6,12 @@
 
 {% block mainContent %}
 <div id = "backgroundLogin">
-    <h1 id = "loginHeader">Login</h1>
-    <hr id="loginhr1">
+    <!-- <h1 id = "loginHeader">Login</h1> -->
+    <!-- <hr id="loginhr1"> -->
     <div id = "logincontainer">
         <div id = "everythinglogin">
             <div id = "wholeloginform">
+                <h1 id="loginHeader">Login</h1>
                 <form action="login" id = "loginform">
                     <div id = "userpassform">
                         <label for="Username">Username:</label>
@@ -18,19 +19,22 @@
                         <label for="Password">Password:</label>
                         <input type="text" id ="pass" name = "oldpass"> <br> <br>
                     </div>
-                    <div id = "references">
-                        <a href="{{ url_for('forgotpassPage') }}" id = "forgotpassword">Forgot Password</a>
-                        <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a>
-                    </div>
                     <div id = "loginbuttondiv">
                         <input type="submit" id = "loginbutton" value = "Login">
+                    </div>
+                    <div id = "references">
+                        <a href="{{ url_for('forgotpassPage') }}" id = "forgotpassword">Forgot Password</a>
+                        <!-- <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a> -->
+                    </div>
+                    <div id = "references2">
+                        <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a>
                     </div>
                 </form>
 
             </div>      
         </div>
     </div>
-    <hr id="loginhr2">
+    <!-- <hr id="loginhr2"> -->
 </div>
 
 {% endblock %}

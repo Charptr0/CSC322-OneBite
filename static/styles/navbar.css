@@ -63,17 +63,13 @@ navbar, nav *
     background-color: rgb(142, 142, 142);
     color: var(--navbar-background-color);
     transition: 0.2s;
+    text-transform: uppercase;
 }
 
 .navbar a.active {
     background-color: var(--navbar-active-color);
     color: var(--navbar-active-text-color);
 }
-
-/*.navbar-centered {
-    float: none;
-    transform: translate(50%, -50%);
-}*/
 
 .navbar-right {
     float: right;
