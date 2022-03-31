@@ -25,19 +25,20 @@
 <body>
     <nav>
         <div class="navbar">
-            <!--<div class="navbar-all">-->
-                <div class="navbar-centered">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                </div>
-                <div class="navbar-right">
-                    <a href="{{ url_for("loginPage") }}"><i class="fa fa-fw fa-user"></i>Login</a>
-                </div>
-                <div class="navbar-left">
-                    <a href="{{ url_for("homePage") }}"><img class="logo-icon" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w"/></a>
-                </div>
-            <!--</div>-->
+            <!-- <div class="navbar-centered">
+                <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="https://google.com"><i class="fa fa-fw fa-info"></i>About</a>
+                <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+            </div> -->
+            <div class="navbar-right">
+                <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
+                <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                <a href="{{ url_for("loginPage") }}"><i class="fa fa-fw fa-user"></i>Login</a>
+            </div>
+            <div class="navbar-left">
+                <a href="{{ url_for("homePage") }}"><img class="logo-icon" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w"/></a>
+            </div>
             <label class="navbar-hamburger-menu" for="toggle">&#9776;</label>
             <input type="checkbox" id="toggle"/>
             <div class="navbar-all">

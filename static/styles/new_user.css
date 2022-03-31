@@ -3,49 +3,99 @@
     justify-content: center;
     text-align: center;
     height: 100%;
-    padding-bottom: 100px;
     align-content: center;
     position: relative;
+    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
 }
 
 #newuserHeader{
-    font-size: 100px;
+    font-size: 30px;
     background: inherit;
-    letter-spacing: 10px;
-}
-
-#newuserhr1{
-    border: 1px solid rgb(0, 0, 0);
+    letter-spacing: 5px;
 }
 
 #containernew{
     padding-top: 150px;
     padding-bottom: 150px;
     background:inherit;
+    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
 }
 
 #everythingnew{
     display: inline-block;
-    padding:50px;
+    padding: 50px;
     border-style: outset;
     border-radius: 50px;
-    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
+    background-color: white;
 }
 
 #registerwholeform{
     background:inherit;
 }
 
-#registerform{
+#formcontainer{
+    display: flex;
+    flex-flow: row;
+}
+
+#registerform1{
     background:inherit;
     text-align: right;
-    padding-bottom: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex: 1;
+}
+
+#registerform2{
+    background:inherit;
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex: 1;
+}
+
+label[for = "First Name"]{
+    font-size: 20px; 
+    background:inherit;
+    color: rgb(40,38,71);
+}
+
+#fname{
+    height:30px;
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-color:  rgb(169, 169,169);
+}
+
+#fname:hover{
+    cursor: pointer;
+    background-color: rgb(189, 189, 189);
+}
+
+label[for = "Last Name"]{
+    font-size: 20px; 
+    background:inherit;
+    color: rgb(40,38,71);
+}
+
+#lname{
+    height:30px;
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-color:  rgb(169, 169,169);
+}
+
+#lname:hover{
+    cursor: pointer;
+    background-color: rgb(189, 189, 189);
 }
 
 label[for = "Email"]{
-    font-size: 25px; 
+    font-size: 20px; 
     background:inherit;
-    color: rgb(169, 169,169);
+    color: rgb(40,38,71);
 }
 
 #email{
@@ -61,10 +111,29 @@ label[for = "Email"]{
     background-color: rgb(189, 189, 189);
 }
 
-label[for = "Phone"]{
-    font-size: 25px; 
+label[for = "Username"]{
+    font-size: 20px; 
     background:inherit;
-    color: rgb(169, 169,169);
+    color: rgb(40,38,71);
+}
+
+#uname{
+    height:30px;
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-color:  rgb(169, 169,169);
+}
+
+#uname:hover{
+    cursor: pointer;
+    background-color: rgb(189, 189, 189);
+}
+
+label[for = "Phone"]{
+    font-size: 20px; 
+    background:inherit;
+    color: rgb(40,38,71);
 }
 
 #phone{
@@ -80,13 +149,13 @@ label[for = "Phone"]{
     background-color: rgb(189, 189, 189);
 }
 
-label[for = "Name"]{
-    font-size: 25px; 
+label[for = "Card Number"]{
+    font-size: 20px; 
     background:inherit;
-    color: rgb(169, 169,169);
+    color: rgb(40,38,71);
 }
 
-#name{
+#cardnum{
     height:30px;
     border-radius: 15px;
     padding-left: 5px;
@@ -94,16 +163,16 @@ label[for = "Name"]{
     border-color:  rgb(169, 169,169);
 }
 
-#name:hover{
+#cardnum:hover{
     cursor: pointer;
     background-color: rgb(189, 189, 189);
 }
 
 
 label[for = "Password"]{
-    font-size: 25px; 
+    font-size: 20px; 
     background:inherit;
-    color: rgb(169, 169,169);
+    color: rgb(40,38,71);
 }
 
 #password{
@@ -119,9 +188,30 @@ label[for = "Password"]{
     background-color: rgb(189, 189, 189);
 }
 
+label[for = "Confirm Password"]{
+    font-size: 20px; 
+    background:inherit;
+    color: rgb(40,38,71);
+
+}
+
+#conpass{
+    height:30px;
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-color:  rgb(169, 169,169);
+
+}
+
+#conpass:hover{
+    cursor: pointer;
+    background-color: rgb(189, 189, 189);
+}
+
 
 #registerbutton{
-    padding: 5% 15%;
+    padding: 4% 10%;
     font-size: 100%;
     text-align: center;
     text-decoration: none;
@@ -133,7 +223,7 @@ label[for = "Password"]{
     letter-spacing: 2px;
 }
 
-#registerbutton{
+#registerbutton:hover{
     cursor: pointer;
     background-color: rgb(169, 169,169);
     transform: translateY(-0.33em);
@@ -142,12 +232,6 @@ label[for = "Password"]{
 #registerbutton{
     transform: translateY(0);
 }
-
-#newuserhr2{
-    border: 1px solid rgb(0, 0, 0);
-}
-
-
 
 @media screen and (max-width: 600px)
 {

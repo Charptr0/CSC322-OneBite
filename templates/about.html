@@ -1,5 +1,7 @@
+{% extends 'base.html' %}
+
 {% block links %}
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
 {% endblock links %}
 
 {% block titlePage %}
@@ -7,6 +9,87 @@
 {% endblock titlePage %}
 
 {% block mainContent %}
-    <h2>About</h2>
+    <div class="cover">
+        <h2 class="title">About Us</h2>
+    </div>
+
+    <div id="about-us-intro" class="about-container">
+        <h3 class="about-container-title">Since 1998...</h3>
+        <p class="chef-desc">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+            Ex velit amet doloremque praesentium nesciunt doloribus modi aut, 
+            dignissimos et odit! Ab aspernatur quam minima exercitationem dicta hic! Autem, hic fugit?
     
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non excepturi incidunt consequuntur laudantium, 
+            debitis quia consectetur deleniti sapiente. 
+            Cumque aperiam quibusdam dolore vitae, neque dicta explicabo nisi necessitatibus consectetur iste?
+        </p>
+    </div>
+
+    <div id="meet-the-staff" class="about-container">
+        <h3 class="about-container-title">Meet our Staff</h3>
+
+        <div class="chef-profile">                
+            <div class="chef-img">
+                <img src="../static/assets/no_cover_img.png"/></div>
+            <div class="chef-content">
+                <h3 class="chef-name">Chef Name</h3>
+                <p class="chef-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Repellendus sed laboriosam corporis assumenda incidunt dolorum consectetur consequuntur ipsum hic iure 
+                    libero illum inventore amet, vitae adipisci fugiat maxime impedit quia!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Repellendus sed laboriosam corporis assumenda incidunt dolorum consectetur consequuntur ipsum hic iure 
+                    libero illum inventore amet, vitae adipisci fugiat maxime impedit quia!</p>
+           </div>
+        </div>
+
+        <div class="chef-profile">                
+            <div class="chef-img">
+                <img src="../static/assets/no_cover_img.png"/></div>
+            <div class="chef-content">
+                <h3 class="chef-name">Chef Name</h3>
+                <p class="chef-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Repellendus sed laboriosam corporis assumenda incidunt dolorum consectetur consequuntur ipsum hic iure 
+                    libero illum inventore amet, vitae adipisci fugiat maxime impedit quia!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Repellendus sed laboriosam corporis assumenda incidunt dolorum consectetur consequuntur ipsum hic iure 
+                    libero illum inventore amet, vitae adipisci fugiat maxime impedit quia!</p>
+           </div>
+        </div>
+
+        <div class="chef-profile">                
+            <div class="chef-img">
+                <img src="../static/assets/no_cover_img.png"/></div>
+            <div class="chef-content">
+                <h3 class="chef-name">Chef Name</h3>
+                <p class="chef-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Repellendus sed laboriosam corporis assumenda incidunt dolorum consectetur consequuntur ipsum hic iure 
+                    libero illum inventore amet, vitae adipisci fugiat maxime impedit quia!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Repellendus sed laboriosam corporis assumenda incidunt dolorum consectetur consequuntur ipsum hic iure 
+                    libero illum inventore amet, vitae adipisci fugiat maxime impedit quia!</p>
+           </div>
+        </div>
+    </div>
+
+    <div id="opening-time" class="about-container">
+        <h3 class="about-container-title">Opening Times</h3>
+
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Illum quisquam minus consequatur eius ipsa doloremque repudiandae debitis esse minima odio, 
+            ratione aliquam sit pariatur laborum aliquid non consequuntur architecto magni.
+        </p>
+        
+        <ul id="opening-times">
+            <li>Monday 10 AM - 5 PM EST</li>
+            <li>Tuesday 10 AM - 5 PM EST</li>
+            <li>Wednesday 10 AM - 5 PM EST</li>
+            <li>Thrusday 10 AM - 5 PM EST</li>
+            <li>Friday 10 AM - 5 PM EST</li>
+            <li>Saturday 10 AM - 5 PM EST</li>
+            <li>Sunday 10 AM - 5 PM EST</li>
+        </ul>
+    </div>
+
 {% endblock mainContent %}

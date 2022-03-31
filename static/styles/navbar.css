@@ -2,7 +2,7 @@
     --navbar-background-color: rgb(34,34,34);
 
     --navbar-text-color: white;
-    --navbar-hover-color: white;
+    --navbar-hover-color: rgb(255, 255, 255);
     --navbar-active-color: blue;
     --navbar-hover-text-color: black;
     --navbar-active-text-color: orange;
@@ -18,12 +18,12 @@ navbar, nav *
 }
 
 .navbar-hamburger-menu {
-    margin:  0 40px 0 0;
+    margin: 0 40px 0 0;
     font-size: 40px;
-    line-height: 70px;
+    line-height: 55px;
+    /*float: none;
     display: none;
-    float: none;
-    transform: translate(50%, -5%);
+    transform: translate(90%, -5%);*/
 }
 
 #toggle {
@@ -45,30 +45,25 @@ navbar, nav *
 }
 
 .navbar i {
-    background-color: var(--navbar-background-color);
+    background-color: transparent;
     color: var(--navbar-font-item-color);
-}
-
-.navbar i:hover {
-    background-color: var(--navbar-font-item-color);
-    color: var(--navbar-background-color);
 }
 
 .navbar a {
-    float:  left;
+    float: left;
     color: var(--navbar-font-item-color);
     text-align: center;
-    padding: 8px 16px;
+    padding: 16px 20px;
     text-decoration: none;
     font-size: var(--navbar-font-item-size);
     background-color: var(--navbar-background-color);
 }
 
 .navbar a:hover {
-    background-color: var(--navbar-font-item-color);
+    background-color: rgb(142, 142, 142);
     color: var(--navbar-background-color);
+    transition: 0.2s;
     text-transform: uppercase;
-    transition: 0.5s;
 }
 
 .navbar a.active {
@@ -76,31 +71,26 @@ navbar, nav *
     color: var(--navbar-active-text-color);
 }
 
-.navbar-centered a {
-    float: none;
-    transform: translate(50%, -50%);
-}
-
 .navbar-right {
+    float: right;
     right: 0;
     top: 5px;
-    position: absolute;
 }
 
 .navbar-all {
     display: none;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     .navbar-hamburger-menu {
         display: block;
         cursor: pointer;
-        position: sticky;
+        transform: translate(92%, -5%);
     }
 
-    .navbar-centered {
+    /*.navbar-centered {
         display: none;
-    }
+    }*/
 
     .navbar-right {
         display: none;
@@ -109,7 +99,7 @@ navbar, nav *
     .navbar-all {
         text-align: center;
         width: 100%;
-        display: none;
+        /*display: none;*/
     }
 
     .navbar-all a {
@@ -124,8 +114,31 @@ navbar, nav *
     }
 
     .logo-icon {
-        height: 70px;
+        height: 55px;
         width: 150px;
     }
 }
 
+@media only screen and (max-width: 480px) {
+    .navbar-hamburger-menu {
+        display: block;
+        cursor: pointer;
+        transform: translate(91%, -5%);
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar-hamburger-menu {
+        display: block;
+        cursor: pointer;
+        transform: translate(89%, -5%);
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .navbar-hamburger-menu {
+        display: block;
+        cursor: pointer;
+        transform: translate(87%, -5%);
+    }
+}
