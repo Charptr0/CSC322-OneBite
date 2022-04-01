@@ -12,12 +12,12 @@
         <div id = "everythinglogin">
             <div id = "wholeloginform">
                 <h1 id="loginHeader">Login</h1>
-                <form action="login" id = "loginform">
+                <form method = "POST" action = "" id = "loginform">
                     <div id = "userpassform">
-                        <label for="Username">Username:</label>
-                        <input type="text" id ="username" name = "username"> <br> <br>
-                        <label for="Password">Password:</label>
-                        <input type="text" id ="pass" name = "oldpass"> <br> <br>
+                        <label for="username">Username:</label>
+                        <input type="text" id ="username" name = "username" required> <br> <br>
+                        <label for="password">Password:</label>
+                        <input type="text" id ="password" name = "password" required> <br> <br>
                     </div>
                     <div id = "loginbuttondiv">
                         <input type="submit" id = "loginbutton" value = "Login">

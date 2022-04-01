@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
+import MySQLdb.cursors
 import re
 
 app = Flask(__name__)
@@ -31,11 +32,34 @@ def menu():
     '''
     return render_template("menu.html")
 
-@app.route("/login/")
+@app.route("/login/", methods = ['GET', 'POST'])
 def loginPage():
     '''
     Route to the user login page
     '''
+    if request.method == 'POST':
+        # fetch form data
+        userDetails = request.form
+        username = userDetails['username']
+        password = userDetails['password']
+
+        # checks if user exists in the database
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
+        account = cursor.fetchone()
+
+        # if account exists in the database
+        if account:
+            # create session data, which can be accessed in other routes
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['username'] = account['username']
+            # redirect to registered customer home page
+            flash('Logged in successfully!', category = 'success')
+            return render_template('home_page.html')
+        else:
+            # account does not exist or username/password is incorrect
+            flash('Username/password is incorrect.', category = 'error')
     return render_template('login_page.html')
 
 @app.route("/forgotpass/")
