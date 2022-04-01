@@ -51,6 +51,22 @@
     </nav>
     <!-- navbar should go here -->
 
+    {% with messages = get_flashed_messages(with_categories = true)%}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class = "alert alert-danger alert-dismissable show" role = "alert">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class = "alert alert-success alert-dismissable show" role = "alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     {% block mainContent %}
         <!-- Put all content for different websites here -->
         <!-- NOT HERE, USE JINJA SYNTAX AND PUT ALL THE CONTENT IN ANOTHER HTML FILE -->

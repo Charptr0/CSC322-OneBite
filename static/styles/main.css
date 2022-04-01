@@ -41,4 +41,29 @@ body
     background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
 }
 
+.alert
+{
+    position:relative;
+    padding:1rem 1rem;
+    border:1px solid transparent;
+    border-radius:.25rem
+}
 
+.alert-danger
+{
+    color:#842029;
+    background-color:#f8d7da;
+    border-color:#f5c2c7
+}
+
+.alert-success
+{
+    color:#0f5132;
+    background-color:#d1e7dd;
+    border-color:#badbcc
+}
+
+.show
+{
+    opacity: .85;
+}
