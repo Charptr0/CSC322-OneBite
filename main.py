@@ -3,6 +3,7 @@ from database import *
 
 app = Flask(__name__)
 mysql = None
+usersInSession = []
 
 @app.route("/")
 def homePage():
@@ -13,6 +14,9 @@ def homePage():
 
 @app.route("/about")
 def aboutPage():
+    '''
+    Route to the about page
+    '''
     return render_template("about.html")
     
 @app.route("/menu/")
@@ -28,7 +32,7 @@ def loginPage():
     Route to the user login page
     '''
     if request.method == 'POST':
-        if isUserInDatabase(mysql):
+        if isUserInDatabase(mysql): # Success
             return render_template('home_page.html')
         else:
             return render_template('login_page.html')
@@ -37,12 +41,18 @@ def loginPage():
 
 @app.route("/forgotpass/")
 def forgotpassPage():
+    '''
+    Route to the forgot password page
+    '''
     return render_template('forgot_pass.html')
 
 @app.route("/newuser/", methods = ['GET', 'POST'])
 def newuserPage():
+    '''
+    Route to the new user page
+    '''
     if request.method == 'POST':
-        if verifyNewUser(mysql):
+        if verifyNewUser(mysql, usersInSession):
             return redirect('/')
 
     return render_template('new_user.html')
