@@ -3,6 +3,10 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import json
+import sys
+
+sys.path.append("./UserTypes")
+from UserTypes import *
 
 def databaseInit(app):
     data = None
@@ -50,7 +54,7 @@ def isUserInDatabase(db):
             return False
 
 def verifyNewUser(db):
-            # fetch form data
+        # fetch form data
         userDetails = request.form
         fname = userDetails['fname']
         lname = userDetails['lname']
@@ -101,4 +105,13 @@ def verifyNewUser(db):
             cursor.execute("INSERT INTO accounts(fname, lname, email, username, password, phone, cardnumber) VALUES(%s, %s, %s, %s, %s, %s, %s)", (fname, lname, email, username, password, phone, card))
             db.connection.commit()
             cursor.close()
+
+            user = Customer(
+                firstName=fname,
+                lastName=lname,
+                email=email,
+                uname=username,
+                password=password,
+                phoneNumber=phone,
+                cardNumber=card)
             return True
