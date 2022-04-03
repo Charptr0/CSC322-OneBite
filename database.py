@@ -1,4 +1,4 @@
-from flask import request, flash, session
+from flask import request, flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
@@ -21,6 +21,7 @@ def databaseInit(app):
 
     except FileNotFoundError:
         print("Config file cannot be found")
+        exit(1)
 
     # configure db with your details
     app.config['SECRET_KEY'] = data["SECRET_KEY"]
@@ -31,9 +32,30 @@ def databaseInit(app):
 
     return MySQL(app)
 
-def isUserInDatabase(db):
+def convertUser(account):
     '''
-    Check wether a user is in the database
+    Convert raw query from the database and into a user object
+
+    **THIS IS A HELPER FUNCTION, DO NOT USE IT BY ITSELF**
+    '''
+    return Customer(
+        id=account["id"],          
+        firstName=account["fname"],
+        lastName=account["lname"],
+        email=account["email"],
+        uname=account["username"],
+        password=account["password"],
+        phoneNumber=account["phone"],
+        cardNumber=account["cardnumber"],
+        userType=account["type"])
+
+def getUserInDatabaseByLogin(db):
+    '''
+    Get a user from the database
+
+    **USE THIS METHOD WHEN A USER IS ATTEMPTING TO LOG IN**
+
+    return the user object if the account exist in the database 
     '''
     # fetch form data
     userDetails = request.form
@@ -47,21 +69,34 @@ def isUserInDatabase(db):
 
     # if account exists in the database
     if account:
-        # create session data, which can be accessed in other routes
-        session['loggedin'] = True
-        session['id'] = account['id']
-        session['username'] = account['username']
-
-        # redirect to registered customer home page
         flash('Logged in successfully!', category = 'success')
-        return True
+        return convertUser(account)
 
     else:
         # account does not exist or username/password is incorrect
         flash('Username/password is incorrect.', category = 'error')
-        return False
+        return None
 
-def verifyNewUser(db, userInSession : list):
+def getUserInDatabaseByID(db, id):
+    '''
+    Get a user from the database
+
+    **USE THIS METHOD WHEN THE USER ID IS KNOWN**
+
+    return the user object if the account exist in the database 
+    '''
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM accounts WHERE id = %s', (str(id)))
+    account = cursor.fetchone()
+
+    if account:
+        return convertUser(account)
+
+    else: 
+        return None
+
+
+def verifyNewUser(db):
     '''
     Check to make sure that the new user creation is successful
     '''
@@ -116,15 +151,5 @@ def verifyNewUser(db, userInSession : list):
         cursor.execute("INSERT INTO accounts(fname, lname, email, username, password, phone, cardnumber) VALUES(%s, %s, %s, %s, %s, %s, %s)", (fname, lname, email, username, password, phone, card))
         db.connection.commit()
         cursor.close()
-
-        userInSession.append(Customer(
-            firstName=fname,
-            lastName=lname,
-            email=email,
-            uname=username,
-            password=password,
-            phoneNumber=phone,
-            cardNumber=card,
-            userType="customer"))
 
         return True

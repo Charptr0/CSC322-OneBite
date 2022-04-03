@@ -1,16 +1,26 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, url_for
 from database import *
 
 app = Flask(__name__)
 mysql = None
-usersInSession = []
+
+# store each user id that correspond with a user object
+usersInSession = {}
 
 @app.route("/")
 def homePage():
     '''
     Route to the home page
     '''
-    return render_template("home_page.html")
+    if "user" in session: # If the user has previous logged in
+        user = usersInSession.get(session["user"]) # check the program's memory for the user
+        if not user:
+            user = getUserInDatabaseByID(mysql, session["user"])
+        
+        return render_template("about.html")
+    
+    else:
+        return render_template("home_page.html")
 
 @app.route("/about")
 def aboutPage():
@@ -26,14 +36,18 @@ def menu():
     '''
     return render_template("menu.html")
 
-@app.route("/login/", methods = ['GET', 'POST'])
+@app.route("/login", methods = ['GET', 'POST'])
 def loginPage():
     '''
     Route to the user login page
     '''
     if request.method == 'POST':
-        if isUserInDatabase(mysql): # Success
-            return render_template('home_page.html')
+        user = getUserInDatabaseByLogin(mysql)
+        if user != None: # Success
+            session["user"] = user.id
+            usersInSession[user.id] = user
+            return redirect(url_for("homePage"))
+
         else:
             return render_template('login_page.html')
 
