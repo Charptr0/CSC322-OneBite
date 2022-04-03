@@ -13,6 +13,7 @@ class User():
         uname : str
         password : str
         phoneNumber : str
+        userType : str
         '''
         try:
             self.firstName = kwargs["firstName"]
@@ -44,13 +45,15 @@ class User():
         except KeyError:
             self.phoneNumber = None
 
+        try:
+            self.userType = kwargs["type"]
+        except KeyError:
+            self.userType = None
+
     def setName(self, firstName = None, lastName = None):
         '''
         Update the user first and last name
         '''
-        if firstName == None or lastName == None:
-            return
-
         self.firstName = firstName
         self.lastName = lastName
 
@@ -58,25 +61,16 @@ class User():
         '''
         Update the user's email
         '''
-        if email == None:
-            return
-
         self.email = email
 
     def setUsername(self, username = None):
         '''
         Update the user's username
         '''
-        if username == None:
-            return
-
         self.username = username
 
     def setPhoneNumber(self, phoneNumber = None):
         '''
         Update the user's phone number
         '''
-        if phoneNumber == None:
-            return
-
         self.phoneNumber = phoneNumber

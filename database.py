@@ -124,5 +124,7 @@ def verifyNewUser(db, userInSession : list):
             uname=username,
             password=password,
             phoneNumber=phone,
-            cardNumber=card))
+            cardNumber=card,
+            userType="customer"))
+
         return True
