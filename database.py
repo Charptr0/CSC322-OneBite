@@ -153,3 +153,46 @@ def verifyNewUser(db):
         cursor.close()
 
         return True
+
+def forgotPassword(db):
+    '''
+    Updates password in database
+    '''
+    # fetch form data
+    userDetails = request.form
+    email = userDetails['email']
+    username = userDetails['username']
+    newpass = userDetails['newpass']
+    conpass = userDetails['conpass']
+
+    # checks if user exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM accounts WHERE email = %s AND username = %s', (email, username,))
+    account = cursor.fetchone()
+
+    # if account exists in the database
+    if account:
+        if not re.search(r"[\d]+", newpass):
+        # password must contain a digit
+            flash('Password must contain at least 1 digit.', category = 'error')
+        elif not re.search(r"[A-Z]+", newpass):
+            # password must contain an uppercase letter
+            flash('Password must contain at least 1 uppercase letter.', category = 'error')
+        elif not re.search(r"[a-z]+", newpass):
+            # password must contain a lowercase letter
+            flash('Password must contain at least 1 lowercase letter.', category = 'error')
+        elif len(newpass) < 8:
+            # password must be at least 8 characters
+            flash('Password must contain at least 8 characters.', category = 'error')
+        elif newpass != conpass:
+            # checks that password matches confirm password
+            flash('Passwords do not match.', category = 'error')
+        else:
+            cursor.execute('UPDATE accounts SET password = %s WHERE email = %s AND username = %s', (newpass, email, username,))
+            flash('Successfully changed password.', category = 'success')
+            db.connection.commit()
+            cursor.close()
+
+            return True
+    else:
+        flash('Email/username does not exist.', category = 'error')

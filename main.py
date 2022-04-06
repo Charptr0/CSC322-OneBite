@@ -54,11 +54,14 @@ def loginPage():
 
     return render_template("login_page.html")
 
-@app.route("/forgotpass/")
+@app.route("/forgotpass/", methods = ['GET', 'POST'])
 def forgotpassPage():
     '''
     Route to the forgot password page
     '''
+    if request.method == 'POST':
+        if forgotPassword(mysql):
+            return redirect('/')
     return render_template('forgot_pass.html')
 
 @app.route("/newuser/", methods = ['GET', 'POST'])
