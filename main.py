@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ndjasndkjsan'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'G9.e/0plz@'
+app.config['MYSQL_PASSWORD'] = '8814'
 app.config['MYSQL_DB'] = 'team_m_restaurant'
 
 mysql = MySQL(app)
@@ -164,6 +164,21 @@ def careers():
     Route to the careers page
     '''
     return render_template("careers.html")
+
+@app.route("/delivery")
+def delivery():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery.html")
+
+@app.route("/cart-page")
+def delivery():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("cart-page.html")
+
 
 # Run the app
 if __name__ == "__main__":

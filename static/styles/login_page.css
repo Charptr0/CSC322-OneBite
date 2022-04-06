@@ -1,11 +1,9 @@
 #backgroundLogin{
-    background: rgb(189, 175, 175) !important;
-    justify-content: center;
     text-align: center;
     height: 100%;
-    /*padding-bottom: 100px;*/
     align-content: center;
     position: relative;
+    background-size: cover;
     background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
 }
 
@@ -15,37 +13,23 @@
     letter-spacing: 5px;
 }
 
-/*#loginhr1{
-    border: 1px solid rgb(0, 0, 0);
-    background: transparent;
-}*/
-
-#logincontainer{
-    padding-top: 150px;
-    padding-bottom: 150px;
-    background: inherit;
-    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
-    object-fit: fill;
-}
 
 #everythinglogin{
     display: inline-block;
     padding: 45px;
     border-style: outset;
     border-radius: 50px;
-    /*background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');*/
     background-color: white;
+    margin: 10% auto;
 }
 
 #wholeloginform{
-    /*background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');*/
     background-color: white;
+    
 }
 
 
 #loginform{
-    /*background-image: inherit;*/
-    /*background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');*/
     background-color: white;
     text-align: right;
 }
@@ -58,7 +42,6 @@
 label[for="username"] { 
     font-size: 20px; 
     background:inherit;
-    /*color: rgb(169, 169,169);*/
     color: rgb(40,38,71);
 }
 
@@ -67,7 +50,6 @@ label[for="username"] {
     border-radius: 15px;
     padding-left: 5px;
     padding-top: 5px;
-    /*border-color:  rgb(169, 169,169);*/
 
 }
 
@@ -88,7 +70,6 @@ label[for="password"] {
     border-radius: 15px;
     padding-left: 5px;
     padding-top: 5px;
-   /* border-color:  rgb(169, 169,169);*/
 }
 
 #password:hover{
@@ -99,32 +80,23 @@ label[for="password"] {
 #references{
     text-align: center;
     padding-top: 5px;
-    /*padding-bottom: 25px;*/
-    /*background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');*/
     background-color: white;
 }
 
 #forgotpassword{
-    background-image: inherit;
-        /*color: rgb(189, 175, 175);*/
     color: rgb(40,38,71);
 }
 
 #references2{
     text-align: center;
-    /*padding-bottom: 25px;*/
-    /*background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');*/
     background-color: white;
 }
 
 #newuser{
-    background-image:inherit;
-    /*color: rgb(189, 175, 175);*/
     color: rgb(40,38,71);
 }
 
 #loginbuttondiv{
-    background-image: inherit;
     text-align: center;
     padding-top: 15px;
 }
@@ -152,15 +124,15 @@ label[for="password"] {
     transform: translateY(0);
 }
 
-/*#loginhr2{
-    border: 1px solid rgb(0, 0, 0);
-}*/
-
 
 @media screen and (max-width: 600px)
 {
    #userpassform{
        text-align: center;
+   }
+
+   #everythinglogin{
+       margin: auto;
    }
     
 }
