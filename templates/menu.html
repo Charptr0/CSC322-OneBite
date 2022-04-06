@@ -15,8 +15,8 @@
     <div>WIP</div>
 {% else %}
     <div class="category"><h3>Appetizers</h3></div>
-    {% for appetizer in appetizers %}
-        <div class="container">
+    <div class="container">
+        {% for appetizer in appetizers %}
             <div class="gridItem"><img class="gridImg" src={{ appetizer.img }}></div>
 
             <div class="gridItem">
@@ -24,9 +24,8 @@
                 <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ appetizer.desc }}!</p></div>
                 <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ appetizer.price }}</p></div>
             </div>
-        </div>    
-    {% endfor %}
-
+        {% endfor %}
+    </div>
 {% endif %}
 
 {% endblock %}
