@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect
 from database import *
 
 app = Flask(__name__)
+
+
 mysql = None
 usersInSession = []
 
@@ -110,7 +112,7 @@ def delivery():
     return render_template("delivery.html")
 
 @app.route("/cart-page")
-def delivery():
+def cartpage():
     '''
     Route to the delivery page
     '''
