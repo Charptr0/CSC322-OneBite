@@ -1,4 +1,4 @@
-.container{
+.container {
     width: 100%;
     height: auto;
     margin: 1rem auto;
@@ -10,13 +10,11 @@
     align-items: start;
 }
 
-.gridItem{
-    background: deepskyblue;
+.gridItem {
     padding: 10px;
-    border: black 1px solid;
 }
 
-.gridimg{
+.gridImg {
     display: inline-grid;
     height: 300px;
     width: 300px;
@@ -24,18 +22,27 @@
     image-rendering: high-quality;
 }
 
-.itemName{
-    font-size: 1.5rem;
-}
-.itemDes{
-    font-size: 1rem;
-}
-
 .category{
     margin-left: 1rem;
     margin-right: 1rem;
     line-height: 1rem;
     font-size: 1.9rem;
+}
+
+.category h3 {
+    text-align: center;
+    font-size: 50px;    
+}
+
+.item-attribute {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.food-name {
+    font-size: 35px;
+    margin: 0;
 }
 
 

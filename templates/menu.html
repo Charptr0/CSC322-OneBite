@@ -8,218 +8,39 @@
 
 {% block mainContent %}
 
-<div class="cover">
-    <h2 class="title">Menu</h2>
-</div>
+{% if user %}
+    <div>WIP</div>
+{% else %}
+    <div class="cover">
+        <h2 class="title">Menu</h2>
+    </div>
 
-    <div class="category">Appetizer</div>
+    <div class="category"><h3>Appetizers</h3></div>
         <div class="container">
-
-            <!item 1>
             <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
+                <img class="gridImg" src="..\static\assets\test.jpg">
             </div>
+
             <div class="gridItem">
                 <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
+                    <h4 class="food-name item-attribute">Item Name</h4>
                 </div>
+
                 <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
+                    <h4 class="item-attribute">Description: </h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! 
+                        Earum repellat dicta natus accusantium recusandae necessitatibus veniam!
+                    </p>
                 </div>
-            </div>
 
-            <!item2>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
                 <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item 3>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item4>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-        </div>
-
- <!----------------------------------------------------------------------------------------------------------------------------------->
-
-    <div class="category">Entree</div>
-        <div class="container">
-
-            <!item 1>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item2>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item 3>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item4>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-        </div>
-
- <!----------------------------------------------------------------------------------------------------------------------------------->
-
-    <div class="category">Dessert and Drinks</div>
-        <div class="container">
-
-            <!item 1>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item2>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item 3>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </div>
-            </div>
-
-            <!item4>
-            <div class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </div>
-            <div class="gridItem">
-                <div class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </div>
-                <div class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
+                    <h4 class="item-attribute">Price: </h4>
+                    <p>$12.99</p>
                 </div>
             </div>
         </div>
+    </div>
+{% endif %}
 
 {% endblock %}
