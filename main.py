@@ -8,6 +8,11 @@ mysql = None
 usersInSession = {}
 
 def isUserStillInSession():
+    '''
+    Verify if the user exist in session
+
+    if the user exist, return the user object
+    '''
     if "user" in session: # If the user has previous logged in
         user = usersInSession.get(session["user"]) # check the program's memory for the user
         
@@ -70,6 +75,15 @@ def loginPage():
             return render_template('login_page.html')
 
     return render_template("login_page.html")
+
+@app.route("/logout")
+def logout():
+    '''
+    Log out a user from the session
+    '''
+    session.pop("user", None)
+    flash("You have successfully signed out", category="success")
+    return redirect(url_for("loginPage"))
 
 @app.route("/forgotpass/", methods = ['GET', 'POST'])
 def forgotpassPage():
