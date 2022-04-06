@@ -54,13 +54,24 @@ def menu():
     '''
     Route to the menu page
     '''
+    # Get all the dishes from the db
     APPETIZERS = Dish.getAppetizers(None)
+    ENTREES = Dish.getEntrees(None)
+    DESERTS = Dish.getDeserts(None)
 
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("menu.html", user=user, appetizers=APPETIZERS)
+        return render_template("menu.html", 
+            user=user, 
+            appetizers=APPETIZERS,
+            entrees=ENTREES,
+            deserts=DESERTS)
 
-    return render_template("menu.html", user=None, appetizers=APPETIZERS)
+    return render_template("menu.html", 
+        user=None, 
+        appetizers=APPETIZERS,
+        entrees=ENTREES,
+        deserts=DESERTS)
 
 @app.route("/login", methods = ['GET', 'POST'])
 def loginPage():
