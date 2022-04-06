@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from database import *
+from dish import Dish
 
 app = Flask(__name__)
 mysql = None
@@ -48,16 +49,18 @@ def aboutPage():
     
     return render_template("about.html", user=None)
     
-@app.route("/menu/")
+@app.route("/menu")
 def menu():
     '''
     Route to the menu page
     '''
+    APPETIZERS = Dish.getAppetizers(None)
+
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("menu.html", user=user)
+        return render_template("menu.html", user=user, appetizers=APPETIZERS)
 
-    return render_template("menu.html", user=None)
+    return render_template("menu.html", user=None, appetizers=APPETIZERS)
 
 @app.route("/login", methods = ['GET', 'POST'])
 def loginPage():

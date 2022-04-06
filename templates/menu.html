@@ -7,40 +7,26 @@
 {% block titlePage %}Menu{% endblock %}
 
 {% block mainContent %}
-
-{% if user %}
-    <div>WIP</div>
-{% else %}
     <div class="cover">
         <h2 class="title">Menu</h2>
     </div>
 
+{% if user %}
+    <div>WIP</div>
+{% else %}
     <div class="category"><h3>Appetizers</h3></div>
+    {% for appetizer in appetizers %}
         <div class="container">
-            <div class="gridItem">
-                <img class="gridImg" src="..\static\assets\test.jpg">
-            </div>
+            <div class="gridItem"><img class="gridImg" src={{ appetizer.img }}></div>
 
             <div class="gridItem">
-                <div class="itemName">
-                    <h4 class="food-name item-attribute">Item Name</h4>
-                </div>
-
-                <div class="itemDes">
-                    <h4 class="item-attribute">Description: </h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! 
-                        Earum repellat dicta natus accusantium recusandae necessitatibus veniam!
-                    </p>
-                </div>
-
-                <div class="itemDes">
-                    <h4 class="item-attribute">Price: </h4>
-                    <p>$12.99</p>
-                </div>
+                <div class="itemName"><h4 class="food-name item-attribute">{{ appetizer.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ appetizer.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ appetizer.price }}</p></div>
             </div>
-        </div>
-    </div>
+        </div>    
+    {% endfor %}
+
 {% endif %}
 
 {% endblock %}
