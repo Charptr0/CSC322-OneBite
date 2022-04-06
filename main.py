@@ -7,35 +7,52 @@ mysql = None
 # store each user id that correspond with a user object
 usersInSession = {}
 
-@app.route("/")
-def homePage():
-    '''
-    Route to the home page
-    '''
+def isUserStillInSession():
     if "user" in session: # If the user has previous logged in
         user = usersInSession.get(session["user"]) # check the program's memory for the user
         
         if not user: # cannot find user from the program (most likely the website restart and the user had not close their browsers)
             user = getUserInDatabaseByID(mysql, session["user"])
-        
-        return render_template("about.html")
+            
+            if not user:
+                return (False, None)       
+
+        return (True, user)
     
-    else:
-        return render_template("home_page.html")
+    return (False, None)
+
+@app.route("/")
+def homePage():
+    '''
+    Route to the home page
+    '''
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("home_page.html", user=user)
+
+    return render_template("home_page.html", user=None)
 
 @app.route("/about")
 def aboutPage():
     '''
     Route to the about page
     '''
-    return render_template("about.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("about.html", user=user)
+    
+    return render_template("about.html", user=None)
     
 @app.route("/menu/")
 def menu():
     '''
     Route to the menu page
     '''
-    return render_template("menu.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("menu.html", user=user)
+
+    return render_template("menu.html", user=None)
 
 @app.route("/login", methods = ['GET', 'POST'])
 def loginPage():
@@ -80,7 +97,11 @@ def faqs():
     '''
     Route to the FAQs page
     '''
-    return render_template("faqs.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("faqs.html", user=user)
+
+    return render_template("faqs.html", user=None)
 
 @app.errorhandler(404)
 def pageNotFound(e):
@@ -94,28 +115,44 @@ def tos():
     '''
     Route to the terms of service page
     '''
-    return render_template("tos.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("tos.html", user=user)
+
+    return render_template("tos.html", user=None)
 
 @app.route("/privacy")
 def privacyPolicy():
     '''
     Route to the privacy policy page
     '''
-    return render_template("privacy.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("privacy.html", user=user)
+
+    return render_template("privacy.html", user=None)
 
 @app.route("/customer-support")
 def customerSupport():
     '''
     Route to the customer support page
     '''
-    return render_template("customer-support.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("customer-support.html", user=user)
+
+    return render_template("customer-support.html", user=None)
 
 @app.route("/careers")
 def careers():
     '''
     Route to the careers page
     '''
-    return render_template("careers.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("careers.html", user=user)
+
+    return render_template("careers.html", user=None)
 
 # Run the app
 if __name__ == "__main__":
