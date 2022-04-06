@@ -7,6 +7,7 @@ class User():
 
         Parameters:
         ----------
+        id : int
         firstName : str
         lastName : str
         email : str
@@ -15,6 +16,11 @@ class User():
         phoneNumber : str
         userType : str
         '''
+        try:
+            self.id = kwargs["id"]
+        except KeyError:
+            self.id = None
+            
         try:
             self.firstName = kwargs["firstName"]
         except KeyError:
