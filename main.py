@@ -14,7 +14,8 @@ def homePage():
     '''
     if "user" in session: # If the user has previous logged in
         user = usersInSession.get(session["user"]) # check the program's memory for the user
-        if not user:
+        
+        if not user: # cannot find user from the program (most likely the website restart and the user had not close their browsers)
             user = getUserInDatabaseByID(mysql, session["user"])
         
         return render_template("about.html")
