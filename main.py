@@ -182,6 +182,13 @@ def careers():
 
     return render_template("careers.html", user=None)
 
+@app.route("/checkout/", methods = ['GET', 'POST'])
+def checkoutPage():
+    '''
+    Route to the checkout page
+    '''
+    return render_template("checkout_page.html")
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
