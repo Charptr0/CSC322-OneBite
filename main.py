@@ -34,7 +34,7 @@ def homePage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("home_page.html", user=user)
+        return render_template("customer_home.html", user=user)
 
     return render_template("home_page.html", user=None)
 
@@ -96,7 +96,7 @@ def logout():
     Log out a user from the session
     '''
     session.pop("user", None)
-    flash("You have successfully signed out", category="success")
+    flash("You have successfully signed out.", category="success")
     return redirect(url_for("loginPage"))
 
 @app.route("/forgotpass/", methods = ['GET', 'POST'])
@@ -115,7 +115,7 @@ def newuserPage():
     Route to the new user page
     '''
     if request.method == 'POST':
-        if verifyNewUser(mysql, usersInSession):
+        if verifyNewUser(mysql):
             return redirect('/')
 
     return render_template('new_user.html')
