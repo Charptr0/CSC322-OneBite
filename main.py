@@ -182,6 +182,15 @@ def careers():
 
     return render_template("careers.html", user=None)
 
+@app.route("/cart/", methods = ['GET', 'POST'])
+def cartPage():
+    '''
+    Route to the cart page
+    '''
+    if request.method == 'POST':
+        return redirect('/checkout/')
+    return render_template("cart_page.html")
+    
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():
     '''

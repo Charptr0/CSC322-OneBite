@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/cart_page.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
+{% endblock links %}
+
+{% block titlePage %} Cart | Restaurant {% endblock %}
+
+{% block mainContent %}
+<div class = "cover">
+    <h2 class = "title">Cart</h2>
+</div>
+
+<div class = "split-vertical">
+    <div id = "split-left">
+            <div class = "summary-container" id = "cart-summary">
+                <h1 class = "summary-title" style = "margin-bottom: 3px;">Cart Summary</h1>
+                <table id = "summary-cart">
+                    <tr class = "cart-header">
+                        <th>Product</th>
+                        <th></th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td class = "cart-food">
+                            <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                        </td>
+                        <td>Appetizer</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td class = "cart-food">
+                            <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                        </td>
+                        <td>Entree</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td class = "cart-food">
+                            <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                        </td>
+                        <td>Appetizer</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td class = "cart-food">
+                            <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                        </td>
+                        <td>Entree</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td class = "cart-food">
+                            <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                        </td>
+                        <td>Appetizer</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td class = "cart-food">
+                            <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
+                        </td>
+                        <td>Entree</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                </table>
+            </div>
+    </div>
+
+    <div id = "split-right">
+        <div class = "summary-container" id = "order-summary" style = "margin-bottom: 0px;">
+            <h1 class = "summary-title">Order Summary</h1>
+            <hr>
+            <div class = "summary-info" id = "subtotal">
+                <p class = "align-left">Subtotal:</p>
+                <p class = "align-right">$100.00</p>
+            </div>
+            <div class = "summary-info" id = "sales-tax">
+                <p class = "align-left">Estimated Tax:</p>
+                <p class = "align-right">$10.00</p>
+            </div>
+            <div class = "summary-info" id = "vip-discount">
+                <p class = "align-left">Discount:</p>
+                <p class = "align-right">$0.00</p>
+            </div>
+            <hr>
+            <div class = "summary-info" id = "total">
+                <p class = "align-left" style = "font-size: 20px;">Total:</p>
+                <p class = "align-right" stlye = "font-size: 20px;">$100</p>
+            </div>
+            <form id = "proceed-form" method = "POST" action = "">
+                <input type = "submit" id = "proceed-button" value = "Proceed to Checkout">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
