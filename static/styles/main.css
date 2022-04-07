@@ -11,6 +11,7 @@
     color: var(--general-text-color);
 
     font-size: var(--font-size);
+    font-family: 'Nunito Sans';
 }
 
 html 
@@ -33,6 +34,8 @@ body
     color: white;
     background-color: transparent;
     margin-top: 100px;
+    color:rgb(211, 211, 211);
+    letter-spacing: 0.1em;
 }
 
 .cover

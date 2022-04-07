@@ -47,12 +47,14 @@ footer
     font-size: var(--footer-font-title-size);
     color: var(--footer-font-title-color);
     margin-bottom: 0;
+    letter-spacing: 0.15em;
 }
 
 .footer-list
 {
     padding: 0;
     list-style: none;
+    letter-spacing: 0.05em;
 }
 
 .footer-list a
@@ -86,6 +88,7 @@ footer
     padding: 0;
     text-align: center;
     padding-bottom: 50px;
+    letter-spacing: 0.15em;
 }
 
 @media screen and (max-width:1052px)

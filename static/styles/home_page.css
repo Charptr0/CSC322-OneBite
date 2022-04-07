@@ -77,7 +77,6 @@ body
     letter-spacing: 0.17em;
     line-height: 0.9em;
     text-align: center;
-    font-family: 'Nunito Sans';
 }
 
 /* motto elements */
@@ -88,6 +87,7 @@ body
 .motto-spacing {
     text-align: center;
     color:rgba(211, 211, 211, 0.774);
+    font-family: serif;
 }
 
 .motto-height {
@@ -106,14 +106,12 @@ body
     height: 33.33333%;
 }
 
-
 /* centers the recommended dishes inside the split screen */
 .main-h2 {
     font-size: 35px;
     line-height: 0.9em;
     text-align: center;
     letter-spacing: 0.15em;
-    font-family: 'Nunito Sans';
 }
 
 /* vertical line to split the most popular vs highest rated dishes */
