@@ -109,7 +109,7 @@ def delivery():
     '''
     Route to the delivery page
     '''
-    return render_template("delivery.html")
+    return render_template("delivery_dashboard.html")
 
 @app.route("/cart-page")
 def cartpage():
