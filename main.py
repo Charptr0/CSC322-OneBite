@@ -182,6 +182,13 @@ def careers():
 
     return render_template("careers.html", user=None)
 
+@app.route("/orders/")
+def orders():
+    '''
+    Route to the menu page
+    '''
+    return render_template("orders.html")
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
