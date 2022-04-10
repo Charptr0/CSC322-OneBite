@@ -189,6 +189,20 @@ def orders():
     '''
     return render_template("orders.html")
 
+@app.route("/manager-dashboard")
+def managerDashboard():
+    '''
+    Route to the menu page
+    '''
+    return render_template("manager-dashboard.html")
+
+@app.route("/chef-dashboard")
+def chefDashboard():
+    '''
+    Route to the menu page
+    '''
+    return render_template("chef-dashboard.html")
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
