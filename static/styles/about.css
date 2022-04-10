@@ -5,8 +5,9 @@
     margin-left: 20%;
     margin-right: 20%;
 }
-.subtext{
-font-size: 25px;
+
+.subtext {
+  font-size: 25px;
 }
 
 .about-container-title
@@ -53,10 +54,12 @@ font-size: 25px;
     margin: 20px;
 }
 
+
 .chef-img
 {
     float: left
 }
+
 
 .chef-content
 {
@@ -109,3 +112,4 @@ font-size: 25px;
         margin-left: 0;
     }
 }
+

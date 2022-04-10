@@ -1,40 +1,20 @@
-/**{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}*/
-
-/*body{
-    edit font
-    font-size: ;
-    font-family:
-    line-height:
-    color:
-    background:;
-}*/
-.Title{
-    margin-top: 2rem;
-    font-size: 3rem;
-}
-.container{
+.container {
     width: 100%;
     height: auto;
     margin: 1rem auto;
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr 3fr);
-    justify-content: space-between;
+    justify-content: center;
     grid-gap: 1rem;
     align-items: start;
 }
 
-.gridItem{
-    background: deepskyblue;
+.gridItem {
     padding: 10px;
-    border: black 1px solid;
 }
 
-.gridimg{
+.gridImg {
     display: inline-grid;
     height: 300px;
     width: 300px;
@@ -42,18 +22,27 @@
     image-rendering: high-quality;
 }
 
-.itemName{
-    font-size: 1.5rem;
-}
-.itemDes{
-    font-size: 1rem;
-}
-
 .category{
     margin-left: 1rem;
     margin-right: 1rem;
     line-height: 1rem;
     font-size: 1.9rem;
+}
+
+.category h3 {
+    text-align: center;
+    font-size: 50px;    
+}
+
+.item-attribute {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.food-name {
+    font-size: 35px;
+    margin: 0;
 }
 
 

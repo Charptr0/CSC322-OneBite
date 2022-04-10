@@ -7,217 +7,51 @@
 {% block titlePage %}Menu{% endblock %}
 
 {% block mainContent %}
+    <div class="cover">
+        <h2 class="title">Menu</h2>
+    </div>
 
-<dev class="Title", style="text-align: center">Menu</dev>
+{% if user %}
+    <div>WIP</div>
+{% else %}
+    <div class="category"><h3>Appetizers</h3></div>
+    <div class="container">
+        {% for appetizer in appetizers %}
+            <div class="gridItem"><img class="gridImg" src={{ appetizer.img }}></div>
 
-    <dev class="category">Appetizer</dev>
-        <dev class="container">
+            <div class="gridItem">
+                <div class="itemName"><h4 class="food-name item-attribute">{{ appetizer.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ appetizer.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ appetizer.price }}</p></div>
+            </div>
+        {% endfor %}
+    </div>
 
-            <!item 1>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
+    <div class="category"><h3>Entrees</h3></div>
+    <div class="container">
+        {% for entree in entrees %}
+            <div class="gridItem"><img class="gridImg" src={{ entree.img }}></div>
 
-            <!item2>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
+            <div class="gridItem">
+                <div class="itemName"><h4 class="food-name item-attribute">{{ entree.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ entree.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ entree.price }}</p></div>
+            </div>
+        {% endfor %}
+    </div>
 
-            <!item 3>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
+    <div class="category"><h3>Deserts</h3></div>
+    <div class="container">
+        {% for desert in deserts %}
+            <div class="gridItem"><img class="gridImg" src={{ desert.img }}></div>
 
-            <!item4>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-        </dev>
-
- <!----------------------------------------------------------------------------------------------------------------------------------->
-
-    <dev class="category">Entree</dev>
-        <dev class="container">
-
-            <!item 1>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-            <!item2>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-            <!item 3>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-            <!item4>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-        </dev>
-
- <!----------------------------------------------------------------------------------------------------------------------------------->
-
-    <dev class="category">Dessert and Drinks</dev>
-        <dev class="container">
-
-            <!item 1>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-            <!item2>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-            <!item 3>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-
-            <!item4>
-            <dev class="gridItem">
-                <!item image setup>
-                <img class="gridimg" src="..\static\assets\test.jpg">
-            </dev>
-            <dev class="gridItem">
-                <dev class="itemName">
-                    <!item name goes below>
-                    item name item name item name item
-                </dev>
-                <dev class="itemDes">
-                    <!item description goes below>
-                    <br>item description item description item description item description item description
-                </dev>
-            </dev>
-        </dev>
+            <div class="gridItem">
+                <div class="itemName"><h4 class="food-name item-attribute">{{ desert.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ desert.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ desert.price }}</p></div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
 {% endblock %}

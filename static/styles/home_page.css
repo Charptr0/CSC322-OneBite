@@ -31,6 +31,13 @@ body
     background: transparent;
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
 /* inserts background image for top banner */
 #top-welcome {
     background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
@@ -46,6 +53,8 @@ body
 
 /* container for top banner */
 .welcome-container {
+    padding-top: 75px;
+    padding-bottom: 75px;
     background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
     object-fit: fill;
     height: 25%;
@@ -62,13 +71,12 @@ body
 }
 
 /* centers the welcome message */
-h1 {
+.main-h1 {
     font-size: 25px;
     color:rgb(211, 211, 211);
     letter-spacing: 0.17em;
     line-height: 0.9em;
     text-align: center;
-    font-family: 'Nunito Sans';
 }
 
 /* motto elements */
@@ -78,18 +86,14 @@ h1 {
 
 .motto-spacing {
     text-align: center;
-    color:rgba(211, 211, 211, 0.562);
+    color:rgba(211, 211, 211, 0.774);
+    font-family: serif;
 }
 
 .motto-height {
-    bottom: 28%;
-    position: relative;
-}
-
-#every {
-    height: 45%;
-    margin-left: 15%;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -95%);
 }
 
 /* container for top 3 most popular dishes */
@@ -102,14 +106,12 @@ h1 {
     height: 33.33333%;
 }
 
-
 /* centers the recommended dishes inside the split screen */
-h2 {
+.main-h2 {
     font-size: 35px;
     line-height: 0.9em;
     text-align: center;
     letter-spacing: 0.15em;
-    font-family: 'Nunito Sans';
 }
 
 /* vertical line to split the most popular vs highest rated dishes */
@@ -121,6 +123,7 @@ h2 {
 /* split screen container */
 .split-container {
     display: flex;
+    flex-direction: row;
 }
 
 /* left screen for first dish*/
@@ -168,4 +171,17 @@ h2 {
 .vertical-line {
     border-left: 1.25px solid rgb(78, 78, 78);
     flex: 0;
+}
+
+@media screen and (max-width: 600px)
+{
+    .split-container {
+        flex-direction: column;
+    }
+    .food-pics {
+        width: 60%;
+    }
+    #dish-info {
+        width: 60%;
+    }
 }
