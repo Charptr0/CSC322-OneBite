@@ -7,6 +7,7 @@ class Customer(User):
 
         Parameters:
         ----------
+        id : int
         firstName : str
         lastName : str
         email : str
