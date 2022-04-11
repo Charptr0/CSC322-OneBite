@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/orders.css') }}">
+{% endblock links %}
+
+{% block titlePage %}
+    Your Orders
+{% endblock titlePage %}
+
+{% block mainContent %}
+    <div class="cover">
+    <h2 class="title">Your Orders</h2>
+    </div>
+
+    <div class="main-container">
+        {% set currentOrder = true %}
+        {% if currentOrder == true %}
+        <h3 class="gridTitle">Your order is being prepared...</h3>
+        <div class="subContainer">
+            <div class="subItem">1</div>
+            <div class="subItem">2</div>
+            <div class="subItem">3</div>
+            <div class="subItem">4</div>
+            <div class="subItem">5</div>
+            <div class="subItem">6</div>
+            <div class="subItem">7</div>
+            <div class="subItem">8</div>
+        </div>
+            <button class="buttonAdd" >Add Items</button>
+            <button class="buttonCancel" >Cancel Order</button>
+
+        {% endif %}
+        <h3 class="gridTitle">Order history</h3>
+        <div class="subContainer">
+            <div class="subItem">1</div>
+            <div class="subItem">2</div>
+            <div class="subItem">3</div>
+            <div class="subItem">4</div>
+            <div class="subItem">5</div>
+            <div class="subItem">6</div>
+            <div class="subItem">7</div>
+            <div class="subItem">8</div>
+        </div>
+        <h3 class="gridTitle">Try our popular dishes</h3>
+        <div class="subContainer">
+            <div class="subItem">1</div>
+            <div class="subItem">2</div>
+            <div class="subItem">3</div>
+            <div class="subItem">4</div>
+            <div class="subItem">5</div>
+            <div class="subItem">6</div>
+            <div class="subItem">7</div>
+            <div class="subItem">8</div>
+        </div>
+    </div>
+
+
+
+{% endblock mainContent%}

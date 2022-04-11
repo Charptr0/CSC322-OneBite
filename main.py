@@ -191,13 +191,26 @@ def delivery():
     '''
     return render_template("delivery_dashboard.html")
 
-@app.route("/cart-page")
-def cartpage():
+@app.route("/orders/")
+def orders():
     '''
-    Route to the delivery page
+    Route to the menu page
     '''
-    return render_template("cart-page.html")
+    return render_template("orders.html")
 
+@app.route("/manager-dashboard")
+def managerDashboard():
+    '''
+    Route to the menu page
+    '''
+    return render_template("manager-dashboard.html")
+
+@app.route("/chef-dashboard")
+def chefDashboard():
+    '''
+    Route to the menu page
+    '''
+    return render_template("chef-dashboard.html")
 
 # Run the app
 if __name__ == "__main__":
