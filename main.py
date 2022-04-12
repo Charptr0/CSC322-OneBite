@@ -196,19 +196,33 @@ def orders():
 
     return render_template("orders.html", user=user)
 
-@app.route("/manager-dashboard")
-def managerDashboard():
+@app.route("/dashboard")
+def dashboard():
     '''
-    Route to the menu page
+    Route to the dashboard page
     '''
-    return render_template("manager_dashboard.html")
+    userExist, user = isUserStillInSession()
 
-@app.route("/chef-dashboard")
-def chefDashboard():
-    '''
-    Route to the menu page
-    '''
-    return render_template("chef_dashboard.html")
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("dashboard.html", user=user, userType=user.userType)
+
+# @app.route("/manager-dashboard")
+# def managerDashboard():
+#     '''
+#     Route to the menu page
+#     '''
+#     return render_template("manager_dashboard.html")
+
+# @app.route("/chef-dashboard")
+# def chefDashboard():
+#     '''
+#     Route to the menu page
+#     '''
+#     return render_template("chef_dashboard.html")
 
 # Run the app
 if __name__ == "__main__":
