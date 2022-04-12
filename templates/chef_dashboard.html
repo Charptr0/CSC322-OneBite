@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_dashboard.css') }}">
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/948ea8d5ef.js" crossorigin="anonymous"></script>
+{% endblock links %}
+
+{% block titlePage %}
+    Chef Dashboard
+{% endblock titlePage %}
+
+{% block mainContent %}
+<div class="chef-container">
+    <div class="chef-sidebar">
+        <div id="chef-sidebar-button" class="chef-sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{{ url_for("chefDashboard") }}"><i class='bx bx-grid-alt'></i>Dashboard</a>
+            <a href="#"><i class='fa-regular fa-user'></i>Edit Menu</a>
+            <a href="#"><i class='bx bx-cog' ></i>Settings</a>
+            <a href="#"><i class='bx bx-log-out'></i>Log out</a>
+        </div>
+    </div>
+    <div id="main" class="chef-home-section">
+        <nav>
+            <div class="chef-nav">
+                <span class="open-sidenav" onclick="openNav()"><i class='bx bx-menu sidebarBtn'></i>Dashboard</span>
+                <div class="profile-details">
+                    <img src="images/profile.jpg" alt="">
+                    <span class="admin_name">Chef</span>
+                    <!-- <i class='fa-solid fa-lock' ></i> -->
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                    <i class='bx bx-search' ></i>
+                </div>
+            </div>
+        </nav>
+
+        <div class="chef-home-content">
+            <div class="overview-boxes">
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Rating</div>
+                        <div class="number">4.5</div>
+                            <div class="indicator">
+                                <i class='bx bx-up-arrow-alt'></i>
+                                <span class="text">Up from yesterday</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-star star'></i>
+                    </div>
+                    <div class="box">
+                        <div class="right-side">
+                            <div class="box-topic">Compliments</div>
+                            <div class="number">2</div>
+                            <div class="indicator">
+                                <i class='bx bx-up-arrow-alt'></i>
+                                <span class="text">Up from yesterday</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-happy-beaming happy' ></i>
+                    </div>
+                    <div class="box">
+                        <div class="right-side">
+                            <div class="box-topic">Complaints</div>
+                            <div class="number">0</div>
+                            <div class="indicator">
+                                <i class='bx bx-minus-circle minus'></i>
+                                <span class="text">Same from yesterday</span>
+                            </div>
+                        </div>
+                        <i class='bx bx-sad sad' ></i>
+                    </div>
+            </div>
+            <div class="sales-boxes">
+                <div class="recent-sales box">
+                    <!-- <div class="title"><h3>Your Current Menu</h3></div> -->
+                    <div class="sales-details">
+                        <button class="menu-button" onClick="toggleTable()">Your Current Menu<i class="bx bx-chevron-down"></i></button>
+                        <table id="current-menu" class="hidden">
+                            <tr>
+                                <th>Dish</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                            <tr>
+                               <td><img src="images/profile.jpg" alt=""></td>
+                               <td><li><a href="#">Dish Name</a></li></td>
+                               <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
+                               <td><li><a href="#">$204.98</a></li></td>
+                            </tr>
+                            <tr>
+                               <td><img src="images/profile.jpg" alt=""></td>
+                               <td><li><a href="#">Dish Name</a></li></td>
+                               <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
+                               <td><li><a href="#">$204.98</a></li></td>
+                            </tr>
+                            <tr>
+                               <td><img src="images/profile.jpg" alt=""></td>
+                               <td><li><a href="#">Dish Name</a></li></td>
+                               <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
+                               <td><li><a href="#">$204.98</a></li></td>
+                            </tr>
+                            <tr>
+                               <td><img src="images/profile.jpg" alt=""></td>
+                               <td><li><a href="#">Dish Name</a></li></td>
+                               <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
+                               <td><li><a href="#">$204.98</a></li></td>
+                            </tr>
+                            <tr>
+                               <td><img src="images/profile.jpg" alt=""></td>
+                               <td><li><a href="#">Dish Name</a></li></td>
+                               <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
+                               <td><li><a href="#">$204.98</a></li></td>
+                            </tr>
+                            <tr>
+                               <td><img src="images/profile.jpg" alt=""></td>
+                               <td><li><a href="#">Dish Name</a></li></td>
+                               <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
+                               <td><li><a href="#">$204.98</a></li></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="button">
+                        <a href="#">See All</a>
+                    </div>
+                </div>
+            </div>
+    <script>
+        function openNav() {
+            document.getElementById("chef-sidebar-button").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("chef-sidebar-button").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+        function toggleTable() {
+            document.getElementById("current-menu").classList.toggle("hidden");
+        }
+    </script>    
+</div>    
+{% endblock mainContent %}
