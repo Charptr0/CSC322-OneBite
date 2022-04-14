@@ -4,12 +4,10 @@
     flex-direction: row;
 }
 
-/* left screen for summary */
 #split-left {
     flex: 2;
 }
 
-/* right screen for order summary */
 #split-right {
     flex: 1;
 }
@@ -48,6 +46,7 @@
     margin-bottom: 3%;
 }
 
+/* button to proceed to checkout */
 #proceed-button {
     padding: 3% 7.5%;
     text-align: center;
@@ -62,38 +61,96 @@
 #proceed-button:hover {
     cursor: pointer;
     background-color: darkgray;
-    color: white;
+    color: #f2f2f2;
 }
 
-#summary-cart {
-    border-collapse: collapse;
-    width: 100%;
+/* cart summary */
+.cart-header, .product {
+    display: flex;
+    flex-direction: row;
 }
 
-#summary-cart td, #summary-cart th {
+.header-name, .product-name {
+    flex: 1.5;
     padding: 8px;
     vertical-align: top;
+    text-align: center;
 }
 
-#summary-cart th {
-    border-bottom: 1px solid rgb(60, 60, 60);
-    text-align: left;
+.header-product, .header-price, .header-quantity, .header-total, .product-image, .product-price, .product-quantity, .product-total {
+    flex: 1;
+    padding: 5px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.header-product, .header-name, .header-price, .header-quantity, .header-total {
+    text-align: center;
     color: rgb(85, 107, 107);
+    font-size: 14px;
+    padding-bottom: 0px;
 }
 
-table tr:nth-child(odd) td {
+.odd-row {
     background-color: #f2f2f2;
-}
-
-.cart-food {
-    width: 15%;
 }
 
 .cart-image {
     width: 100%;
 }
 
-@media screen and (max-width: 700px)
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-qty {
+    width: 10%;
+    text-align: center;
+    border: none;
+}
+
+.plusminus-btn {
+    border-color: lightgray;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+}
+
+.header-cart {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-btn {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e44c4c;
+    border: 1px solid #df6767;
+    border-radius: 4px;
+}
+
+.remove-btn:hover {
+    background-color: #e44c4c;
+    color: white;
+}
+
+.remove-product {
+    background-color: #df6767;
+    color: white;
+}
+
+.remove-product:hover {
+    background-color: #bf3c3c;
+}
+
+.cart-transparent {
+    background: transparent;
+}
+
+@media screen and (max-width: 1000px)
 {
     .split-vertical {
         flex-direction: column;
