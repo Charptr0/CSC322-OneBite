@@ -198,6 +198,20 @@ def checkoutPage():
     '''
     return render_template("checkout_page.html")
 
+@app.route("/order-placed/", methods = ['GET', 'POST'])
+def orderPlacedPage():
+    '''
+    Route to order confirmation/order failure
+    '''
+    return render_template("order_placed.html")
+
+@app.route("/profile/", methods = ['GET', 'POST'])
+def profilePage():
+    '''
+    Route to profile page
+    '''
+    return render_template("profile_page.html")
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
