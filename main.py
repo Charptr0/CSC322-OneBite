@@ -3,6 +3,8 @@ from database import *
 from dish import Dish
 
 app = Flask(__name__)
+
+
 mysql = None
 
 # store each user id that correspond with a user object
@@ -181,6 +183,34 @@ def careers():
         return render_template("careers.html", user=user)
 
     return render_template("careers.html", user=None)
+
+@app.route("/delivery")
+def delivery():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery_dashboard.html")
+
+@app.route("/deliveryhome")
+def deliveryhome():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery_home.html")
+
+@app.route("/deliverybidding")
+def deliverybidding():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery_bidding.html")
+
+@app.route("/pastdelivery")
+def pastdelivery():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("past_deliveries.html")
 
 @app.route("/orders/")
 def orders():
