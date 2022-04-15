@@ -36,7 +36,7 @@ def homePage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("customer_home.html", user=user)
+        return render_template("home_page.html", user=user)
 
     return render_template("home_page.html", user=None)
 
@@ -217,21 +217,28 @@ def orders():
     '''
     Route to the menu page
     '''
-    return render_template("orders.html")
+    userExist, user = isUserStillInSession()
 
-@app.route("/manager-dashboard")
-def managerDashboard():
-    '''
-    Route to the menu page
-    '''
-    return render_template("manager-dashboard.html")
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
 
-@app.route("/chef-dashboard")
-def chefDashboard():
+    return render_template("orders.html", user=user)
+
+@app.route("/dashboard")
+def dashboard():
     '''
-    Route to the menu page
+    Route to the dashboard page
     '''
-    return render_template("chef-dashboard.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("dashboard.html", user=user, userType=user.userType)
 
 # Run the app
 if __name__ == "__main__":
