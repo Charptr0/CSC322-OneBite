@@ -166,6 +166,9 @@ label[for = "Confirm Password"]{
         display:block;
     }
 
+    label[for="Username"]{
+        display:block;
+    }
    #forgotHeader{
        font-size: 25px;
    }
