@@ -75,6 +75,7 @@ navbar, nav *
     float: right;
     right: 0;
     top: 5px;
+    letter-spacing: 0.1em;
 }
 
 .navbar-all {

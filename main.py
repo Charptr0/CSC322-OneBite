@@ -3,6 +3,8 @@ from database import *
 from dish import Dish
 
 app = Flask(__name__)
+
+
 mysql = None
 
 # store each user id that correspond with a user object
@@ -96,7 +98,7 @@ def logout():
     Log out a user from the session
     '''
     session.pop("user", None)
-    flash("You have successfully signed out", category="success")
+    flash("You have successfully signed out.", category="success")
     return redirect(url_for("loginPage"))
 
 @app.route("/forgotpass/", methods = ['GET', 'POST'])
@@ -115,7 +117,7 @@ def newuserPage():
     Route to the new user page
     '''
     if request.method == 'POST':
-        if verifyNewUser(mysql, usersInSession):
+        if verifyNewUser(mysql):
             return redirect('/')
 
     return render_template('new_user.html')
@@ -211,6 +213,62 @@ def profilePage():
     Route to profile page
     '''
     return render_template("profile_page.html")
+
+@app.route("/delivery")
+def delivery():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery_dashboard.html")
+
+@app.route("/deliveryhome")
+def deliveryhome():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery_home.html")
+
+@app.route("/deliverybidding")
+def deliverybidding():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("delivery_bidding.html")
+
+@app.route("/pastdelivery")
+def pastdelivery():
+    '''
+    Route to the delivery page
+    '''
+    return render_template("past_deliveries.html")
+
+@app.route("/orders/")
+def orders():
+    '''
+    Route to the menu page
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("orders.html", user=user)
+
+@app.route("/dashboard")
+def dashboard():
+    '''
+    Route to the dashboard page
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("dashboard.html", user=user, userType=user.userType)
 
 # Run the app
 if __name__ == "__main__":

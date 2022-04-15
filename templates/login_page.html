@@ -5,36 +5,30 @@
 {% block titlePage %} Login | Restaurant {% endblock %}
 
 {% block mainContent %}
-<div id = "backgroundLogin">
-    <!-- <h1 id = "loginHeader">Login</h1> -->
-    <!-- <hr id="loginhr1"> -->
-    <div id = "logincontainer">
-        <div id = "everythinglogin">
-            <div id = "wholeloginform">
-                <h1 id="loginHeader">Login</h1>
-                <form method = "POST" action = "" id = "loginform">
-                    <div id = "userpassform">
-                        <label for="username">Username:</label>
-                        <input type="text" id ="username" name = "username" required> <br> <br>
-                        <label for="password">Password:</label>
-                        <input type="text" id ="password" name = "password" required> <br> <br>
-                    </div>
-                    <div id = "loginbuttondiv">
-                        <input type="submit" id = "loginbutton" value = "Login">
-                    </div>
-                    <div id = "references">
-                        <a href="{{ url_for('forgotpassPage') }}" id = "forgotpassword">Forgot Password</a>
-                        <!-- <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a> -->
-                    </div>
-                    <div id = "references2">
-                        <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a>
-                    </div>
-                </form>
 
-            </div>      
-        </div>
+<div id = "backgroundLogin">
+    <div id = "everythinglogin">
+        <div id = "wholeloginform">
+            <h1 id="loginHeader">Login</h1>
+            <form method = "POST" action = "" id = "loginform">
+                <div id = "userpassform">
+                    <label for="username">Username:</label>
+                    <input type="text" id ="username" name = "username" required> <br> <br>
+                    <label for="password">Password:</label>
+                    <input type="text" id ="password" name = "password" required> <br> <br>
+                </div>
+                <div id = "loginbuttondiv">
+                    <input type="submit" id = "loginbutton" value = "Login">
+                </div>
+                <div id = "references">
+                    <a href="{{ url_for('forgotpassPage') }}" id = "forgotpassword">Forgot Password</a>
+                </div>
+                <div id = "references2">
+                    <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a>
+                </div>
+            </form>
+        </div>      
     </div>
-    <!-- <hr id="loginhr2"> -->
 </div>
 
 {% endblock %}

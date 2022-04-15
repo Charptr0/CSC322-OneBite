@@ -2,8 +2,12 @@
 {
     font-size: 20px;
     padding: 10px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.subtext {
+  font-size: 25px;
 }
 
 .about-container-title
@@ -38,31 +42,35 @@
 
 .chef-desc
 {
-    font-size: 20px;
-    width: 100%;
+    font-size: 25px;
+    width: auto;
+    margin-left: 10rem;
 
 }
 
-.chef-profile 
+.chef-profile
 {
     overflow: auto;
     margin: 20px;
 }
 
-.chef-img 
+
+.chef-img
 {
     float: left
 }
 
-.chef-content 
+
+.chef-content
 {
     margin-left: 200px
 }
 
-.chef-name 
+.chef-name
 {
     margin-top: -1px;
     font-size: 40px;
+    margin-left: 10rem;
 }
 
 @media screen and (max-width: 900px)
