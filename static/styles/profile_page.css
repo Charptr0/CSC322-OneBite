@@ -1,0 +1,19 @@
+.info-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.flex-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.padding-txt {
+    padding-left: 10%;
+}
+
+.funds-container {
+    display: flex;
+}
