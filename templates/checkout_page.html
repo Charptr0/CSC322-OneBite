@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/checkout_page.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
+{% endblock links %}
+
+{% block titlePage %} Checkout | Restaurant {% endblock %}
+
+{% block mainContent %}
+<div class = "cover">
+    <h2 class = "title">Checkout</h2>
+</div>
+
+<div class = "split-vertical">
+    <div id = "split-left">
+        <div class = "split-horizontal">
+            <div class = "summary-container" id = "order-type">
+                <h1 class = "summary-title">Order Type</h1><hr>
+                <!-- chose delivery option -->
+                <div id = "split-left" class = "chosen-type" style = "margin-top: 10px;">
+                    <input type = "radio" id = "delivery-type" name = "order-type" value = "Delivery" onclick = "showOption()">
+                    <label for = "delivery-type">Delivery</label>
+                </div>
+                <div id = "choose-delivery" class = "summary-container" style = "display: none;">
+                    <!-- chose to deliver to existing address -->
+                    <div id = "split-left" class = "chosen-type" style = "margin-top: 10px;">
+                        <input type = "radio" id = "existing-type" name = "order-type" value = "existing-address">
+                        <label for = "existing-type">Choose Existing Address</label>
+                    </div>
+                    <div id = "choose-existing" class = "summary-container" style = "border: none; padding-bottom: 0px; margin: 0px;">
+                        <b>Default Address:</b> 160 Convent Ave, New York, NY 10031
+                    </div>
+                    <!-- chose to deliver to a new address -->
+                    <div id = "split-right" class = "chosen-type" style = "margin-top: 15px;">
+                        <input type = "radio" id = "new-type" name = "order-type" value = "new-address" onclick = "showNew()">
+                        <label for = "new-type">Choose a New Address</label>
+                    </div>
+                    <div id = "choose-new" class = "summary-container" style = "display: none; border: none; padding-bottom: 0px; margin: 0px;">
+                        <form>
+                            <label for = "address-line"><b>Address:</b></label>
+                            <input type = "text" id = "address-line" name = "address-line" autocomplete = "off" required>
+                        </form>
+                    </div>
+                </div>
+                <!-- chose pickup option -->
+                <div id = "split-right" class = "chosen-type" style = "margin-top: 15px;">
+                    <input type = "radio" id = "pickup-type" name = "order-type" value = "Pickup" onclick = "showOption()">
+                    <label for = "pickup-type">Pickup</label>
+                </div>
+                <div id = "choose-pickup" class = "summary-container" style = "display: none;">
+                    <span>Your order will be available for pickup at <b><a href = "https://www.google.com/maps/place/160+Convent+Ave,+New+York,+NY+10031/@40.8215941,-73.9492731,17z/data=!4m5!3m4!1s0x89c2f6652af1111b:0x7ed40bda91966edf!8m2!3d40.8216144!4d-73.9479427">160 Convent Ave, New York, NY 10031</a></b>.</span>
+                    <br> <br> 
+                    <a href = "https://www.google.com/maps/place/160+Convent+Ave,+New+York,+NY+10031/@40.8215941,-73.9492731,17z/data=!4m5!3m4!1s0x89c2f6652af1111b:0x7ed40bda91966edf!8m2!3d40.8216144!4d-73.9479427"><img src = "../static/assets/pickup-location.png" style = "width: 100%; height: 300px;"/></a>
+                </div>
+            </div>
+        </div>
+
+        <div class = "split-bottom">
+            <div class = "summary-container" id = "cart-summary">
+                <h1 class = "summary-title" style = "margin-bottom: 3px;">Cart Summary</h1>
+                <table id = "summary-cart">
+                    <tr class = "cart-header">
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Appetizer</td>
+                        <td>Price</td>
+                        <td>Quantity</th>
+                        <td>$$$</td>
+                    </tr>
+                    <tr>
+                        <td>Entree</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>$$$</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id = "split-right">
+        <div class = "summary-container" id = "order-summary" style = "margin-bottom: 0px;">
+            <h1 class = "summary-title">Order Summary</h1>
+            <hr>
+            <div class = "summary-info" id = "subtotal">
+                <p class = "align-left">Subtotal:</p>
+                <p class = "align-right">$100.00</p>
+            </div>
+            <div class = "summary-info" id = "sales-tax">
+                <p class = "align-left">Estimated Tax:</p>
+                <p class = "align-right">$10.00</p>
+            </div>
+            <div class = "summary-info" id = "vip-discount">
+                <p class = "align-left">Discount:</p>
+                <p class = "align-right">$0.00</p>
+            </div>
+            <div class = "summary-info" id = "delivery-fee" style = "display: none; ">
+                <p class = "align-left">Delivery Fee:</p>
+                <p class = "align-right">$10.00</p>
+            </div>
+            <hr>
+            <div class = "summary-info" id = "total">
+                <p class = "align-left" style = "font-size: 20px;">Total:</p>
+                <p class = "align-right" stlye = "font-size: 20px;">$100</p>
+            </div>
+            <form id = "confirm-form" method = "POST" action = "">
+                <input type = "submit" id = "confirm-button" value = "Confirm Order">
+            </form>
+        </div>
+        <div id = "return-cart">
+            <a href = "{{ url_for('homePage')}}" style = "color: rgb(60, 60, 60);">Return to Cart</a>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    function showOption() {
+        var deliveryCheck = document.getElementById("delivery-type");
+        var deliveryPop = document.getElementById("choose-delivery");
+        var deliveryFee = document.getElementById("delivery-fee");
+        var pickupCheck = document.getElementById("pickup-type");
+        var pickupPop = document.getElementById("choose-pickup");
+        if (deliveryCheck.checked == true) {
+            deliveryPop.style.display = "block";
+            deliveryFee.style.display = "flex";
+            pickupPop.style.display = "none";
+        } else {
+            deliveryPop.style.display = "none";
+            deliveryFee.style.display = "none";
+            pickupPop.style.display = "block";
+        }
+    }
+
+    function showNew() {
+        var newCheck = document.getElementById("new-type");
+        var newPop = document.getElementById("choose-new");
+        if (newCheck.checked == true) {
+            newPop.style.display = "block";
+        } else {
+            newPop.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

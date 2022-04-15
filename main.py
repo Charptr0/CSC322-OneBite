@@ -184,6 +184,36 @@ def careers():
 
     return render_template("careers.html", user=None)
 
+@app.route("/cart/", methods = ['GET', 'POST'])
+def cartPage():
+    '''
+    Route to the cart page
+    '''
+    if request.method == 'POST':
+        return redirect('/checkout/')
+    return render_template("cart_page.html")
+    
+@app.route("/checkout/", methods = ['GET', 'POST'])
+def checkoutPage():
+    '''
+    Route to the checkout page
+    '''
+    return render_template("checkout_page.html")
+
+@app.route("/order-placed/", methods = ['GET', 'POST'])
+def orderPlacedPage():
+    '''
+    Route to order confirmation/order failure
+    '''
+    return render_template("order_placed.html")
+
+@app.route("/profile/", methods = ['GET', 'POST'])
+def profilePage():
+    '''
+    Route to profile page
+    '''
+    return render_template("profile_page.html")
+
 @app.route("/delivery")
 def delivery():
     '''
