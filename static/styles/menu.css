@@ -45,6 +45,9 @@
     margin: 0;
 }
 
+.checked {
+    color: orange;
+}
 
 /*@media (max-width: 1500px) {
     .container{

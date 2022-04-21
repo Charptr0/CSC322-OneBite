@@ -36,7 +36,7 @@ def homePage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("home_page.html", user=user)
+        return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
 
     return render_template("home_page.html", user=None)
 
@@ -64,7 +64,8 @@ def menu():
     userExist, user = isUserStillInSession()
     if userExist:
         return render_template("menu.html", 
-            user=user, 
+            user=user,
+            favDishes=user.getFavoriteDishes(None),
             appetizers=APPETIZERS,
             entrees=ENTREES,
             deserts=DESERTS)
