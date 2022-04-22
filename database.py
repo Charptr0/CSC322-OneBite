@@ -47,7 +47,8 @@ def convertUser(account):
         password=account["password"],
         phoneNumber=account["phone"],
         cardNumber=account["cardnumber"],
-        type="customer")
+        type="customer",
+        wallet=100.0)
 
 def getUserInDatabaseByLogin(db):
     '''

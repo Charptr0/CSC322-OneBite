@@ -17,6 +17,7 @@ class Customer(User):
         cardNumber : str
         type : str
         isVIP : boolean
+        wallet : float
         '''
         super().__init__(**kwargs)
 
@@ -29,6 +30,11 @@ class Customer(User):
             self.isVIP = kwargs["isVIP"]
         except KeyError:
             self.isVIP = False
+
+        try:
+            self.wallet = kwargs["wallet"]
+        except KeyError:
+            self.isVIP = 0.0
 
     def setCardNumber(self, db, cardNumber = None):
         if cardNumber == None:
