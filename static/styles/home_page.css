@@ -1,5 +1,5 @@
 :root {
-    --general-background-color: rgb(211, 211, 211);
+    --general-background-color: white;
     --general-text-color: rgb(78, 78, 78);
 
     --general-font-size: 50px;
@@ -13,19 +13,6 @@
     font-size: var(--font-size);
 }
 
-html 
-{
-    height: 100%;
-}
-
-body
-{
-    min-height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
 /* makes backgrounds transparent */
 .transparent {
     background: transparent;
@@ -33,22 +20,7 @@ body
 
 .center {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-}
-
-/* inserts background image for top banner */
-#top-welcome {
-    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
-    object-fit: fill;
-    height: 25%;
-}
-
-/* container for all elements */
-.main-container {
-    display: flex;
-    height: 100%;
+    text-align: center;
 }
 
 /* container for top banner */
@@ -57,22 +29,35 @@ body
     padding-bottom: 75px;
     background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
     object-fit: fill;
-    height: 25%;
+    height: 200px;
 }
 
 /* contains welcome and motto */
 .welcome-message {
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column;
     margin-top: auto;
-    height: 100%;
 }
 
+.fade {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 /* centers the welcome message */
 .main-h1 {
-    font-size: 25px;
+    font-size: 50px;
     color:rgb(211, 211, 211);
     letter-spacing: 0.17em;
     line-height: 0.9em;
@@ -96,49 +81,38 @@ body
     transform: translate(-50%, -95%);
 }
 
-/* container for top 3 most popular dishes */
-.most-popular {
-    height: 33.33333%;
+
+.title {
+    font-size: 40px;
+    color: black;
 }
 
-/* container for top 3 highest rated dishes */
-.highest-rated {
-    height: 33.33333%;
+.debug {
+    background-color: red;
+    border: 2px solid black;
 }
 
-/* centers the recommended dishes inside the split screen */
-.main-h2 {
-    font-size: 35px;
-    line-height: 0.9em;
-    text-align: center;
-    letter-spacing: 0.15em;
+.info-box {
+    border: 1px solid black;
+    margin-top: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
+    /* background: linear-gradient(90deg, rgba(78,110,133,1) 7%, rgba(36,104,162,1) 53%, rgba(0,108,255,1) 100%); */
+    background-color: transparent;
 }
 
-/* vertical line to split the most popular vs highest rated dishes */
-.vertical-line {
-    border-left: 1.25px solid rgb(78, 78, 78);
-    flex: 0;
+.info-box button {
+    width: 250px;
+    height: 40px;
+    border-radius: 8px;
+    color: black;
+    background-color: rgb(220, 239, 46);
+    cursor: pointer;
+    font-size: 20px;
 }
 
-/* split screen container */
-.split-container {
-    display: flex;
-    flex-direction: row;
-}
-
-/* left screen for first dish*/
-#split-left {
-    flex: 1;
-}
-
-/* center screen for second dish */
-#split-center {
-    flex: 1;
-}
-
-/* right screen for third dish */
-#split-right {
-    flex: 1;
+.black-text {
+    color: black;
 }
 
 /* centers dish info within each split screen */
@@ -148,40 +122,4 @@ body
     margin-left: auto;
     margin-right: auto;
     width: 95%;
-}
-
-.align-left {
-    width: 66.66666%;
-    text-align: left;
-}
-
-.align-right {
-    width: 33.33333%;
-    text-align: right;
-}
-
-.food-pics {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-}
-
-/* vertical line to to style dish info */
-.vertical-line {
-    border-left: 1.25px solid rgb(78, 78, 78);
-    flex: 0;
-}
-
-@media screen and (max-width: 600px)
-{
-    .split-container {
-        flex-direction: column;
-    }
-    .food-pics {
-        width: 60%;
-    }
-    #dish-info {
-        width: 60%;
-    }
 }

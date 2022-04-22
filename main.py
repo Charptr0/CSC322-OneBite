@@ -38,7 +38,7 @@ def homePage():
     if userExist:
         return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
 
-    return render_template("home_page.html", user=None)
+    return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
 
 @app.route("/about")
 def aboutPage():

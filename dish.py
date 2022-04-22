@@ -82,3 +82,24 @@ class Dish():
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
 
         return data 
+
+    @staticmethod
+    def getPopularDishes(db):
+        '''
+        Get the current popular dishes from a database
+
+        **FOR TESTING ONLY**
+            Get all deserts from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []
+        data = []
+
+        with open("data/popular_dishes.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+
+        return data 

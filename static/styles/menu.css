@@ -2,7 +2,6 @@
     width: 100%;
     height: auto;
     margin: 1rem auto;
-    padding: 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr 3fr);
     justify-content: center;
