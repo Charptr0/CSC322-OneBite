@@ -246,7 +246,7 @@ def pastdelivery():
 @app.route("/orders/")
 def orders():
     '''
-    Route to the menu page
+    Route to the orders page
     '''
     userExist, user = isUserStillInSession()
 
@@ -257,6 +257,19 @@ def orders():
 
     return render_template("orders.html", user=user)
 
+@app.route("/refillBalance")
+def refillBalance():
+    '''
+    Route to the refill balance page
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+    
+    return render_template("refill_balance.html", user=user)
 @app.route("/dashboard")
 def dashboard():
     '''
