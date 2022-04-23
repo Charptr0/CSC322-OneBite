@@ -138,3 +138,22 @@ INSERT INTO `vip`(`vip_id`, `fname`, `lname`, `username`, `password`, `email`, `
 SELECT `customer_id`, `fname`, `lname`, `username`, `password`, `email`, `phone`, `cardnumber`
 FROM `customer` WHERE vip = 1;
 SELECT * FROM vip;
+
+/* Table Dishes */
+CREATE TABLE IF NOT EXISTS `dish` (
+	`dish_id` varchar(50) NOT NULL,
+    `name` varchar(100) NOT NULL,
+	`price` float(6, 2) NOT NULL DEFAULT '0.00',
+    `desc` text NOT NULL,
+    `rating` int(5) NOT NULL DEFAULT 0,
+    `num_ratings` int(11) NOT NULL DEFAULT 0,
+    `img` text NOT NULL,
+    `status` tinyint(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (`dish_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Display Dishes */
+INSERT INTO `dish` VALUES ('DES001', 'Peach Pavlova', '12.00', 'Made with the softest meringue and topped with the sweetest peaches. Peach Pavlova is an Australian dessert with a crisp crust and a soft, light inside.', 0, 0, 'https://images.unsplash.com/photo-1624300603538-1207400f4116?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', 1);
+INSERT INTO `dish` VALUES ('DES002', 'Blueberry Cheesecake', '11.00', 'A slice of fresh blueberry cheesecake. This classic cheesecake is the most luscious, rich, and creamy dessert topped with the sweetest blueberries picked from our very own gardens.', 0, 0, 'https://images.unsplash.com/photo-1567327613485-fbc7bf196198?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', 1);
+INSERT INTO `dish` VALUES ('DES003', 'Strawberry Panna Cotta', '7.00', 'A small cup of sweet strawberry panna cotta. Made with a classic recipe from Italy that preserves its silky texture and milky, sweet taste.', 0, 0, 'https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', 1);
+SELECT * FROM dish;
