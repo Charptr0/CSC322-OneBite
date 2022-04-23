@@ -111,6 +111,8 @@ CREATE TABLE IF NOT EXISTS `customer` (
     `cardnumber` varchar(16),
     `blacklisted` tinyint(1) DEFAULT 0,
     `vip` tinyint(1) DEFAULT 0,
+    `wallet` float(7, 2) DEFAULT '0.00',
+    `warnings` int(11) DEFAULT 0,
     PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
