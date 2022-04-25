@@ -1,31 +1,34 @@
 {% extends 'base.html' %}
 
-{% block links %}
-    
-{% endblock links %}
-
 {% block titlePage %}
     Refill Balance
 {% endblock titlePage %}
 
 {% block mainContent %}
+    <style>
+        .refill-container {
+            font-size: 30px;
+            margin: 30px;
+        }
+
+    </style>
     <div class="cover">
         <h2 class="title">Refill Your Balance</h2>
     </div>
 
     <div>
-        <div>Current Amount: $<span id="current-amount">{{ user.wallet }}</span></div>
-        <div>
+        <div class="refill-container">Current Amount: $<span id="current-amount">{{ user.wallet }}</span></div>
+        <div class="refill-container">
             Card Number: <span id="card-num">{{ user.cardNumber }}</span>
             <button onclick="displayChangeCardNumber()">Change Payment Method...</button>
         </div>
-        <div id="change-payment-method" style="display: none;">
+        <div id="change-payment-method" style="display: none;" class="refill-container">
             <label>Change Card Number</label>
             <input type="number" min="0" id="new-card-num">
             <button onclick="updateCardNumber()">Update Card Number</button>
         </div>
 
-        <div>
+        <div class="refill-container">
             <label>Refill your amount: $</label>
             <input type="number" min="0" id="new-amount">
             <button onclick="submitAmount()">Submit</button>
