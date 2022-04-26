@@ -15,17 +15,50 @@
             <form id = "forgotform" method = "POST" action = "">
                 <div id = "emailpassform">
                     <label for="Email1">Email:</label>
-                    <input type="email" id = "email" name = "email" autocomplete="off" required> <br> <br>
+                    <input type="email" id = "email" name = "email" placeholder = "Enter Email" autocomplete="off" required> <br> <br>
                     <label for="Username">Username:</label>
-                    <input type="text" id = "username" name = "username" autocomplete="off" required> <br> <br>
+                    <input type="text" id = "username" name = "username" placeholder = "Enter Username" autocomplete="off" required> <br> <br>
                     <label for="New Password">New Password:</label>
-                    <input type="password" id = "newpass" name = "newpass" autocomplete="off" required> <br> <br>
+                    <input type="password" id = "newpass" name = "newpass" placeholder = "Enter New Password" autocomplete="off" required> <br> <br>
                     <label for="Confirm Password">Confirm Password:</label>
-                    <input type="password" id = "conpass" name = "conpass" autocomplete="off" required> <br> <br>
+                    <input type="password" id = "conpass" name = "conpass" placeholder = "Enter Password" autocomplete="off" required> <br> <br>
+                    <p id = "cap" style = "display: none;"><b style = "color:rgb(191, 58, 58);">WARNING! Caps lock is on.</b></p>
+                    <input type = "checkbox" onclick = "showPass()">Show Password
                 </div>
                 <input type="submit" id = "newpassbutton" value = "Submit">
             </form>
         </div>
 </div>
 
+<script>
+    function showPass() {
+        var pw = document.getElementById("newpass");
+        var pw2 = document.getElementById("conpass");
+        if (pw.type === "password") {
+            pw.type = "text";
+            pw2.type = "text";
+        } else {
+            pw.type = "password";
+            pw2.type = "password";
+        }
+    }
+
+    var pw = document.getElementById("newpass");
+    var pw2 = document.getElementById("conpass");
+    var cap = document.getElementById("cap");
+    pw.addEventListener("keyup", function(event) {
+        if (event.getModifierState("CapsLock")) {
+            cap.style.display = "block";
+        } else {
+            cap.style.display = "none"
+        }
+    });
+    pw2.addEventListener("keyup", function(event) {
+        if (event.getModifierState("CapsLock")) {
+            cap.style.display = "block";
+        } else {
+            cap.style.display = "none"
+        }
+    });
+</script>
 {% endblock %}

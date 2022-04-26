@@ -13,22 +13,45 @@
             <form method = "POST" action = "" id = "loginform">
                 <div id = "userpassform">
                     <label for="username">Username:</label>
-                    <input type="text" id ="username" name = "username" required> <br> <br>
+                    <input type="text" id ="username" name = "username" placeholder = "Enter Username" required> <br> <br>
                     <label for="password">Password:</label>
-                    <input type="text" id ="password" name = "password" required> <br> <br>
+                    <input type="password" id ="password" name = "password" placeholder = "Enter Password" required> <br> <br>
+                    <p id = "cap" style = "display: none;"><b style = "color:rgb(191, 58, 58);">WARNING! Caps lock is on.</b></p>
+                    <input type = "checkbox" onclick = "showPass()">Show Password
                 </div>
                 <div id = "loginbuttondiv">
                     <input type="submit" id = "loginbutton" value = "Login">
                 </div>
                 <div id = "references">
-                    <a href="{{ url_for('forgotpassPage') }}" id = "forgotpassword">Forgot Password</a>
+                    <a href="{{ url_for('forgotpassPage') }}" id = "forgotpassword">Forgot Password?</a>
                 </div>
                 <div id = "references2">
-                    <a href="{{ url_for('newuserPage') }}" id = "newuser">New User</a>
+                    <a href="{{ url_for('newuserPage') }}" id = "newuser">New User?</a>
                 </div>
             </form>
         </div>      
     </div>
 </div>
 
+<script>
+    function showPass() {
+        var pw = document.getElementById("password");
+        if (pw.type === "password") {
+            pw.type = "text";
+        } else {
+            pw.type = "password";
+        }
+    }
+
+    var pw = document.getElementById("password");
+    var cap = document.getElementById("cap");
+    pw.addEventListener("keyup", function(event) {
+
+    if (event.getModifierState("CapsLock")) {
+        cap.style.display = "block";
+    } else {
+        cap.style.display = "none"
+    }
+    });
+</script>
 {% endblock %}
