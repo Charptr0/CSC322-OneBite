@@ -1,0 +1,53 @@
+.warning-section{
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.deliverysidebar.active ~ .warning-section{
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+h3{
+    font-family:Quicksand;
+    font-size: 30px;
+}
+.alert{
+    width:50%;
+    padding:30px;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;    
+    display: flex;
+    
+}
+.warning-alert{
+    color: rgb(255, 161, 161);
+}
+
+.number-of-warnings{
+    font-family:Quicksand;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+}
+.close{
+    position:absolute;
+    width:30px;
+    height:30px;
+    opacity:0.5;
+    border-width:1px;
+    border-style:solid;
+    border-radius:50%;
+    right:15px;
+    top:25px;
+    text-align:center;
+    font-size:1.6em;
+    cursor:pointer;
+}

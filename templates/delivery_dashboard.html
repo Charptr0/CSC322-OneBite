@@ -2,6 +2,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard_base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
 {% endblock links %}
 
@@ -11,56 +12,16 @@
 
 {% block mainContent %}
 
-
-<!--home-content-->
-
-<!-- <section class = "delivery-home-section">
-
-    <div class="delivery-home-content">
-        <div class="delivery-number-overview-box">
-            <div class="delivery-box">
-                <div class="delivery-left">
-                    <div class="delivery-number">Delivery # ( Order ID )</div>
-                    <hr>
-                    <div class="delivery-items">
-                        <div class="delivery-name-qty">
-                            <div class="delivery-name-food">Name</div>
-                            <div class="delivery-qty">QTY</div>
-                        </div>
-                        <div class="delivery-name-qty">
-                            <div class="delivery-name-food">Name</div>
-                            <div class="delivery-qty">QTY</div>
-                        </div>
-                        <div class="delivery-name-qty">
-                            <div class="delivery-name-food">Name</div>
-                            <div class="delivery-qty">QTY</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class = "warning-section">
+    <div class="alert warning-alert">
+        <h3>WARNINGS: 3</h3>
+        <a class="close">&times;</a>
     </div>
+</section>
 
+<script>
+    
 
-
-    <div class="delivery-home-content">
-        <div class="delivery-number-overview-box">
-            <div class="delivery-box">
-                <div class="delivery-left">
-                    <div class="delivery-number">Delivery Location for Delivery # ( Order ID )</div>
-                    <hr>
-                    <div class="delivery-customer-info">
-                        <div class="delivery-customer-name">Customer Name: Peggie</div>
-                        <div class="delivery-customer-address">Customer Address: At Your Moms House 123</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</section> -->
-
-
+</script>
 
 {% endblock %}

@@ -221,13 +221,6 @@ def delivery():
     '''
     return render_template("delivery_dashboard.html")
 
-@app.route("/deliveryhome")
-def deliveryhome():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("delivery_home.html")
-
 @app.route("/deliverybidding")
 def deliverybidding():
     '''
