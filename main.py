@@ -189,30 +189,58 @@ def cartPage():
     '''
     Route to the cart page
     '''
-    if request.method == 'POST':
-        return redirect('/checkout/')
-    return render_template("cart_page.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+    else:
+        if request.method == 'POST':
+            return redirect(url_for("checkoutPage"))
+            
+    return render_template("cart_page.html", user=user)
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():
     '''
     Route to the checkout page
     '''
-    return render_template("checkout_page.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("checkout_page.html", user=user)
 
 @app.route("/order-placed/", methods = ['GET', 'POST'])
 def orderPlacedPage():
     '''
     Route to order confirmation/order failure
     '''
-    return render_template("order_placed.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("order_placed.html", user=user)
 
 @app.route("/profile/", methods = ['GET', 'POST'])
 def profilePage():
     '''
     Route to profile page
     '''
-    return render_template("profile_page.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+    return render_template("profile_page.html", user=user)
 
 @app.route("/delivery")
 def delivery():
