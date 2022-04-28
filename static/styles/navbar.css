@@ -40,7 +40,7 @@ navbar, nav *
 
 .navbar {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     background-color: var(--navbar-background-color);
 }
 
@@ -51,19 +51,24 @@ navbar, nav *
 
 .navbar a {
     float: left;
+}
+
+.navbar a, .drop-btn {
     color: var(--navbar-font-item-color);
     text-align: center;
-    padding: 16px 20px;
+    padding: 14px 20px;
     text-decoration: none;
     font-size: var(--navbar-font-item-size);
     background-color: var(--navbar-background-color);
+    border: none;
 }
 
-.navbar a:hover {
+.navbar a:hover, .user-drop:hover .drop-btn {
     background-color: rgb(142, 142, 142);
     color: var(--navbar-background-color);
     transition: 0.2s;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .navbar a.active {
@@ -80,6 +85,29 @@ navbar, nav *
 
 .navbar-all {
     display: none;
+}
+
+.user-content, .user-content a {
+    list-style-type: none;
+    padding: 8px 20px;
+}
+
+.user-drop {
+    display: inline-block;
+}
+
+.user-content {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 39px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.user-drop:hover .user-content {
+    display: block;
 }
 
 @media only screen and (max-width: 600px) {

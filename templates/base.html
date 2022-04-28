@@ -31,13 +31,25 @@
             <div class="navbar">
                 <div class="navbar-right">
                     <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a>
                     <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
                     <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a>
                     <a href="{{ url_for('cartPage') }}"><i class="fa fa-fw fa-shopping-cart"></i>Cart</a>
-                    <a href="{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user"></i>Profile</a>
-                    <a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a>
+                    <div class = "user-drop">
+                        <button type = "button" class = "drop-btn">
+                            <i class="fa fa-fw fa-user"></i>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class = "user-content">
+                            <li>{{ user.email }}</li>
+                            <li>Wallet: {{ "$%.2f"|format(user.wallet) }}</li>
+                            <li>Warnings: </li>
+                            <li><hr></li>
+                            <li><a href = "{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user-circle-o"></i>Profile</a></li>
+                            <li><a href = "{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a></li>
+                            <li><a href = "{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a></li>
+                            <li><a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="navbar-left">
                     <a href="{{ url_for('homePage') }}"><img class="logo-icon" src="../static/assets/onebite_logo.png"/></a>
@@ -46,12 +58,12 @@
                 <input type="checkbox" id="toggle"/>
                 <div class="navbar-all">
                     <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a>
                     <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
                     <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a>
                     <a href="{{ url_for('cartPage') }}"><i class="fa fa-fw fa-shopping-cart"></i>Cart</a>
                     <a href="{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user"></i>Profile</a>
+                    <a href="{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a>
+                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a>
                     <a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a>
                 </div>
             </div>     
