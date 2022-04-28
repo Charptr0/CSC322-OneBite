@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
 {% endblock links %}
 
-{% block titlePage %} Checkout | Restaurant {% endblock %}
+{% block titlePage %} Checkout {% endblock %}
 
 {% block mainContent %}
 <div class = "cover">
@@ -114,7 +114,7 @@
             </form>
         </div>
         <div id = "return-cart">
-            <a href = "{{ url_for('homePage')}}" style = "color: rgb(60, 60, 60);">Return to Cart</a>
+            <a href = "{{ url_for('cartPage')}}" style = "color: rgb(60, 60, 60);">Return to Cart</a>
         </div>
         
     </div>
