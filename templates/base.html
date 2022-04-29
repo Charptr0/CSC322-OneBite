@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login_page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/forgot_pass.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_user.css') }}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
@@ -33,14 +30,26 @@
         <nav id="user-nav">
             <div class="navbar">
                 <div class="navbar-right">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("orders") }}"><i class="fa fa-fw fa-home"></i>Orders</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for("dashboard") }}"><i class="fa fa-fw fa-home"></i>Dashboard</a>
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Cart</a>
-                    <a href="{{ url_for("refillBalance") }}"><i class="fa fa-fw fa-home"></i>Wallet: ${{ user.wallet }}</a>
-                    <a href="{{ url_for("logout") }}"><i class="fa fa-fw fa-user"></i>Logout</a>
+                    <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
+                    <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                    <a href="{{ url_for('cartPage') }}"><i class="fa fa-fw fa-shopping-cart"></i>Cart</a>
+                    <div class = "user-drop">
+                        <button type = "button" class = "drop-btn">
+                            <i class="fa fa-fw fa-user"></i>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class = "user-content">
+                            <li>{{ user.email }}</li>
+                            <li>Wallet: {{ "$%.2f"|format(user.wallet) }}</li>
+                            <li>Warnings: </li>
+                            <li><hr></li>
+                            <li><a href = "{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user-circle-o"></i>Profile</a></li>
+                            <li><a href = "{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a></li>
+                            <li><a href = "{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a></li>
+                            <li><a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="navbar-left">
                     <a href="{{ url_for('homePage') }}"><img class="logo-icon" src="../static/assets/onebite_logo.png"/></a>
@@ -48,14 +57,14 @@
                 <label class="navbar-hamburger-menu" for="toggle">&#9776;</label>
                 <input type="checkbox" id="toggle"/>
                 <div class="navbar-all">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("orders") }}"><i class="fa fa-fw fa-home"></i>Orders</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for("dashboard") }}"><i class="fa fa-fw fa-home"></i>Dashboard</a>
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Cart</a>
-                    <a href="{{ url_for("refillBalance") }}"><i class="fa fa-fw fa-home"></i>Wallet: ${{ user.wallet }}</a>
-                    <a href="{{ url_for("logout") }}"><i class="fa fa-fw fa-user"></i>Logout</a>
+                    <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
+                    <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                    <a href="{{ url_for('cartPage') }}"><i class="fa fa-fw fa-shopping-cart"></i>Cart</a>
+                    <a href="{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user"></i>Profile</a>
+                    <a href="{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a>
+                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a>
+                    <a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a>
                 </div>
             </div>     
         </nav>        
