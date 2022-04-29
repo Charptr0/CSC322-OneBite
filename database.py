@@ -43,7 +43,7 @@ def convertUser(account):
         firstName=account["fname"],
         lastName=account["lname"],
         email=account["email"],
-        uname=account["username"],
+        username=account["username"],
         password=account["password"],
         phoneNumber=account["phone"],
         cardNumber=account["cardnumber"],
