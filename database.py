@@ -151,6 +151,7 @@ def verifyNewUser(db):
         flash('Account pending creation!', category = 'pending')
         # inserts new account into database after approval by manager
         cursor.execute("INSERT INTO accounts(fname, lname, email, username, password, phone, cardnumber) VALUES(%s, %s, %s, %s, %s, %s, %s)", (fname, lname, email, username, password, phone, card))
+        cursor.execute("INSERT INTO customer(customer_id) SELECT id FROM accounts WHERE lname = %s and email = %s and username = %s", (lname, email, username,))
         db.connection.commit()
         cursor.close()
 
@@ -192,6 +193,34 @@ def forgotPassword(db):
         else:
             cursor.execute('UPDATE accounts SET password = %s WHERE email = %s AND username = %s', (newpass, email, username,))
             flash('Successfully changed password.', category = 'success')
+            db.connection.commit()
+            cursor.close()
+
+            return True
+    else:
+        flash('Email/username does not exist.', category = 'error')
+
+def changeCard(db, user):
+    '''
+    Updates card number in database
+    '''
+    # fetch form data
+    userDetails = request.form
+    card = userDetails['card']
+
+    # checks if user exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM accounts WHERE email = %s', (user.email,))
+    account = cursor.fetchone()
+
+    # if account exists in the database
+    if account:
+        if len(card) != 16:
+            # checks that card number length is valid
+            flash('Card number is invalid. Must be 16 digits.', category = 'error')
+        else:
+            cursor.execute('UPDATE accounts SET cardnumber = %s WHERE email = %s', (card, user.email,))
+            flash('Successfully changed payment method.', category = 'success')
             db.connection.commit()
             cursor.close()
 

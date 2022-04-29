@@ -246,7 +246,8 @@ def profilePage():
             if forgotPassword(mysql):
                 return redirect('/profile/')
         if "card-submit" in request.form:
-            return redirect('/profile/')
+            if changeCard(mysql, user):
+                return redirect('/profile/')
         if "wallet-submit" in request.form:
             return redirect('/profile/')
         if "delete-submit" in request.form:
