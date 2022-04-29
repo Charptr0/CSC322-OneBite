@@ -83,6 +83,7 @@ SELECT * FROM delivery;
 /* Table Customer */
 CREATE TABLE IF NOT EXISTS customer (
 	customer_id int(11) NOT NULL AUTO_INCREMENT,
+    address text DEFAULT NULL,
     wallet float(7, 2) DEFAULT '0.00',
     num_orders int(11) DEFAULT 0,
     total_spent float(11, 2) DEFAULT '0.00',
