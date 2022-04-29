@@ -40,7 +40,7 @@ def homePage():
 
     return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
 
-@app.route("/about")
+@app.route("/about/")
 def aboutPage():
     '''
     Route to the about page
@@ -51,7 +51,7 @@ def aboutPage():
     
     return render_template("about.html", user=None)
     
-@app.route("/menu")
+@app.route("/menu/")
 def menu():
     '''
     Route to the menu page
@@ -76,7 +76,7 @@ def menu():
         entrees=ENTREES,
         deserts=DESERTS)
 
-@app.route("/login", methods = ['GET', 'POST'])
+@app.route("/login/", methods = ['GET', 'POST'])
 def loginPage():
     '''
     Route to the user login page
@@ -93,7 +93,7 @@ def loginPage():
 
     return render_template("login_page.html")
 
-@app.route("/logout")
+@app.route("/logout/")
 def logout():
     '''
     Log out a user from the session
@@ -123,7 +123,7 @@ def newuserPage():
 
     return render_template('new_user.html')
 
-@app.route("/faqs")
+@app.route("/faqs/")
 def faqs():
     '''
     Route to the FAQs page
@@ -141,7 +141,7 @@ def pageNotFound(e):
     '''
     return render_template("404.html")
 
-@app.route("/tos")
+@app.route("/tos/")
 def tos():
     '''
     Route to the terms of service page
@@ -152,7 +152,7 @@ def tos():
 
     return render_template("tos.html", user=None)
 
-@app.route("/privacy")
+@app.route("/privacy/")
 def privacyPolicy():
     '''
     Route to the privacy policy page
@@ -163,7 +163,7 @@ def privacyPolicy():
 
     return render_template("privacy.html", user=None)
 
-@app.route("/customer-support")
+@app.route("/customer-support/")
 def customerSupport():
     '''
     Route to the customer support page
@@ -174,7 +174,7 @@ def customerSupport():
 
     return render_template("customer-support.html", user=None)
 
-@app.route("/careers")
+@app.route("/careers/")
 def careers():
     '''
     Route to the careers page
@@ -241,30 +241,40 @@ def profilePage():
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
+    if request.method == 'POST':
+        if "pass-submit" in request.form:
+            if forgotPassword(mysql):
+                return redirect('/profile/')
+        if "card-submit" in request.form:
+            return redirect('/profile/')
+        if "wallet-submit" in request.form:
+            return redirect('/profile/')
+        if "delete-submit" in request.form:
+            return redirect('/profile/')
     return render_template("profile_page.html", user=user)
 
-@app.route("/delivery")
+@app.route("/delivery/")
 def delivery():
     '''
     Route to the delivery page
     '''
     return render_template("delivery_dashboard.html")
 
-@app.route("/deliveryhome")
+@app.route("/deliveryhome/")
 def deliveryhome():
     '''
     Route to the delivery page
     '''
     return render_template("delivery_home.html")
 
-@app.route("/deliverybidding")
+@app.route("/deliverybidding/")
 def deliverybidding():
     '''
     Route to the delivery page
     '''
     return render_template("delivery_bidding.html")
 
-@app.route("/pastdelivery")
+@app.route("/pastdelivery/")
 def pastdelivery():
     '''
     Route to the delivery page
@@ -285,20 +295,7 @@ def orders():
 
     return render_template("orders.html", user=user)
 
-@app.route("/refillBalance")
-def refillBalance():
-    '''
-    Route to the refill balance page
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
-    
-    return render_template("refill_balance.html", user=user)
-@app.route("/dashboard")
+@app.route("/dashboard/")
 def dashboard():
     '''
     Route to the dashboard page
@@ -312,7 +309,7 @@ def dashboard():
 
     return render_template("dashboard.html", user=user, userType=user.userType)
 
-@app.route("/dashboard-discussions")
+@app.route("/dashboard-discussions/")
 def dashboardDiscussions():
     '''
     Route to the discussions page
@@ -328,7 +325,7 @@ def dashboardDiscussions():
 
     return render_template("dashboard-discussions.html", user=user, userType=user.userType)
 
-@app.route("/dashboard-comments")
+@app.route("/dashboard-comments/")
 def dashboardComments():
     '''
     Route to the comments page
