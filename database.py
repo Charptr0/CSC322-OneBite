@@ -32,7 +32,7 @@ def databaseInit(app):
 
     return MySQL(app)
 
-def convertUser(account):
+def convertUser(account, acc_type):
     '''
     Convert raw query from the database and into a user object
 
@@ -46,10 +46,15 @@ def convertUser(account):
         username=account["username"],
         password=account["password"],
         phoneNumber=account["phone"],
-        cardNumber=account["cardnumber"],
+        cardNumber=acc_type["cardnumber"],
         type="customer",
-        wallet=100.0,
-        address="160 Convent Avenue")
+        wallet=acc_type["wallet"],
+        address=acc_type["address"],
+        num_orders=acc_type["num_orders"],
+        total_spent=acc_type["total_spent"],
+        warnings=acc_type["warnings"],
+        isBlacklisted=acc_type["isBlacklisted"],
+        isVIP=acc_type["isVIP"])
 
 def getUserInDatabaseByLogin(db):
     '''
@@ -71,8 +76,11 @@ def getUserInDatabaseByLogin(db):
 
     # if account exists in the database
     if account:
-        flash('Logged in successfully!', category = 'success')
-        return convertUser(account)
+        if account["type"] == 'customer':
+            cursor.execute('SELECT * FROM customer WHERE customer_id = %s', (str(account["id"]),))
+            customer = cursor.fetchone()
+            flash('Logged in successfully!', category = 'success')
+            return convertUser(account, customer)
 
     else:
         # account does not exist or username/password is incorrect
@@ -92,7 +100,10 @@ def getUserInDatabaseByID(db, id):
     account = cursor.fetchone()
 
     if account:
-        return convertUser(account)
+        if account["type"] == 'customer':
+            cursor.execute('SELECT * FROM customer WHERE customer_id = %s', (str(id),))
+            customer = cursor.fetchone()
+            return convertUser(account, customer)
 
     else: 
         return None
@@ -150,8 +161,9 @@ def verifyNewUser(db):
         # account pending creation. must be approved by manager to be added to database
         flash('Account pending creation!', category = 'pending')
         # inserts new account into database after approval by manager
-        cursor.execute("INSERT INTO accounts(fname, lname, email, username, password, phone, cardnumber) VALUES(%s, %s, %s, %s, %s, %s, %s)", (fname, lname, email, username, password, phone, card))
+        cursor.execute("INSERT INTO accounts(fname, lname, email, username, password, phone) VALUES(%s, %s, %s, %s, %s, %s)", (fname, lname, email, username, password, phone))
         cursor.execute("INSERT INTO customer(customer_id) SELECT id FROM accounts WHERE lname = %s and email = %s and username = %s", (lname, email, username,))
+        cursor.execute("UPDATE customer SET cardnumber = %s, address = %s WHERE customer_id = (SELECT id FROM accounts WHERE username = %s)", (card, "100", username,))
         db.connection.commit()
         cursor.close()
 
@@ -210,7 +222,7 @@ def changeCard(db, user):
 
     # checks if user exists in the database
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM accounts WHERE email = %s', (user.email,))
+    cursor.execute('SELECT * FROM accounts WHERE id = %s', (str(user.id),))
     account = cursor.fetchone()
 
     # if account exists in the database
@@ -219,10 +231,11 @@ def changeCard(db, user):
             # checks that card number length is valid
             flash('Card number is invalid. Must be 16 digits.', category = 'error')
         else:
-            cursor.execute('UPDATE accounts SET cardnumber = %s WHERE email = %s', (card, user.email,))
+            cursor.execute('UPDATE customer SET cardnumber = %s WHERE customer_id = %s', (card, str(user.id),))
             flash('Successfully changed payment method.', category = 'success')
             db.connection.commit()
             cursor.close()
+            user.setCardNumber(user, card)
 
             return True
     else:
