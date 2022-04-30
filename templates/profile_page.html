@@ -77,6 +77,15 @@
                 <div>Address</div>
                 <div class = "padding-txt">{{ user.address }}</div>
             </div>
+
+            <div class = "status-container">
+                <div>Account Status</div>
+                {% if user.isVIP == 0 %}
+                    <div class = "padding-txt">Registered Customer</div>
+                {% else %}
+                    <div class = "padding-txt"><i class="fa fa-fw fa-certificate" style = "color: rgb(247, 203, 61); font-size: larger;"></i>VIP Customer</div>
+                {% endif %}
+            </div>
         </div>
 
         <div class = "wallet-container">
@@ -143,7 +152,11 @@
                 <div>Number of Warnings</div>
                 <div class = "padding-txt">{{ user.warnings }}</div>
             </div>
-            <div style = "font-size: 13px; color:rgb(146, 92, 92); text-align: center;">*CAUTION: Receiving 3 warnings will result your account in being blacklisted.</div>
+            {% if user.isVIP == 0 %}
+                <div style = "font-size: 13px; color:rgb(146, 92, 92); text-align: center;">*CAUTION: Receiving 3 warnings will result in your account being blacklisted.</div>
+            {% else %}
+                <div style = "font-size: 13px; color:rgb(146, 92, 92); text-align: center;">*CAUTION: Receiving 2 warnings as a VIP will result in your account being downgraded to registered customer status.</div>
+            {% endif %}
         </div>
 
         <div class = "delete-container">

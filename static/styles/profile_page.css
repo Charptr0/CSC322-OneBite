@@ -181,7 +181,7 @@ label[for = "email"], label[for = "username"], label[for = "newpass"], label[for
 }
 
 
-.name-container, .email-container, .username-container, .password-container, .phone-container, .address-container, .card-container, .num-container {
+.name-container, .email-container, .username-container, .password-container, .phone-container, .address-container, .status-container, .card-container, .num-container {
     padding-bottom: 1em;
 }
 

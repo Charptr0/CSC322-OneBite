@@ -42,7 +42,7 @@
                         <ul class = "user-content">
                             <li>{{ user.email }}</li>
                             <li>Wallet: {{ "$%.2f"|format(user.wallet) }}</li>
-                            <li>Warnings: </li>
+                            <li>Warnings: {{ user.warnings }}</li>
                             <li><hr></li>
                             <li><a href = "{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user-circle-o"></i>Profile</a></li>
                             <li><a href = "{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a></li>
