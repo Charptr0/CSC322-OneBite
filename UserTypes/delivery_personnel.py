@@ -1,10 +1,8 @@
 from staff import Staff
 
-class Chef(Staff):
+class DeliveryPersonnel(Staff):
     '''
-    Create a staff in session
-
-    DO NOT INSTANTIATE 
+    Create a delivery personnel in session
 
     Parameters
     ----------
