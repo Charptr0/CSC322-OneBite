@@ -240,3 +240,22 @@ def changeCard(db, user):
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+def deleteAcc(db, user):
+    '''
+    Deletes account from database
+    '''
+
+    # checks if user exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM accounts WHERE id = %s', (str(user.id),))
+    account = cursor.fetchone()
+
+    # if account exists in the database
+    if account:
+        cursor.execute('DELETE FROM customer WHERE customer_id = %s', (str(user.id)))
+        cursor.execute('DELETE FROM accounts WHERE id = %s', (str(user.id)))
+        db.connection.commit()
+        cursor.close()
+
+        return True

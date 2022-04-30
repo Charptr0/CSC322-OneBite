@@ -251,7 +251,9 @@ def profilePage():
         if "wallet-submit" in request.form:
             return redirect('/profile/')
         if "delete-submit" in request.form:
-            return redirect('/profile/')
+            if deleteAcc(mysql, user):
+                flash('Successful! Your deposit will be cleared and the account will be deleted.', category = 'success')
+                return redirect('/logout/')
     return render_template("profile_page.html", user=user)
 
 @app.route("/delivery/")
