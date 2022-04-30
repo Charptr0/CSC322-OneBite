@@ -249,7 +249,8 @@ def profilePage():
             if changeCard(mysql, user):
                 return redirect('/profile/')
         if "wallet-submit" in request.form:
-            return redirect('/profile/')
+            if chargeFunds(mysql, user):
+                return redirect('/profile/')
         if "delete-submit" in request.form:
             if deleteAcc(mysql, user):
                 flash('Successful! Your deposit will be cleared and the account will be deleted.', category = 'success')

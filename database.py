@@ -241,6 +241,36 @@ def changeCard(db, user):
     else:
         flash('Email/username does not exist.', category = 'error')
 
+def chargeFunds(db, user):
+    '''
+    Updates wallet in database
+    '''
+    # fetch form data
+    userDetails = request.form
+    funds = userDetails['funds']
+
+    # checks if user exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM accounts WHERE id = %s', (str(user.id),))
+    account = cursor.fetchone()
+
+    # if account exists in the database
+    if account:
+        if float(funds) <= 0:
+            # checks that value to add is valid
+            flash('Amount to be deposited must be $0.01 or more.', category = 'error')
+        else:
+            funds = str( float(funds) + user.wallet )
+            cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (funds, str(user.id),))
+            flash('Successfully deposited more funds.', category = 'success')
+            db.connection.commit()
+            cursor.close()
+            user.setWallet(user, funds)
+
+            return True
+    else:
+        flash('Email/username does not exist.', category = 'error')
+
 def deleteAcc(db, user):
     '''
     Deletes account from database
