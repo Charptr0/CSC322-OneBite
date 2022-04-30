@@ -63,7 +63,7 @@
     display: flex;
     justify-content: space-between;
     height: 80px;
-    /*background: white;*/
+    background: rgb(34,34,34);
     display: flex;
     align-items: center;
     position: fixed;
@@ -170,9 +170,9 @@
 
 .manager-home-content .overview-boxes{
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
+    /*width: 100%;*/
     justify-content: space-between;
-    flex-wrap: wrap;
     padding: 0 20px;
     margin-bottom: 26px;
 }
@@ -181,7 +181,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(100% / 4 - 15px);
+    /*width: calc(100% / 4 - 15px);*/
     background: #fff;
     padding: 15px 14px;
     border-radius: 12px;
@@ -292,24 +292,12 @@
     margin-top: 0;
 }
 
-.home-section .manager-nav .sidebar-button{
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.manager-nav .sidebar-button i{
-  font-size: 35px;
-  margin-right: 10px;
-}
-
-#recent-orders{
+#forum-table{
     border-collapse: collapse;
     width: 100%;
 }
 
-#recent-orders td, #recent-orders th{
+#forum-table td, #forum-table th{
     /*border: 1px solid #ddd;*/
     padding: 8px;
     list-style: none;
@@ -317,24 +305,24 @@
     background: transparent;
 }
 
-#recent-orders td li{
+#forum-table td li{
     background: transparent;
 }
 
-#recent-orders td li a{
+#forum-table td li a{
     text-decoration: none;
     background: transparent;
 }
 
-#recent-orders tr:nth-child(even){
+#forum-table tr:nth-child(even){
     background-color: #f2f2f2;
 }
 
-#recent-orders tr:hover{
+#forum-table tr:hover{
     background-color: #ACACAC;
 }
 
-#recent-orders th{
+#forum-table th{
     padding-top: 12px;
     padding-bottom: 12px;
     font-size: 20px;
@@ -365,18 +353,4 @@
 
 .sales-boxes .box .button a:hover{
     background:  #0d3073;
-}
-
-.hidden1{
-    display: none;
-}
-
-.recent-orders-button{
-    font-size: 24px;
-    font-weight: 1000;
-    color: black;
-    background: white;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
 }
