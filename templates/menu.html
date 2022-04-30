@@ -13,6 +13,66 @@
     </div>
 
 {% if user %}
+<div class="category"><h3>Appetizers</h3></div>
+<div class="container">
+    {% for appetizer in appetizers %}
+        <div class="gridItem"><img class="gridImg" src={{ appetizer.img }}></div>
+
+        <div class="gridItem">
+            <div class="itemName"><h4 class="food-name item-attribute">{{ appetizer.name}}</h4></div>
+            <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ appetizer.desc }}!</p></div>
+            <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ appetizer.price }}</p></div>
+            <div class="itemDes"><h4 class="item-attribute">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+<div class="category"><h3>Entrees</h3></div>
+<div class="container">
+    {% for entree in entrees %}
+        <div class="gridItem"><img class="gridImg" src={{ entree.img }}></div>
+
+        <div class="gridItem">
+            <div class="itemName"><h4 class="food-name item-attribute">{{ entree.name}}</h4></div>
+            <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ entree.desc }}!</p></div>
+            <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ entree.price }}</p></div>
+            <div class="itemDes"><h4 class="item-attribute">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="category"><h3>Deserts</h3></div>
+<div class="container">
+    {% for desert in deserts %}
+        <div class="gridItem"><img class="gridImg" src={{ desert.img }}></div>
+
+        <div class="gridItem">
+            <div class="itemName"><h4 class="food-name item-attribute">{{ desert.name}}</h4></div>
+            <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ desert.desc }}!</p></div>
+            <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ desert.price }}</p></div>
+            <div class="itemDes"><h4 class="item-attribute">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
 {% else %}
     <div class="category"><h3>Appetizers</h3></div>
