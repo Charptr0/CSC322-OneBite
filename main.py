@@ -36,11 +36,11 @@ def homePage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("home_page.html", user=user)
+        return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
 
-    return render_template("home_page.html", user=None)
+    return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
 
-@app.route("/about")
+@app.route("/about/")
 def aboutPage():
     '''
     Route to the about page
@@ -51,7 +51,7 @@ def aboutPage():
     
     return render_template("about.html", user=None)
     
-@app.route("/menu")
+@app.route("/menu/")
 def menu():
     '''
     Route to the menu page
@@ -64,7 +64,8 @@ def menu():
     userExist, user = isUserStillInSession()
     if userExist:
         return render_template("menu.html", 
-            user=user, 
+            user=user,
+            favDishes=user.getFavoriteDishes(None),
             appetizers=APPETIZERS,
             entrees=ENTREES,
             deserts=DESERTS)
@@ -75,7 +76,7 @@ def menu():
         entrees=ENTREES,
         deserts=DESERTS)
 
-@app.route("/login", methods = ['GET', 'POST'])
+@app.route("/login/", methods = ['GET', 'POST'])
 def loginPage():
     '''
     Route to the user login page
@@ -92,7 +93,7 @@ def loginPage():
 
     return render_template("login_page.html")
 
-@app.route("/logout")
+@app.route("/logout/")
 def logout():
     '''
     Log out a user from the session
@@ -122,7 +123,7 @@ def newuserPage():
 
     return render_template('new_user.html')
 
-@app.route("/faqs")
+@app.route("/faqs/")
 def faqs():
     '''
     Route to the FAQs page
@@ -140,7 +141,7 @@ def pageNotFound(e):
     '''
     return render_template("404.html")
 
-@app.route("/tos")
+@app.route("/tos/")
 def tos():
     '''
     Route to the terms of service page
@@ -151,7 +152,7 @@ def tos():
 
     return render_template("tos.html", user=None)
 
-@app.route("/privacy")
+@app.route("/privacy/")
 def privacyPolicy():
     '''
     Route to the privacy policy page
@@ -162,7 +163,7 @@ def privacyPolicy():
 
     return render_template("privacy.html", user=None)
 
-@app.route("/customer-support")
+@app.route("/customer-support/")
 def customerSupport():
     '''
     Route to the customer support page
@@ -173,7 +174,7 @@ def customerSupport():
 
     return render_template("customer-support.html", user=None)
 
-@app.route("/careers")
+@app.route("/careers/")
 def careers():
     '''
     Route to the careers page
@@ -189,33 +190,70 @@ def cartPage():
     '''
     Route to the cart page
     '''
-    if request.method == 'POST':
-        return redirect('/checkout/')
-    return render_template("cart_page.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+    else:
+        if request.method == 'POST':
+            return redirect(url_for("checkoutPage"))
+            
+    return render_template("cart_page.html", user=user)
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():
     '''
     Route to the checkout page
     '''
-    return render_template("checkout_page.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("checkout_page.html", user=user)
 
 @app.route("/order-placed/", methods = ['GET', 'POST'])
 def orderPlacedPage():
     '''
     Route to order confirmation/order failure
     '''
-    return render_template("order_placed.html")
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("order_placed.html", user=user)
 
 @app.route("/profile/", methods = ['GET', 'POST'])
 def profilePage():
     '''
     Route to profile page
     '''
-    return render_template("profile_page.html")
+    userExist, user = isUserStillInSession()
 
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+    if request.method == 'POST':
+        if "pass-submit" in request.form:
+            if forgotPassword(mysql):
+                return redirect('/profile/')
+        if "card-submit" in request.form:
+            return redirect('/profile/')
+        if "wallet-submit" in request.form:
+            return redirect('/profile/')
+        if "delete-submit" in request.form:
+            return redirect('/profile/')
+    return render_template("profile_page.html", user=user)
 
-@app.route("/delivery")
+@app.route("/delivery/")
 def delivery():
     '''
     Route to the delivery page
@@ -225,7 +263,7 @@ def delivery():
 @app.route("/orders/")
 def orders():
     '''
-    Route to the menu page
+    Route to the orders page
     '''
     userExist, user = isUserStillInSession()
 
@@ -236,7 +274,7 @@ def orders():
 
     return render_template("orders.html", user=user)
 
-@app.route("/dashboard")
+@app.route("/dashboard/")
 def dashboard():
     '''
     Route to the dashboard page
@@ -249,6 +287,38 @@ def dashboard():
         return redirect(url_for("loginPage"))
 
     return render_template("dashboard.html", user=user, userType=user.userType)
+
+@app.route("/dashboard-discussions/")
+def dashboardDiscussions():
+    '''
+    Route to the discussions page
+
+    vary between user types
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("dashboard-discussions.html", user=user, userType=user.userType)
+
+@app.route("/dashboard-comments/")
+def dashboardComments():
+    '''
+    Route to the comments page
+
+    vary between user types
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if not userExist:
+        flash("Please Log In", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("dashboard-comments.html", user=user, userType=user.userType)
 
 # Run the app
 if __name__ == "__main__":

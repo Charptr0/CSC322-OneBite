@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "Popular Name 1",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "../static/assets/test.jpg",
+        "price" : "10.99"
+    },
+
+    {
+        "name" : "Popular Name 2",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "../static/assets/test.jpg",
+        "price" : "1.99"
+    },
+    {
+        "name" : "Popular Name 3",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "../static/assets/test.jpg",
+        "price" : "29.99"
+    }
+
+]
