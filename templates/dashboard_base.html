@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard_base.css') }}">
     
     {% block links %}
         
@@ -15,49 +14,7 @@
     {% endblock titlePage %}</title>
 </head>
 <body>
-    <div class = "deliverysidebar">
-        <div class = "logo-details">
-            <img class = "logo" alt="My Image" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w" />
-        </div>
-        <u1 class="nav-links">
-            <li>
-                <a href="delivery">
-                    <i class='bx bx-grid-alt'></i>
-                    <span class = "link_name">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="pastdelivery">
-                    <i class='bx bxs-package'></i>
-                    <span class = "link_name">Past Deliveries</span>
-                </a>
-            </li>
-            <li>
-                <a href="deliverybidding">
-                    <i class='bx bx-money-withdraw'></i>
-                    <span class = "link_name">Delivery Bidding</span>
-                </a>
-            </li>
-        </u1>
-    </div>
-    
-    <!--home-content-->
-    
-    <section class = "delivery-home-section">
-        <nav class = "delivery-nav">
-            <div class = "delivery-sidebar-button">
-                <i class='bx bx-menu deliverysidebarBtn'></i>
-                <span class="delivery-dashboard">Dashboard</span>
-            </div>
-            <div class="delivery-welcome">
-                Welcome, Deliverer PeMaJe GiViSe
-            </div>
-            <div class="delivery-logout">
-               
-            </div>
-        </nav>
-    </section>
-    
+ 
 
     </script>
     {% with messages = get_flashed_messages(with_categories = true)%}
@@ -83,12 +40,7 @@
     {% endblock mainContent %}
 
     <script>
-        let deliverysidebar = document.querySelector(".deliverysidebar");
-        let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
-    
-        deliverysidebarBtn.onclick = function(){
-            deliverysidebar.classList.toggle("active");
-        }
+       
     </script>
 
 </body>

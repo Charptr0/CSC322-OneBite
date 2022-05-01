@@ -214,26 +214,13 @@ def profilePage():
     '''
     return render_template("profile_page.html")
 
+
 @app.route("/delivery")
 def delivery():
     '''
     Route to the delivery page
     '''
     return render_template("delivery_dashboard.html")
-
-@app.route("/deliverybidding")
-def deliverybidding():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("delivery_bidding.html")
-
-@app.route("/pastdelivery")
-def pastdelivery():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("past_deliveries.html")
 
 @app.route("/orders/")
 def orders():
