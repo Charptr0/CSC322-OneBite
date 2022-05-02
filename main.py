@@ -327,11 +327,11 @@ def addDishToCart(id):
             flash("Please Log In", category="error")
             return redirect(url_for("loginPage"))
 
-        if id == "100":
-            return redirect(url_for("homePage"))
+        else:
+            user.addOrder(id)
+            print(user.orders)
+            return redirect(url_for("orders"))
         
-        return redirect(url_for("orders"))
-
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
