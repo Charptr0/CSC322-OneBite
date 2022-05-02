@@ -42,6 +42,8 @@ class Customer(User):
         except KeyError:
             self.address = None
 
+        self.warnings = 0
+
     def setCardNumber(self, db, cardNumber = None):
         if cardNumber == None:
             return
