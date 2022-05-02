@@ -314,6 +314,24 @@ def dashboardComments():
 
     return render_template("dashboard-comments.html", user=user, userType=user.userType)
 
+@app.route("/add-dish-to-cart/<id>", methods = ['GET', 'POST'])
+def addDishToCart(id):
+    '''
+    Add a dish to the user cart
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if request.method == "POST":
+        if not userExist:
+            flash("Please Log In", category="error")
+            return redirect(url_for("loginPage"))
+
+        if id == "100":
+            return redirect(url_for("homePage"))
+        
+        return redirect(url_for("orders"))
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
