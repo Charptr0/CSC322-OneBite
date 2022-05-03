@@ -104,11 +104,11 @@ navbar, nav * {
     width: 550px;
     margin: 0 20px;
     position: relative;
-    color: #969696;
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    font-weight: 500;
+    color: #ff0000;
+    /* display: block;
+    align-items: center; */
+    font-size: 30px !important;
+    font-weight: 500 !important;
 }
 
 .delivery-home-section .delivery-nav .delivery-dashboard{
@@ -133,35 +133,99 @@ navbar, nav * {
     left: 60px;
 }
 
-h3{
+.class{
     font-family:Quicksand;
     font-size: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 /* warning section dashboard */
-#Dashboard{
+
+#Dashboard .dashboard-buttons{ 
+    background-color: #fff;
+    backface-visibility: hidden;
+    border-radius: .375rem;
+    border-style: solid;
+    cursor: pointer;
+    display: block;
+    font-family: Circular,Helvetica,sans-serif;
+    font-size: 1.125rem;
+    letter-spacing: .5em;
+    line-height: 1.3;
+    width: 100%;
+    padding: .875rem 1.125rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translateZ(0) scale(1);
+    transition: transform .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#Dashboard .dashboard-buttons:hover, #Dashboard .dashboard-buttons:focus{
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+    border-radius: .375rem;
+}
+
+#Dashboard.deliverytabcontent{
     display: block;
     position: relative;
     justify-content: center;
     align-items: center;
-    width: 50%;
 }
 
 .alert{
-    padding:30px;
-    border-radius:5px;
-    box-shadow:0 0 15px 5px #ccc;    
+    position: relative;
     display: flex;
+    flex-direction: row;
+    border-radius:5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    margin-top: 50px;
+    border-radius: .375rem;
+    width: calc(100% - 240px);
+}
+
+.alert:hover{
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+}
+
+.warning-alert .text{
+    color: rgb(0, 0, 0);
+}
+
+.warning-alert .bx-angry{
+    display: flex;
+    color: red;
     justify-content: center;
-    
+    align-items: center;
+    font-size: 3em;
 }
 
-.warning-alert{
-    color: rgb(255, 161, 161);
+.warning-alert .bx-wink-smile{
+    display: flex;
+    color: rgb(94, 255, 0);
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
 }
 
+.warning-alert .bx-error{
+    display: flex;
+    color: rgb(255, 174, 0);
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+}
 
-
+.alert .text{
+    position: relative;
+    font-size: 20px;
+} 
 /* Past Deliveries content */
 
 
@@ -230,13 +294,44 @@ h3{
     width: calc(100% - 240px);
     left: 240px;
     transition: all 0.5s ease;
-    /* display: flex;
-    justify-content: center; */
+    align-items: center;
+    justify-content: center;
 }
 
 .deliverysidebar.active ~ .deliverytabcontent{
     width: calc(100% - 60px);
     left: 60px;
+    align-items: center;
+    justify-content: center;
 }
 
 
+/* Dispute buttons */
+
+.dispute{
+    background-color: red;
+    display:flex;
+    padding:0.3em 1.2em;
+    margin:0 0.1em 0.1em 0;
+    border:0.16em solid rgba(255,255,255,0);
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align:center;
+    transition: all 0.2s;
+    
+}
+
+.dispute:hover{
+    border-color: rgb(0, 0, 0);
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+}
+
+.dispute i{
+    margin-right: 5px;
+}

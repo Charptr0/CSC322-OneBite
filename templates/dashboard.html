@@ -1,16 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
 {% block links %}
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dashboard.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_dashboard.css') }}">
-
-    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Bootstrap -->
+    {% if userType == "delivery" %}
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    {% endif %}
     
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/948ea8d5ef.js" crossorigin="anonymous"></script>
 {% endblock links %}
 
@@ -465,23 +472,27 @@
                 </div>                
             {% else %}
                 <!-- delivery personal html go here -->
-                
                 <div class="deliverysidebar">
                     <div class = "logo-details">
-                        <img class = "logo" alt="My Image" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w" />
+                        <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
+                    {{ url_for('homePage') }}
                     <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                    <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryWarnings')"><i class='bx bx-error'></i>Warnings</button>
                 </div>
-
+                
                 <section class = "delivery-home-section">
                     <nav class = "delivery-nav">
                         <div class = "delivery-sidebar-button">
                             <i class='bx bx-menu deliverysidebarBtn'></i>
                             <span class="delivery-dashboard">Dashboard</span>
                         </div>
-                        <div class="delivery-welcome">
+                        <div class="delivery-welcome d-block mx-auto">
                             Welcome, Deliverer PeMaJe GiViSe
                         </div>
                         <div class="delivery-logout">
@@ -489,15 +500,126 @@
                         </div>
                     </nav>
                 </section>
-
-
+                
+                
                 <div id = "Dashboard" class = "deliverytabcontent">
-                    <div class="alert warning-alert">
-                        <h3>WARNINGS: 3</h3>
+                    <div class="alert warning-alert d-block mx-auto">
+                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryWarnings')">
+                            <h3 class = "text"><i class='bx bx-error'></i>WARNINGS: 3</h3>
+                        </button>
+                    </div>
+                
+                    <div class="alert warning-alert d-block mx-auto">
+                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryCompliments')">
+                            <h3 class = "text"><i class='bx bx-wink-smile'></i>COMPLIMENTS: 3</h3>
+                        </button>
+                    </div>
+                
+                    <div class="alert warning-alert d-block mx-auto">
+                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryComplaints')">
+                            <h3 class = "text"><i class='bx bx-angry' ></i>COMPLAINTS: 3</h3>
+                        </button>
                     </div>
                 </div>
-
-
+                
+                
+                <div id = "DeliveryCompliments" class = "deliverytabcontent">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Compliment #</th>
+                            <th scope="col">Reason For Compliment</th>
+                            <th scope="col">Description Of Compliment</th>
+                 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>Otto</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Did not deliver food</td>
+                            <td>Thornton</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Did not deliver food</td>
+                            <td>the Bird</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                
+                <div id = "DeliveryComplaints" class = "deliverytabcontent">
+                    <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col">Complaint ID</th>
+                            <th scope="col">Reason For Complaint</th>
+                            <th scope="col">Description Of Complaint</th>
+                            <th scope="col">Dispute</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>I waited for hours and the food never came. I starved to death this day.</td>
+                            <td> <button class = "dispute"><i class="bi bi-x-octagon"></i>Dispute</button></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Food was delivered late</td>
+                            <td>I was so hungry waiting for my food. I thought it would never come but it came.
+                                really late that is.
+                            </td>
+                            <td> <button class = "dispute"><i class="bi bi-x-octagon"></i>Dispute</button></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Food was messed up</td>
+                            <td>I was excited to receive my food as I was looking forward to eating your food. Once
+                                I opened my delivery of food it was a messy. It practically looked like barf!
+                            </td>
+                            <td> <button class = "dispute"><i class="bi bi-x-octagon"></i>Dispute</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                
+                <div id = "DeliveryWarnings" class = "deliverytabcontent">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Warnings #</th>
+                            <th scope="col">Reason For Warning</th>
+                            <th scope="col">Description Of Warning</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>Otto</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Did not deliver food</td>
+                            <td>Thornton</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Did not deliver food</td>
+                            <td>the Bird</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                
                 <div id = "Past_Deliveries" class = "deliverytabcontent">
                     <section class = "past-delivery-section">
                     
@@ -546,18 +668,18 @@
                     
                     </section>
                 </div>
-
-
+                
+                
                 <script>
                     
                     let deliverysidebar = document.querySelector(".deliverysidebar");
                     let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
-
-
+                
+                
                     deliverysidebarBtn.onclick = function(){
                         deliverysidebar.classList.toggle("active");
                     }
-
+                
                     function openTab(evt, tabName) {
                         var i, tabcontent, tablinks;
                         tabcontent = document.getElementsByClassName("deliverytabcontent");
@@ -570,9 +692,8 @@
                         }
                         document.getElementById(tabName).style.display = "block";
                         evt.currentTarget.className += " active";
-
+                
                     }
-
                 </script>
             {% endif %}
         {% endif %}
