@@ -80,26 +80,68 @@ class Dish():
 
         for dish in rawQuery:
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
-
-        return data 
+            
+        return data
 
     @staticmethod
-    def getPopularDishes(db):
+    def getCurrentOrders(db):
         '''
-        Get the current popular dishes from a database
+        Get all current order from a database
 
         **FOR TESTING ONLY**
-            Get all deserts from a json file
+            Get all current orders from a json file
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = []
-        data = []
+        rawQuery = []  # raw data from the source
+        data = []  # data will be returned
 
-        with open("data/popular_dishes.json", "r") as f:
+        with open("data/currentOrders.json", "r") as f:
             rawQuery = json.load(f)
 
         for dish in rawQuery:
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
 
-        return data 
+        return data
+
+    @staticmethod
+    def getPastOrders(db):
+        '''
+        Get all current order from a database
+
+        **FOR TESTING ONLY**
+            Get all current orders from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []  # raw data from the source
+        data = []  # data will be returned
+
+        with open("data/pastOrders.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+
+        return data
+
+    @staticmethod
+    def getPopulars(db):
+        '''
+        Get all current order from a database
+
+        **FOR TESTING ONLY**
+            Get all current orders from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []  # raw data from the source
+        data = []  # data will be returned
+
+        with open("data/populars.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+
+        return data

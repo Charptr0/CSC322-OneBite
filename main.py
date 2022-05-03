@@ -259,14 +259,32 @@ def orders():
     '''
     Route to the orders page
     '''
+# Get all the orders from the db
+
+    CURRENTORDERS = Dish.getCurrentOrders(None)
+    PASTORDERS = Dish.getPastOrders(None)
+    POPULARS = Dish.getPopulars(None)
+
     userExist, user = isUserStillInSession()
+    if userExist:
+        return render_template("orders.html", user=user,
+            currentOrders=CURRENTORDERS,
+            pastOrders=PASTORDERS,
+            pupulars=POPULARS)
 
     # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
+    #if not userExist:
+        #flash("Please Log In", category="error")
+        #return redirect(url_for("loginPage"))
 
-    return render_template("orders.html", user=user)
+
+    return render_template("orders.html",
+        user=None,
+        currentOrders=CURRENTORDERS,
+        pastOrders=PASTORDERS,
+        pupulars=POPULARS)
+
+    #return render_template("orders.html", user=user)
 
 @app.route("/dashboard/")
 def dashboard():
