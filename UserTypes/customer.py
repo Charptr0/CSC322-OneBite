@@ -19,6 +19,7 @@ class Customer(User):
         isVIP : boolean
         wallet : float
         address : str
+        orders : array of Dishes
         '''
         super().__init__(**kwargs)
 
@@ -43,6 +44,7 @@ class Customer(User):
             self.address = None
 
         self.warnings = 0
+        self.orders = []
 
     def setCardNumber(self, db, cardNumber = None):
         if cardNumber == None:
@@ -99,4 +101,8 @@ class Customer(User):
         ]
 
         return self.favoriteDishes
+
+    def addOrder(self, dish_id):
+        self.orders.append(dish_id)
+
         
