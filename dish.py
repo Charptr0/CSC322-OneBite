@@ -80,7 +80,7 @@ class Dish():
 
         for dish in rawQuery:
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
-
+            
         return data
 
     @staticmethod
@@ -145,4 +145,3 @@ class Dish():
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
 
         return data
-

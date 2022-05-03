@@ -15,7 +15,10 @@ class Customer(User):
         password : str
         phoneNumber : str
         cardNumber : str
-        userType : str
+        type : str
+        isVIP : boolean
+        wallet : float
+        address : str
         '''
         super().__init__(**kwargs)
 
@@ -23,6 +26,23 @@ class Customer(User):
             self.cardNumber = kwargs["cardNumber"]
         except KeyError:
             self.cardNumber = None
+
+        try:
+            self.isVIP = kwargs["isVIP"]
+        except KeyError:
+            self.isVIP = False
+
+        try:
+            self.wallet = kwargs["wallet"]
+        except KeyError:
+            self.isVIP = 0.0
+
+        try:
+            self.address = kwargs["address"]
+        except KeyError:
+            self.address = None
+
+        self.warnings = 0
 
     def setCardNumber(self, db, cardNumber = None):
         if cardNumber == None:
@@ -65,5 +85,18 @@ class Customer(User):
         if phoneNumber == None:
             return
 
-        super().setPhoneNumber(phoneNumber)        
+        super().setPhoneNumber(phoneNumber)
+
+    def getFavoriteDishes(self, db):
+        '''
+        Get and set the user's top dishes
+        '''       
+
+        self.favoriteDishes = [
+            {"name" : "Dish 1", "desc" : "Desc 1", "img" : "../static/assets/test.jpg", "price" : "$10"},
+            {"name" : "Dish 1", "desc" : "Desc 1", "img" : "../static/assets/test.jpg", "price" : "$10"},
+            {"name" : "Dish 1", "desc" : "Desc 1", "img" : "../static/assets/test.jpg", "price" : "$10"},
+        ]
+
+        return self.favoriteDishes
         

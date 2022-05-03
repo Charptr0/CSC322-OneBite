@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login_page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/forgot_pass.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_user.css') }}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
@@ -32,60 +29,64 @@
     {% if user %}
         <nav id="user-nav">
             <div class="navbar">
-                <!-- <div class="navbar-centered">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="https://google.com"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                </div> -->
                 <div class="navbar-right">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("orders") }}"><i class="fa fa-fw fa-home"></i>Orders</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for("dashboard") }}"><i class="fa fa-fw fa-home"></i>Dashboard</a>
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Cart</a>
-                    <a href="{{ url_for("logout") }}"><i class="fa fa-fw fa-user"></i>Logout</a>
+                    <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
+                    <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                    <a href="{{ url_for('cartPage') }}"><i class="fa fa-fw fa-shopping-cart"></i>Cart</a>
+                    <div class = "user-drop">
+                        <button type = "button" class = "drop-btn">
+                            <i class="fa fa-fw fa-user"></i>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class = "user-content">
+                            <li>{{ user.email }}</li>
+                            <li>Wallet: {{ "$%.2f"|format(user.wallet) }}</li>
+                            <li>Warnings: </li>
+                            <li><hr></li>
+                            <li><a href = "{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user-circle-o"></i>Profile</a></li>
+                            <li><a href = "{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a></li>
+                            <li><a href = "{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a></li>
+                            <li><a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="navbar-left">
-                    <a href="{{ url_for("homePage") }}"><img class="logo-icon" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w"/></a>
+                    <a href="{{ url_for('homePage') }}"><img class="logo-icon" src="../static/assets/onebite_logo.png"/></a>
                 </div>
                 <label class="navbar-hamburger-menu" for="toggle">&#9776;</label>
                 <input type="checkbox" id="toggle"/>
                 <div class="navbar-all">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("orders") }}"><i class="fa fa-fw fa-home"></i>Orders</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for("dashboard") }}"><i class="fa fa-fw fa-home"></i>Dashboard</a>
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Cart</a>
-                    <a href="{{ url_for("logout") }}"><i class="fa fa-fw fa-user"></i>Logout</a>
+                    <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
+                    <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                    <a href="{{ url_for('cartPage') }}"><i class="fa fa-fw fa-shopping-cart"></i>Cart</a>
+                    <a href="{{ url_for('profilePage') }}"><i class="fa fa-fw fa-user"></i>Profile</a>
+                    <a href="{{ url_for('orders') }}"><i class="fa fa-fw fa-inbox"></i>Orders</a>
+                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-fw fa-bar-chart"></i>Dashboard</a>
+                    <a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a>
                 </div>
             </div>     
         </nav>        
     {% else %}
         <nav id="guest-nav">
             <div class="navbar">
-                <!-- <div class="navbar-centered">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="https://google.com"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                </div> -->
                 <div class="navbar-right">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for("loginPage") }}"><i class="fa fa-fw fa-user"></i>Login</a>
+                    <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
+                    <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                    <a href="{{ url_for('loginPage') }}"><i class="fa fa-fw fa-user-circle"></i>Login</a>
                 </div>
                 <div class="navbar-left">
-                    <a href="{{ url_for("homePage") }}"><img class="logo-icon" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w"/></a>
+                    <a href="{{ url_for('homePage') }}"><img class="logo-icon" src="../static/assets/onebite_logo.png"/></a>
                 </div>
                 <label class="navbar-hamburger-menu" for="toggle">&#9776;</label>
                 <input type="checkbox" id="toggle"/>
                 <div class="navbar-all">
-                    <a href="{{ url_for("homePage") }}"><i class="fa fa-fw fa-home"></i>Home</a>
-                    <a href="{{ url_for("aboutPage") }}"><i class="fa fa-fw fa-info"></i>About</a>
-                    <a href="{{ url_for("menu") }}"><i class="fa fa-fw fa-book"></i>Menu</a>
-                    <a href="{{ url_for("loginPage") }}"><i class="fa fa-fw fa-user"></i>Login</a>
+                    <a href="{{ url_for('homePage') }}"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="{{ url_for('aboutPage') }}"><i class="fa fa-fw fa-info-circle"></i>About</a>
+                    <a href="{{ url_for('menu') }}"><i class="fa fa-fw fa-book"></i>Menu</a>
+                    <a href="{{ url_for('loginPage') }}"><i class="fa fa-fw fa-user-circle"></i>Login</a>
                 </div>
             </div>
         </nav> 
@@ -124,6 +125,8 @@
         <a href = "{{ url_for('deliveryPage') }}"></a> 
 
     {% endblock mainContent %}
+
+    <button onclick = "topFunction()" id = "top-btn" title = "Go to Top"><i class = "arrow up"></i></button>
 
     <footer>
         <div id="footer">
@@ -175,7 +178,21 @@
     </footer>
 
     <script>
+        mybtn = document.getElementById("top-btn");
+        window.onscroll = function() {scrollFunction()};
 
+        function scrollFunction() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                mybtn.style.display = "block";
+            } else {
+                mybtn.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
     </script>
 
 </body>

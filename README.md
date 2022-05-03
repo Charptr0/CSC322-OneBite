@@ -1,4 +1,1 @@
-# CSC 322 Final Project Electronic Restaurant
-Hello
-Hello
-no
+# CSC 322 OneBite

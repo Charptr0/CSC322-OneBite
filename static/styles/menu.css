@@ -2,7 +2,6 @@
     width: 100%;
     height: auto;
     margin: 1rem auto;
-    padding: 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr 3fr);
     justify-content: center;
@@ -45,6 +44,9 @@
     margin: 0;
 }
 
+.checked {
+    color: orange;
+}
 
 /*@media (max-width: 1500px) {
     .container{
