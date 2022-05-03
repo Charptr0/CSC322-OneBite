@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
 {% block links %}
@@ -10,14 +9,12 @@
 {% endblock titlePage %}
 
 {% block mainContent %}
-    <div class="cover">
-    <h2 class="title">Your Orders</h2>
-    </div>
+    <div class="cover"><h2 class="title">Your Orders</h2></div>
 
     {% if user %}
     <div>WIP</div>
     {% else %}
-
+<!-- 
         {% set currOrder = true %}
         {% if currOrder == true %}
         <h3 class="gridTitle">Your order is being prepared...</h3>
@@ -66,7 +63,7 @@
                 <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ popular.price }}</p></div>
             </div>
             {% endfor %}
-        </div>
+        </div> -->
     {% endif %}
 
 

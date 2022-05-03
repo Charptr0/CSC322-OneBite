@@ -61,6 +61,8 @@ def menu():
     ENTREES = Dish.getEntrees(None)
     DESERTS = Dish.getDeserts(None)
 
+    print(DESERTS)
+
     userExist, user = isUserStillInSession()
     if userExist:
         return render_template("menu.html", 
@@ -261,16 +263,16 @@ def orders():
     '''
 # Get all the orders from the db
 
-    CURRENTORDERS = Dish.getCurrentOrders(None)
-    PASTORDERS = Dish.getPastOrders(None)
-    POPULARS = Dish.getPopulars(None)
+    # CURRENTORDERS = Dish.getCurrentOrders(None)
+    # PASTORDERS = Dish.getPastOrders(None)
+    # POPULARS = Dish.getPopulars(None)
 
     userExist, user = isUserStillInSession()
-    if userExist:
-        return render_template("orders.html", user=user,
-            currentOrders=CURRENTORDERS,
-            pastOrders=PASTORDERS,
-            pupulars=POPULARS)
+    if not userExist:
+        return redirect(url_for("loginPage"))
+    else:
+        return render_template("orders.html")
+
 
     # User is not signed in
     #if not userExist:
@@ -347,7 +349,6 @@ def addDishToCart(id):
 
         else:
             user.addOrder(id)
-            print(user.orders)
             return redirect(url_for("orders"))
         
 # Run the app
