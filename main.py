@@ -88,7 +88,15 @@ def loginPage():
         if user != None: # Success
             session["user"] = user.id
             usersInSession[user.id] = user
-            return redirect(url_for("homePage"))
+            # if user is a customer
+            if user.userType == 'customer':
+                if user.address == None and user.wallet == 0:
+                    flash("Set delivery address and add funds to your account in your profile page before making your first order.")
+                elif user.wallet == 0:
+                    flash("Add funds to your account in your profile page before making your first order.")
+                elif user.address == None:
+                    flash("Set delivery address in your profile page before making your first order.")
+                return redirect(url_for("homePage"))
 
         else:
             return render_template('login_page.html')
@@ -121,7 +129,7 @@ def newuserPage():
     '''
     if request.method == 'POST':
         if verifyNewUser(mysql):
-            return redirect('/')
+            return redirect('/login/')
 
     return render_template('new_user.html')
 
@@ -246,6 +254,9 @@ def profilePage():
     if request.method == 'POST':
         if "pass-submit" in request.form:
             if forgotPassword(mysql):
+                return redirect('/profile/')
+        if "address-submit" in request.form:
+            if changeAddress(mysql, user):
                 return redirect('/profile/')
         if "card-submit" in request.form:
             if changeCard(mysql, user):

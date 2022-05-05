@@ -38,23 +38,25 @@ def convertUser(account, acc_type):
 
     **THIS IS A HELPER FUNCTION, DO NOT USE IT BY ITSELF**
     '''
-    return Customer(
-        id=account["id"],          
-        firstName=account["fname"],
-        lastName=account["lname"],
-        email=account["email"],
-        username=account["username"],
-        password=account["password"],
-        phoneNumber=account["phone"],
-        cardNumber=acc_type["cardnumber"],
-        type="customer",
-        wallet=acc_type["wallet"],
-        address=acc_type["address"],
-        num_orders=acc_type["num_orders"],
-        total_spent=acc_type["total_spent"],
-        warnings=acc_type["warnings"],
-        isBlacklisted=acc_type["isBlacklisted"],
-        isVIP=acc_type["isVIP"])
+    if account["type"] == 'customer':
+        return Customer(
+            id=account["id"],          
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
+            cardNumber=acc_type["cardnumber"],
+            type="customer",
+            wallet=acc_type["wallet"],
+            address=acc_type["address"],
+            num_orders=acc_type["num_orders"],
+            total_spent=acc_type["total_spent"],
+            warnings=acc_type["warnings"],
+            isBlacklisted=acc_type["isBlacklisted"],
+            isVIP=acc_type["isVIP"]
+        )
 
 def getUserInDatabaseByLogin(db):
     '''
@@ -159,11 +161,11 @@ def verifyNewUser(db):
         flash('Card number is invalid. Must be 16 digits.', category = 'error')
     else:
         # account pending creation. must be approved by manager to be added to database
-        flash('Account pending creation!', category = 'pending')
+        flash('Account successfully created!', category = 'success')
         # inserts new account into database after approval by manager
         cursor.execute("INSERT INTO accounts(fname, lname, email, username, password, phone) VALUES(%s, %s, %s, %s, %s, %s)", (fname, lname, email, username, password, phone))
         cursor.execute("INSERT INTO customer(customer_id) SELECT id FROM accounts WHERE lname = %s and email = %s and username = %s", (lname, email, username,))
-        cursor.execute("UPDATE customer SET cardnumber = %s, address = %s WHERE customer_id = (SELECT id FROM accounts WHERE username = %s)", (card, "100", username,))
+        cursor.execute("UPDATE customer SET cardnumber = %s WHERE customer_id = (SELECT id FROM accounts WHERE username = %s)", (card, username,))
         db.connection.commit()
         cursor.close()
 
@@ -207,6 +209,38 @@ def forgotPassword(db):
             flash('Successfully changed password.', category = 'success')
             db.connection.commit()
             cursor.close()
+
+            return True
+    else:
+        flash('Email/username does not exist.', category = 'error')
+
+def changeAddress(db, user):
+    '''
+    Updates address in database
+    '''
+    # fetch form data
+    userDetails = request.form
+    address = userDetails['address']
+    city = userDetails['city']
+    state = userDetails['state']
+    zipcode = userDetails['zipcode']
+
+    # checks if user exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM accounts WHERE id = %s', (str(user.id),))
+    account = cursor.fetchone()
+
+    # if account exists in the database
+    if account:
+            full_address = address + ", " + city + ", " + state + " " + zipcode
+            if user.address == None:
+                flash('Successfully set default address.', category = 'success')
+            else:
+                flash('Successfully changed address.', category = 'success')
+            cursor.execute('UPDATE customer SET address = %s WHERE customer_id = %s', (full_address, str(user.id),))
+            db.connection.commit()
+            cursor.close()
+            user.setAddress(user, full_address)
 
             return True
     else:
