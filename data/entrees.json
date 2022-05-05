@@ -1,6 +1,7 @@
 [
     {
         "name" : "Item Name 1",
+        "id" : "300",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "12.99"
@@ -8,12 +9,14 @@
 
     {
         "name" : "Item Name 2",
+        "id" : "301",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "11.99"
     },
     {
         "name" : "Item Name 3",
+        "id" : "302",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "15.99"
@@ -21,12 +24,14 @@
 
     {
         "name" : "Item Name 4",
+        "id" : "303",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "17.99"
     },
     {
         "name" : "Item Name 5",
+        "id" : "304",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "19.99"
@@ -34,12 +39,14 @@
 
     {
         "name" : "Item Name 6",
+        "id" : "305",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "29.99"
     },
     {
         "name" : "Item Name 7",
+        "id" : "306",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "5.99"
@@ -47,6 +54,7 @@
 
     {
         "name" : "Item Name 8",
+        "id" : "307",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
         "img" : "../static/assets/test.jpg",
         "price" : "1.99"
