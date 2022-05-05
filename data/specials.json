@@ -1,0 +1,97 @@
+[
+    {
+        "id" : 500,
+        "dish_type" : "appetizer",
+        "name" : "Oven-Baked Pizza",
+        "price" : "15.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "https://images.unsplash.com/photo-1589477500339-82aeb8718167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 501,
+        "dish_type" : "appetizer",
+        "name" : "Cheeseburger with Fries",
+        "price" : "14.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1600688640154-9619e002df30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=654&q=800",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 502,
+        "dish_type" : "appetizer",
+        "name" : "Lemon Pepper Spaghetti",
+        "price" : "14.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1481931098730-318b6f776db0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=780&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 503,
+        "dish_type" : "appetizer",
+        "name" : "Pasta Carbonara",
+        "price" : "14.50",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "https://images.unsplash.com/photo-1546549032-9571cd6b27df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 504,
+        "dish_type" : "appetizer",
+        "name" : "Donut of the Day",
+        "price" : "8.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "https://images.unsplash.com/photo-1618411640018-972400a01458?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 505,
+        "dish_type" : "appetizer",
+        "name" : "Pie of the Week",
+        "price" : "8.25",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
+        "img" : "https://images.unsplash.com/photo-1535920527002-b35e96722eb9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 506,
+        "dish_type" : "appetizer",
+        "name" : "Caramel Cheesecake",
+        "price" : "9.50",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1547414368-ac947d00b91d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 507,
+        "dish_type" : "appetizer",
+        "name" : "Ferrero Chocolate Milkshake",
+        "price" : "7.50",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1594488506255-a8bbfdeedbaf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    }
+]

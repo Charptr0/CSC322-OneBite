@@ -66,6 +66,8 @@ def menu():
     APPETIZERS = Dish.getAppetizers(None)
     ENTREES = Dish.getEntrees(None)
     DESERTS = Dish.getDeserts(None)
+    DRINKS = Dish.getDrinks(None)
+    SPECIALS = Dish.getSpecials(None)
 
     userExist, user = isUserStillInSession()
     if userExist:
@@ -74,7 +76,9 @@ def menu():
                 user=user,
                 appetizers=APPETIZERS,
                 entrees=ENTREES,
-                deserts=DESERTS)
+                deserts=DESERTS,
+                drinks=DRINKS,
+                specials=SPECIALS)
         else:
             return redirect(url_for("homePage"))
 
@@ -82,7 +86,8 @@ def menu():
         user=None, 
         appetizers=APPETIZERS,
         entrees=ENTREES,
-        deserts=DESERTS)
+        deserts=DESERTS,
+        drinks=DRINKS)
 
 @app.route("/login/", methods = ['GET', 'POST'])
 def loginPage():
