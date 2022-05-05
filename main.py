@@ -61,6 +61,8 @@ def menu():
     ENTREES = Dish.getEntrees(None)
     DESERTS = Dish.getDeserts(None)
 
+    print(DESERTS)
+
     userExist, user = isUserStillInSession()
     if userExist:
         return render_template("menu.html", 
@@ -257,47 +259,38 @@ def profilePage():
                 return redirect('/logout/')
     return render_template("profile_page.html", user=user)
 
-@app.route("/delivery/")
-def delivery():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("delivery_dashboard.html")
-
-@app.route("/deliveryhome/")
-def deliveryhome():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("delivery_home.html")
-
-@app.route("/deliverybidding/")
-def deliverybidding():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("delivery_bidding.html")
-
-@app.route("/pastdelivery/")
-def pastdelivery():
-    '''
-    Route to the delivery page
-    '''
-    return render_template("past_deliveries.html")
 
 @app.route("/orders/")
 def orders():
     '''
     Route to the orders page
     '''
+# Get all the orders from the db
+
+    # CURRENTORDERS = Dish.getCurrentOrders(None)
+    # PASTORDERS = Dish.getPastOrders(None)
+    # POPULARS = Dish.getPopulars(None)
+
     userExist, user = isUserStillInSession()
+    if not userExist:
+        return redirect(url_for("loginPage"))
+    else:
+        return render_template("orders.html")
+
 
     # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
+    #if not userExist:
+        #flash("Please Log In", category="error")
+        #return redirect(url_for("loginPage"))
 
-    return render_template("orders.html", user=user)
+
+    return render_template("orders.html",
+        user=None,
+        currentOrders=CURRENTORDERS,
+        pastOrders=PASTORDERS,
+        pupulars=POPULARS)
+
+    #return render_template("orders.html", user=user)
 
 @app.route("/dashboard/")
 def dashboard():
@@ -345,6 +338,23 @@ def dashboardComments():
 
     return render_template("dashboard-comments.html", user=user, userType=user.userType)
 
+@app.route("/add-dish-to-cart/<id>", methods = ['GET', 'POST'])
+def addDishToCart(id):
+    '''
+    Add a dish to the user cart
+    '''
+    userExist, user = isUserStillInSession()
+
+    # User is not signed in
+    if request.method == "POST":
+        if not userExist:
+            flash("Please Log In", category="error")
+            return redirect(url_for("loginPage"))
+
+        else:
+            user.addOrder(id)
+            return redirect(url_for("orders"))
+        
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database

@@ -6,6 +6,11 @@
 
     <link rel="stylesheet" href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
     <script src="https://kit.fontawesome.com/948ea8d5ef.js" crossorigin="anonymous"></script>
 {% endblock links %}
 
@@ -460,6 +465,115 @@
                 </div>                
             {% else %}
                 <!-- delivery personal html go here -->
+                
+                <div class="deliverysidebar">
+                    <div class = "logo-details">
+                        <img class = "logo" alt="My Image" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w" />
+                    </div>
+                    <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
+                </div>
+
+                <section class = "delivery-home-section">
+                    <nav class = "delivery-nav">
+                        <div class = "delivery-sidebar-button">
+                            <i class='bx bx-menu deliverysidebarBtn'></i>
+                            <span class="delivery-dashboard">Dashboard</span>
+                        </div>
+                        <div class="delivery-welcome">
+                            Welcome, Deliverer PeMaJe GiViSe
+                        </div>
+                        <div class="delivery-logout">
+                        
+                        </div>
+                    </nav>
+                </section>
+
+
+                <div id = "Dashboard" class = "deliverytabcontent">
+                    <div class="alert warning-alert">
+                        <h3>WARNINGS: 3</h3>
+                    </div>
+                </div>
+
+
+                <div id = "Past_Deliveries" class = "deliverytabcontent">
+                    <section class = "past-delivery-section">
+                    
+                        <div class="delivery-home-content">
+                            <div class="delivery-number-overview-box">
+                                <div class="delivery-box">
+                                    <div class="delivery-left">
+                                        <div class="delivery-number">Delivery # ( Order ID )</div>
+                                        <hr>
+                                        <div class="delivery-items">
+                                            <div class="delivery-name-qty">
+                                                <div class="delivery-name-food">Name</div>
+                                                <div class="delivery-qty">QTY</div>
+                                            </div>
+                                            <div class="delivery-name-qty">
+                                                <div class="delivery-name-food">Name</div>
+                                                <div class="delivery-qty">QTY</div>
+                                            </div>
+                                            <div class="delivery-name-qty">
+                                                <div class="delivery-name-food">Name</div>
+                                                <div class="delivery-qty">QTY</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                    
+                        <div class="delivery-home-content">
+                            <div class="delivery-number-overview-box">
+                                <div class="delivery-box">
+                                    <div class="delivery-left">
+                                        <div class="delivery-number">Delivery Location for Delivery # ( Order ID )</div>
+                                        <hr>
+                                        <div class="delivery-customer-info">
+                                            <div class="delivery-customer-name">Customer Name: Peggie</div>
+                                            <div class="delivery-customer-address">Customer Address: At Your Moms House 123</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                    </section>
+                </div>
+
+
+                <script>
+                    
+                    let deliverysidebar = document.querySelector(".deliverysidebar");
+                    let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
+
+
+                    deliverysidebarBtn.onclick = function(){
+                        deliverysidebar.classList.toggle("active");
+                    }
+
+                    function openTab(evt, tabName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("deliverytabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+                        tablinks = document.getElementsByClassName("deliverytablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(tabName).style.display = "block";
+                        evt.currentTarget.className += " active";
+
+                    }
+
+                </script>
             {% endif %}
         {% endif %}
     {% endif %}

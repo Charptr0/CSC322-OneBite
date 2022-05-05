@@ -23,6 +23,7 @@ class Customer(User):
         total_spent : float
         warnings : int
         isBlacklisted : boolean
+        orders : array of Dishes
         '''
         super().__init__(**kwargs)
 
@@ -65,6 +66,8 @@ class Customer(User):
             self.isBlacklisted = kwargs["isBlacklisted"]
         except KeyError:
             self.isBlacklisted = 0
+
+        self.orders = []
 
     def setCardNumber(self, db, cardNumber = None):
         if cardNumber == None:
@@ -163,4 +166,8 @@ class Customer(User):
         ]
 
         return self.favoriteDishes
+
+    def addOrder(self, dish_id):
+        self.orders.append(dish_id)
+
         

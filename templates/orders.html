@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
 {% block links %}
@@ -10,51 +9,62 @@
 {% endblock titlePage %}
 
 {% block mainContent %}
-    <div class="cover">
-    <h2 class="title">Your Orders</h2>
-    </div>
+    <div class="cover"><h2 class="title">Your Orders</h2></div>
 
-    <div class="main-container">
-        {% set currentOrder = true %}
-        {% if currentOrder == true %}
+    {% if user %}
+    <div>WIP</div>
+    {% else %}
+<!-- 
+        {% set currOrder = true %}
+        {% if currOrder == true %}
         <h3 class="gridTitle">Your order is being prepared...</h3>
-        <div class="subContainer">
-            <div class="subItem">1</div>
-            <div class="subItem">2</div>
-            <div class="subItem">3</div>
-            <div class="subItem">4</div>
-            <div class="subItem">5</div>
-            <div class="subItem">6</div>
-            <div class="subItem">7</div>
-            <div class="subItem">8</div>
+        <div class="Container">
+            {% for currentOrder in currentOrders %}
+            <div class="subItem"><img class="gridImg" src={{ currentOrder.img }}></div>
+
+            <div class="subItem">
+                <div class="itemName"><h4 class="food-name item-attribute">{{ currentOrder.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ currentOrder.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ currentOrder.price }}</p></div>
+            </div>
+            {% endfor %}
         </div>
-            <button class="buttonAdd" >Add Items</button>
-            <button class="buttonCancel" >Cancel Order</button>
+
+            <! buttons>
+            <div style="text-align: center">
+                <button type="button" class="editOrderButton" onclick="alert('edit test')">Edit Order</button>
+            </div>
+            <div style="text-align: center">
+                <button type="button" class="cancelButton" onclick="alert('cancel test')">Cancel Order</button>
+            </div>
+
 
         {% endif %}
         <h3 class="gridTitle">Order history</h3>
-        <div class="subContainer">
-            <div class="subItem">1</div>
-            <div class="subItem">2</div>
-            <div class="subItem">3</div>
-            <div class="subItem">4</div>
-            <div class="subItem">5</div>
-            <div class="subItem">6</div>
-            <div class="subItem">7</div>
-            <div class="subItem">8</div>
+        <div class="Container">
+            {% for pastOrder in pastOrders %}
+            <div class="subItem"><img class="gridImg" src={{ pastOrder.img }}></div>
+
+            <div class="subItem">
+                <div class="itemName"><h4 class="food-name item-attribute">{{ pastOrder.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ pastOrder.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ pastOrder.price }}</p></div>
+            </div>
+            {% endfor %}
         </div>
         <h3 class="gridTitle">Try our popular dishes</h3>
-        <div class="subContainer">
-            <div class="subItem">1</div>
-            <div class="subItem">2</div>
-            <div class="subItem">3</div>
-            <div class="subItem">4</div>
-            <div class="subItem">5</div>
-            <div class="subItem">6</div>
-            <div class="subItem">7</div>
-            <div class="subItem">8</div>
-        </div>
-    </div>
+        <div class="Container">
+            {% for popular in populars %}
+            <div class="subItem"><img class="gridImg" src={{ popular.img }}></div>
+
+            <div class="subItem">
+                <div class="itemName"><h4 class="food-name item-attribute">{{ popular.name}}</h4></div>
+                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ popular.desc }}!</p></div>
+                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ popular.price }}</p></div>
+            </div>
+            {% endfor %}
+        </div> -->
+    {% endif %}
 
 
 
