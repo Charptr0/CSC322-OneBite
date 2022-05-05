@@ -36,7 +36,10 @@ def homePage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
+        if user.userType == 'customer':
+            return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
+        else:
+            return render_template("dashboard.html", user=user, userType=user.userType)
 
     return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
 
@@ -97,6 +100,9 @@ def loginPage():
                 elif user.address == None:
                     flash("Set delivery address in your profile page before making your first order.")
                 return redirect(url_for("homePage"))
+            # if user is an employee
+            else:
+                return redirect(url_for("dashboard"))
 
         else:
             return render_template('login_page.html')

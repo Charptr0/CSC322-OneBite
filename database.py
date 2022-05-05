@@ -57,6 +57,37 @@ def convertUser(account, acc_type):
             isBlacklisted=acc_type["isBlacklisted"],
             isVIP=acc_type["isVIP"]
         )
+    if account["type"] == 'manager':
+        return Manager(
+            id=account["id"],          
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
+            type="manager"
+        )
+    if account["type"] == 'chef':
+        return Staff(
+            id=account["id"],
+            salary=acc_type["salary"],
+            compliments=acc_type["num_compliment"],
+            complaints=acc_type["num_complaint"],
+            warnings=acc_type["warnings"],
+            demotions=acc_type["demotions"],
+            type="chef"
+        )
+    if account["type"] == 'delivery':
+        return Staff(
+            id=account["id"],
+            salary=acc_type["salary"],
+            compliments=acc_type["num_compliment"],
+            complaints=acc_type["num_complaint"],
+            warnings=acc_type["warnings"],
+            demotions=acc_type["demotions"],
+            type="delivery"
+        )
 
 def getUserInDatabaseByLogin(db):
     '''
@@ -83,6 +114,18 @@ def getUserInDatabaseByLogin(db):
             customer = cursor.fetchone()
             flash('Logged in successfully!', category = 'success')
             return convertUser(account, customer)
+        if account["type"] == 'manager':
+            cursor.execute('SELECT * FROM employee WHERE employee_id = %s', (str(account["id"]),))
+            manager = cursor.fetchone()
+            return convertUser(account, manager)
+        if account["type"] == 'chef':
+            cursor.execute('SELECT * FROM chef WHERE chef_id = %s', (str(account["id"]),))
+            chef = cursor.fetchone()
+            return convertUser(account, chef)
+        if account["type"] == 'delivery':
+            cursor.execute('SELECT * FROM delivery WHERE delivery_id = %s', (str(account["id"]),))
+            delivery = cursor.fetchone()
+            return convertUser(account, delivery)
 
     else:
         # account does not exist or username/password is incorrect
@@ -106,6 +149,18 @@ def getUserInDatabaseByID(db, id):
             cursor.execute('SELECT * FROM customer WHERE customer_id = %s', (str(id),))
             customer = cursor.fetchone()
             return convertUser(account, customer)
+        if account["type"] == 'manager':
+            cursor.execute('SELECT * FROM employee WHERE employee_id = %s', (str(id),))
+            manager = cursor.fetchone()
+            return convertUser(account, manager)
+        if account["type"] == 'chef':
+            cursor.execute('SELECT * FROM chef WHERE chef_id = %s', (str(id),))
+            chef = cursor.fetchone()
+            return convertUser(account, chef)
+        if account["type"] == 'delivery':
+            cursor.execute('SELECT * FROM delivery WHERE delivery_id = %s', (str(id),))
+            delivery = cursor.fetchone()
+            return convertUser(account, delivery)
 
     else: 
         return None

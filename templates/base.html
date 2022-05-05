@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- internal css styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbar.css') }}">
-
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
+    <!-- external styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
 
     
@@ -26,7 +23,7 @@
     {% endblock titlePage %}</title>
 </head>
 <body>
-    {% if user %}
+    {% if user and user.userType == 'customer' %}
         <nav id="user-nav">
             <div class="navbar">
                 <div class="navbar-right">
@@ -67,7 +64,9 @@
                     <a href="{{ url_for('logout') }}"><i class="fa fa-fw fa-sign-in"></i>Logout</a>
                 </div>
             </div>     
-        </nav>        
+        </nav>
+    {% elif user and (user.userType == 'manager' or user.userType == 'chef' or user.userType == 'delivery') %}
+        <!-- navbar does not show up -->
     {% else %}
         <nav id="guest-nav">
             <div class="navbar">
@@ -126,6 +125,9 @@
 
     {% endblock mainContent %}
 
+    {% if user and (user.userType == 'manager' or user.userType == 'chef' or user.userType == 'delivery') %}
+        <!-- footer does not show up -->
+    {% else %}
     <button onclick = "topFunction()" id = "top-btn" title = "Go to Top"><i class = "arrow up"></i></button>
 
     <footer>
@@ -176,6 +178,7 @@
         <div id="credits">Built By: Team M | &copy Copyright 2022</div>
 
     </footer>
+    {% endif %}
 
     <script>
         mybtn = document.getElementById("top-btn");
