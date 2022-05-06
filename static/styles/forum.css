@@ -122,6 +122,11 @@ footer{
 
 
 /* posts table's head  */
+.posts-table{
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
 .table-head{
     display: flex;
 }
@@ -183,13 +188,14 @@ footer{
 .pagination{
     padding: 20px;
     font-size: 15px;
+    text-align: center;
 }
 
 .pagination a{
     color: black;
     margin-inline: 5px;
     padding: 5px 10px;
-    border: solid 0.5px #fff;
+    border: solid 0.5px black;
 }
 
 .pagination a:hover{
@@ -210,7 +216,7 @@ footer{
     display: flex;
     background-color: white;
     padding: 5px;
-    borer: 5px black;
+    border: 5px black;
     font-weight: bold;
     font-size: 15px;
 }
