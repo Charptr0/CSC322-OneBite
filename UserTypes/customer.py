@@ -11,7 +11,7 @@ class Customer(User):
         firstName : str
         lastName : str
         email : str
-        uname : str
+        username : str
         password : str
         phoneNumber : str
         cardNumber : str
@@ -19,6 +19,10 @@ class Customer(User):
         isVIP : boolean
         wallet : float
         address : str
+        num_orders : int
+        total_spent : float
+        warnings : int
+        isBlacklisted : boolean
         orders : array of Dishes
         '''
         super().__init__(**kwargs)
@@ -31,19 +35,38 @@ class Customer(User):
         try:
             self.isVIP = kwargs["isVIP"]
         except KeyError:
-            self.isVIP = False
+            self.isVIP = 0
 
         try:
             self.wallet = kwargs["wallet"]
         except KeyError:
-            self.isVIP = 0.0
+            self.wallet = 0.0
 
         try:
             self.address = kwargs["address"]
         except KeyError:
             self.address = None
 
-        self.warnings = 0
+        try:
+            self.num_orders = kwargs["num_orders"]
+        except KeyError:
+            self.num_orders = 0
+
+        try:
+            self.total_spent = kwargs["total_spent"]
+        except KeyError:
+            self.total_spent = 0.0
+
+        try:
+            self.warnings = kwargs["warnings"]
+        except KeyError:
+            self.warnings = 0
+
+        try:
+            self.isBlacklisted = kwargs["isBlacklisted"]
+        except KeyError:
+            self.isBlacklisted = 0
+
         self.orders = []
 
     def setCardNumber(self, db, cardNumber = None):
@@ -51,6 +74,48 @@ class Customer(User):
             return
 
         self.cardNumber = cardNumber
+
+    def setisVIP(self, db, isVIP = None):
+        if isVIP == None:
+            return
+
+        self.isVIP = isVIP
+
+    def setWallet(self, db, wallet = None):
+        if wallet == None:
+            return
+
+        self.wallet = wallet
+    
+    def setAddress(self, db, address = None):
+        if address == None:
+            return
+
+        self.address = address
+
+    def setNumOrders(self, db, num_orders = None):
+        if num_orders == None:
+            return
+
+        self.num_orders = num_orders
+
+    def setTotalSpent(self, db, total_spent = None):
+        if total_spent == None:
+            return
+
+        self.total_spent = total_spent
+
+    def setWarnings(self, db, warnings = None):
+        if warnings == None:
+            return
+
+        self.warnings = warnings
+
+    def setisBlacklisted(self, db, isBlacklisted = None):
+        if isBlacklisted == None:
+            return
+
+        self.isBlacklisted = isBlacklisted
 
     def setName(self, db, firstName = None, lastName = None):
         if firstName == None or lastName == None:

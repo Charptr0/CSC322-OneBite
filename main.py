@@ -36,7 +36,10 @@ def homePage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
+        if user.userType == 'customer':
+            return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
+        else:
+            return render_template("dashboard.html", user=user, userType=user.userType)
 
     return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
 
@@ -47,7 +50,10 @@ def aboutPage():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("about.html", user=user)
+        if user.userType == 'customer':
+            return render_template("about.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
     
     return render_template("about.html", user=None)
     
@@ -60,35 +66,57 @@ def menu():
     APPETIZERS = Dish.getAppetizers(None)
     ENTREES = Dish.getEntrees(None)
     DESERTS = Dish.getDeserts(None)
-
-    print(DESERTS)
+    DRINKS = Dish.getDrinks(None)
+    SPECIALS = Dish.getSpecials(None)
 
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("menu.html", 
-            user=user,
-            favDishes=user.getFavoriteDishes(None),
-            appetizers=APPETIZERS,
-            entrees=ENTREES,
-            deserts=DESERTS)
+        if user.userType == 'customer':
+            return render_template("menu.html", 
+                user=user,
+                appetizers=APPETIZERS,
+                entrees=ENTREES,
+                deserts=DESERTS,
+                drinks=DRINKS,
+                specials=SPECIALS)
+        else:
+            return redirect(url_for("homePage"))
 
     return render_template("menu.html", 
         user=None, 
         appetizers=APPETIZERS,
         entrees=ENTREES,
-        deserts=DESERTS)
+        deserts=DESERTS,
+        drinks=DRINKS)
 
 @app.route("/login/", methods = ['GET', 'POST'])
 def loginPage():
     '''
     Route to the user login page
     '''
+    userExist, user = isUserStillInSession()
+    if userExist:
+        if user.userType == 'customer':
+            flash("You are already logged in.", category = "error")
+        return redirect(url_for("homePage"))
+
     if request.method == 'POST':
         user = getUserInDatabaseByLogin(mysql)
         if user != None: # Success
             session["user"] = user.id
             usersInSession[user.id] = user
-            return redirect(url_for("homePage"))
+            # if user is a customer
+            if user.userType == 'customer':
+                if user.address == None and user.wallet == 0:
+                    flash("Set delivery address and add funds to your account in your profile page before making your first order.")
+                elif user.wallet == 0:
+                    flash("Add funds to your account in your profile page before making your first order.")
+                elif user.address == None:
+                    flash("Set delivery address in your profile page before making your first order.")
+                return redirect(url_for("homePage"))
+            # if user is an employee
+            else:
+                return redirect(url_for("dashboard"))
 
         else:
             return render_template('login_page.html')
@@ -104,14 +132,21 @@ def logout():
     flash("You have successfully signed out.", category="success")
     return redirect(url_for("loginPage"))
 
-@app.route("/forgotpass/", methods = ['GET', 'POST'])
+@app.route("/forgot-password/", methods = ['GET', 'POST'])
 def forgotpassPage():
     '''
     Route to the forgot password page
     '''
+    userExist, user = isUserStillInSession()
+    if userExist:
+        if user.userType == 'customer':
+            flash("Please logout first.", category = "error")
+        return redirect(url_for("homePage"))
+
     if request.method == 'POST':
         if forgotPassword(mysql):
             return redirect('/')
+
     return render_template('forgot_pass.html')
 
 @app.route("/newuser/", methods = ['GET', 'POST'])
@@ -119,9 +154,15 @@ def newuserPage():
     '''
     Route to the new user page
     '''
+    userExist, user = isUserStillInSession()
+    if userExist:
+        if user.userType == 'customer':
+            flash("Please logout first.", category = "error")
+        return redirect(url_for("homePage"))
+
     if request.method == 'POST':
         if verifyNewUser(mysql):
-            return redirect('/')
+            return redirect('/login/')
 
     return render_template('new_user.html')
 
@@ -132,7 +173,10 @@ def faqs():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("faqs.html", user=user)
+        if user.userType == 'customer':
+            return render_template("faqs.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
 
     return render_template("faqs.html", user=None)
 
@@ -141,7 +185,14 @@ def pageNotFound(e):
     '''
     Route to this page is the page DNE
     '''
-    return render_template("404.html")
+    userExist, user = isUserStillInSession()
+    if userExist:
+        if user.userType == 'customer':
+            return render_template("404.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
+
+    return render_template("404.html", user=None)
 
 @app.route("/tos/")
 def tos():
@@ -150,7 +201,10 @@ def tos():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("tos.html", user=user)
+        if user.userType == 'customer':
+            return render_template("tos.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
 
     return render_template("tos.html", user=None)
 
@@ -161,7 +215,10 @@ def privacyPolicy():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("privacy.html", user=user)
+        if user.userType == 'customer':
+            return render_template("privacy.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
 
     return render_template("privacy.html", user=None)
 
@@ -172,7 +229,10 @@ def customerSupport():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("customer-support.html", user=user)
+        if user.userType == 'customer':
+            return render_template("customer-support.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
 
     return render_template("customer-support.html", user=None)
 
@@ -183,7 +243,10 @@ def careers():
     '''
     userExist, user = isUserStillInSession()
     if userExist:
-        return render_template("careers.html", user=user)
+        if user.userType == 'customer':
+            return render_template("careers.html", user=user)
+        else:
+            return redirect(url_for("homePage"))
 
     return render_template("careers.html", user=None)
 
@@ -194,13 +257,15 @@ def cartPage():
     '''
     userExist, user = isUserStillInSession()
 
-    # User is not signed in
+    # User is not signed in #
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
-    else:
-        if request.method == 'POST':
-            return redirect(url_for("checkoutPage"))
+    elif userExist and user.userType != 'customer':
+        return redirect(url_for("homePage"))
+    
+    if request.method == 'POST':
+        return redirect(url_for("checkoutPage"))
             
     return render_template("cart_page.html", user=user)
     
@@ -215,6 +280,11 @@ def checkoutPage():
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
+    elif userExist and user.userType != 'customer':
+        return redirect(url_for("homePage"))
+    
+    if request.method == 'POST':
+        return redirect(url_for("orderPlacedPage"))
 
     return render_template("checkout_page.html", user=user)
 
@@ -229,6 +299,8 @@ def orderPlacedPage():
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
+    elif userExist and user.userType != 'customer':
+        return redirect(url_for("homePage"))
 
     return render_template("order_placed.html", user=user)
 
@@ -243,18 +315,27 @@ def profilePage():
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
+    elif userExist and user.userType != 'customer':
+        return redirect(url_for("homePage"))
+
     if request.method == 'POST':
         if "pass-submit" in request.form:
             if forgotPassword(mysql):
                 return redirect('/profile/')
+        if "address-submit" in request.form:
+            if changeAddress(mysql, user):
+                return redirect('/profile/')
         if "card-submit" in request.form:
-            return redirect('/profile/')
+            if changeCard(mysql, user):
+                return redirect('/profile/')
         if "wallet-submit" in request.form:
-            return redirect('/profile/')
+            if chargeFunds(mysql, user):
+                return redirect('/profile/')
         if "delete-submit" in request.form:
-            return redirect('/profile/')
+            if deleteAcc(mysql, user):
+                flash('Successful! Your deposit will be cleared and the account will be deleted.', category = 'success')
+                return redirect('/logout/')
     return render_template("profile_page.html", user=user)
-
 
 @app.route("/orders/")
 def orders():
@@ -270,6 +351,8 @@ def orders():
     userExist, user = isUserStillInSession()
     if not userExist:
         return redirect(url_for("loginPage"))
+    elif userExist and user.userType != 'customer':
+        return redirect(url_for("homePage"))
     else:
         return render_template("orders.html")
 
@@ -301,55 +384,6 @@ def dashboard():
         return redirect(url_for("loginPage"))
 
     return render_template("dashboard.html", user=user, userType=user.userType)
-
-@app.route("/forum/")
-def forum():
-    '''
-    Route to the forum home page
-    '''
-    return render_template("forum_home.html", user=None)
-
-@app.route("/forum_chef/")
-def forumChef():
-    '''
-    Route to the forum chef page
-    '''
-    return render_template("forum_chef.html", user=None)
-
-@app.route("/forum_staff/")
-def forumStaff():
-    '''
-    Route to the forum saff page
-    '''
-    return render_template("forum_staff.html", user=None)
-
-@app.route("/forum_appetizer/")
-def forumAppetizer():
-    '''
-    Route to the forum appetizer page
-    '''
-    return render_template("forum_appetizer.html", user=None)
-
-@app.route("/forum_entree/")
-def forumEntree():
-    '''
-    Route to the forum entree page
-    '''
-    return render_template("forum_entree.html", user=None)
-
-@app.route("/forum_drinks/")
-def forumDrinks():
-    '''
-    Route to the forum drinks page
-    '''
-    return render_template("forum_drinks.html", user=None)
-
-@app.route("/forum_post/")
-def forumPost():
-    '''
-    Route to the forum post page
-    '''
-    return render_template("forum_post.html", user=None)
 
 @app.route("/dashboard-discussions/")
 def dashboardDiscussions():
@@ -395,12 +429,13 @@ def addDishToCart(id):
         if not userExist:
             flash("Please Log In", category="error")
             return redirect(url_for("loginPage"))
+        elif userExist and user.userType != 'customer':
+            return redirect(url_for("homePage"))
 
         else:
             user.addOrder(id)
-            return redirect(url_for("orders"))
-
-
+            return redirect(url_for("cartPage"))
+        
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
