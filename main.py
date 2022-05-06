@@ -194,7 +194,7 @@ def cartPage():
     '''
     userExist, user = isUserStillInSession()
 
-    # User is not signed in
+    # User is not signed in #
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
