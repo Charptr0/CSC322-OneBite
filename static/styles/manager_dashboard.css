@@ -1,174 +1,134 @@
-.manager-container{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-.manager-sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+:root {
+    --general-background-color: rgba(255, 0, 0, 0);
+    --general-text-color: rgb(0, 0, 0);
+    --navbar-background-color: rgba(34, 34, 34);
+    --general-font-size: 50px;
 }
 
-.manager-sidenav a {
-  /*padding: 8px 8px 8px 32px;*/
-  padding-bottom: 8px;
-  padding-top: 8px;
-  text-decoration: none;
-  font-size: 18px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-  background: transparent;
-}
 
-.manager-sidenav a:hover {
-  background-color: #ACACAC;
-}
-
-.manager-sidenav i{
-    min-width: 60px;
-    text-align: center;
-    font-size: 18px;
+navbar, nav * {
     background-color: transparent;
-    color: white;
+    color: #ACACAC;
 }
 
-.manager-sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.logo{ /* Resize Logo */
+    width: 240px;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    transition: all 0.5s ease;
 }
 
+.managersidebar{
+    height: 100%;
+    position: fixed;
+    width: 240px;
+    background: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
+    transition: all 0.5s ease;
+
+}
+
+.managertablinks{
+    height: 60px;
+    min-width: 100%;
+    align-items: center;
+    transition: all 0.4s ease;
+    background: none;
+    border: none;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+    font-weight: 400;
+    white-space: nowrap;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+}
+
+.managersidebar .managertablinks:hover{
+    background: #ACACAC;
+    cursor: pointer;
+}
+
+.managersidebar .managertablinks i{
+    /* background: red; */
+    min-width: 50px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    padding-right: 5px;
+}
+
+.managersidebar.active .logo{
+    width: 60px;
+    height: auto;
+    transition: all 0.5s ease;
+}
+
+.managersidebar.active{
+    width: 60px;
+    transition: all 0.5s ease;
+}
+
+
+/* manager home section navigation bar css */
 .manager-home-section{
     position: relative;
     background: #f5f5f5;
-    min-height: 100vh;
-    /* width: calc(100% - 240px);*/
-    /*left: 240px;*/
-    width: 100%;
+    width: calc(100% - 240px);
+    left: 240px;
     transition: all 0.5s ease;
 }
+
 
 .manager-home-section .manager-nav{
-    display: flex;
-    justify-content: space-between;
-    height: 80px;
-    /*background: white;*/
-    display: flex;
-    align-items: center;
-    position: fixed;
-    /*width: calc(100% - 240px);
-    left: 240px;*/
-    width: 100%;
-    z-index: 100;
+    height: 100px;
     padding: 0 20px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s ease;
+    display:flex;
+    align-items: center;
+    background: #fff;
+    justify-content: space-between;
 }
 
-#main1 {
-    transition: margin-left .5s;
-}
 
-.manager-home-section .manager-nav .open-sidenav{
-    cursor: pointer;
+.manager-home-section .manager-nav .manager-sidebar-button{
     display: flex;
     align-items: center;
     font-size: 24px;
     font-weight: 500;
-    color: white;
+    cursor: pointer;
 }
 
-.manager-nav .open-sidenav i{
+.manager-home-section .manager-nav .manager-sidebar-button i{
     font-size: 35px;
     margin-right: 10px;
-    color: white;
+    color: #969696;
 }
 
-.manager-home-section .manager-nav .search-box{
-    position: relative;
+.manager-home-section .manager-nav .manager-welcome{
     height: 50px;
-    max-width: 550px;
-    width: 100%;
+    width: 550px;
     margin: 0 20px;
-}
-
-.manager-nav .search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    background: #F5F6FA;
-    border: 2px solid #EFEEF1;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 0 15px;
-}
-
-.manager-nav .search-box .bx-search{
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: #2697FF;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 4px;
-    line-height: 40px;
-    text-align: center;
-    color: rgb(204, 203, 203);
-    background: rgb(34,34,34);
-    font-size: 22px;
-    transition: all 0.4 ease;
-}
-
-.manager-home-section .manager-nav .profile-details{
+    position: relative;
+    color: #969696;
     display: flex;
     align-items: center;
-    /*background: #F5F6FA;*/
-    border: 2px solid #EFEEF1;
-    border-radius: 6px;
-    height: 50px;
-    min-width: 190px;
-    padding: 0 15px 0 2px;
-    background: transparent;
-}
-
-.manager-nav .profile-details img{
-    height: 40px;
-    width: 40px;
-    border-radius: 6px;
-    object-fit: cover;
-}
-
-.manager-nav .profile-details i{
-    font-size: 25px;
-    color: #333;
-}
-
-.manager-nav .profile-details .admin_name{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 500;
-    color: #333;
-    margin: 0 10px;
-    white-space: nowrap;
 }
 
+.manager-home-section .manager-nav .manager-dashboard{
+    color: #969696;
+} 
+/* end manager home section navigation bar css */
+
+
+/* overview boxes */
 .manager-home-section .manager-home-content{
     position: relative;
     padding-top: 104px;
 }
 
-.manager-home-content .overview-boxes{
+.manager-home-content .manager-overview-boxes{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -177,7 +137,7 @@
     margin-bottom: 26px;
 }
 
-.overview-boxes .box{
+.manager-overview-boxes .manager-box{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,24 +148,24 @@
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
-.overview-boxes .box-topic{
+.manager-overview-boxes .manager-box-topic{
     font-size: 20px;
     font-weight: 500;
 }
 
-.manager-home-content .box .number{
+.manager-home-content .manager-box .manager-number{
     display: inline-block;
     font-size: 35px;
-    margin-top: 0px;
+    margin-top: -6px;
     font-weight: 500;
 }
 
-.manager-home-content .box .indicator{
+.manager-home-content .manager-box .manager-indicator{
     display: flex;
     align-items: center;
 }
 
-.manager-home-content .box .indicator i{
+.manager-home-content .manager-box .manager-indicator i{
     height: 20px;
     width: 20px;
     background: #8FDACB;
@@ -214,18 +174,18 @@
     border-radius: 50%;
     color: #fff;
     font-size: 20px;
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
-.box .indicator i.down{
+.manager-box .manager-indicator i.down{
     background: #e87d88;
 }
 
-.manager-home-content .box .indicator .text{
+.manager-home-content .manager-box .manager-indicator .manager-text{
     font-size: 12px;
-}
+}  
 
-.manager-home-content .box .cart{
+.manager-home-content .manager-box .cart{
     display: inline-block;
     font-size: 32px;
     height: 50px;
@@ -238,35 +198,31 @@
     margin: -15px 0 0 6px;
 }
 
-.manager-home-content .box .cart.two{
+.manager-home-content .manager-box .cart.two{
     color: #2BD47D;
     background: #C0F2D8;
-}
+ }
 
-.manager-home-content .box .cart.three{
+.manager-home-content .manager-box .cart.three{
     color: #ffc233;
     background: #ffe8b3;
-}
+ }
 
-.manager-home-content .box .cart.four{
+.manager-home-content .manager-box .cart.four{
     color: #e05260;
     background: #f7d4d7;
-}
+ }
 
-.manager-home-content .total-order{
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.manager-home-content .sales-boxes{
+.manager-home-content .manager-orders-boxes{
     display: flex;
     justify-content: space-between;
-    /* padding: 0 20px; */
 }
+/* end overview boxes */
 
-/*table*/
-.manager-home-content .sales-boxes .recent-sales{
-    width: 100%;
+
+/* box details */
+.manager-dashboard-section .manager-home-content .orders-boxes .recent{
+    width: 93%;
     background: #fff;
     padding: 20px 30px;
     margin: 0 20px;
@@ -274,14 +230,14 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.manager-home-content .sales-boxes .sales-details{
+.manager-dashboard-section .manager-home-content .orders-boxes .manager-order-details{
     width: 100%;
     display: inline-block;
     align-items: center;
     justify-content: space-between;
 }
 
-.sales-boxes .box .title{
+.manager-dashboard-section .orders-boxes .manager-box .manager-title{
     font-size: 24px;
     font-weight: 1000;
     color: black;
@@ -291,22 +247,56 @@
     margin-bottom: 10px;
     margin-top: 0;
 }
+/* end box details */
 
-.home-section .manager-nav .sidebar-button{
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  font-weight: 500;
+
+/* see all button */
+.manager-dashboard-section .orders-boxes .manager-box .see-all-button{
+    width: calc(100% - 240px);
+    left: 240px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.manager-nav .sidebar-button i{
-  font-size: 35px;
-  margin-right: 10px;
+.manager-dashboard-section .orders-boxes .manager-box .see-all-button a{
+    color: #fff;
+    background: #0A2558;
+    padding: 4px 12px;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.manager-dashboard-section .orders-boxes .manager-box .see-all-button a:hover{
+    background:  #0d3073;
+}
+/* end see all button */
+
+
+/* manager dashboard homepage */
+#mDashboard{
+    display: block;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+#recent-orders tr {
+    display: none;
+}
+
+#recent-orders tr.active {
+    display: table-row;
 }
 
 #recent-orders{
     border-collapse: collapse;
-    width: 100%;
+    width: calc(100% - 240px);
+    left: 240px;
 }
 
 #recent-orders td, #recent-orders th{
@@ -344,39 +334,704 @@
     color: black;
 }
 
-.sales-boxes .box .button{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+/* end manager dashboard homepage */
 
-.sales-boxes .box .button a{
-    color: #fff;
-    background: #0A2558;
-    padding: 4px 12px;
-    font-size: 15px;
-    font-weight: 400;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
 
-.sales-boxes .box .button a:hover{
-    background:  #0d3073;
-}
+/* manager customer accounts page */
+    /* registered-customers table */
+    #registered-customers{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
 
-.hidden1{
+    #registered-customers tr {
     display: none;
+    }
+
+    #registered-customers tr.active {
+        display: table-row;
+    }
+
+    #registered-customers td, #registered-customers th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #registered-customers td li{
+        background: transparent;
+    }
+
+    #registered-customers td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #registered-customers tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #registered-customers tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #registered-customers th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+
+    /* end registered-customers table */
+
+    /* vip table */
+    #VIP-customers{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #VIP-customers tr {
+    display: none;
+    }
+
+    #VIP-customers tr.active {
+        display: table-row;
+    }
+
+    #VIP-customers td, #VIP-customers th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #VIP-customers td li{
+        background: transparent;
+    }
+
+    #VIP-customers td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #VIP-customers tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #VIP-customers tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #VIP-customers th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+    /* end vip table */
+
+    /* lost-customers table */
+    #lost-customers{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #lost-customers tr {
+    display: none;
+    }
+
+    #lost-customers tr.active {
+        display: table-row;
+    }
+
+    #lost-customers td, #lost-customers th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #lost-customers td li{
+        background: transparent;
+    }
+
+    #lost-customers td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #lost-customers tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #lost-customers tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #lost-customers th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+
+    /* end lost-customers table */
+
+    /* table buttons */
+    #CustomerAccounts .manager-dashboard-section .actionButton {
+        background: transparent;
+        border: none;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 40%;
+    }
+
+    #CustomerAccounts .manager-dashboard-section #cleardeposit:hover {
+        background-color: #B22B27;
+    }
+
+    #CustomerAccounts .manager-dashboard-section #deleteaccount:hover {
+        background-color: #B22B27;
+    }
+
+    #CustomerAccounts .manager-dashboard-section #givewarning:hover {
+        background-color: red;
+    }
+
+    #CustomerAccounts .manager-dashboard-section .actionButton i {
+        background: transparent;
+    }
+    /* end table buttons */
+/* manager customer accounts page */
+
+
+/* manager employee accounts page */
+    /* chef table */
+    #chef-table .more{
+        display: none;
+    }
+
+    #chef-table{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #chef-table tr {
+    display: none;
+    }
+
+    #chef-table tr.active {
+        display: table-row;
+    }
+
+    #chef-table td, #chef-table th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #chef-table td li{
+        background: transparent;
+    }
+
+    #chef-table td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #chef-table .more{
+        display: none;
+    }
+
+    #chef-table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #chef-table tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #chef-table th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+    /* end chef table */
+
+    /* delivery table */
+    #delivery-table{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #delivery-table tr {
+    display: none;
+    }
+
+    #delivery-table tr.active {
+        display: table-row;
+    }
+
+    #delivery-table td, #delivery-table th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #delivery-table td li{
+        background: transparent;
+    }
+
+    #delivery-table td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #delivery-table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #delivery-table tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #delivery-table th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+    /* end delivery table */
+
+    /* table button */
+    #EmployeeAccounts .manager-dashboard-section .actionButton {
+            background: transparent;
+            border: none;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 40%;
+    }
+
+    #EmployeeAccounts .manager-dashboard-section #givewarning:hover {
+        background-color: red;
+    }
+    /* table button */
+/* end manager employee accounts page */
+
+
+/* manager discussions page */
+    /* forum table */
+    #forum-table{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #forum-table tr {
+    display: none;
+    }
+
+    #forum-table tr.active {
+        display: table-row;
+    }
+
+    #forum-table td, #forum-table th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #forum-table td li{
+        background: transparent;
+    }
+
+    #forum-table td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #forum-table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #forum-table tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #forum-table th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+
+    /* end forum table */
+/* manager discussions page */
+
+
+/* manager customer comments page */
+    /* comments table */
+    #comments-table{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #comments-table tr {
+    display: none;
+    }
+
+    #comments-table tr.active {
+        display: table-row;
+    }
+
+    #comments-table td, #comments-table th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #comments-table td li{
+        background: transparent;
+    }
+
+    #comments-table td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #comments-table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #comments-table tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #comments-table th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+    /* end comments table */
+
+
+    /* disputed comments table */
+    #disputed-comments-table{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #disputed-comments-table tr {
+    display: none;
+    }
+
+    #disputed-comments-table tr.active {
+        display: table-row;
+    }
+
+    #disputed-comments-table td, #disputed-comments-table th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #disputed-comments-table td li{
+        background: transparent;
+    }
+
+    #disputed-comments-table td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #disputed-comments-table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #disputed-comments-table tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #disputed-comments-table th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+
+        /* table buttons */
+        #CustomerComments .manager-dashboard-section .actionButton {
+            background: transparent;
+            border: none;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 40%;
+        }
+
+        #CustomerComments .manager-dashboard-section #reply:hover {
+            background-color: #6caddf;
+        }
+
+        #CustomerComments .manager-dashboard-section #letstay:hover {
+            background-color: #81de76;
+        }
+
+        #CustomerComments .manager-dashboard-section #dismiss:hover {
+            background-color: #B22B27;
+        }
+
+        #CustomerComments .manager-dashboard-section .actionButton i {
+            background: transparent;
+        }
+
+        #CustomerComments .manager-dashboard-section .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: 200ms ease-in-out;
+            border: 1px solid black;
+            border-radius: 10px;
+            z-index: 10;
+            background-color: white;
+            width: 500px;
+            max-width: 80%;
+        }
+
+        #CustomerComments .manager-dashboard-section .modal.active {
+            transform: translate(-50%, -50%) scale(1.0);
+        }
+
+        #CustomerComments .manager-dashboard-section .modal-header {
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid black;
+        }
+
+        #CustomerComments .manager-dashboard-section .modal-header .modal-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        #CustomerComments .manager-dashboard-section .modal-header .close-button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        #CustomerComments .manager-dashboard-section .modal-body textarea {
+            width: 100%;
+            left: 240px;
+            height: 150px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            resize: none;
+        }
+
+        #CustomerComments .manager-dashboard-section #overlay {
+            position: fixed;
+            opacity: 0;
+            transition: 200ms ease-in-out;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+
+        #CustomerComments .manager-dashboard-section #overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #CustomerComments .manager-dashboard-section .send-button{
+            width: calc(100% - 240px);
+            left: 240px;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #CustomerComments .manager-dashboard-section .send-button a{
+            color: #fff;
+            background: #0A2558;
+            padding: 4px 12px;
+            font-size: 15px;
+            font-weight: 400;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Clear floats after the columns */
+        #CustomerComments .manager-dashboard-section .send-button:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* table buttons */
+    /* end disputed comments table */
+/* end manager customer comments page */
+
+
+
+/* FOR TAB CONTENT */
+
+.managersidebar.active ~ .manager-home-section{
+    width: calc(100% - 60px);
+    left: 60px;
 }
 
-.recent-orders-button{
-    font-size: 24px;
-    font-weight: 1000;
-    color: black;
-    background: white;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
+.manager-home-section{
+    position: relative;
+    background: #f5f5f5;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+}
+
+.managertabcontent{
+    display: none;
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+    /* display: flex;
+    justify-content: center; */
+}
+
+.managersidebar.active ~ .managertabcontent{
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+/* Responsive Media Query */
+@media (max-width: 1150px) {
+    .manager-home-content .orders-boxes{
+        flex-direction: column;
+    }
+    .manager-home-content .orders-boxes .manager-box{
+        width: 100%;
+        overflow-x: scroll;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .manager-overview-boxes .manager-box{
+        width: calc(100% / 2 - 15px);
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .manager-home-content .orders-boxes .manager-order-details{
+        width: 560px;
+    }
+}
+
+@media (max-width: 550px) {
+    .manager-overview-boxes .manager-box{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .managersidebar{
+        width: 0;
+    }
+    .managersidebar.active{
+        width: 60px;
+    }
+    .manager-home-section{
+        width: 100%;
+        left: 0;
+    }
+    .managersidebar.active ~ .manager-home-section{
+        left: 60px;
+        width: calc(100% - 60px);
+    }
+    .manager-home-section .manager-nav{
+        width: 100%;
+        left: 0;
+    }
+    .managersidebar.active ~ .manager-home-section .manager-nav{
+        left: 60px;
+        width: calc(100% - 60px);
+    }
 }
