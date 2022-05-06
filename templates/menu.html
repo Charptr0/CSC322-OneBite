@@ -23,16 +23,19 @@
             <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ appetizer.desc }}!</p></div>
             <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ appetizer.price }}</p></div>
             <div class="itemDes"><h4 class="item-attribute">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                {% for i in range(5):%}
+                    {% if appetizer.rating >= i+1 %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="itemDes">
                 <form method="post" action="/add-dish-to-cart/{{ appetizer.id }}">
-                    <button class="add-to-cart-btn" type="submit">Add to Cart</button></div>
+                    <button class="add-to-cart-btn" type="submit">Add to Cart</button>
                 </form>
+            </div>    
         </div>
     {% endfor %}
 </div>
@@ -47,13 +50,19 @@
             <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ entree.desc }}!</p></div>
             <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ entree.price }}</p></div>
             <div class="itemDes"><h4 class="item-attribute">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                {% for i in range(5):%}
+                    {% if entree.rating >= i+1 %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <div class="itemDes"><button class="add-to-cart-btn">Add to Cart</button></div>
+            <div class="itemDes">
+                <form method="post" action="/add-dish-to-cart/{{ entree.id }}">
+                    <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                </form>
+            </div>
         </div>
     {% endfor %}
 </div>
@@ -68,13 +77,19 @@
             <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ desert.desc }}!</p></div>
             <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ desert.price }}</p></div>
             <div class="itemDes"><h4 class="item-attribute">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                {% for i in range(5):%}
+                    {% if desert.rating >= i+1 %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <div class="itemDes"><button class="add-to-cart-btn">Add to Cart</button></div>
+            <div class="itemDes">
+                <form method="post" action="/add-dish-to-cart/{{ desert.id }}">
+                    <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                </form>
+            </div>
 
         </div>
     {% endfor %}
@@ -91,14 +106,19 @@
                 <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ appetizer.desc }}!</p></div>
                 <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ appetizer.price }}</p></div>
                 <div class="itemDes"><h4 class="item-attribute">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    {% for i in range(5):%}
+                    {% if appetizer.rating >= i+1 %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
                 </div>
-
-                <div class="itemDes"><button>Add to Cart</button></div>
+                <div class="itemDes">
+                    <form method="post" action="/add-dish-to-cart/{{ appetizer.id }}">
+                        <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                    </form>
+                </div>
             </div>
         {% endfor %}
     </div>
@@ -113,11 +133,18 @@
                 <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ entree.desc }}!</p></div>
                 <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ entree.price }}</p></div>
                 <div class="itemDes"><h4 class="item-attribute">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    {% for i in range(5):%}
+                    {% if entree.rating >= i+1 %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <div class="itemDes">
+                    <form method="post" action="/add-dish-to-cart/{{ entree.id }}">
+                        <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         {% endfor %}
@@ -133,11 +160,18 @@
                 <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ desert.desc }}!</p></div>
                 <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ desert.price }}</p></div>
                 <div class="itemDes"><h4 class="item-attribute">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    {% for i in range(5):%}
+                    {% if desert.rating >= i+1 %}
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <div class="itemDes">
+                    <form method="post" action="/add-dish-to-cart/{{ desert.id }}">
+                        <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         {% endfor %}

@@ -194,7 +194,7 @@ def cartPage():
     '''
     userExist, user = isUserStillInSession()
 
-    # User is not signed in
+    # User is not signed in #
     if not userExist:
         flash("Please Log In.", category="error")
         return redirect(url_for("loginPage"))
@@ -299,7 +299,7 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
-    return render_template("dashboard.html", user=user, userType="chef")
+    return render_template("dashboard.html", user=user, userType="manager")
 
 @app.route("/dashboard-discussions/")
 def dashboardDiscussions():
@@ -348,7 +348,7 @@ def addDishToCart(id):
 
         else:
             user.addOrder(id)
-            return redirect(url_for("orders"))
+            return redirect(url_for("cartPage"))
         
 # Run the app
 if __name__ == "__main__":
