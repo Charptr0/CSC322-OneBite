@@ -305,10 +305,22 @@ navbar, nav * {
     justify-content: center;
 }
 
+.deliverysidebar.active .deliverytablinks:hover{
+    background: none;
+}
 
+.deliverysidebar.active i{
+    min-width: 45px;
+    margin-right: 15px;
+    transition: all 0.5s ease;
+}
+
+.deliverysidebar.active .deliverytablinks{
+    color:rgba(255, 0, 0, 0);
+}
 /* Dispute buttons */
 
-.dispute{
+.dispute-btn{
     background-color: red;
     display:flex;
     padding:0.3em 1.2em;
@@ -326,12 +338,51 @@ navbar, nav * {
     
 }
 
-.dispute:hover{
+.dispute-btn:hover{
     border-color: rgb(0, 0, 0);
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translateY(-0.25em);
 }
 
-.dispute i{
+.dispute-btn i{
     margin-right: 5px;
+}
+
+/* dispute modal */
+.dispute-modal{
+    width:100%;
+    height:100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position:absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.dispute-modal-content{
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+
+.dispute-btn-cancel{
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    transform: rotate(45deg);
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+}
+
+.btn-cancel:hover{
+    color: red;
 }

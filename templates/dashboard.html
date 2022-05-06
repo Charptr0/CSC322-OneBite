@@ -9,9 +9,16 @@
     <!-- Bootstrap -->
     {% if userType == "delivery" %}
         <link rel="stylesheet" href="css/bootstrap.min.css">
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     {% endif %}
     
+    {% if userType == "chef" %}
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    {% endif %}
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
@@ -337,146 +344,340 @@
             </div>  
         {% else %}
             {% if userType == "chef" %}
-                <div class="chef-container">
-                    <div class="chef-sidebar">
-                        <div id="chef-sidebar-button" class="chef-sidenav">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                            <a href="{{ url_for("dashboard") }}"><i class='bx bx-grid-alt'></i>Dashboard</a>
-                            <a href="#"><i class='fa-regular fa-user'></i>Edit Menu</a>
-                            <a href="#"><i class='bx bx-cog' ></i>Settings</a>
-                            <a href="{{ url_for("logout") }}"><i class='bx bx-log-out'></i>Log out</a>
+                <div class="chefsidebar">
+                    <div class = "logo-details">
+                        <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
+                    </div>
+                    <button class="cheftablinks" onclick="openTab(event, 'ChefDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditAppetizers')"><i class='bx bxs-baguette' ></i>Edit Appetizers</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
+                </div>
+                
+                <section class = "chef-home-section">
+                    <nav class = "chef-nav">
+                        <div class = "chef-sidebar-button">
+                            <i class='bx bx-menu chefsidebarBtn'></i>
+                            <span class="chef-dashboard">Dashboard</span>
+                        </div>
+                        <div class="chef-welcome d-block mx-auto">
+                            Welcome, Chef PeMaJe GiViSe
+                        </div>
+                        <div class="chef-logout">
+                        
+                        </div>
+                    </nav>
+                </section>
+
+                                
+                <div id = "ChefDashboard" class = "cheftabcontent">
+                    d
+                </div>
+
+                <div id = "EditAppetizers" class = "cheftabcontent">
+                    <!-- <section class = "chef-items"> -->
+                        <div class="appetizer-items">
+                            <h1 class = "menu-item-heading">
+                                APPETIZERS
+                            </h1>
+                            <div class = "menu-group d-block mx-auto">
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button class = "edit-btn">Edit</button>
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                    
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button class = "edit-btn">Edit</button>
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                    
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button class = "edit-btn">Edit</button>
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                                
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button id = "edit-button" class = "edit-btn">Edit</button>
+                    
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>
+                    
+                    <!-- </section> -->
+                </div>
+
+                <div id = "EditEntrees" class = "cheftabcontent">
+                    
+                    <div class="entrees-items">
+                        <h1 class = "menu-item-heading">
+                            Entrees
+                        </h1>
+                        <div class = "menu-group d-block mx-auto">
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                            
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button id = "edit-button" class = "edit-btn">Edit</button>
+                
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
                         </div>
                     </div>
-                    <div id="main" class="chef-home-section">
-                        <nav>
-                            <div class="chef-nav">
-                                <span class="open-sidenav" onclick="openNav()"><i class='bx bx-menu sidebarBtn'></i>Dashboard</span>
-                                <div class="profile-details">
-                                    <img src="images/profile.jpg" alt="">
-                                    <span class="admin_name">Chef</span>
-                                    <!-- <i class='fa-solid fa-lock' ></i> -->
+                </div>
+
+
+                <div id = "EditDesserts" class = "cheftabcontent">
+                    <div class="dessert-items">
+                        <h1 class = "menu-item-heading">
+                            Desserts
+                        </h1>
+                        <div class = "menu-group d-block mx-auto">
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
                                 </div>
-                                <div class="search-box">
-                                    <input type="text" placeholder="Search...">
-                                    <i class='bx bx-search' ></i>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
                                 </div>
                             </div>
-                        </nav>
                 
-                        <div class="chef-home-content">
-                            <div class="overview-boxes">
-                                <div class="box">
-                                    <div class="right-side">
-                                        <div class="box-topic">Rating</div>
-                                        <div class="number">4.5</div>
-                                            <div class="indicator">
-                                                <i class='bx bx-up-arrow-alt'></i>
-                                                <span class="text">Up from yesterday</span>
-                                            </div>
-                                        </div>
-                                        <i class='bx bx-star star'></i>
-                                    </div>
-                                    <div class="box">
-                                        <div class="right-side">
-                                            <div class="box-topic">Compliments</div>
-                                            <div class="number">2</div>
-                                            <div class="indicator">
-                                                <i class='bx bx-up-arrow-alt'></i>
-                                                <span class="text">Up from yesterday</span>
-                                            </div>
-                                        </div>
-                                        <i class='bx bx-happy-beaming happy' ></i>
-                                    </div>
-                                    <div class="box">
-                                        <div class="right-side">
-                                            <div class="box-topic">Complaints</div>
-                                            <div class="number">0</div>
-                                            <div class="indicator">
-                                                <i class='bx bx-minus-circle minus'></i>
-                                                <span class="text">Same from yesterday</span>
-                                            </div>
-                                        </div>
-                                        <i class='bx bx-sad sad' ></i>
-                                    </div>
-                            </div>
-                            <div class="sales-boxes">
-                                <div class="recent-sales box">
-                                    <!-- <div class="title"><h3>Your Current Menu</h3></div> -->
-                                    <div class="sales-details">
-                                        <button class="menu-button" onClick="toggleTable()">Your Current Menu<i class="bx bx-chevron-down"></i></button>
-                                        <table id="current-menu" class="hidden">
-                                            <tr>
-                                                <th>Dish</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Price</th>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="button">
-                                        <a href="#">See All</a>
-                                    </div>
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
                                 </div>
                             </div>
-                    <script>
-                        function openNav() {
-                            document.getElementById("chef-sidebar-button").style.width = "250px";
-                            document.getElementById("main").style.marginLeft = "250px";
-                        }
                 
-                /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-                        function closeNav() {
-                            document.getElementById("chef-sidebar-button").style.width = "0";
-                            document.getElementById("main").style.marginLeft = "0";
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                            
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button id = "edit-button" class = "edit-btn">Edit</button>
+                
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- POPUP MODAL -->
+                <div class="bg-modal">
+                    <div class="modal-content">
+                        <div class="form-popup" id="myForm">
+                            <form action="/action_page.php" class="form-container">
+                              <h1>Update Item</h1>
+                          
+                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
+                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
+                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
+                              <input type="text" placeholder="Enter Price" name="itemprice" required>
+                
+                
+                              <button type="submit" class="btn">Update</button>
+                              <button type="button" class="btn-cancel" onclick="closeForm()">+</button>
+                            </form>
+                          </div>    
+                    </div>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script>
+                    let chefsidebar = document.querySelector(".chefsidebar");
+                    let chefsidebarBtn = document.querySelector(".chefsidebarBtn");
+                
+                
+                    chefsidebarBtn.onclick = function(){
+                        chefsidebar.classList.toggle("active");
+                    }
+                
+                    function openTab(evt, tabName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("cheftabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
                         }
-                        function toggleTable() {
-                            document.getElementById("current-menu").classList.toggle("hidden");
+                        tablinks = document.getElementsByClassName("cheftablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
                         }
-                    </script>    
-                </div>                
+                        document.getElementById(tabName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                
+                    }
+
+                    $('.remove-btn').click(function() {removeItem(this);});
+                    /* remove item from cart and recalculate summary */
+                    function removeItem(removeButton) {
+                        /* remove row */
+                        var productRow = $(removeButton).parent().parent()
+                        productRow.slideUp(fadeTime, 
+                            function() {
+                                productRow.remove();
+                            }
+                        )
+                    }
+                    var fadeTime = 300;
+
+                    document.querySelector('.edit-btn').addEventListener('click',function(){
+                        document.querySelector('.bg-modal').style.display = "flex";
+                    });
+
+                    document.querySelector('.btn-cancel').addEventListener('click',function(){
+                        document.querySelector('.bg-modal').style.display = "none";
+                    });
+
+                </script>
+
             {% else %}
                 <!-- delivery personal html go here -->
                 <div class="deliverysidebar">
                     <div class = "logo-details">
                         <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
-                    {{ url_for('homePage') }}
                     <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
                     <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
@@ -561,35 +762,52 @@
                             <th scope="col">Reason For Complaint</th>
                             <th scope="col">Description Of Complaint</th>
                             <th scope="col">Dispute</th>
+                            
                           </tr>
                         </thead>
                         <tbody>
+
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>I waited for hours and the food never came. I starved to death this day.</td>
+                            <td> 
+                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                            </td>
+                        </tr>
+
                           <tr>
                             <th scope="row">1</th>
                             <td>Did not deliver food</td>
                             <td>I waited for hours and the food never came. I starved to death this day.</td>
-                            <td> <button class = "dispute"><i class="bi bi-x-octagon"></i>Dispute</button></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Food was delivered late</td>
-                            <td>I was so hungry waiting for my food. I thought it would never come but it came.
-                                really late that is.
+                            <td> 
+                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
                             </td>
-                            <td> <button class = "dispute"><i class="bi bi-x-octagon"></i>Dispute</button></td>
                           </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Food was messed up</td>
-                            <td>I was excited to receive my food as I was looking forward to eating your food. Once
-                                I opened my delivery of food it was a messy. It practically looked like barf!
-                            </td>
-                            <td> <button class = "dispute"><i class="bi bi-x-octagon"></i>Dispute</button></td>
-                          </tr>
+
                         </tbody>
-                      </table>
+                    </table>
                 </div>
+
+                <div class="dispute-modal">
+                    <div class="dispute-modal-content">
+                        <div class="form-popup" id="myForm">
+                            <form action="/action_page.php" class="form-container">
+                              <h1>Update Item</h1>
+                          
+                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
+                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
+                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
+                              <input type="text" placeholder="Enter Price" name="itemprice" required>
                 
+                
+                              <button type="submit" class="btn">Update</button>
+                              <button type="button" class="dispute-btn-cancel" onclick="closeForm()">+</button>
+                            </form>
+                          </div>    
+                    </div>
+                </div>
+
                 <div id = "DeliveryWarnings" class = "deliverytabcontent">
                     <table class="table">
                         <thead>
@@ -664,14 +882,82 @@
                                 </div>
                             </div>
                         </div>
-                    
-                    
+                    <div class="tablecontainer">
+                        <h4 class = "text-center">Past Deliveries</h4>
+                        <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>SubTotal</th>
+                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                    </div>
                     </section>
                 </div>
                 
-                
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
                 <script>
-                    
                     let deliverysidebar = document.querySelector(".deliverysidebar");
                     let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
                 
@@ -694,7 +980,19 @@
                         evt.currentTarget.className += " active";
                 
                     }
+
+
+                    document.querySelector('.dispute-btn').addEventListener('click',function(){
+                        document.querySelector('.dispute-modal').style.display = "flex";
+                    });
+
+                    document.querySelector('.dispute-btn-cancel').addEventListener('click',function(){
+                        document.querySelector('.dispute-modal').style.display = "none";
+                    });
+
+
                 </script>
+                
             {% endif %}
         {% endif %}
     {% endif %}
