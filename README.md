@@ -1,6 +1,6 @@
 # CSC 322 OneBite
 
-This is an Instagram clone with a custom Parse backend that allows a user to post photos, view a global photos feed, and add comments!
+This is a resturant website made using python's Flask module and MySQL database
 
 
 
