@@ -16,7 +16,7 @@
 .gridImg {
     display: inline-grid;
     height: 400px;
-    width: 400px;
+    width: 275px;
     margin: 0;
     image-rendering: high-quality;
 }

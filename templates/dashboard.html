@@ -1,16 +1,46 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_dashboard.css') }}">
+    <!-- CSS -->
+    <!-- for userType == "customer" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/customer_dashboard.css') }}">
 
-    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'>
+    <!-- for userType == "manager" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dashboard.css') }}">
+
+    <!-- for userType == "chef" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
+
+    <!-- Bootstrap -->
+    {% if userType == "delivery" %}
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    {% endif %}
+
+    <!-- for userType == "delivery" -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
+
+    <!-- for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     
+    {% if userType == "chef" %}
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    {% endif %}
+
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+
+    <!-- Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/948ea8d5ef.js" crossorigin="anonymous"></script>
 {% endblock links %}
 
@@ -20,74 +50,36 @@
 
 {% block mainContent %}
     {% if userType == "customer" %}
-    <div class="manager-container">
-        <div class="manager-sidebar">
-            <div id="manager-sidebar-button" class="manager-sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a href="{{ url_for("dashboard") }}"><i class='bx bx-grid-alt'></i>Dashboard</a>
-                <a href="{{ url_for("dashboardDiscussions") }}"><i class='fa-regular fa-comments' ></i>Discussions</a>
-                <a href="{{ url_for("dashboardComments") }}"><i class='fa-regular fa-message' ></i>Comments</a>
-                <a href="{{ url_for("logout") }}"><i class='bx bx-log-out'></i>Log out</a>
-            </div>
+    <div class="customersidebar">
+        <div class = "logo-details">
+            <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
         </div>
-        <div id="main1" class="manager-home-section">
-            <nav>
-                <div class="manager-nav">
-                    <span class="open-sidenav" onclick="openNav()"><i class='bx bx-menu sidebarBtn'></i>Dashboard</span>
-                    <div class="profile-details">
-                        <img src="images/profile.jpg" alt="">
-                        <span class="admin_name">Customer</span>
-                        <!-- <i class='fa-solid fa-lock' ></i> -->
-                    </div>
-                    <div class="search-box">
-                        <input type="text" placeholder="Search...">
-                        <i class='bx bx-search' ></i>
-                    </div>
-                </div>
-            </nav>
-    
-            <div class="manager-home-content">
-                <div class="overview-boxes">
-                    <div class="box">
-                        <div class="right-side">
-                            <div class="box-topic">Total Orders</div>
-                            <div class="number">5,000</div>
-                                <div class="indicator">
-                                    <i class='bx bx-up-arrow-alt'></i>
-                                    <span class="text">Up from yesterday</span>
-                                </div>
-                            </div>
-                            <i class='bx bx-cart-alt cart'></i>
-                        </div>
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="box-topic">Total Customers</div>
-                                <div class="number">5,000</div>
-                                <div class="indicator">
-                                    <i class='bx bx-up-arrow-alt'></i>
-                                    <span class="text">Up from yesterday</span>
-                                </div>
-                            </div>
-                            <i class='bx bxs-cart-add cart two' ></i>
-                        </div>
-                        <div class="box">
-                            <div class="right-side">
-                                <div class="box-topic">Total Profit</div>
-                                <div class="number">$10,000</div>
-                                <div class="indicator">
-                                    <i class='bx bx-up-arrow-alt'></i>
-                                    <span class="text">Up from yesterday</span>
-                                </div>
-                            </div>
-                            <i class='bx bx-cart cart three' ></i>
-                        </div>
-                </div>
-                <div class="sales-boxes">
-                    <div class="recent-sales box">
-                        <!-- <div class="title"><h3>Recent Orders</h3></div> -->
-                        <div class="sales-details">
-                            <button class="recent-orders-button" onClick="toggleTable()">Recent Orders<i class="bx bx-chevron-down"></i></button>
-                            <table id="recent-orders" class="hidden1">
+        <button class="customertablinks" onclick="openTab2(event, 'CustomerDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+        <button class="customertablinks" onclick="openTab2(event, 'Comments')"><i class='fa-regular fa-message'></i>Comments</button>
+    </div>
+
+    <section class = "customer-home-section">
+        <nav class = "customer-nav">
+            <div class = "customer-sidebar-button">
+                <i class='bx bx-menu customersidebarBtn'></i>
+                <span class="customer-dashboard">Dashboard</span>
+            </div>
+            <div class="customer-welcome">
+                Welcome, Customer PeMaJe GiViSe
+            </div>
+            <div class="customer-logout"></div>
+        </nav>
+    </section> 
+
+    <div id = "CustomerDashboard" class = "customertabcontent">
+        <section class = "customer-dashboard-section">
+
+            <div class="customer-home-content">
+                <div class="orders-boxes">
+                    <div class="recent-order customer-box">
+                        <div class="customer-title"><h3>Forum</h3></div>
+                        <div class="customer-order-details">
+                            <table id="forum-table" class="forum-table">
                                 <tr>
                                     <th>Order #</th>
                                     <th>Customer</th>
@@ -95,156 +87,200 @@
                                     <th>Total</th>
                                 </tr>
                                 <tr>
-                                <td><li><a href="#">Order #1</a></li></td>
-                                <td><li><a href="#">Alex Doe</a></li></td>
-                                <td><li><a href="#">Delivery</a></li></td>
-                                <td><li><a href="#">$204.98</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #2</a></li></td>
-                                <td><li><a href="#">David Mart</a></li></td>
-                                <td><li><a href="#">Pickup</a></li></td>
-                                <td><li><a href="#">$24.55</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #3</a></li></td>
-                                <td><li><a href="#">Roe Parter</a></li></td>
-                                <td><li><a href="#">Pickup</a></li></td>
-                                <td><li><a href="#">$25.88</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #4</a></li></td>
-                                <td><li><a href="#">Diana Penty</a></li></td>
-                                <td><li><a href="#">Delivery</a></li></td>
-                                <td><li><a href="#">$170.66</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #5</a></li></td>
-                                <td><li><a href="#">Martin Paw</a></li></td>
-                                <td><li><a href="#">Delivery</a></li></td>
-                                <td><li><a href="#">$56.56</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #6</a></li></td>
-                                <td><li><a href="#">Doe Alex</a></li></td>
-                                <td><li><a href="#">Pickup</a></li></td>
-                                <td><li><a href="#">$44.95</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #7</a></li></td>
-                                <td><li><a href="#">Aiana Lexa</a></li></td>
-                                <td><li><a href="#">Delivery</a></li></td>
-                                <td><li><a href="#">$67.33</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #8</a></li></td>
-                                <td><li><a href="#">Rexel Mags</a></li></td>
-                                <td><li><a href="#">Pickup</a></li></td>
-                                <td><li><a href="#">$23.53</a></li></td>
-                                </tr>
-                                <tr>
-                                <td><li><a href="#">Order #9</a></li></td>
-                                <td><li><a href="#">Tiana Loths</a></li></td>
-                                <td><li><a href="#">Delivery</a></li></td>
-                                <td><li><a href="#">$46.52</a></li></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button">
-                            <a href="#">See All</a>
-                        </div>
+                                    <td><li>Order #1</li></td>
+                                    <td><li>Alex Doe</li></td>
+                                    <td><li>Delivery</li></td>
+                                        <td><li>$204.98</li></td>
+                                    </tr>
+                                    <tr>
+                                        <td><li>Order #2</li></td>
+                                        <td><li>David Mart</li></td>
+                                        <td><li>Pickup</li></td>
+                                        <td><li>$24.55</li></td>
+                                    </tr>
+                                    <tr>
+                                        <td><li>Order #3</li></td>
+                                        <td><li>Roe Parter</li></td>
+                                        <td><li>Pickup</li></td>
+                                        <td><li>$25.88</li></td>
+                                    </tr>
+                                    <tr>
+                                        <td><li>Order #4</li></td>
+                                        <td><li>Diana Penty</li></td>
+                                        <td><li>Delivery</li></td>
+                                        <td><li>$170.66</li></td>
+                                    </tr>
+                                </table>
+                            </div>
                     </div>
-                </div>
-            <script>
-            function openNav() {
-                document.getElementById("manager-sidebar-button").style.width = "250px";
-                document.getElementById("main1").style.marginLeft = "250px";
+                </div> 
+            </div>
+
+        </section>
+    </div>
+
+    <div id = "Comments" class = "customertabcontent">
+        <section class="customer-dashboard-section" id="user-comments">
+            <div id="comments-form">
+                <h3>Leave a Message</h3>
+
+                <form class="user-comments" id="commentform" method="post">
+                    <label for="comment_author" class="required">Name:</label>
+                    <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required">
+
+                    <label for="Type" class="required">Type:</label>
+                    <select type="Type" name="Type" id="Type" value="" tabindex="2" required="required">
+                        <option value="compliment">Compliment</option>
+                        <option value="complaint">Complaint</option>
+                    </select>
+
+                    <label for="Subject" class="required">Subject:</label>
+                    <select type="Subject" name="Subject" id="Subject" value="" tabindex="3" required="required">
+                        <optgroup label="Chefs">
+                            <option value="chef1">Chef 1</option>
+                            <option value="chef2">Chef 2</option>
+                        </optgroup>
+                        <optgroup label="Deliverer">
+                            <option value="deliverer1">Deliverer 1</option>
+                            <option value="deliverer2">Deliverer 2</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="comment" class="required">Comment:</label>
+                    <textarea name="comment" id="comment" rows="10" tabindex="4"  required="required" placeholder="Type your comment here..."></textarea>
+
+                    <button id="nextStep">Submit</button>
+                    <!-- <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
+                    <input name="submit" type="submit" value="Submit comment" /> -->
+                </form>
+            </div>
+
+            <div id="thankyou">
+                <h3>Thanks for filling out the form!</h3>
+                <p>You will receive a response in approximately 2-3 business days.</p>
+                <button type="submit">Close</button>
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        // sidenav function           
+            let customersidebar = document.querySelector(".customersidebar");
+            let customersidebarBtn = document.querySelector(".customersidebarBtn");
+
+            customersidebarBtn.onclick = function(){
+                customersidebar.classList.toggle("active");
             }
+        // end sidenav function
+
+
+        // tabs system
+            function openTab2(evt, tabName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("customertabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("customertablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        // end tabs system
+
+        // thanks page
+        var nextStep = document.querySelector('#nextStep');
+
+        nextStep.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Hide first view
+            document.getElementById('comments-form').style.display = 'none';
+
+            // Show thank you message element
+            document.getElementById('thankyou').style.display = 'block';
+        });
+        // end thanks page
+
+    </script>      
     
-    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-            function closeNav() {
-                document.getElementById("manager-sidebar-button").style.width = "0";
-                document.getElementById("main1").style.marginLeft = "0";
-            }
-            function toggleTable() {
-                document.getElementById("recent-orders").classList.toggle("hidden1");
-            }
-        </script>        
-    </div> 
     {% else %}
         {% if userType == "manager" %}
-            <div class="manager-container">
-                <div class="manager-sidebar">
-                    <div id="manager-sidebar-button" class="manager-sidenav">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="{{ url_for("dashboard") }}"><i class='bx bx-grid-alt'></i>Dashboard</a>
-                        <a href=><i class='fa-regular fa-user'></i>Customer Accounts</a>
-                        <a href="#"><i class="fa-regular fa-id-badge"></i>Employee Accounts</a>
-                        <a href="#"><i class="fa fa-fw fa-motorcycle"></i>Delivery Bidding</a>
-                        <a href="{{ url_for("dashboardDiscussions") }}"><i class='fa-regular fa-comments' ></i>Discussions</a>
-                        <a href="{{ url_for("dashboardComments") }}"><i class='fa-regular fa-message' ></i>Customer Comments</a>
-                        <a href="#"><i class='bx bx-cog' ></i>Settings</a>
-                        <a href="{{ url_for("logout") }}"><i class='bx bx-log-out'></i>Log out</a>
-                    </div>
+            <div class="managersidebar">
+                <div class = "logo-details">
+                    <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                 </div>
-                <div id="main1" class="manager-home-section">
-                    <nav>
-                        <div class="manager-nav">
-                            <span class="open-sidenav" onclick="openNav()"><i class='bx bx-menu sidebarBtn'></i>Dashboard</span>
-                            <div class="profile-details">
-                                <img src="images/profile.jpg" alt="">
-                                <span class="admin_name">Manager</span>
-                                <!-- <i class='fa-solid fa-lock' ></i> -->
-                            </div>
-                            <div class="search-box">
-                                <input type="text" placeholder="Search...">
-                                <i class='bx bx-search' ></i>
-                            </div>
-                        </div>
-                    </nav>
-            
+                <button class="managertablinks" onclick="openTab1(event, 'mDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                <button class="managertablinks" onclick="openTab1(event, 'CustomerAccounts')"><i class='fa-regular fa-user'></i>Customer Accounts</button>
+                <button class="managertablinks" onclick="openTab1(event, 'EmployeeAccounts')"><i class='fa-regular fa-id-badge'></i>Employee Accounts</button>
+                <button class="managertablinks" onclick="openTab1(event, 'Discussions')"><i class='fa-regular fa-comments'></i>Discussions</button>
+                <button class="managertablinks" onclick="openTab1(event, 'CustomerComments')"><i class='fa-regular fa-message'></i>Customer Comments</button>
+            </div>
+
+            <section class = "manager-home-section">
+                <nav class = "manager-nav">
+                    <div class = "manager-sidebar-button">
+                        <i class='bx bx-menu managersidebarBtn'></i>
+                        <span class="manager-dashboard">Dashboard</span>
+                    </div>
+                    <div class="manager-welcome">
+                        Welcome, Deliverer PeMaJe GiViSe
+                    </div>
+                    <div class="manager-logout"></div>
+                </nav>
+            </section>
+
+
+            <!-- manager dashboard home page -->
+            <div id = "mDashboard" class = "managertabcontent">
+                <section class = "manager-dashboard-section">
+                    
                     <div class="manager-home-content">
-                        <div class="overview-boxes">
-                            <div class="box">
-                                <div class="right-side">
-                                    <div class="box-topic">Total Orders</div>
-                                    <div class="number">5,000</div>
-                                        <div class="indicator">
-                                            <i class='bx bx-up-arrow-alt'></i>
-                                            <span class="text">Up from yesterday</span>
-                                        </div>
+                        <div class="manager-overview-boxes">
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Orders</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
                                     </div>
+                                </div>
                                     <i class='bx bx-cart-alt cart'></i>
-                                </div>
-                                <div class="box">
-                                    <div class="right-side">
-                                        <div class="box-topic">Total Customers</div>
-                                        <div class="number">5,000</div>
-                                        <div class="indicator">
-                                            <i class='bx bx-up-arrow-alt'></i>
-                                            <span class="text">Up from yesterday</span>
-                                        </div>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Customers</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
                                     </div>
+                                </div>
                                     <i class='bx bxs-cart-add cart two' ></i>
-                                </div>
-                                <div class="box">
-                                    <div class="right-side">
-                                        <div class="box-topic">Total Profit</div>
-                                        <div class="number">$10,000</div>
-                                        <div class="indicator">
-                                            <i class='bx bx-up-arrow-alt'></i>
-                                            <span class="text">Up from yesterday</span>
-                                        </div>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Profit</div>
+                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
                                     </div>
-                                    <i class='bx bx-cart cart three' ></i>
                                 </div>
+                                    <i class='bx bx-cart cart three' ></i>
+                            </div>
                         </div>
-                        <div class="sales-boxes">
-                            <div class="recent-sales box">
-                                <!-- <div class="title"><h3>Recent Orders</h3></div> -->
-                                <div class="sales-details">
-                                    <button class="recent-orders-button" onClick="toggleTable()">Recent Orders<i class="bx bx-chevron-down"></i></button>
-                                    <table id="recent-orders" class="hidden1">
+                    </div>
+
+                    <div class="manager-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Recent Orders</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="recent-orders" class="recent-orders-table">
                                         <tr>
                                             <th>Order #</th>
                                             <th>Customer</th>
@@ -252,236 +288,1353 @@
                                             <th>Total</th>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #1</a></li></td>
-                                        <td><li><a href="#">Alex Doe</a></li></td>
-                                        <td><li><a href="#">Delivery</a></li></td>
-                                        <td><li><a href="#">$204.98</a></li></td>
+                                           <td><li>Order #1</li></td>
+                                           <td><li>Alex Doe</li></td>
+                                           <td><li>Delivery</li></td>
+                                           <td><li>$204.98</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #2</a></li></td>
-                                        <td><li><a href="#">David Mart</a></li></td>
-                                        <td><li><a href="#">Pickup</a></li></td>
-                                        <td><li><a href="#">$24.55</a></li></td>
+                                           <td><li>Order #2</li></td>
+                                           <td><li>David Mart</li></td>
+                                           <td><li>Pickup</li></td>
+                                           <td><li>$24.55</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #3</a></li></td>
-                                        <td><li><a href="#">Roe Parter</a></li></td>
-                                        <td><li><a href="#">Pickup</a></li></td>
-                                        <td><li><a href="#">$25.88</a></li></td>
+                                           <td><li>Order #3</li></td>
+                                           <td><li>Roe Parter</li></td>
+                                           <td><li>Pickup</li></td>
+                                           <td><li>$25.88</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #4</a></li></td>
-                                        <td><li><a href="#">Diana Penty</a></li></td>
-                                        <td><li><a href="#">Delivery</a></li></td>
-                                        <td><li><a href="#">$170.66</a></li></td>
+                                           <td><li>Order #4</li></td>
+                                           <td><li>Diana Penty</li></td>
+                                           <td><li>Delivery</li></td>
+                                           <td><li>$170.66</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #5</a></li></td>
-                                        <td><li><a href="#">Martin Paw</a></li></td>
-                                        <td><li><a href="#">Delivery</a></li></td>
-                                        <td><li><a href="#">$56.56</a></li></td>
+                                           <td><li>Order #5</li></td>
+                                           <td><li>Martin Paw</li></td>
+                                           <td><li>Delivery</li></td>
+                                           <td><li>$56.56</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #6</a></li></td>
-                                        <td><li><a href="#">Doe Alex</a></li></td>
-                                        <td><li><a href="#">Pickup</a></li></td>
-                                        <td><li><a href="#">$44.95</a></li></td>
+                                           <td><li>Order #6</li></td>
+                                           <td><li>Doe Alex</li></td>
+                                           <td><li>Pickup</li></td>
+                                           <td><li>$44.95</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #7</a></li></td>
-                                        <td><li><a href="#">Aiana Lexa</a></li></td>
-                                        <td><li><a href="#">Delivery</a></li></td>
-                                        <td><li><a href="#">$67.33</a></li></td>
+                                           <td><li>Order #7</li></td>
+                                           <td><li>Aiana Lexa</li></td>
+                                           <td><li>Delivery</li></td>
+                                           <td><li>$67.33</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #8</a></li></td>
-                                        <td><li><a href="#">Rexel Mags</a></li></td>
-                                        <td><li><a href="#">Pickup</a></li></td>
-                                        <td><li><a href="#">$23.53</a></li></td>
+                                           <td><li>Order #8</li></td>
+                                           <td><li>Rexel Mags</li></td>
+                                           <td><li>Pickup</li></td>
+                                           <td><li>$23.53</li></td>
                                         </tr>
                                         <tr>
-                                        <td><li><a href="#">Order #9</a></li></td>
-                                        <td><li><a href="#">Tiana Loths</a></li></td>
-                                        <td><li><a href="#">Delivery</a></li></td>
-                                        <td><li><a href="#">$46.52</a></li></td>
+                                           <td><li>Order #9</li></td>
+                                           <td><li>Tiana Loths</li></td>
+                                           <td><li>Delivery</li></td>
+                                           <td><li>$46.52</li></td>
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="button">
-                                    <a href="#">See All</a>
+                                <a href="#" id="recent-orders-load" class="see-all-button">See All</a>
+                            </div>
+                        </div> 
+                    </div>
+
+                </section>
+            </div>
+            <!-- end manager dashboard home page -->
+
+
+            <!-- customer accounts page -->
+            <div id = "CustomerAccounts" class = "managertabcontent">
+                <section class = "manager-dashboard-section">
+                                
+                    <div class="manager-home-content">
+                        <div class="manager-overview-boxes">
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Orders</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart-alt cart'></i>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Customers</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bxs-cart-add cart two' ></i>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Profit</div>
+                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart cart three' ></i>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Registered Customers</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="registered-customers" class="registered-customers-table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Card Number</th>
+                                            <th>Give Warning</th>
+                                        </tr>
+                                        <tr>
+                                           <td><li>11111</li></td>
+                                           <td><li>Alex</li></td>
+                                           <td><li>Doe</li></td>
+                                           <td><li>alexDoe123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>alexDoe@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>22222</li></td>
+                                           <td><li>David</li></td>
+                                           <td><li>Mart</li></td>
+                                           <td><li>davidMart123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>davidMart@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>33333</li></td>
+                                           <td><li>Roe</li></td>
+                                           <td><li>Partner</li></td>
+                                           <td><li>roePartner123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>roePartner@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>44444</li></td>
+                                           <td><li>Diana</li></td>
+                                           <td><li>Penty</li></td>
+                                           <td><li>dianaPenty123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>dianaPenty@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>55555</li></td>
+                                           <td><li>Martin</li></td>
+                                           <td><li>Paw</li></td>
+                                           <td><li>martinPaw123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>martinPaw@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>66666</li></td>
+                                           <td><li>Doe</li></td>
+                                           <td><li>Alex</li></td>
+                                           <td><li>doeAlex123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>doeAlex@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>77777</li></td>
+                                           <td><li>Aiana</li></td>
+                                           <td><li>Lexa</li></td>
+                                           <td><li>aianaLexa123</li></td>
+                                           <td><li>ABcd1234</li></td>
+                                           <td><li>aianaLexa@gmail.com</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>************1234</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <a href="#" id="registered-customers-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>VIP Customers</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="VIP-customers" class="VIP-customers-table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Card Number</th>
+                                            <th>Give Warning</th>
+                                        </tr>
+                                        <tr>
+                                            <td><li>88888</li></td>
+                                            <td><li>Rexel</li></td>
+                                            <td><li>Mags</li></td>
+                                            <td><li>rexelMags123</li></td>
+                                            <td><li>ABcd1234</li></td>
+                                            <td><li>rexelMags@gmail.com</li></td>
+                                            <td><li>12345678901</li></td>
+                                            <td><li>************1234</li></td>
+                                            <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>99999</li></td>
+                                            <td><li>Tiana</li></td>
+                                            <td><li>Loths</li></td>
+                                            <td><li>tianaLoths123</li></td>
+                                            <td><li>ABcd1234</li></td>
+                                            <td><li>tianaLoths@gmail.com</li></td>
+                                            <td><li>12345678901</li></td>
+                                            <td><li>************1234</li></td>
+                                            <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <a href="#" id="vip-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Lost Customers</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="lost-customers" class="lost-customers-table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Balance</th>
+                                            <th>Warnings</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        <tr>
+                                           <td><li>11111</li></td>
+                                           <td><li>Doe</li></td>
+                                           <td><li>alexDoe@gmail.com</li></td>
+                                           <td><li>alexDoe123</li></td>
+                                           <td><li>$5.90</li></td>
+                                           <td><li>3</li></td>
+                                           <td><li>Blacklisted</li></td>
+                                           <td><li>Resolved</li></td>
+                                           <td>
+                                                <button id = "cleardeposit" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                                                <button id = "deleteaccount" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>11111</li></td>
+                                           <td><li>Doe</li></td>
+                                           <td><li>alexDoe@gmail.com</li></td>
+                                           <td><li>alexDoe123</li></td>
+                                           <td><li>$5.90</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>Closed</li></td>
+                                           <td><li>Resolved</li></td>
+                                           <td>
+                                                <button id = "cleardeposit" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                                                <button id = "deleteaccount" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>11111</li></td>
+                                           <td><li>Doe</li></td>
+                                           <td><li>alexDoe@gmail.com</li></td>
+                                           <td><li>alexDoe123</li></td>
+                                           <td><li>$5.90</li></td>
+                                           <td><li>1</li></td>
+                                           <td><li>Blacklisted</li></td>
+                                           <td><li>Resolved</li></td>
+                                           <td>
+                                                <button id = "cleardeposit" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                                                <button id = "deleteaccount" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>11111</li></td>
+                                           <td><li>Doe</li></td>
+                                           <td><li>alexDoe@gmail.com</li></td>
+                                           <td><li>alexDoe123</li></td>
+                                           <td><li>$5.90</li></td>
+                                           <td><li>1</li></td>
+                                           <td><li>Blacklisted</li></td>
+                                           <td><li>Resolved</li></td>
+                                           <td>
+                                                <button id = "cleardeposit" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                                                <button id = "deleteaccount" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <a href="#" id="lost-customers-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+                                           
+                </section>
+            </div>
+
+            <!-- end customer accounts page -->
+
+
+            <!-- employee accounts page -->
+            <div id = "EmployeeAccounts" class = "managertabcontent">
+                <section class = "manager-dashboard-section">
+                                
+                    <div class="manager-home-content">
+                        <div class="manager-overview-boxes">
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Orders</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart-alt cart'></i>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Customers</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bxs-cart-add cart two' ></i>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Profit</div>
+                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart cart three' ></i>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Chefs</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="chef-table" class="chef-table">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Phone Number</th>
+                                            <th>Salary</th>
+                                            <th>Total Compliments</th>
+                                            <th>Total Complaints</th>
+                                            <th>Total Warnings</th>
+                                            <th>Demotions</th>
+                                            <th>Give Warning</th>
+                                        </tr>
+                                        <tr>
+                                           <td><li>11111</li></td>
+                                           <td><li>Alex Doe</li></td>
+                                           <td><li>alexDoe@gmail.com</li></td>
+                                           <td><li>alexDoe123</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>$15/hr</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>0</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td><li>22222</li></td>
+                                           <td><li>David Mart</li></td>
+                                           <td><li>davidMart@gmail.com</li></td>
+                                           <td><li>davidMart123</li></td>
+                                           <td><li>12345678901</li></td>
+                                           <td><li>$15/hr</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>0</li></td>
+                                           <td><li>0</li></td>
+                                           <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    <script>
-                    function openNav() {
-                        document.getElementById("manager-sidebar-button").style.width = "250px";
-                        document.getElementById("main1").style.marginLeft = "250px";
+                    </div>
+
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Delivery Workers</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="delivery-table" class="delivery-table">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Phone Number</th>
+                                            <th>Salary</th>
+                                            <th>Total Compliments</th>
+                                            <th>Total Complaints</th>
+                                            <th>Total Warnings</th>
+                                            <th>Demotions</th>
+                                            <th>Give Warning</th>
+                                        </tr>
+                                        <tr>
+                                            <td><li>88888</li></td>
+                                            <td><li>Rexel Mags</li></td>
+                                            <td><li>rexelMags@gmail.com</li></td>
+                                            <td><li>rexelMags123</li></td>
+                                            <td><li>12345678901</li></td>
+                                            <td><li>$15/hr</li></td>
+                                            <td><li>0</li></td>
+                                            <td><li>0</li></td>
+                                            <td><li>0</li></td>
+                                            <td><li>0</li></td>
+                                            <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>99999</li></td>
+                                            <td><li>Tiana Loths</li></td>
+                                            <td><li>tianaLoths@gmail.com</li></td>
+                                            <td><li>tianaLoths123</li></td>
+                                            <td><li>12345678901</li></td>
+                                            <td><li>$15/hr</li></td>
+                                            <td><li>0</li></td>
+                                            <td><li>0</li></td>
+                                            <td><li>0</li></td>
+                                            <td><li>0</li></td>
+                                            <td>
+                                                <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                                           
+                </section>
+            </div>
+
+            <!-- end employee accounts page -->
+
+
+            <!-- discussions page -->
+            <div id = "Discussions" class = "managertabcontent">
+                <section class = "manager-dashboard-section">
+                                
+                    <div class="manager-home-content">
+                        <div class="manager-overview-boxes">
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Messages</div>
+                                    <div class="manager-number">3</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Likes: 5</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart-alt cart'></i>
+                            </div>
+
+                            <!-- <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Discussions</div>
+                                    <div class="manager-number">200</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart cart four' ></i>
+                            </div> -->
+
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Staff Online</div>
+                                    <div class="manager-number">1</div>
+                                </div>
+                                    <i class='bx bxs-cart-add cart two' ></i>
+                            </div>
+
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Customers Online</div>
+                                    <div class="manager-number">23</div>
+                                </div>
+                                    <i class='bx bx-cart cart three' ></i>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Forum</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="forum-table" class="forum-table">
+                                        <tr>
+                                            <th>Topic</th>
+                                            <th>Views</th>
+                                            <th>Replies</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Forum Topic</td>
+                                            <td>100</td>
+                                            <td>20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Forum Topic</td>
+                                            <td>100</td>
+                                            <td>20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Forum Topic</td>
+                                            <td>100</td>
+                                            <td>20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Forum Topic</td>
+                                            <td>100</td>
+                                            <td>20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Forum Topic</td>
+                                            <td>100</td>
+                                            <td>20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Forum Topic</td>
+                                            <td>100</td>
+                                            <td>20</td>
+                                        </tr>
+                                    </table> 
+                                </div>
+                                <a href="#" id="discussions-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+                                           
+                </section>
+            </div>
+
+            <!-- end discussions page -->
+
+
+            <!-- customer comments page -->
+            <div id = "CustomerComments" class = "managertabcontent">
+                <section class = "manager-dashboard-section">
+                                
+                    <div class="manager-home-content">
+                        <div class="manager-overview-boxes">
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Orders</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart-alt cart'></i>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Customers</div>
+                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bxs-cart-add cart two' ></i>
+                            </div>
+                            <div class="manager-box">
+                                <div class="manager-right">
+                                    <div class="manager-box-topic">Total Profit</div>
+                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-indicator">
+                                        <i class='bx bx-up-arrow-alt'></i>
+                                        <span class="manager-text">Up from yesterday</span>
+                                    </div>
+                                </div>
+                                    <i class='bx bx-cart cart three' ></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Comments</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="comments-table" class="comments-table">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Author (ID, Name)</th>
+                                            <th>Type</th>
+                                            <th>Comment</th>
+                                            <th>Recipient (ID, Name)</th>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>1111, Alex Doe</li></td>
+                                            <td><li>Complaint</li></td>
+                                            <td><li>The food was horrible.</li></td>
+                                            <td><li>3333, Chef 1</li></td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>1111, Alex Doe</li></td>
+                                            <td><li>Compliment</li></td>
+                                            <td><li>The food was great.</li></td>
+                                            <td><li>3333, Chef 1</li></td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>2222, David Mart</li></td>
+                                            <td><li>Compliment</li></td>
+                                            <td><li>The delivery was great.</li></td>
+                                            <td><li>4444, Delivery 1</li></td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>2222, David Mart</li></td>
+                                            <td><li>Complaint</li></td>
+                                            <td><li>The delivery was late ...</li></td>
+                                            <td><li>4444, Delivery 1</li></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <a href="#" id="customer-comments-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Disputed Comments</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="disputed-comments-table" class="disputed-comments-table">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Author (ID, Name)</th>
+                                            <th>Original Complaint</th>
+                                            <th>Recipient</th>
+                                            <th>Dispute Claim</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>1111, Alex Doe</li></td>
+                                            <td><li>The food was horrible.</li></td>
+                                            <td><li>Chef 1</li></td>
+                                            <td><li>This claim will be disputed bc...</li></td>
+                                            <td><li>Unresolved</li></td>
+                                            <td>
+                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
+                                                <div class="modal" id="modal">
+                                                    <div class="modal-header">
+                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
+                                                        <button data-close-button class="close-button">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
+                                                        </form>
+                                                    </div>
+                                                    <div class="send-button">
+                                                        <a href="#">Send</a>
+                                                    </div>
+                                                </div>
+                                                <div id="overlay"></div>
+
+                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
+                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>1111, Alex Doe</li></td>
+                                            <td><li>The food was horrible.</li></td>
+                                            <td><li>Chef 1</li></td>
+                                            <td><li>This claim will be disputed bc...</li></td>
+                                            <td><li>Resolved</li></td>
+                                           <td>
+                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
+                                                <div class="modal" id="modal">
+                                                    <div class="modal-header">
+                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
+                                                        <button data-close-button class="close-button">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
+                                                        </form>
+                                                    </div>
+                                                    <div class="send-button">
+                                                        <a href="#">Send</a>
+                                                    </div>
+                                                </div>
+                                                <div id="overlay"></div>
+
+                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
+                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>2222, David Mart</li></td>
+                                            <td><li>The delivery was late ...</li></td>
+                                            <td><li>Delivery 1</li></td>
+                                            <td><li>This claim will be disputed bc...</li></td>
+                                            <td><li>Unresolved</li></td>
+                                           <td>
+                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
+                                                <div class="modal" id="modal">
+                                                    <div class="modal-header">
+                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
+                                                        <button data-close-button class="close-button">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
+                                                        </form>
+                                                    </div>
+                                                    <div class="send-button">
+                                                        <a href="#">Send</a>
+                                                    </div>
+                                                </div>
+                                                <div id="overlay"></div>
+
+                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
+                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                           </td>
+                                        </tr>
+                                        <tr>
+                                            <td><li>05/05/2022</li></td>
+                                            <td><li>2222, David Mart</li></td>
+                                            <td><li>The delivery was late ...</li></td>
+                                            <td><li>Delivery 1</li></td>
+                                            <td><li>This claim will be disputed bc...</li></td>
+                                            <td><li>Resolved</li></td>
+                                           <td>
+                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
+                                                <div class="modal" id="modal">
+                                                    <div class="modal-header">
+                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
+                                                        <button data-close-button class="close-button">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
+                                                        </form>
+                                                    </div>
+                                                    <div class="send-button">
+                                                        <a href="#">Send</a>
+                                                    </div>
+                                                </div>
+                                                <div id="overlay"></div>
+
+                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
+                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                           </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <a href="#" id="disputed-comments-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+                                           
+                </section>
+            </div>
+
+            <!-- end customer comments page -->
+
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script>
+                // see all button
+                $('table tr:nth-child(n+1):nth-child(-n+4)').addClass('active');
+
+                $('#recent-orders-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.recent-orders-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+
+                $('#registered-customers-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.registered-customers-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+
+                $('#vip-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.VIP-customers-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+
+                $('#lost-customers-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.lost-customers-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+
+                $('#discussions-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.forum-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+
+                $('#customer-comments-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.comments-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+
+                $('#disputed-comments-load').on('click', function(e) {
+                    e.preventDefault();  
+                    var $rows = $('.disputed-comments-table tr');
+                    var lastActiveIndex = $rows.filter('.active:last').index();
+                    $rows.filter(':lt(' + (lastActiveIndex + 10) + ')').addClass('active');
+                });
+                // end see all button
+
+
+                // sidenav function           
+                let managersidebar = document.querySelector(".managersidebar");
+                let managersidebarBtn = document.querySelector(".managersidebarBtn");
+
+
+                managersidebarBtn.onclick = function(){
+                    managersidebar.classList.toggle("active");
+                }
+                // end sidenav function
+
+
+                // tabs system
+                function openTab1(evt, tabName) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("managertabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
                     }
-            
-            /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-                    function closeNav() {
-                        document.getElementById("manager-sidebar-button").style.width = "0";
-                        document.getElementById("main1").style.marginLeft = "0";
+                    tablinks = document.getElementsByClassName("managertablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
                     }
-                    function toggleTable() {
-                        document.getElementById("recent-orders").classList.toggle("hidden1");
+                    document.getElementById(tabName).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+                // end tabs system
+
+
+                // dropdown buttons for customer accounts page
+                // function toggleTable1() {
+                //     document.getElementById("registered-customers").classList.toggle("hidden");
+                // }
+                // function toggleTable2() {
+                //     document.getElementById("VIP-customers").classList.toggle("hidden1");
+                // }
+                // end dropdown buttons for customer accounts page
+
+
+                // buttons for customer comments page
+                    // start of reply action
+                    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+                    const closeModalButtons = document.querySelectorAll('[data-close-button]')
+                    const overlay = document.getElementById('overlay')
+
+                    openModalButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const modal = document.querySelector(button.dataset.modalTarget)
+                            openModal(modal)
+                        })
+                    })
+
+                    closeModalButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const modal = button.closest('.modal')
+                            closeModal(modal)
+                        })
+                    })
+
+                    overlay.addEventListener('click', () => {
+                        const modals = document.querySelectorAll('.modal.active')
+                        modals.forEach(modal => {
+                            closeModal(modal)
+                        })
+                    })
+
+                    function openModal(modal) {
+                        if (modal == null) return
+                        modal.classList.add('active')
+                        overlay.classList.add('active')
                     }
-                </script>        
-            </div>  
+
+                    function closeModal(modal) {
+                        if (modal == null) return
+                        modal.classList.remove('active')
+                        overlay.classList.remove('active')
+                    }
+                    // end of reply action
+
+
+                    // start of dismiss button
+                    function removeRow(o) {
+                        var p=o.parentNode.parentNode;
+                            p.parentNode.removeChild(p);
+                    }
+                    // end of dismiss button
+                // buttons for customer comments page
+            </script>
         {% else %}
             {% if userType == "chef" %}
-                <div class="chef-container">
-                    <div class="chef-sidebar">
-                        <div id="chef-sidebar-button" class="chef-sidenav">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                            <a href="{{ url_for("dashboard") }}"><i class='bx bx-grid-alt'></i>Dashboard</a>
-                            <a href="#"><i class='fa-regular fa-user'></i>Edit Menu</a>
-                            <a href="#"><i class='bx bx-cog' ></i>Settings</a>
-                            <a href="{{ url_for("logout") }}"><i class='bx bx-log-out'></i>Log out</a>
-                        </div>
-                    </div>
-                    <div id="main" class="chef-home-section">
-                        <nav>
-                            <div class="chef-nav">
-                                <span class="open-sidenav" onclick="openNav()"><i class='bx bx-menu sidebarBtn'></i>Dashboard</span>
-                                <div class="profile-details">
-                                    <img src="images/profile.jpg" alt="">
-                                    <span class="admin_name">Chef</span>
-                                    <!-- <i class='fa-solid fa-lock' ></i> -->
-                                </div>
-                                <div class="search-box">
-                                    <input type="text" placeholder="Search...">
-                                    <i class='bx bx-search' ></i>
-                                </div>
-                            </div>
-                        </nav>
-                
-                        <div class="chef-home-content">
-                            <div class="overview-boxes">
-                                <div class="box">
-                                    <div class="right-side">
-                                        <div class="box-topic">Rating</div>
-                                        <div class="number">4.5</div>
-                                            <div class="indicator">
-                                                <i class='bx bx-up-arrow-alt'></i>
-                                                <span class="text">Up from yesterday</span>
-                                            </div>
-                                        </div>
-                                        <i class='bx bx-star star'></i>
-                                    </div>
-                                    <div class="box">
-                                        <div class="right-side">
-                                            <div class="box-topic">Compliments</div>
-                                            <div class="number">2</div>
-                                            <div class="indicator">
-                                                <i class='bx bx-up-arrow-alt'></i>
-                                                <span class="text">Up from yesterday</span>
-                                            </div>
-                                        </div>
-                                        <i class='bx bx-happy-beaming happy' ></i>
-                                    </div>
-                                    <div class="box">
-                                        <div class="right-side">
-                                            <div class="box-topic">Complaints</div>
-                                            <div class="number">0</div>
-                                            <div class="indicator">
-                                                <i class='bx bx-minus-circle minus'></i>
-                                                <span class="text">Same from yesterday</span>
-                                            </div>
-                                        </div>
-                                        <i class='bx bx-sad sad' ></i>
-                                    </div>
-                            </div>
-                            <div class="sales-boxes">
-                                <div class="recent-sales box">
-                                    <!-- <div class="title"><h3>Your Current Menu</h3></div> -->
-                                    <div class="sales-details">
-                                        <button class="menu-button" onClick="toggleTable()">Your Current Menu<i class="bx bx-chevron-down"></i></button>
-                                        <table id="current-menu" class="hidden">
-                                            <tr>
-                                                <th>Dish</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Price</th>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                            <tr>
-                                            <td><img src="images/profile.jpg" alt=""></td>
-                                            <td><li><a href="#">Dish Name</a></li></td>
-                                            <td><li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li></td>
-                                            <td><li><a href="#">$204.98</a></li></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="button">
-                                        <a href="#">See All</a>
-                                    </div>
-                                </div>
-                            </div>
-                    <script>
-                        function openNav() {
-                            document.getElementById("chef-sidebar-button").style.width = "250px";
-                            document.getElementById("main").style.marginLeft = "250px";
-                        }
-                
-                /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-                        function closeNav() {
-                            document.getElementById("chef-sidebar-button").style.width = "0";
-                            document.getElementById("main").style.marginLeft = "0";
-                        }
-                        function toggleTable() {
-                            document.getElementById("current-menu").classList.toggle("hidden");
-                        }
-                    </script>    
-                </div>                
-            {% else %}
-                <!-- delivery personal html go here -->
-                
-                <div class="deliverysidebar">
+                <div class="chefsidebar">
                     <div class = "logo-details">
-                        <img class = "logo" alt="My Image" src="https://images.squarespace-cdn.com/content/v1/56a2785c69a91af45e06a188/1610989066011-TAM2C1NWLRLL10HH3FMU/Restaurant-Logo-Designs.jpg?format=1500w" />
+                        <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
-                    <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
-                    <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
-                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'ChefDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditAppetizers')"><i class='bx bxs-baguette' ></i>Edit Appetizers</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
+                </div>
+                
+                <section class = "chef-home-section">
+                    <nav class = "chef-nav">
+                        <div class = "chef-sidebar-button">
+                            <i class='bx bx-menu chefsidebarBtn'></i>
+                            <span class="chef-dashboard">Dashboard</span>
+                        </div>
+                        <div class="chef-welcome d-block mx-auto">
+                            Welcome, Chef PeMaJe GiViSe
+                        </div>
+                        <div class="chef-logout">
+                        
+                        </div>
+                    </nav>
+                </section>
+
+                                
+                <div id = "ChefDashboard" class = "cheftabcontent">
+                    d
                 </div>
 
+                <div id = "EditAppetizers" class = "cheftabcontent">
+                    <!-- <section class = "chef-items"> -->
+                        <div class="appetizer-items">
+                            <h1 class = "menu-item-heading">
+                                APPETIZERS
+                            </h1>
+                            <div class = "menu-group d-block mx-auto">
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button class = "edit-btn">Edit</button>
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                    
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button class = "edit-btn">Edit</button>
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                    
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button class = "edit-btn">Edit</button>
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                                
+                                <div class = "menu-item ">
+                                    <div class = "menu-id">one</div>
+                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                    <div class="item-name">
+                                        Item 1 Name
+                                    </div>
+                                    <div class = "menu-item-description">
+                                        Condimentum lacus orci netus. 
+                                    </div>
+                                    <div class="item-price">$5.99</div>
+                                    <div class = "buttons">
+                                        <button id = "edit-button" class = "edit-btn">Edit</button>
+                    
+                                        <button class = "remove-btn">Remove</button>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>
+                    
+                    <!-- </section> -->
+                </div>
+
+                <div id = "EditEntrees" class = "cheftabcontent">
+                    
+                    <div class="entrees-items">
+                        <h1 class = "menu-item-heading">
+                            Entrees
+                        </h1>
+                        <div class = "menu-group d-block mx-auto">
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                            
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button id = "edit-button" class = "edit-btn">Edit</button>
+                
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id = "EditDesserts" class = "cheftabcontent">
+                    <div class="dessert-items">
+                        <h1 class = "menu-item-heading">
+                            Desserts
+                        </h1>
+                        <div class = "menu-group d-block mx-auto">
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button class = "edit-btn">Edit</button>
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                            
+                            <div class = "menu-item ">
+                                <div class = "menu-id">one</div>
+                                <img class = "item-image" src="static\assets\test.jpg" alt="">
+                                <div class="item-name">
+                                    Item 1 Name
+                                </div>
+                                <div class = "menu-item-description">
+                                    Condimentum lacus orci netus. 
+                                </div>
+                                <div class="item-price">$5.99</div>
+                                <div class = "buttons">
+                                    <button id = "edit-button" class = "edit-btn">Edit</button>
+                
+                                    <button class = "remove-btn">Remove</button>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- POPUP MODAL -->
+                <div class="bg-modal">
+                    <div class="modal-content">
+                        <div class="form-popup" id="myForm">
+                            <form action="/action_page.php" class="form-container">
+                              <h1>Update Item</h1>
+                          
+                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
+                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
+                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
+                              <input type="text" placeholder="Enter Price" name="itemprice" required>
+                
+                
+                              <button type="submit" class="btn">Update</button>
+                              <button type="button" class="btn-cancel" onclick="closeForm()">+</button>
+                            </form>
+                          </div>    
+                    </div>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script>
+                    let chefsidebar = document.querySelector(".chefsidebar");
+                    let chefsidebarBtn = document.querySelector(".chefsidebarBtn");
+                
+                
+                    chefsidebarBtn.onclick = function(){
+                        chefsidebar.classList.toggle("active");
+                    }
+                
+                    function openTab(evt, tabName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("cheftabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+                        tablinks = document.getElementsByClassName("cheftablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(tabName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                
+                    }
+
+                    $('.remove-btn').click(function() {removeItem(this);});
+                    /* remove item from cart and recalculate summary */
+                    function removeItem(removeButton) {
+                        /* remove row */
+                        var productRow = $(removeButton).parent().parent()
+                        productRow.slideUp(fadeTime, 
+                            function() {
+                                productRow.remove();
+                            }
+                        )
+                    }
+                    var fadeTime = 300;
+
+                    document.querySelector('.edit-btn').addEventListener('click',function(){
+                        document.querySelector('.bg-modal').style.display = "flex";
+                    });
+
+                    document.querySelector('.btn-cancel').addEventListener('click',function(){
+                        document.querySelector('.bg-modal').style.display = "none";
+                    });
+
+                </script>
+
+            {% else %}
+                <!-- delivery personal html go here -->
+                <div class="deliverysidebar">
+                    <div class = "logo-details">
+                        <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
+                    </div>
+                    <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                    <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryWarnings')"><i class='bx bx-error'></i>Warnings</button>
+                </div>
+                
                 <section class = "delivery-home-section">
                     <nav class = "delivery-nav">
                         <div class = "delivery-sidebar-button">
                             <i class='bx bx-menu deliverysidebarBtn'></i>
                             <span class="delivery-dashboard">Dashboard</span>
                         </div>
-                        <div class="delivery-welcome">
+                        <div class="delivery-welcome d-block mx-auto">
                             Welcome, Deliverer PeMaJe GiViSe
                         </div>
                         <div class="delivery-logout">
@@ -489,15 +1642,143 @@
                         </div>
                     </nav>
                 </section>
-
-
+                
+                
                 <div id = "Dashboard" class = "deliverytabcontent">
-                    <div class="alert warning-alert">
-                        <h3>WARNINGS: 3</h3>
+                    <div class="alert warning-alert d-block mx-auto">
+                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryWarnings')">
+                            <h3 class = "text"><i class='bx bx-error'></i>WARNINGS: 3</h3>
+                        </button>
+                    </div>
+                
+                    <div class="alert warning-alert d-block mx-auto">
+                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryCompliments')">
+                            <h3 class = "text"><i class='bx bx-wink-smile'></i>COMPLIMENTS: 3</h3>
+                        </button>
+                    </div>
+                
+                    <div class="alert warning-alert d-block mx-auto">
+                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryComplaints')">
+                            <h3 class = "text"><i class='bx bx-angry' ></i>COMPLAINTS: 3</h3>
+                        </button>
+                    </div>
+                </div>
+                
+                
+                <div id = "DeliveryCompliments" class = "deliverytabcontent">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Compliment #</th>
+                            <th scope="col">Reason For Compliment</th>
+                            <th scope="col">Description Of Compliment</th>
+                 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>Otto</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Did not deliver food</td>
+                            <td>Thornton</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Did not deliver food</td>
+                            <td>the Bird</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                
+                <div id = "DeliveryComplaints" class = "deliverytabcontent">
+                    <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col">Complaint ID</th>
+                            <th scope="col">Reason For Complaint</th>
+                            <th scope="col">Description Of Complaint</th>
+                            <th scope="col">Dispute</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>I waited for hours and the food never came. I starved to death this day.</td>
+                            <td> 
+                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                            </td>
+                        </tr>
+
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>I waited for hours and the food never came. I starved to death this day.</td>
+                            <td> 
+                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="dispute-modal">
+                    <div class="dispute-modal-content">
+                        <div class="form-popup" id="myForm">
+                            <form action="/action_page.php" class="form-container">
+                              <h1>Update Item</h1>
+                          
+                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
+                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
+                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
+                              <input type="text" placeholder="Enter Price" name="itemprice" required>
+                
+                
+                              <button type="submit" class="btn">Update</button>
+                              <button type="button" class="dispute-btn-cancel" onclick="closeForm()">+</button>
+                            </form>
+                          </div>    
                     </div>
                 </div>
 
-
+                <div id = "DeliveryWarnings" class = "deliverytabcontent">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Warnings #</th>
+                            <th scope="col">Reason For Warning</th>
+                            <th scope="col">Description Of Warning</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Did not deliver food</td>
+                            <td>Otto</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Did not deliver food</td>
+                            <td>Thornton</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Did not deliver food</td>
+                            <td>the Bird</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                
                 <div id = "Past_Deliveries" class = "deliverytabcontent">
                     <section class = "past-delivery-section">
                     
@@ -542,22 +1823,90 @@
                                 </div>
                             </div>
                         </div>
-                    
-                    
+                    <div class="tablecontainer">
+                        <h4 class = "text-center">Past Deliveries</h4>
+                        <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>SubTotal</th>
+                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apple Jeans</td>
+                                        <td>july 17,2001</td>
+                                    </tr>
+                                </tbody>
+                            </thead>
+                        </table>
+                    </div>
                     </section>
                 </div>
+                
 
-
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
                 <script>
-                    
                     let deliverysidebar = document.querySelector(".deliverysidebar");
                     let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
-
-
+                
+                
                     deliverysidebarBtn.onclick = function(){
                         deliverysidebar.classList.toggle("active");
                     }
-
+                
                     function openTab(evt, tabName) {
                         var i, tabcontent, tablinks;
                         tabcontent = document.getElementsByClassName("deliverytabcontent");
@@ -570,10 +1919,21 @@
                         }
                         document.getElementById(tabName).style.display = "block";
                         evt.currentTarget.className += " active";
-
+                
                     }
 
+
+                    document.querySelector('.dispute-btn').addEventListener('click',function(){
+                        document.querySelector('.dispute-modal').style.display = "flex";
+                    });
+
+                    document.querySelector('.dispute-btn-cancel').addEventListener('click',function(){
+                        document.querySelector('.dispute-modal').style.display = "none";
+                    });
+
+
                 </script>
+                
             {% endif %}
         {% endif %}
     {% endif %}

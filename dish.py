@@ -1,7 +1,7 @@
 import json
 
 class Dish():
-    def __init__(self, name : str, desc : str, img : str, price : float, id : str):
+    def __init__(self, name : str, desc : str, img : str, price : float, id : str, rating : float):
         '''
         Create a dish object that stores its components
 
@@ -12,12 +12,14 @@ class Dish():
         img (url): str
         price : float
         id : str
+        rating : float
         '''
         self.name = name
         self.desc = desc
         self.img = img
         self.price = price
         self.id = id
+        self.rating = round(rating)
 
     def __str__(self):
         return f'Dish Name: {self.name}\n\nDish Desc: {self.desc}\n\nDish Image: {self.img}\n\nDish Price: {str(self.price)}\n'
@@ -39,7 +41,7 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data            
 
@@ -60,7 +62,7 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data 
 
@@ -81,7 +83,49 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+
+        return data
+
+    @staticmethod
+    def getDrinks(db):
+        '''
+        Get all drinks from a database
+
+        **FOR TESTING ONLY**
+            Get all drinks from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []
+        data = []
+
+        with open("data/drinks.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+
+        return data
+
+    @staticmethod
+    def getSpecials(db):
+        '''
+        Get all specials from a database
+
+        **FOR TESTING ONLY**
+            Get all specials from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []
+        data = []
+
+        with open("data/specials.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data
 
@@ -102,7 +146,7 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data
 
@@ -123,7 +167,7 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data
 
@@ -144,6 +188,6 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data

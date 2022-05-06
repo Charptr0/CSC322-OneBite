@@ -1,62 +1,49 @@
 [
     {
-        "name" : "Item Name 1",
-        "id" : "100",
+        "id" : 100,
+        "dish_type" : "appetizer",
+        "name" : "Acai Bowl",
+        "price" : "6.00",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "12.99"
+        "img" : "https://images.unsplash.com/photo-1590301157284-ab2f8707bdc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 2",
-        "id" : "101",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "11.99"
-    },
-    {
-        "name" : "Item Name 3",
-        "id" : "102",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "15.99"
+        "id" : 101,
+        "dish_type" : "appetizer",
+        "name" : "Classic Caesar Salad",
+        "price" : "7.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1594834749740-74b3f6764be4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=782&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 4",
-        "id" : "103",
+        "id" : 102,
+        "dish_type" : "appetizer",
+        "name" : "Eggs Benedict",
+        "price" : "6.00",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "17.99"
-    },
-    {
-        "name" : "Item Name 5",
-        "id" : "104",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "19.99"
+        "img" : "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 6",
-        "id" : "105",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "29.99"
-    },
-    {
-        "name" : "Item Name 7",
-        "id" : "106",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "5.99"
-    },
-
-    {
-        "name" : "Item Name 8",
-        "id" : "107",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "1.99"
+        "id" : 103,
+        "dish_type" : "appetizer",
+        "name" : "Pita Chips and Spinach Dip",
+        "price" : "4.50",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1627308595127-d9acf19107ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     }
 ]
