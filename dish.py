@@ -1,7 +1,7 @@
 import json
 
 class Dish():
-    def __init__(self, name : str, desc : str, img : str, price : float):
+    def __init__(self, name : str, desc : str, img : str, price : float, id : str):
         '''
         Create a dish object that stores its components
 
@@ -11,11 +11,13 @@ class Dish():
         desc : str
         img (url): str
         price : float
+        id : str
         '''
         self.name = name
         self.desc = desc
         self.img = img
         self.price = price
+        self.id = id
 
     def __str__(self):
         return f'Dish Name: {self.name}\n\nDish Desc: {self.desc}\n\nDish Image: {self.img}\n\nDish Price: {str(self.price)}\n'
@@ -37,7 +39,7 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
 
         return data            
 
@@ -58,7 +60,7 @@ class Dish():
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
 
         return data 
 
@@ -75,31 +77,73 @@ class Dish():
         rawQuery = []
         data = []
 
-        with open("data/entrees.json", "r") as f:
+        with open("data/deserts.json", "r") as f:
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
 
-        return data 
+        return data
+
+    @staticmethod
+    def getCurrentOrders(db):
+        '''
+        Get all current order from a database
+
+        **FOR TESTING ONLY**
+            Get all current orders from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []  # raw data from the source
+        data = []  # data will be returned
+
+        with open("data/currentOrders.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+
+        return data
+
+    @staticmethod
+    def getPastOrders(db):
+        '''
+        Get all current order from a database
+
+        **FOR TESTING ONLY**
+            Get all current orders from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []  # raw data from the source
+        data = []  # data will be returned
+
+        with open("data/pastOrders.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
+
+        return data
 
     @staticmethod
     def getPopularDishes(db):
         '''
-        Get the current popular dishes from a database
+        Get all current order from a database
 
         **FOR TESTING ONLY**
-            Get all deserts from a json file
+            Get all current orders from a json file
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = []
-        data = []
+        rawQuery = []  # raw data from the source
+        data = []  # data will be returned
 
         with open("data/popular_dishes.json", "r") as f:
             rawQuery = json.load(f)
 
         for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"]))
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"]))
 
-        return data 
+        return data
