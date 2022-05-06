@@ -1,0 +1,295 @@
+:root {
+    --general-background-color: rgba(255, 0, 0, 0);
+    --general-text-color: rgb(0, 0, 0);
+    --navbar-background-color: rgba(34, 34, 34);
+    --general-font-size: 50px;
+}
+
+
+navbar, nav * {
+    background-color: transparent;
+    color: #ACACAC;
+}
+
+.logo{ /* Resize Logo */
+    width: 240px;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    transition: all 0.5s ease;
+}
+
+.customersidebar{
+    height: 100%;
+    position: fixed;
+    width: 240px;
+    background: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
+    transition: all 0.5s ease;
+
+}
+
+.customertablinks{
+    height: 60px;
+    min-width: 100%;
+    align-items: center;
+    transition: all 0.4s ease;
+    background: none;
+    border: none;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+    font-weight: 400;
+    white-space: nowrap;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+}
+
+.customersidebar .customertablinks:hover{
+    background: #ACACAC;
+    cursor: pointer;
+}
+
+.customersidebar .customertablinks i{
+    /* background: red; */
+    min-width: 50px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    padding-right: 5px;
+}
+
+.customersidebar.active .logo{
+    width: 60px;
+    height: auto;
+    transition: all 0.5s ease;
+}
+
+.customersidebar.active{
+    width: 60px;
+    transition: all 0.5s ease;
+}
+
+
+/* customer home section navigation bar css */
+.customer-home-section{
+    position: relative;
+    background: #f5f5f5;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+}
+
+
+.customer-home-section .customer-nav{
+    height: 100px;
+    padding: 0 20px;
+    display:flex;
+    align-items: center;
+    background: #fff;
+    justify-content: space-between;
+}
+
+
+.customer-home-section .customer-nav .customer-sidebar-button{
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.customer-home-section .customer-nav .customer-sidebar-button i{
+    font-size: 35px;
+    margin-right: 10px;
+    color: #969696;
+}
+
+.customer-home-section .customer-nav .customer-welcome{
+    height: 50px;
+    width: 550px;
+    margin: 0 20px;
+    position: relative;
+    color: #969696;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.customer-home-section .customer-nav .customer-dashboard{
+    color: #969696;
+} 
+/* end customer home section navigation bar css */
+
+
+/* box details */
+/*.customer-dashboard-section .customer-home-content .orders-boxes .recent-order{
+    width: 93%;
+    background: #fff;
+    padding: 20px 30px;
+    margin: 0 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}*/
+
+.customer-dashboard-section .customer-home-content .orders-boxes .customer-order-details{
+    width: 100%;
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.customer-dashboard-section .orders-boxes .customer-box .customer-title{
+    font-size: 24px;
+    font-weight: 1000;
+    color: black;
+    background: white;
+    display: flex;
+    left: 0;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+/* end box details */
+
+
+/* customer dashboard homepage */
+#CustomerDashboard{
+    display: block;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+/* end customer dashboard homepage */
+
+
+/* customer comments page */
+#user-comments {
+    margin-top: 40px;
+}
+
+#user-comments select[type='Type'],
+#user-comments select[type='Subject'],
+#user-comments input[type='text'],
+#user-comments textarea {
+    margin-bottom: 10px;
+    display: block;
+    width: 93%;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+
+    line-height: 1.4em;
+}
+
+#nextStep {
+    position: absolute;
+    right: 8%;
+}
+
+#thankyou {
+    display: none;
+}
+
+#thankyou h3, p {
+    text-align: center;
+}
+
+#thankyou button[type="submit"] {
+    position: absolute;
+    left: 48%;
+}
+/* customer comments page */
+
+
+/* FOR TAB CONTENT */
+
+.customersidebar.active ~ .customer-home-section{
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+.customer-home-section{
+    position: relative;
+    background: #f5f5f5;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+}
+
+.customertabcontent{
+    display: none;
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+    /* display: flex;
+    justify-content: center; */
+}
+
+.customersidebar.active ~ .customertabcontent{
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+/* Responsive Media Query */
+@media (max-width: 1150px) {
+    .customer-home-content .orders-boxes{
+        flex-direction: column;
+    }
+    .customer-home-content .orders-boxes .customer-box{
+        width: 100%;
+        overflow-x: scroll;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .customer-overview-boxes .customer-box{
+        width: calc(100% / 2 - 15px);
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .customer-home-content .orders-boxes .customer-order-details{
+        width: 560px;
+    }
+}
+
+@media (max-width: 550px) {
+    .customer-overview-boxes .customer-box{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .customersidebar{
+        width: 0;
+    }
+    .customersidebar.active{
+        width: 60px;
+    }
+    .customer-home-section{
+        width: 100%;
+        left: 0;
+    }
+    .customersidebar.active ~ .customer-home-section{
+        left: 60px;
+        width: calc(100% - 60px);
+    }
+    .customer-home-section .customer-nav{
+        width: 100%;
+        left: 0;
+    }
+    .customersidebar.active ~ .customer-home-section .customer-nav{
+        left: 60px;
+        width: calc(100% - 60px);
+    }
+}

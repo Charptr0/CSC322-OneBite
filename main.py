@@ -337,7 +337,6 @@ def profilePage():
                 return redirect('/logout/')
     return render_template("profile_page.html", user=user)
 
-
 @app.route("/orders/")
 def orders():
     '''
@@ -435,7 +434,7 @@ def addDishToCart(id):
 
         else:
             user.addOrder(id)
-            return redirect(url_for("orders"))
+            return redirect(url_for("cartPage"))
         
 # Run the app
 if __name__ == "__main__":
