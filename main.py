@@ -299,7 +299,7 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
-    return render_template("dashboard.html", user=user, userType="manager")
+    return render_template("dashboard.html", user=user, userType="delivery")
 
 @app.route("/dashboard-discussions/")
 def dashboardDiscussions():
