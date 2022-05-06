@@ -1,6 +1,6 @@
 .mainForumContainer{
     font-size: 14px;
-    background-color: black;
+    /*background-color: black;*/
     /*color:#FFFEFE;*/
 }
 h1{
@@ -19,7 +19,7 @@ a{
 .subforum{
     margin-top:10px;
     display: grid;
-    background-color: black;
+    /*background-color: black;*/
     border-radius: 5px;
     padding: 10px;
 }
@@ -34,6 +34,8 @@ a{
 .subforum-row{
     display: grid;
     grid-template-columns: 7% 60% 13% 20%;
+    border-radius: 5px;
+    margin: 1px;
 }
 
 .subforum-column{
@@ -184,7 +186,7 @@ footer{
 }
 
 .pagination a{
-    color: #fff;
+    color: black;
     margin-inline: 5px;
     padding: 5px 10px;
     border: solid 0.5px #fff;
