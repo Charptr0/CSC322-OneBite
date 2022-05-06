@@ -302,6 +302,55 @@ def dashboard():
 
     return render_template("dashboard.html", user=user, userType=user.userType)
 
+@app.route("/forum/")
+def forum():
+    '''
+    Route to the forum home page
+    '''
+    return render_template("forum_home.html", user=None)
+
+@app.route("/forum_chef/")
+def forumChef():
+    '''
+    Route to the forum chef page
+    '''
+    return render_template("forum_chef.html", user=None)
+
+@app.route("/forum_staff/")
+def forumStaff():
+    '''
+    Route to the forum saff page
+    '''
+    return render_template("forum_staff.html", user=None)
+
+@app.route("/forum_appetizer/")
+def forumAppetizer():
+    '''
+    Route to the forum appetizer page
+    '''
+    return render_template("forum_appetizer.html", user=None)
+
+@app.route("/forum_entree/")
+def forumEntree():
+    '''
+    Route to the forum entree page
+    '''
+    return render_template("forum_entree.html", user=None)
+
+@app.route("/forum_drinks/")
+def forumDrinks():
+    '''
+    Route to the forum drinks page
+    '''
+    return render_template("forum_drinks.html", user=None)
+
+@app.route("/forum_post/")
+def forumPost():
+    '''
+    Route to the forum post page
+    '''
+    return render_template("forum_post.html", user=None)
+
 @app.route("/dashboard-discussions/")
 def dashboardDiscussions():
     '''
@@ -350,7 +399,8 @@ def addDishToCart(id):
         else:
             user.addOrder(id)
             return redirect(url_for("orders"))
-        
+
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database
