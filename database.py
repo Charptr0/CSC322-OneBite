@@ -349,8 +349,8 @@ def chargeFunds(db, user):
             # checks that value to add is valid
             flash('Amount to be deposited must be $0.01 or more.', category = 'error')
         else:
-            funds = str( float(funds) + user.wallet )
-            cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (funds, str(user.id),))
+            funds = float(funds) + user.wallet
+            cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (str(funds), str(user.id),))
             flash('Successfully deposited more funds.', category = 'success')
             db.connection.commit()
             cursor.close()
