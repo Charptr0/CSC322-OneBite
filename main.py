@@ -255,7 +255,6 @@ def profilePage():
             return redirect('/profile/')
     return render_template("profile_page.html", user=user)
 
-
 @app.route("/orders/")
 def orders():
     '''

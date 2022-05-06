@@ -1,392 +1,406 @@
-.chef-container{
+:root {
+    --general-background-color: rgba(255, 0, 0, 0);
+    --general-text-color: rgb(0, 0, 0);
+    --navbar-background-color: rgba(34, 34, 34);
+    --general-font-size: 50px;
+}
+
+
+navbar, nav * {
+    background-color: transparent;
+    color: #ACACAC;
+}
+
+.logo{ /* Resize Logo */
+    width: 240px;
+    height: auto;
+    transition: all 0.5s ease;
+}
+
+
+.chefsidebar{
+    height: 100%;
+    position: fixed;
+    width: 240px;
+    background: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
+    transition: all 0.5s ease;
+
+}
+
+.cheftablinks{
+    height: 60px;
+    min-width: 100%;
+    align-items: center;
+    transition: all 0.4s ease;
+    background: none;
+    border: none;
+    color: #fff;
+    display: flex;
+    font-size: 18px;
+    font-weight: 400;
+    white-space: nowrap;
+    font-family: 'Times New Roman', Times, serif;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-.chef-sidenav{
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-image: url('https://static.wixstatic.com/media/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.jpg/v1/fill/w_1467,h_1408,al_c,q_90/27eac3_499a4d4d3039486ba9baacaa16504a27~mv2.webp');
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
-.chef-sidenav a {
-  /*padding: 8px 8px 8px 32px;*/
-  padding-bottom: 8px;
-  padding-top: 8px;
-  text-decoration: none;
-  font-size: 18px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-  background: transparent;
+.chefsidebar .cheftablinks:hover{
+    background: #ACACAC;
 }
 
-.chef-sidenav a:hover {
-  background-color: #ACACAC;
-}
-
-.chef-sidenav i{
+.chefsidebar .cheftablinks i{
+    /* background: red; */
     min-width: 60px;
     text-align: center;
+    color: #fff;
     font-size: 18px;
-    background-color: transparent;
-    color: white;
 }
 
-.chef-sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.chefsidebar.active .logo{
+    width: 60px;
+    height: auto;
+    transition: all 0.5s ease;
+}
+
+.chefsidebar.active{
+    width: 60px;
+    transition: all 0.5s ease;
+}
+
+/* chef home section navigation bar css */
+
+.chef-home-section{
+    position: relative;
+    background: #f5f5f5;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+}
+
+
+.chef-home-section .chef-nav{
+    height: 100px;
+    padding: 0 20px;
+    display:flex;
+    align-items: center;
+    background: #fff;
+    justify-content: space-between;
+}
+
+
+.chef-home-section .chef-nav .chef-sidebar-button{
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.chef-home-section .chef-nav .chef-sidebar-button i{
+    font-size: 35px;
+    margin-right: 10px;
+    color: #969696;
+}
+
+.chef-home-section .chef-nav .chef-welcome{
+    height: 50px;
+    width: 550px;
+    margin: 0 20px;
+    position: relative;
+    color: #ff0000;
+    /* display: block;
+    align-items: center; */
+    font-size: 30px !important;
+    font-weight: 500 !important;
+}
+
+.chef-home-section .chef-nav .chef-dashboard{
+    color: #969696;
+} 
+
+/* appetizer */
+.appetizer-items{
+    margin: 1.5em;
+    
+}
+
+/* appetizer */
+.entrees-items{
+    margin: 1.5em;
+    
+}
+
+/* dessert */
+.dessert-items{
+    margin: 1.5em;
+    
+}
+
+/* item name */
+.item-name{
+    padding: 1.5em;
+}
+/* resizing of image */
+.item-image{
+    width: 100px;
+    height: 100px;
+    padding: 1.5em;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+/* header for section */
+.menu-item-heading{
+    margin: 0;
+    padding-bottom: 1em;
+    border-bottom: 2px solid #ccc;
+}
+
+/* container holding all the items */
+.menu-group{
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+    padding: 1.5em 0;
+    margin: 1.5em;
+
+}
+
+/* specific item */
+.menu-item{
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* specific menu id */
+.menu-id{
+    justify-content: center;
+    margin: 0;
+    height: fit-content;
+    top: 50%;
+    padding: 1.5em 0;
+}
+
+/* price of items */
+.item-price{
+    padding: 1.5em;
+}
+
+/* buttons */
+.buttons{
+    display: flex;
+    padding: 1.5em;
+
+}
+
+/* edit button */
+.edit-btn{
+    background-color: #0095ff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    padding: 8px .8em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+    height: 2.5em;
+    text-align: center;
+}
+
+.edit-btn:hover,
+.edit-btn:focus {
+  background-color: #07c;
+}
+
+.edit-btn:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.edit-btn:active {
+  background-color: #0064bd;
+  box-shadow: none;
+}
+
+/* remove button */
+.remove-btn{
+    background-color: #ff0000;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    padding: 8px .8em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+    height: 2.5em;
+    text-align: center;
+}
+
+.remove-btn:hover,
+.remove-btn:focus {
+  background-color: rgb(255, 106, 80);
+}
+
+.remove-btn:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.remove-btn:active {
+  background-color: #0064bd;
+  box-shadow: none;
+}
+
+
+
+/* description for the item */
+.menu-item-description{
+    padding: 1.5em;
+}
+
+ @media screen and (min-width: 992px) {
+    .menu-group{
+        font-size: 16px;
+        grid-template-columns: repeat(2,1fr);
+    }
+    .item-image{
+        width: 125px;
+        height: 100px;
+        flex-shrink: 0;
+    }
+
+}
+@media screen and (max-width: 600px)
+{
+    .menu-group{
+        font-size: 16px;
+        display: block;
+    }
+    .item-image{
+        width: 125px;
+        height: 100px;
+        flex-shrink: 0;
+    }
+}
+
+
+/* POPUP MODAL */
+
+.bg-modal{
+    width:100%;
+    height:100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position:absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal-content{
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+input{
+    width:50%;
+    display: block;
+    margin: 15px auto;
+}
+
+.btn-cancel{
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    transform: rotate(45deg);
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+}
+
+.btn-cancel:hover{
+    color: red;
+}
+
+
+/* FOR TAB CONTENT */
+
+.chefsidebar.active ~ .chef-home-section{
+    width: calc(100% - 60px);
+    left: 60px;
 }
 
 .chef-home-section{
     position: relative;
     background: #f5f5f5;
-    min-height: 100vh;
-    /* width: calc(100% - 240px);*/
-    /*left: 240px;*/
-    width: 100%;
+    width: calc(100% - 240px);
+    left: 240px;
     transition: all 0.5s ease;
 }
 
-.chef-home-section .chef-nav{
-    display: flex;
-    justify-content: space-between;
-    height: 80px;
-    /*background: white;*/
-    display: flex;
-    align-items: center;
-    position: fixed;
-    /*width: calc(100% - 240px);
-    left: 240px;*/
-    width: 100%;
-    z-index: 100;
-    padding: 0 20px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+.cheftabcontent{
+    display: none;
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 240px);
+    left: 240px;
     transition: all 0.5s ease;
-}
-
-#main {
-  transition: margin-left .5s;
-}
-
-.chef-home-section .chef-nav .open-sidenav{
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    font-weight: 500;
-    color: white;
-}
-
-.chef-nav .open-sidenav i{
-    font-size: 35px;
-    margin-right: 10px;
-    color: white;
-}
-
-.chef-home-section .chef-nav .search-box{
-    position: relative;
-    height: 50px;
-    max-width: 550px;
-    width: 100%;
-    margin: 0 20px;
-}
-
-.chef-nav .search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    background: #F5F6FA;
-    border: 2px solid #EFEEF1;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 0 15px;
-}
-
-.chef-nav .search-box .bx-search{
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: #2697FF;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 4px;
-    line-height: 40px;
-    text-align: center;
-    color: rgb(204, 203, 203);
-    background: rgb(34,34,34);
-    font-size: 22px;
-    transition: all 0.4 ease;
-}
-
-.chef-home-section .chef-nav .profile-details{
-    display: flex;
-    align-items: center;
-    /*background: #F5F6FA;*/
-    border: 2px solid #EFEEF1;
-    border-radius: 6px;
-    height: 50px;
-    min-width: 190px;
-    padding: 0 15px 0 2px;
-    background: transparent;
-}
-
-.chef-nav .profile-details img{
-    height: 40px;
-    width: 40px;
-    border-radius: 6px;
-    object-fit: cover;
-}
-
-.chef-nav .profile-details i{
-    font-size: 25px;
-    color: #333;
-}
-
-.chef-nav .profile-details .admin_name{
-    font-size: 20px;
-    font-weight: 500;
-    color: white;
-    margin: 0 10px;
-    white-space: nowrap;
-}
-
-.chef-home-section .chef-home-content{
-    position: relative;
-    padding-top: 104px;
-}
-
-.chef-home-content .overview-boxes{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 20px;
-    margin-bottom: 26px;
-}
-
-.overview-boxes .box{
-    display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(100% / 4 - 15px);
-    background: #fff;
-    padding: 15px 14px;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
-.overview-boxes .box-topic{
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.chef-home-content .box .number{
-    display: inline-block;
-    font-size: 35px;
-    margin-top: 0px;
-    font-weight: 500;
-}
-
-.chef-home-content .box .indicator{
-    display: flex;
+.chefsidebar.active ~ .cheftabcontent{
+    width: calc(100% - 60px);
+    left: 60px;
     align-items: center;
+    justify-content: center;
 }
 
-.chef-home-content .box .indicator i{
-    height: 20px;
-    width: 20px;
-    background: #8FDACB;
-    line-height: 20px;
-    text-align: center;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 20px;
-    margin-right: 5px; 
+.chefsidebar.active .cheftablinks:hover{
+    background: none;
 }
 
-.box .indicator i.down{
-    background: #e87d88;
+.chefsidebar.active i{
+    min-width: 45px;
+    margin-right: 15px;
+    transition: all 0.5s ease;
 }
 
-.box .indicator i.minus{
-    background: #e0d268;
-}
-
-.chef-home-content .box .indicator .text{
-    font-size: 12px;
-}
-
-.chef-home-content .box .star{
-    display: inline-block;
-    font-size: 32px;
-    height: 50px;
-    width: 50px;
-    background: #cce5ff;
-    line-height: 50px;
-    text-align: center;
-    color: #66b0ff;
-    border-radius: 12px;
-    margin: -15px 0 0 6px;
-}
-
-.chef-home-content .box .happy{
-    display: inline-block;
-    font-size: 32px;
-    height: 50px;
-    width: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-radius: 12px;
-    margin: -15px 0 0 6px;
-    color: #2BD47D;
-    background: #C0F2D8;
-}
-
-.chef-home-content .box .sad{
-    display: inline-block;
-    font-size: 32px;
-    height: 50px;
-    width: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-radius: 12px;
-    margin: -15px 0 0 6px;
-    color: #e05260;
-    background: #f7d4d7;
-}
-
-.chef-home-content .total-order{
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.chef-home-content .sales-boxes{
-    display: flex;
-    justify-content: space-between;
-    /* padding: 0 20px; */
-}
-
-/*table*/
-.chef-home-content .sales-boxes .recent-sales{
-    width: 100%;
-    background: #fff;
-    padding: 0px 30px;
-    margin: 0 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.chef-home-content .sales-boxes .sales-details{
-    width: 100%;
-    display: inline-block;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sales-boxes .box img{
-    height: 40px;
-    width: 40px;
-    border-radius: 6px;
-    display: grid;
-}
-
-/*.sales-boxes .box .title{
-    font-size: 24px;
-    font-weight: 1000;
-    color: black;
-    background: white;
-    display: flex;
-    left: 0;
-    margin-bottom: 10px;
-    margin-top: 0;
-}*/
-
-#current-menu{
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#current-menu td, #current-menu th{
-    /*border: 1px solid #ddd;*/
-    padding: 8px;
-    list-style: none;
-    margin: 8px 0;
-    background: transparent;
-}
-
-#current-menu td li{
-    background: transparent;
-}
-
-#current-menu td li a{
-    text-decoration: none;
-    background: transparent;
-}
-
-#current-menu tr:nth-child(even){
-    background-color: #f2f2f2;
-}
-
-#current-menu tr:hover{
-    background-color: #ACACAC;
-}
-
-#current-menu th{
-    padding-top: 12px;
-    padding-bottom: 12px;
-    font-size: 20px;
-    font-weight: 1000;
-    text-align: left;
-    background-color: transparent;
-    color: black;
-}
-
-.sales-boxes .box .button{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.sales-boxes .box .button a{
-    color: #fff;
-    background: #0A2558;
-    padding: 4px 12px;
-    font-size: 15px;
-    font-weight: 400;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.sales-boxes .box .button a:hover{
-    background:  #0d3073;
-}
-
-.hidden{
-    display: none;
-}
-
-.menu-button{
-    font-size: 24px;
-    font-weight: 1000;
-    color: black;
-    background: white;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
+.chefsidebar.active .cheftablinks{
+    color:rgba(255, 0, 0, 0);
 }
