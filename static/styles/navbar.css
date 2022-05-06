@@ -32,6 +32,7 @@ navbar, nav *
 
 .logo-icon {
     position: absolute;
+    background-color: var(--navbar-background-color);
     height: 55px;
     width: 150px;
     top: 0;
