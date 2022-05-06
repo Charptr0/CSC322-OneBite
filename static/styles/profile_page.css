@@ -166,7 +166,12 @@ label[for = "email"], label[for = "username"], label[for = "newpass"], label[for
     color: rgb(40,38,71);
 }
 
-#email, #username, #newpass, #conpass, #funds, #card {
+label[for = "address"], label[for = "zipcode"], label[for = "city"], label[for = "state"] {
+    font-size: 20px; 
+    color: rgb(40,38,71);
+}
+
+#email, #username, #newpass, #conpass, #funds, #card, #address, #zipcode, #city, #state {
     height: 30px;
     border-radius: 3px;
     padding-left: 5px;
@@ -175,13 +180,13 @@ label[for = "email"], label[for = "username"], label[for = "newpass"], label[for
     background-color: #f8f8f8;
 }
 
-#email:hover, #username:hover, #newpass:hover, #conpass:hover, #funds:hover, #card:hover {
+#email:hover, #username:hover, #newpass:hover, #conpass:hover, #funds:hover, #card:hover, #address:hover, #zipcode:hover, #city:hover, #state:hover {
     cursor: text;
     background-color: #eeeeee;
 }
 
 
-.name-container, .email-container, .username-container, .password-container, .phone-container, .address-container, .card-container, .num-container {
+.name-container, .email-container, .username-container, .password-container, .phone-container, .address-container, .newaddress-container .status-container, .card-container, .num-container {
     padding-bottom: 1em;
 }
 

@@ -23,11 +23,28 @@ class Staff(User):
     '''
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        
+        try:
+            self.salary = kwargs["salary"]
+        except KeyError:
+            self.salary = 0.00
 
         try:
-            self._salary = kwargs["salary"]
+            self.compliments = kwargs["compliments"]
         except KeyError:
-            self._salary = 0
-        
-        self.compliments = 0
-        self.complaints = 0
+            self.compliments = 0
+
+        try:
+            self.complaints = kwargs["complaints"]
+        except KeyError:
+            self.compliments = 0
+
+        try:
+            self.warnings = kwargs["warnings"]
+        except KeyError:
+            self.warnings = 0
+
+        try:
+            self.demotions = kwargs["demotions"]
+        except KeyError:
+            self.demotions = 0

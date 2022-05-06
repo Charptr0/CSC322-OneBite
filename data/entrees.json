@@ -1,70 +1,73 @@
 [
     {
-        "name" : "Item Name 1",
-        "id" : "300",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "12.99",
-        "rating" : 4.3
+        "id" : 200,
+        "dish_type" : "appetizer",
+        "name" : "Blueberry Pancakes",
+        "price" : "9.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 2",
-        "id" : "301",
+        "id" : 201,
+        "dish_type" : "appetizer",
+        "name" : "French Toast",
+        "price" : "10.00",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "11.99",
-        "rating" : 3.5
-    },
-    {
-        "name" : "Item Name 3",
-        "id" : "302",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "15.99",
-        "rating" : 1.2
+        "img" : "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=898&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 4",
-        "id" : "303",
+        "id" : 202,
+        "dish_type" : "appetizer",
+        "name" : "Fresh Crepes",
+        "price" : "8.50",
         "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "17.99",
-        "rating" : 2.5
-    },
-    {
-        "name" : "Item Name 5",
-        "id" : "304",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "19.99",
-        "rating" : 2.8
+        "img" : "https://images.unsplash.com/photo-1519676867240-f03562e64548?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 6",
-        "id" : "305",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "29.99",
-        "rating" : 4.5
-    },
-    {
-        "name" : "Item Name 7",
-        "id" : "306",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "5.99",
-        "rating" : 2.7
+        "id" : 203,
+        "dish_type" : "appetizer",
+        "name" : "Croissant Sandwich",
+        "price" : "11.50",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1600761857007-5f51d5dc82a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     },
 
     {
-        "name" : "Item Name 8",
-        "id" : "307",
-        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas! Earum repellat dicta natus accusantium recusandae necessitatibus veniam!",
-        "img" : "../static/assets/test.jpg",
-        "price" : "1.99",
-        "rating" : 4.5
+        "id" : 204,
+        "dish_type" : "appetizer",
+        "name" : "Pulled Pork Sourdough Toast",
+        "price" : "13.00",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1559054663-e8d23213f55c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
+    },
+
+    {
+        "id" : 205,
+        "dish_type" : "appetizer",
+        "name" : "Smoked Salmon Sourdough Toast",
+        "price" : "13.50",
+        "desc" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!",
+        "img" : "https://images.unsplash.com/photo-1627308595216-439c00ade0fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "rating" : 0,
+        "num_ratings" : 0,
+        "status": 1
     }
 ]

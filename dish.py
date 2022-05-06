@@ -88,6 +88,48 @@ class Dish():
         return data
 
     @staticmethod
+    def getDrinks(db):
+        '''
+        Get all drinks from a database
+
+        **FOR TESTING ONLY**
+            Get all drinks from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []
+        data = []
+
+        with open("data/drinks.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+
+        return data
+
+    @staticmethod
+    def getSpecials(db):
+        '''
+        Get all specials from a database
+
+        **FOR TESTING ONLY**
+            Get all specials from a json file
+
+        returns a list of dish object from the database or json file
+        '''
+        rawQuery = []
+        data = []
+
+        with open("data/specials.json", "r") as f:
+            rawQuery = json.load(f)
+
+        for dish in rawQuery:
+            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+
+        return data
+
+    @staticmethod
     def getCurrentOrders(db):
         '''
         Get all current order from a database
