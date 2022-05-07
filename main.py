@@ -104,6 +104,8 @@ def loginPage():
         user = getUserInDatabaseByLogin(mysql)
         if user != None: # Success
             session["user"] = user.id
+            session["orders"] = []
+
             usersInSession[user.id] = user
             # if user is a customer
             if user.userType == 'customer':
@@ -266,8 +268,14 @@ def cartPage():
     
     if request.method == 'POST':
         return redirect(url_for("checkoutPage"))
-            
-    return render_template("cart_page.html", user=user)
+
+    orders = session.get("orders")
+
+    if orders == None:
+        flash("Session timed out, please try again", category="error")
+        return redirect(url_for("loginPage"))
+
+    return render_template("cart_page.html", user=user, orders=orders)
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():
@@ -482,7 +490,18 @@ def addDishToCart(id):
             return redirect(url_for("homePage"))
 
         else:
-            user.addOrder(id)
+            # Get orders
+            orders = session.get("orders")
+
+            # the list cannot be found, most likely their session timed out
+            if orders == None:
+                flash("Session timed out, please try again", category="error")
+                return redirect(url_for("loginPage"))
+
+            # append the new dish
+            orders.append(id)
+            session["orders"] = orders
+
             return redirect(url_for("cartPage"))
         
 # Run the app
