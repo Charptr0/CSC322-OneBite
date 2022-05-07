@@ -1021,23 +1021,6 @@
                                             <td><li>This claim will be disputed bc...</li></td>
                                             <td><li>Unresolved</li></td>
                                             <td>
-                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
-                                                <div class="modal" id="modal">
-                                                    <div class="modal-header">
-                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
-                                                        <button data-close-button class="close-button">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
-                                                        </form>
-                                                    </div>
-                                                    <div class="send-button">
-                                                        <a href="#">Send</a>
-                                                    </div>
-                                                </div>
-                                                <div id="overlay"></div>
-
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
                                                 <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
                                             </td>
@@ -1050,23 +1033,6 @@
                                             <td><li>This claim will be disputed bc...</li></td>
                                             <td><li>Resolved</li></td>
                                            <td>
-                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
-                                                <div class="modal" id="modal">
-                                                    <div class="modal-header">
-                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
-                                                        <button data-close-button class="close-button">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
-                                                        </form>
-                                                    </div>
-                                                    <div class="send-button">
-                                                        <a href="#">Send</a>
-                                                    </div>
-                                                </div>
-                                                <div id="overlay"></div>
-
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
                                                 <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
                                             </td>
@@ -1079,23 +1045,6 @@
                                             <td><li>This claim will be disputed bc...</li></td>
                                             <td><li>Unresolved</li></td>
                                            <td>
-                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
-                                                <div class="modal" id="modal">
-                                                    <div class="modal-header">
-                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
-                                                        <button data-close-button class="close-button">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
-                                                        </form>
-                                                    </div>
-                                                    <div class="send-button">
-                                                        <a href="#">Send</a>
-                                                    </div>
-                                                </div>
-                                                <div id="overlay"></div>
-
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
                                                 <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
                                            </td>
@@ -1108,23 +1057,6 @@
                                             <td><li>This claim will be disputed bc...</li></td>
                                             <td><li>Resolved</li></td>
                                            <td>
-                                                <button data-modal-target="#modal" id = "reply" class="actionButton""><i class='fa-solid fa-reply'></i></button>
-                                                <div class="modal" id="modal">
-                                                    <div class="modal-header">
-                                                        <div class="modal-title"><i class='fa-solid fa-reply'></i> Reply</div>
-                                                        <button data-close-button class="close-button">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <textarea id="text-reply" name="text-reply" placeholder="Type your reply..." style="height:200px"></textarea>
-                                                        </form>
-                                                    </div>
-                                                    <div class="send-button">
-                                                        <a href="#">Send</a>
-                                                    </div>
-                                                </div>
-                                                <div id="overlay"></div>
-
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
                                                 <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
                                            </td>
@@ -1225,58 +1157,7 @@
                 }
                 // end tabs system
 
-
-                // dropdown buttons for customer accounts page
-                // function toggleTable1() {
-                //     document.getElementById("registered-customers").classList.toggle("hidden");
-                // }
-                // function toggleTable2() {
-                //     document.getElementById("VIP-customers").classList.toggle("hidden1");
-                // }
-                // end dropdown buttons for customer accounts page
-
-
                 // buttons for customer comments page
-                    // start of reply action
-                    const openModalButtons = document.querySelectorAll('[data-modal-target]')
-                    const closeModalButtons = document.querySelectorAll('[data-close-button]')
-                    const overlay = document.getElementById('overlay')
-
-                    openModalButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const modal = document.querySelector(button.dataset.modalTarget)
-                            openModal(modal)
-                        })
-                    })
-
-                    closeModalButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const modal = button.closest('.modal')
-                            closeModal(modal)
-                        })
-                    })
-
-                    overlay.addEventListener('click', () => {
-                        const modals = document.querySelectorAll('.modal.active')
-                        modals.forEach(modal => {
-                            closeModal(modal)
-                        })
-                    })
-
-                    function openModal(modal) {
-                        if (modal == null) return
-                        modal.classList.add('active')
-                        overlay.classList.add('active')
-                    }
-
-                    function closeModal(modal) {
-                        if (modal == null) return
-                        modal.classList.remove('active')
-                        overlay.classList.remove('active')
-                    }
-                    // end of reply action
-
-
                     // start of dismiss button
                     function removeRow(o) {
                         var p=o.parentNode.parentNode;
