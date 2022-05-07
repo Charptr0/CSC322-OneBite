@@ -43,6 +43,15 @@ navbar, nav * {
     margin: 0;
 }
 
+.cheftablinks a{
+    text-decoration: none;
+}
+
+.cheftablinks a:visited {
+    text-decoration: none;
+    color: white;
+}
+
 .chefsidebar .cheftablinks:hover{
     background: #ACACAC;
 }
