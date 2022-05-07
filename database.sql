@@ -1,4 +1,4 @@
-DROP DATABASE team_m_restaurant;
+-- DROP DATABASE team_m_restaurant;
 
 /* creates database */
 CREATE DATABASE IF NOT EXISTS team_m_restaurant DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -13,17 +13,16 @@ CREATE TABLE IF NOT EXISTS accounts (
   	password varchar(255) NOT NULL,
     email varchar(100) NOT NULL,
     phone varchar(10) NOT NULL,
-    cardnumber varchar(16),
     type varchar(20) DEFAULT 'customer',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Accounts */
-INSERT INTO accounts VALUES (1, 'manager', 'lmanager', 'admin', '123abcABC', 'admin@onebite.com', '1234567890', NULL, 'manager');
-INSERT INTO accounts VALUES (2, 'chef1', 'lchef1', 'chef1', '123abcABC', 'chef1@onebite.com', '1234567891', NULL, 'chef');
-INSERT INTO accounts VALUES (3, 'chef2', 'lchef2', 'chef2', '123abcABC', 'chef2@onebite.com', '1234567892', NULL, 'chef');
-INSERT INTO accounts VALUES (4, 'delivery1', 'ldelivery1', 'delivery1', '123abcABC', 'delivery1@onebite.com', '1234567893', NULL, 'delivery');
-INSERT INTO accounts VALUES (5, 'delivery2', 'ldelivery2', 'delivery2', '123abcABC', 'delivery2@onebite.com', '1234567894', NULL, 'delivery');
+INSERT INTO accounts VALUES (1, 'manager', 'lmanager', 'admin', '123abcABC', 'admin@onebite.com', '1234567890', 'manager');
+INSERT INTO accounts VALUES (2, 'chef1', 'lchef1', 'chef1', '123abcABC', 'chef1@onebite.com', '1234567891', 'chef');
+INSERT INTO accounts VALUES (3, 'chef2', 'lchef2', 'chef2', '123abcABC', 'chef2@onebite.com', '1234567892', 'chef');
+INSERT INTO accounts VALUES (4, 'delivery1', 'ldelivery1', 'delivery1', '123abcABC', 'delivery1@onebite.com', '1234567893', 'delivery');
+INSERT INTO accounts VALUES (5, 'delivery2', 'ldelivery2', 'delivery2', '123abcABC', 'delivery2@onebite.com', '1234567894', 'delivery');
 SELECT * FROM accounts;
 
 /* Table Employee */
@@ -83,20 +82,19 @@ SELECT * FROM delivery;
 /* Table Customer */
 CREATE TABLE IF NOT EXISTS customer (
 	customer_id int(11) NOT NULL AUTO_INCREMENT,
-    address text DEFAULT NULL,
     wallet float(7, 2) DEFAULT '0.00',
+    cardnumber varchar(16),
+    address text,
     num_orders int(11) DEFAULT 0,
     total_spent float(11, 2) DEFAULT '0.00',
     warnings int(11) DEFAULT 0,
-    blacklisted tinyint(1) DEFAULT 0,
-    vip tinyint(1) DEFAULT 0,
+    isBlacklisted tinyint(1) DEFAULT 0,
+    isVIP tinyint(1) DEFAULT 0,
     PRIMARY KEY (customer_id),
     FOREIGN KEY (customer_id) REFERENCES accounts(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Customer */
-INSERT INTO customer(customer_id) 
-SELECT id FROM accounts WHERE type = 'customer';
 SELECT * FROM customer;
 
 /* Table VIPs */
@@ -111,7 +109,7 @@ CREATE TABLE IF NOT EXISTS vip (
 
 /* Display VIPs */
 INSERT INTO vip(vip_id) 
-SELECT customer_id FROM customer WHERE vip = 1;
+SELECT customer_id FROM customer WHERE isVIP = 1;
 SELECT * FROM vip;
 
 /* Table Dishes */
