@@ -56,7 +56,7 @@
         </div>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
         <button class="customertablinks" onclick="openTab2(event, 'Comments')"><i class='fa-regular fa-message'></i>Comments</button>
-        <button class="customertablinks" onclick="openTab2(event, 'LogOut')"><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
+        <button class="customertablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
     </div>
 
     <section class = "customer-home-section">
@@ -218,7 +218,7 @@
                 <button class="managertablinks" onclick="openTab1(event, 'EmployeeAccounts')"><i class='fa-regular fa-id-badge'></i>Employee Accounts</button>
                 <button class="managertablinks" onclick="openTab1(event, 'Discussions')"><i class='fa-regular fa-comments'></i>Discussions</button>
                 <button class="managertablinks" onclick="openTab1(event, 'CustomerComments')"><i class='fa-regular fa-message'></i>Customer Comments</button>
-                <button class="managertablinks" onclick="openTab1(event, 'LogOut')"><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
+                <button class="managertablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
             </div>
 
             <section class = "manager-home-section">
@@ -1296,7 +1296,7 @@
                     <button class="cheftablinks" onclick="openTab(event, 'EditAppetizers')"><i class='bx bxs-baguette' ></i>Edit Appetizers</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
-                    <button class="cheftablinks" onclick="openTab(event, 'LogOut')"><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
+                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
                 </div>
                 
                 <section class = "chef-home-section">
@@ -1629,7 +1629,7 @@
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryWarnings')"><i class='bx bx-error'></i>Warnings</button>
-                    <button class="deliverytablinks" onclick="openTab(event, 'LogOut')"><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
+                    <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
                 </div>
                 
                 <section class = "delivery-home-section">

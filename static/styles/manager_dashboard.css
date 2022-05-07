@@ -44,15 +44,6 @@ navbar, nav * {
     margin: 0;
 }
 
-.managertablinks a{
-    text-decoration: none;
-}
-
-.managertablinks a:visited {
-    text-decoration: none;
-    color: white;
-}
-
 .managersidebar .managertablinks:hover{
     background: #ACACAC;
     cursor: pointer;
