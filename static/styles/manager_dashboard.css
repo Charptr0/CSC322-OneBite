@@ -830,10 +830,6 @@ navbar, nav * {
             border-radius: 40%;
         }
 
-        #CustomerComments .manager-dashboard-section #reply:hover {
-            background-color: #6caddf;
-        }
-
         #CustomerComments .manager-dashboard-section #letstay:hover {
             background-color: #81de76;
         }
@@ -844,103 +840,6 @@ navbar, nav * {
 
         #CustomerComments .manager-dashboard-section .actionButton i {
             background: transparent;
-        }
-
-        #CustomerComments .manager-dashboard-section .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: 200ms ease-in-out;
-            border: 1px solid black;
-            border-radius: 10px;
-            z-index: 10;
-            background-color: white;
-            width: 500px;
-            max-width: 80%;
-        }
-
-        #CustomerComments .manager-dashboard-section .modal.active {
-            transform: translate(-50%, -50%) scale(1.0);
-        }
-
-        #CustomerComments .manager-dashboard-section .modal-header {
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid black;
-        }
-
-        #CustomerComments .manager-dashboard-section .modal-header .modal-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-
-        #CustomerComments .manager-dashboard-section .modal-header .close-button {
-            cursor: pointer;
-            border: none;
-            outline: none;
-            background: none;
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-
-        #CustomerComments .manager-dashboard-section .modal-body textarea {
-            width: 100%;
-            left: 240px;
-            height: 150px;
-            padding: 12px 20px;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            background-color: #f8f8f8;
-            font-size: 16px;
-            resize: none;
-        }
-
-        #CustomerComments .manager-dashboard-section #overlay {
-            position: fixed;
-            opacity: 0;
-            transition: 200ms ease-in-out;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            pointer-events: none;
-        }
-
-        #CustomerComments .manager-dashboard-section #overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        #CustomerComments .manager-dashboard-section .send-button{
-            width: calc(100% - 240px);
-            left: 240px;
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        #CustomerComments .manager-dashboard-section .send-button a{
-            color: #fff;
-            background: #0A2558;
-            padding: 4px 12px;
-            font-size: 15px;
-            font-weight: 400;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        /* Clear floats after the columns */
-        #CustomerComments .manager-dashboard-section .send-button:after {
-            content: "";
-            display: table;
-            clear: both;
         }
         /* table buttons */
     /* end disputed comments table */
