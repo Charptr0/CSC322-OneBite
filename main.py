@@ -63,11 +63,11 @@ def menu():
     Route to the menu page
     '''
     # Get all the dishes from the db
-    APPETIZERS = Dish.getAppetizers(None)
-    ENTREES = Dish.getEntrees(None)
-    DESERTS = Dish.getDeserts(None)
-    DRINKS = Dish.getDrinks(None)
-    SPECIALS = Dish.getSpecials(None)
+    APPETIZERS = Dish.getAppetizers(mysql)
+    ENTREES = Dish.getEntrees(mysql)
+    DESERTS = Dish.getDeserts(mysql)
+    DRINKS = Dish.getDrinks(mysql)
+    SPECIALS = Dish.getSpecials(mysql)
 
     userExist, user = isUserStillInSession()
     if userExist:
