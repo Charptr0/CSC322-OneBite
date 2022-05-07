@@ -6,3 +6,5 @@ lib
 pyvenv.cfg
 .DS_Store
 config.json
+venv
+
