@@ -44,15 +44,6 @@ navbar, nav * {
     margin: 0;
 }
 
-.customertablinks a{
-    text-decoration: none;
-}
-
-.customertablinks a:visited {
-    text-decoration: none;
-    color: white;
-}
-
 .customersidebar .customertablinks:hover{
     background: #ACACAC;
     cursor: pointer;
