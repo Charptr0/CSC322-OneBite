@@ -338,7 +338,7 @@ def checkoutPage():
         return redirect(url_for("homePage"))
 
     if request.method == 'POST':
-        return redirect(url_for("orderPlacedPage"))
+        return redirect(url_for("orderPlacedPage", total=request.args.get("total")))
 
     orders = session.get("orders")
 
@@ -368,7 +368,15 @@ def orderPlacedPage():
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
 
-    return render_template("order_placed.html", user=user)
+    total = float(request.args.get("total"))
+
+    if user.wallet < total:
+        user.warnings += 1 # Give the user an warning
+        return render_template("order_placed.html", user=user, success=False)
+    else:
+        user.wallet -= total # Subtract the amount from the wallet
+        return render_template("order_placed.html", user=user, success=True)
+
 
 @app.route("/profile/", methods = ['GET', 'POST'])
 def profilePage():
@@ -428,14 +436,7 @@ def orders():
         #flash("Please Log In", category="error")
         #return redirect(url_for("loginPage"))
 
-
-    return render_template("orders.html",
-        user=None,
-        currentOrders=CURRENTORDERS,
-        pastOrders=PASTORDERS,
-        pupulars=POPULARS)
-
-    #return render_template("orders.html", user=user)
+    return render_template("orders.html", user=user)
 
 @app.route("/dashboard/")
 def dashboard():
