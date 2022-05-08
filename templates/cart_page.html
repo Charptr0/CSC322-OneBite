@@ -17,9 +17,6 @@
         <div class = "summary-container" id = "cart-summary">
             <div class = "header-cart">
                 <h1 class = "summary-title" style = "margin-bottom: 3px;">Cart Summary</h1>
-                <div class = "cart-removal">
-                    <button id = "remove-all" class = "remove-btn">Remove All</button>
-                </div>
             </div>
 
             <div id = "summary-cart">
@@ -27,51 +24,30 @@
                     <div class = "header-product" style = "text-align: left;">Product</div>
                     <div class = "header-name"></div>
                     <div class = "header-price" >Price</div>
-                    <div class = "header-quantity" >Quantity</div>
+                    <!-- <div class = "header-quantity" >Quantity</div> -->
                     <div class = "header-total" >Total</div>
                 </div><hr>
 
                 <div class = "product-summary">
-                    {% for i in range(6):%}
-                        {% if i%2 == 0 %}
-                            <div class = "product">
-                                <div class = "product-image">
-                                    <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
-                                </div>
-                                <div class = "product-name" style = "text-align: left; font-size: 20px;">Appetizer</div>
-                                <div class = "product-price">12.99</div>
-                                <div class = "product-quantity">
-                                    <button id = "minus-btn" value = "-" class = "plusminus-btn">-</button>
-                                    <input type = "number" id = "quantity" value = "1" class = "input-qty" autocomplete = "off" min = "1">
-                                    <button id = "plus-btn" value = "+" class = "plusminus-btn">+</button>
-                                </div>
-                                <div class = "product-total">
-                                    <div class = "product-line-price">12.99</div>
-                                    <div class = "product-removal" style = "padding-top: 140px;">
-                                        <button id = "remove-product" class = "remove-btn remove-product">Remove</button>
-                                    </div>
+                    {% for dish in order %}
+                        <div class = "product">
+                            <div class = "product-image"><img class = "cart-image" src = {{dish.img}}></div>
+                            <div class = "product-name" style = "text-align: left; font-size: 20px;">{{dish.name}}</div>
+                            <div class = "product-price">{{dish.price}}</div>
+                            <!-- <div class = "product-quantity">
+                                <button id = "minus-btn" value = "-" class = "plusminus-btn">-</button>
+                                <input type = "number" id = "quantity" value = "1" class = "input-qty" autocomplete = "off" min = "1">
+                                <button id = "plus-btn" value = "+" class = "plusminus-btn">+</button>
+                            </div> -->
+                            <div class = "product-total">
+                                <div class = "product-line-price">12.99</div>
+                                <div class = "product-removal" style = "padding-top: 140px;">
+                                    <form method="post" action="/remove-dish-from-cart/{{dish.id}}">
+                                        <button id = "remove-product" class = "remove-btn remove-product" type="submit">Remove</button>
+                                    </form>
                                 </div>
                             </div>
-                        {% else %}
-                            <div class = "product odd-row">
-                                <div class = "product-image cart-transparent">
-                                    <img class = "cart-image" src = "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80">
-                                </div>
-                                <div class = "product-name cart-transparent" style = "text-align: left; font-size: 20px;">Appetizer</div>
-                                <div class = "product-price cart-transparent">12.99</div>
-                                <div class = "product-quantity cart-transparent">
-                                    <button id = "minus-btn" value = "-" class = "plusminus-btn">-</button>
-                                    <input type = "number" id = "quantity" value = "1" class = "input-qty cart-transparent" autocomplete = "off" min = "1">
-                                    <button id = "plus-btn" value = "+" class = "plusminus-btn">+</button>
-                                </div>
-                                <div class = "product-total cart-transparent">
-                                    <div class = "product-line-price cart-transparent">12.99</div>
-                                    <div class = "product-removal cart-transparent" style = "padding-top: 140px;">
-                                        <button id = "remove-product" class = "remove-btn remove-product">Remove</button>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -84,20 +60,22 @@
             <hr>
             <div class = "summary-info" id = "subtotal">
                 <p class = "align-left">Subtotal:</p>
-                <p class = "align-right">$100.00</p>
+                <p class = "align-right">${{subtotal}}</p>
             </div>
             <div class = "summary-info" id = "sales-tax">
                 <p class = "align-left">Estimated Tax:</p>
-                <p class = "align-right">$10.00</p>
+                <p class = "align-right">${{tax}}</p>
             </div>
-            <div class = "summary-info" id = "vip-discount">
-                <p class = "align-left">Discount:</p>
-                <p class = "align-right">$0.00</p>
-            </div>
+            {% if user.isVIP == 1 %}
+                <div class = "summary-info" id = "vip-discount">
+                    <p class = "align-left">Discount:</p>
+                    <p class = "align-right">${{discount}}</p>
+                </div>      
+            {% endif %}
             <hr>
             <div class = "summary-info" id = "total">
                 <p class = "align-left" style = "font-size: 20px;">Total:</p>
-                <p class = "align-right" stlye = "font-size: 20px;">$100</p>
+                <p class = "align-right" stlye = "font-size: 20px;">${{total}}</p>
             </div>
             <form id = "proceed-form" method = "POST" action = "">
                 <input type = "submit" id = "proceed-button" value = "Proceed to Checkout">

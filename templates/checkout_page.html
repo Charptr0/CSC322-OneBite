@@ -63,21 +63,13 @@
                     <tr class = "cart-header">
                         <th>Product Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
                     </tr>
-                    <tr>
-                        <td>Appetizer</td>
-                        <td>Price</td>
-                        <td>Quantity</th>
-                        <td>$$$</td>
-                    </tr>
-                    <tr>
-                        <td>Entree</td>
-                        <td>Price</td>
-                        <td>Quantity</td>
-                        <td>$$$</td>
-                    </tr>
+                    {% for dish in order %}
+                        <tr>
+                            <td>{{dish.name}}</td>
+                            <td>${{dish.price}}</td>
+                        </tr>        
+                    {% endfor %}
                 </table>
             </div>
         </div>
@@ -90,15 +82,15 @@
             <hr>
             <div class = "summary-info" id = "subtotal">
                 <p class = "align-left">Subtotal:</p>
-                <p class = "align-right">$100.00</p>
+                <p class = "align-right">${{subtotal}}</p>
             </div>
             <div class = "summary-info" id = "sales-tax">
                 <p class = "align-left">Estimated Tax:</p>
-                <p class = "align-right">$10.00</p>
+                <p class = "align-right">${{tax}}</p>
             </div>
             <div class = "summary-info" id = "vip-discount">
                 <p class = "align-left">Discount:</p>
-                <p class = "align-right">$0.00</p>
+                <p class = "align-right">${{discount}}</p>
             </div>
             <div class = "summary-info" id = "delivery-fee" style = "display: none; ">
                 <p class = "align-left">Delivery Fee:</p>
@@ -107,7 +99,7 @@
             <hr>
             <div class = "summary-info" id = "total">
                 <p class = "align-left" style = "font-size: 20px;">Total:</p>
-                <p class = "align-right" stlye = "font-size: 20px;">$100</p>
+                <p class = "align-right" stlye = "font-size: 20px;">${{total}}</p>
             </div>
             <form id = "confirm-form" method = "POST" action = "">
                 <input type = "submit" id = "confirm-button" value = "Confirm Order">

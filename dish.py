@@ -21,7 +21,7 @@ class Dish():
         self.img = img
         self.price = price
         self.id = id
-        self.rating = round(rating)
+        self.rating = round(rating, 2)
 
     def __str__(self):
         return f'Dish Name: {self.name}\n\nDish Desc: {self.desc}\n\nDish Image: {self.img}\n\nDish Price: {str(self.price)}\n'
