@@ -289,12 +289,18 @@ def cartPage():
         total -= discount
 
         if request.method == 'POST':
+            if total == 0: 
+                return redirect(url_for("cartPage"))
+
             return redirect(url_for("checkoutPage", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=round(discount, 2)))
 
         return render_template("cart_page.html", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=round(discount, 2))
     
     else:
         if request.method == 'POST':
+            if total == 0: 
+                return redirect(url_for("cartPage"))
+
             return redirect(url_for("checkoutPage", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=0.0))
 
         return render_template("cart_page.html", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=0.0)
@@ -375,6 +381,8 @@ def orderPlacedPage():
         return render_template("order_placed.html", user=user, success=False)
     else:
         user.wallet -= total # Subtract the amount from the wallet
+        session["orders"] = []
+
         return render_template("order_placed.html", user=user, success=True)
 
 
