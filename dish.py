@@ -45,6 +45,8 @@ class Dish():
         for dish in appetizers:
             data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
 
+        cursor.close()
+
         return data           
 
     @staticmethod
@@ -65,6 +67,8 @@ class Dish():
 
         for dish in appetizers:
             data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+
+        cursor.close()
 
         return data 
 
@@ -87,6 +91,7 @@ class Dish():
         for dish in appetizers:
             data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
 
+        cursor.close()
         return data
 
     @staticmethod
@@ -107,6 +112,8 @@ class Dish():
 
         for dish in appetizers:
             data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+
+        cursor.close()
 
         return data
 
@@ -193,3 +200,13 @@ class Dish():
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data
+
+    @staticmethod
+    def getDishFromID(db : MySQL, id):
+        print(id)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (id,))
+        dish = cursor.fetchone()
+
+        cursor.close()
+        return Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"])

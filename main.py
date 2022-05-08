@@ -68,7 +68,7 @@ def menu():
     DESERTS = Dish.getDeserts(mysql)
     DRINKS = Dish.getDrinks(mysql)
     SPECIALS = Dish.getSpecials(mysql)
-
+    
     userExist, user = isUserStillInSession()
     if userExist:
         if user.userType == 'customer':
@@ -131,6 +131,7 @@ def logout():
     Log out a user from the session
     '''
     session.pop("user", None)
+    session.pop("orders", None)
     flash("You have successfully signed out.", category="success")
     return redirect(url_for("loginPage"))
 
@@ -275,7 +276,14 @@ def cartPage():
         flash("Session timed out, please try again", category="error")
         return redirect(url_for("loginPage"))
 
-    return render_template("cart_page.html", user=user, orders=orders)
+    dishes = []
+
+    for id in orders:
+        dishes.append(Dish.getDishFromID(mysql, id))
+
+    print(dishes)
+
+    return render_template("cart_page.html", user=user, orders=dishes)
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():
