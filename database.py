@@ -392,7 +392,7 @@ def deleteAcc(db, user):
         return True
 
 
-def retrieveDispute(db,user):
+def retrieveDispute(db):
     # checks if user exists in the database
     userDetails = request.form
     fname = userDetails['firstname']

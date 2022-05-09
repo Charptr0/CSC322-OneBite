@@ -385,7 +385,7 @@ def dashboard():
 
     if request.method == "post":
         if "disputesubmit" in request.form:
-            retrieveDispute(MySQL,user)
+            retrieveDispute(MySQL)
             return redirect(url_for("dashboard"))
     return render_template("dashboard.html", user=user, userType=user.userType)
 
