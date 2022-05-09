@@ -1,4 +1,4 @@
-DROP DATABASE team_m_restaurant;
+-- DROP DATABASE team_m_restaurant;
 
 /* creates database */
 CREATE DATABASE IF NOT EXISTS team_m_restaurant DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
