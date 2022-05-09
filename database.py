@@ -400,12 +400,12 @@ def retrieveDispute(db):
     disputedescription = userDetails['deliverydispute']
 
     # checks requirements for registration
-    cursor = db.connection.cursor()
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
 
     # account pending creation. must be approved by manager to be added to database
     flash('Dispute Successfully Submitted!', category = 'success')
     # inserts new account into database after approval by manager
-    cursor.execute("INSERT INTO dispute (first_name, last_name, customer_id, dispute_content) VALUES(%s, %s, %s, %s)", ('a','b',6,"disputedescription"))
+    cursor.execute("INSERT INTO dispute(first_name, last_name, customer_id, dispute_content) VALUES(%s, %s, %s, %s)", (fname, lname, str(6), disputedescription))
     db.connection.commit()
     cursor.close()
 

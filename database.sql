@@ -162,9 +162,9 @@ INSERT INTO dish VALUES (28, 'drink', 'Blueberry Limeade', '5.75', 'Lorem ipsum 
 SELECT * FROM dish;
 
 CREATE TABLE IF NOT EXISTS dispute (
+	dispute_id int(11) NOT NULL AUTO_INCREMENT,
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
-    dispute_id int(11) NOT NULL AUTO_INCREMENT,
     customer_id int(11) NOT NULL,
     dispute_content text NOT NULL,
     primary key(dispute_id)

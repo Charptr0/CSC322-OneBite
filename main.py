@@ -39,7 +39,7 @@ def homePage():
         if user.userType == 'customer':
             return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
         else:
-            return render_template("dashboard.html", user=user, userType=user.userType)
+            return redirect(url_for("dashboard"))
 
     return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
 
@@ -383,11 +383,10 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
-    if request.method == "post":
+    if request.method == 'POST':
         if "disputesubmit" in request.form:
-            retrieveDispute(MySQL)
-            return redirect(url_for("dashboard"))
     return render_template("dashboard.html", user=user, userType=user.userType)
+            retrieveDispute(mysql)
 
 @app.route("/dashboard-discussions/")
 def dashboardDiscussions():
