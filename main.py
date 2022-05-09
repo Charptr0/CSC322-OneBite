@@ -371,7 +371,7 @@ def orders():
 
     #return render_template("orders.html", user=user)
 
-@app.route("/dashboard/")
+@app.route("/dashboard/",  methods = ['GET', 'POST'])
 def dashboard():
     '''
     Route to the dashboard page
@@ -383,6 +383,10 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
+    if request.method == "post":
+        if "disputesubmit" in request.form:
+            retrieveDispute(MySQL,user)
+            return redirect(url_for("dashboard"))
     return render_template("dashboard.html", user=user, userType=user.userType)
 
 @app.route("/dashboard-discussions/")

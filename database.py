@@ -71,6 +71,12 @@ def convertUser(account, acc_type):
     if account["type"] == 'chef':
         return Staff(
             id=account["id"],
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
             salary=acc_type["salary"],
             compliments=acc_type["num_compliment"],
             complaints=acc_type["num_complaint"],
@@ -81,6 +87,12 @@ def convertUser(account, acc_type):
     if account["type"] == 'delivery':
         return Staff(
             id=account["id"],
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
             salary=acc_type["salary"],
             compliments=acc_type["num_compliment"],
             complaints=acc_type["num_complaint"],
@@ -378,3 +390,23 @@ def deleteAcc(db, user):
         cursor.close()
 
         return True
+
+
+def retrieveDispute(db,user):
+    # checks if user exists in the database
+    userDetails = request.form
+    fname = userDetails['firstname']
+    lname = userDetails['lastname']
+    disputedescription = userDetails['deliverydispute']
+
+    # checks requirements for registration
+    cursor = db.connection.cursor()
+
+    # account pending creation. must be approved by manager to be added to database
+    flash('Dispute Successfully Submitted!', category = 'success')
+    # inserts new account into database after approval by manager
+    cursor.execute("INSERT INTO dispute (first_name, last_name, customer_id, dispute_content) VALUES(%s, %s, %s, %s, %s, %s)", ('a','b',6,"disputedescription"))
+    db.connection.commit()
+    cursor.close()
+
+    return True

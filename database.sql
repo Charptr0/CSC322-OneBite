@@ -160,3 +160,14 @@ INSERT INTO dish VALUES (26, 'drink', 'Hot Chocolate', '5.00', 'Lorem ipsum dolo
 INSERT INTO dish VALUES (27, 'drink', 'Blackberry Lemonade', '5.75', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!', 'https://images.unsplash.com/photo-1560179304-6fc1d8749b23?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', 3, 0, 0, 0, 1);
 INSERT INTO dish VALUES (28, 'drink', 'Blueberry Limeade', '5.75', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!', 'https://images.unsplash.com/photo-1504310578167-435ac09e69f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', 3, 0, 0, 0, 1);
 SELECT * FROM dish;
+
+CREATE TABLE IF NOT EXISTS dispute (
+	first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    dispute_id int(11) NOT NULL AUTO_INCREMENT,
+    customer_id int(11) NOT NULL,
+    dispute_content text NOT NULL,
+    primary key(dispute_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+SELECT * FROM dispute;

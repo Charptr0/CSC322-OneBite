@@ -1292,11 +1292,10 @@
                         <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
                     <button class="cheftablinks" onclick="openTab(event, 'ChefDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
-                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditAppetizers')"><i class='bx bxs-baguette' ></i>Edit Appetizers</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
-                    <button class="cheftablinks" onclick="openTab(event, 'LogOut')"><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
+                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
                 </div>
                 
                 <section class = "chef-home-section">
@@ -1623,13 +1622,12 @@
                         <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
                     <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
-                    <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryWarnings')"><i class='bx bx-error'></i>Warnings</button>
-                    <button class="deliverytablinks" onclick="openTab(event, 'LogOut')"><a href="{{ url_for('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
+                    <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
                 </div>
                 
                 <section class = "delivery-home-section">
@@ -1639,7 +1637,7 @@
                             <span class="delivery-dashboard">Dashboard</span>
                         </div>
                         <div class="delivery-welcome d-block mx-auto">
-                            Welcome, Deliverer PeMaJe GiViSe
+                            Welcome, Deliverer {{ user.firstName}} {{ user.lastName }}
                         </div>
                         <div class="delivery-logout">
                         
@@ -1651,19 +1649,23 @@
                 <div id = "Dashboard" class = "deliverytabcontent">
                     <div class="alert warning-alert d-block mx-auto">
                         <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryWarnings')">
-                            <h3 class = "text"><i class='bx bx-error'></i>WARNINGS: 3</h3>
+                            <h3 class = "text"><i class='bx bx-error'></i>WARNINGS:</h3>
+                            <h2 class = "num-of-warnings">{{ user.warnings }}</h2>
+                            
                         </button>
                     </div>
                 
                     <div class="alert warning-alert d-block mx-auto">
                         <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryCompliments')">
-                            <h3 class = "text"><i class='bx bx-wink-smile'></i>COMPLIMENTS: 3</h3>
+                            <h3 class = "text"><i class='bx bx-wink-smile'></i>COMPLIMENTS:</h3>
+                            <h2 class = "num-of-compliments">{{ user.compliments }}</h2>
                         </button>
                     </div>
                 
                     <div class="alert warning-alert d-block mx-auto">
                         <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryComplaints')">
-                            <h3 class = "text"><i class='bx bx-angry' ></i>COMPLAINTS: 3</h3>
+                            <h3 class = "text"><i class='bx bx-angry' ></i>COMPLAINTS:</h3>
+                            <h2 class = "num-of-complaints">{{ user.complaints }}</h2>
                         </button>
                     </div>
                 </div>
@@ -1717,41 +1719,88 @@
                             <td>Did not deliver food</td>
                             <td>I waited for hours and the food never came. I starved to death this day.</td>
                             <td> 
-                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                <!-- <section class="bg-light" > -->
+                                    <button class = "dispute-btn" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                    <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="" method = "post">
+                                                        <div class="form-group">
+                                                            <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                            <input name = "firstname" type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                            <input name = "lastname" type="lname" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                            <textarea name ="deliverydispute" class="form-control" id="deliverydisputebox" rows="3"></textarea>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <input name = "disputesubmit" type = "submit" class="btn btn-primary" value = "submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- </section> -->
                             </td>
+                            
                         </tr>
 
-                          <tr>
+                          <!-- <tr>
                             <th scope="row">1</th>
                             <td>Did not deliver food</td>
                             <td>I waited for hours and the food never came. I starved to death this day.</td>
                             <td> 
-                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                <section class="bg-light" >
+                                    <button class = "dispute-btn" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                    <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="" method = "POST">
+                                                        <div class="form-group">
+                                                            <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                            <input type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                            <input type="lname" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                            <textarea class="form-control" id="deliverydisputebox" rows="3"></textarea>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type = "submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </td>
-                          </tr>
+
+                          </tr> -->
 
                         </tbody>
                     </table>
                 </div>
 
-                <div class="dispute-modal">
-                    <div class="dispute-modal-content">
-                        <div class="form-popup" id="myForm">
-                            <form action="/action_page.php" class="form-container">
-                              <h1>Update Item</h1>
-                          
-                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
-                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
-                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
-                              <input type="text" placeholder="Enter Price" name="itemprice" required>
                 
-                
-                              <button type="submit" class="btn">Update</button>
-                              <button type="button" class="dispute-btn-cancel" onclick="closeForm()">+</button>
-                            </form>
-                          </div>    
-                    </div>
-                </div>
 
                 <div id = "DeliveryWarnings" class = "deliverytabcontent">
                     <table class="table">
@@ -1818,6 +1867,37 @@
                                 <div class="delivery-box">
                                     <div class="delivery-left">
                                         <div class="delivery-number">Delivery Location for Delivery # ( Order ID )</div>
+                                        
+                                        <button class = "complain-btn" data-bs-toggle="modal" data-bs-target="#complain-modal"><i class='bx bxs-angry'></i>Complain</button>
+                                        <div class="modal fade" id = "complain-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class = "modal-title" id = "modal-title">Complaint Form</h5>
+                                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method = "POST">
+                                                            <div class="form-group">
+                                                                <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                                <input type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                                <input type="lname" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="deliverydisputebox">Enter Description of Complaint:</label>
+                                                                <textarea class="form-control" id="deliverycomplainbox" rows="3"></textarea>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type = "submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <hr>
                                         <div class="delivery-customer-info">
                                             <div class="delivery-customer-name">Customer Name: Peggie</div>
@@ -1827,6 +1907,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     <div class="tablecontainer">
                         <h4 class = "text-center">Past Deliveries</h4>
                         <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
@@ -1850,46 +1931,7 @@
                                         <td>Apple Jeans</td>
                                         <td>july 17,2001</td>
                                     </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
+
                                 </tbody>
                             </thead>
                         </table>
@@ -1927,14 +1969,13 @@
                     }
 
 
-                    document.querySelector('.dispute-btn').addEventListener('click',function(){
-                        document.querySelector('.dispute-modal').style.display = "flex";
-                    });
+                    // document.querySelector('.dispute-btn').addEventListener('click',function(){
+                    //     document.querySelector('.dispute-modal').style.display = "block";
+                    // });
 
-                    document.querySelector('.dispute-btn-cancel').addEventListener('click',function(){
-                        document.querySelector('.dispute-modal').style.display = "none";
-                    });
-
+                    // document.querySelector('.dispute-btn-cancel').addEventListener('click',function(){
+                    //     document.querySelector('.dispute-modal').style.display = "none";
+                    // });
 
                 </script>
                 

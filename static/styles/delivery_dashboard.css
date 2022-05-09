@@ -357,72 +357,40 @@ navbar, nav * {
     margin-right: 5px;
 }
 
-/* dispute modal */
-.dispute-modal{
-    width:100%;
-    height:100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    position:absolute;
-    top:0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
-}
-
-.dispute-modal-content{
-    width: 500px;
-    height: 300px;
-    background-color: white;
-    border-radius: 4px;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-}
-
-
-.dispute-btn-cancel{
-    position: absolute;
-    top: 0;
-    right: 14px;
-    font-size: 42px;
-    transform: rotate(45deg);
-    border-style: none;
-    background-color: rgba(255, 255, 255, 0);
-    cursor: pointer;
-}
-
-.btn-cancel:hover{
-    color: red;
-}
-
-
-/* Dispute buttons */
-
-.dispute{
-    background-color: red;
-    display:flex;
-    padding:0.3em 1.2em;
-    margin:0 0.1em 0.1em 0;
-    border:0.16em solid rgba(255,255,255,0);
-    border-radius:2em;
+.complain-btn{
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
     box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color:#FFFFFF;
-    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
-    text-align:center;
-    transition: all 0.2s;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
     
 }
-
-.dispute:hover{
-    border-color: rgb(0, 0, 0);
-    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-    transform: translateY(-0.25em);
+.complain-btn:active,
+.complain-btn:hover{
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
+    opacity: .5;
 }
 
-.dispute i{
+
+.complain-btn i{
     margin-right: 5px;
 }
