@@ -1,6 +1,7 @@
-# OneBite | Electronic Restaurant Order and Delivery System <img src="./static/assets/onebite_logo.png" align="right" width="20%">
+# OneBite | Software Engineering Final Project <img src="./static/assets/onebite_logo.png" align="right" width="25%">
 
-## General Description
+
+## Electronic Restaurant Order and Delivery System 
 
 Develop an on-line restaurant order and delivery system so that the restaurant can provide menus of food, customers browse and order the food from the menu, delivery people of the restaurant deliver the food
 
