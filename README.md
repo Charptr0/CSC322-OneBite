@@ -1,4 +1,4 @@
-# OneBite | Software Engineering Final Project <img src="./static/assets/onebite_logo.png" align="right" width="25%">
+# OneBite<img src="./static/assets/onebite_logo.png" align="right" width="25%">
 
 
 ## Electronic Restaurant Order and Delivery System 
@@ -11,40 +11,40 @@ Develop an on-line restaurant order and delivery system so that the restaurant c
 
 1. Employees
     - [ ] At least two chefs who independently decide the menus and make the dish
-    - [ ] At least two delivery people for food delivery
-    - [ ] One manager who process customer registrations, handles customer compliments and complaints, hire/fire/raise/cut pay for chef(s) and delivery people
+    - [X] At least two delivery people for food delivery
+    - [X] One manager who process customer registrations, handles customer compliments and complaints, hire/fire/raise/cut pay for chef(s) and delivery people
 
 2. Customers
     - [ ] Registered customers who can browse/search, order and vote(lowest 1 star to highest 5 stars) delivered (on food and delivery quality/manners individually)
     - [ ] Can start/participate a discussion topic on chefs dishes/delivery people
-    - [ ] Registered customers becomes a VIP after spending more than $100 or 5 orders
-    - [ ] As a VIP registered customers without complaints, they will receive 5% discount of their ordinary orders and 1 free delivery for every 3 orders, have access to specially developed dishes, and their complaints/compliments are counted twice as important as ordinary ones
+    - [X] Registered customers becomes a VIP after spending more than $100 or 5 orders
+    - [X] As a VIP registered customers without complaints, they will receive 5% discount of their ordinary orders and 1 free delivery for every 3 orders, have access to specially developed dishes, and their complaints/compliments are counted twice as important as ordinary ones
 
 3. Visitors
-    - [ ] Can browse the menus and ratings only
-    - [ ] Can apply to be the registered customer
+    - [X] Can browse the menus and ratings only
+    - [X] Can apply to be the registered customer
 
 
 ## System Features
-- [ ] Provide a GUI, not necessarily web-based, with pictures to show the descriptions of each
+- [X] Provide a GUI, not necessarily web-based, with pictures to show the descriptions of each
 dish and price 
-- [ ] Each registered customer/VIP has a password to login, when they log in
-- [ ] Based on the history of their prior choices, different registered customer/VIP will have different top 3 listing dishes. 
-- [ ] For new customers or visitors, the top 3 most popular dishes and top 3 highest rated dishes are listed on the first page
-- [ ] A customer can choose to 
+- [X] Each registered customer/VIP has a password to login, when they log in
+- [X] Based on the history of their prior choices, different registered customer/VIP will have different top 3 listing dishes. 
+- [X] For new customers or visitors, the top 3 most popular dishes and top 3 highest rated dishes are listed on the first page
+- [X] A customer can choose to 
     - [ ] Pick up the dishes in person 
         - He/She can only complain/compliment the chef
-    - [ ] By restaurant delivery
+    - [X] By restaurant delivery
 - [ ] A customer can file complaints/compliments to chef of the food s/he purchased and deliver person who delivered the dish or other customers who didn’t behave in the discussion forums.
 - [ ] Delivery person can complain/compliment customers s/he delivered dishes, all complaints/compliments are handled by the manager 
 - [ ] The complained person has the right to dispute the complaint, the manager made the final call to dismiss the
 complaint or let the warning stay and inform the impacted parties 
 - [ ] Customers/delivery people whose complaints are decided to be without merit by the manager will receive one
 additional warning.
-- [ ] Registered customers having 3 warnings are de-registered. 
-- [ ] VIPs having 2 warnings are put back to registered customers (with warnings cleared). 
-- [ ] The warnings should be displayed in the page when the customer logs in
-- [ ] Every customer should deposit some money to the system. If the price of the order is more expensive than the deposited money in the account, the order is rejected and the
+- [X] Registered customers having 3 warnings are de-registered. 
+- [X] VIPs having 2 warnings are put back to registered customers (with warnings cleared). 
+- [X] The warnings should be displayed in the page when the customer logs in
+- [X] Every customer should deposit some money to the system. If the price of the order is more expensive than the deposited money in the account, the order is rejected and the
 customer receives one warning automatically for being reckless
 - [ ] Customers who are kicked out of the system or choose to quit the system will be handled by the manager: 
     - [ ] clear the deposit and close the account. And kicked-out customer is on the blacklist of the restaurant: cannot register any more
