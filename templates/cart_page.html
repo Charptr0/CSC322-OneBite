@@ -24,7 +24,7 @@
                     <div class = "header-product" style = "text-align: left;">Product</div>
                     <div class = "header-name"></div>
                     <div class = "header-price" >Price</div>
-                    <!-- <div class = "header-quantity" >Quantity</div> -->
+                    <div class = "header-quantity" >Quantity</div>
                     <div class = "header-total" >Total</div>
                 </div><hr>
 
@@ -37,6 +37,17 @@
                                 </div>
                                 <div class = "product-name" style = "text-align: left;"><b>{{ dish['name'] }}</b></div>
                                 <div class = "product-price">{{ "$%.2f"|format(dish['price']) }}</div>
+                                <div class = "product-quantity flex-container">
+                                    <form class = "change-qty flex1" method = "POST" action = "">
+                                        <input type = "hidden" id = "minus-dish-id" name = "dish-id" value = "{{ dish['dish_id'] }}">
+                                        <input type = "submit" id = "minus-btn" name = "minus" value = "-" class = "plusminus-btn">
+                                    </form>
+                                    <p id = "quantity" class = "input-qty flex4">{{ dish['quantity'] }}</p>
+                                    <form class = "change-qty flex1" method = "POST" action = "">
+                                        <input type = "hidden" id = "plus-dish-id" name = "dish-id" value = "{{ dish['dish_id'] }}">
+                                        <input type = "submit" id = "plus-btn" name = "plus" value = "+" class = "plusminus-btn">
+                                    </form>
+                                </div>
                                 <div class = "product-total">
                                     <div class = "product-line-price">{{ "$%.2f"|format(dish['quantity']*dish['price']) }}</div>
                                     <form class = "product-removal" method = "POST" action = "/remove-dish-from-cart/{{ dish['dish_id'] }}" style = "padding-top: 140px;">

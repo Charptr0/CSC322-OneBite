@@ -389,7 +389,21 @@ def deleteAcc(db, user):
         db.connection.commit()
         cursor.close()
 
-        return Truedef getCartItems(db, cart):
+        return True
+
+def updateQuantity(cart, index, action):
+    '''
+    Updates quantity in cart
+    '''
+    # decrease item quantity by 1
+    if action == "minus":
+        cart["quantity"][index] -= 1
+    # increase item quantity by 1
+    elif action == "plus":
+        cart["quantity"][index] += 1
+    return cart
+
+def getCartItems(db, cart):
     '''
     Get cart items from database
     '''

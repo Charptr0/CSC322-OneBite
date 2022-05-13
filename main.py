@@ -284,6 +284,19 @@ def cartPage():
                 flash("Error: Your cart is empty.", category = "error")
             else:
                 return redirect(url_for("checkoutPage"))
+        else:
+            dish_id = request.form["dish-id"]
+            index = cart["dish"].index(dish_id)
+            if "minus" in request.form:
+                cart = updateQuantity(cart, index, "minus")
+                session["cart"] = cart
+                if cart["quantity"][index] == 0:
+                    removeDishFromCart(dish_id)
+                return redirect(url_for("cartPage"))
+            if "plus" in request.form:
+                cart = updateQuantity(cart, index, "plus")
+                session["cart"] = cart
+                return redirect(url_for("cartPage"))
 
     return render_template("cart_page.html", user=user, cart=items, cartInfo=cartInfo)
 
