@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from database import *
 from dish import Dish
+from order import Order
 
 app = Flask(__name__)
 
@@ -37,11 +38,11 @@ def homePage():
     userExist, user = isUserStillInSession()
     if userExist:
         if user.userType == 'customer':
-            return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
+            return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(mysql), popularDishes=Dish.getPopularDishes(mysql), ratedDishes=Dish.getHighestRatedDishes(mysql))
         else:
             return render_template("dashboard.html", user=user, userType=user.userType)
 
-    return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
+    return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(mysql), ratedDishes=Dish.getHighestRatedDishes(mysql))
 
 @app.route("/about/")
 def aboutPage():

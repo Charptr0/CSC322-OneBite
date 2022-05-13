@@ -227,16 +227,15 @@ class Customer(User):
         '''
         Get and set the user's top dishes
         '''       
+        self.favoriteDishes = []
 
-        self.favoriteDishes = [
-            {"name" : "Dish 1", "desc" : "Desc 1", "img" : "../static/assets/test.jpg", "price" : "$10"},
-            {"name" : "Dish 1", "desc" : "Desc 1", "img" : "../static/assets/test.jpg", "price" : "$10"},
-            {"name" : "Dish 1", "desc" : "Desc 1", "img" : "../static/assets/test.jpg", "price" : "$10"},
-        ]
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT order_id, customer_id, dish_id, SUM(quantity) FROM orderDetails WHERE customer_id = %s GROUP BY customer_id, dish_id ORDER BY SUM(quantity) DESC', (str(self.id),))
+        favorites = cursor.fetchmany(3)
+        for dish in favorites:
+            dish_id = dish["dish_id"]
+            cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+            item = cursor.fetchone()
+            self.favoriteDishes.append(Dish(item["dish_id"], item["dish_type"], item["name"], item["price"], item["description"], item["img"], item["chef"], item["rating"], item["num_ratings"], item["count"], item["status"]))
 
         return self.favoriteDishes
-
-    def addOrder(self, dish_id):
-        self.orders.append(dish_id)
-
-        
