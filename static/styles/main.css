@@ -67,6 +67,13 @@ body
     border-color:#badbcc
 }
 
+.alert-warning
+{
+    color:#787400;
+    background-color:#edeed9;
+    border-color:#d6d7c0;
+}
+
 .show
 {
     opacity: .85;

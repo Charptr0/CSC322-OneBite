@@ -54,8 +54,10 @@ def convertUser(account, acc_type):
             num_orders=acc_type["num_orders"],
             total_spent=acc_type["total_spent"],
             warnings=acc_type["warnings"],
+            isClosed=acc_type["isClosed"],
             isBlacklisted=acc_type["isBlacklisted"],
-            isVIP=acc_type["isVIP"]
+            isVIP=acc_type["isVIP"],
+            free_deliveries=acc_type["free_deliveries"]
         )
     if account["type"] == 'manager':
         return Manager(
@@ -332,15 +334,14 @@ def changeCard(db, user):
             # checks that card number length is valid
             flash('Card number is invalid. Must be 16 digits.', category = 'error')
         else:
-            cursor.execute('UPDATE customer SET cardnumber = %s WHERE customer_id = %s', (card, str(user.id),))
             flash('Successfully changed payment method.', category = 'success')
-            db.connection.commit()
-            cursor.close()
-            user.setCardNumber(user, card)
-
+            user.setCardNumber(db, card)
+            
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+    cursor.close()
 
 def chargeFunds(db, user):
     '''
@@ -362,15 +363,14 @@ def chargeFunds(db, user):
             flash('Amount to be deposited must be $0.01 or more.', category = 'error')
         else:
             funds = float(funds) + user.wallet
-            cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (str(funds), str(user.id),))
             flash('Successfully deposited more funds.', category = 'success')
-            db.connection.commit()
-            cursor.close()
-            user.setWallet(user, funds)
+            user.setWallet(db, funds)
 
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+    cursor.close()
 
 def deleteAcc(db, user):
     '''
@@ -391,6 +391,80 @@ def deleteAcc(db, user):
 
         return True
 
+def updateQuantity(cart, index, action):
+    '''
+    Updates quantity in cart
+    '''
+    # decrease item quantity by 1
+    if action == "minus":
+        cart["quantity"][index] -= 1
+    # increase item quantity by 1
+    elif action == "plus":
+        cart["quantity"][index] += 1
+    return cart
+
+def getCartItems(db, cart):
+    '''
+    Get cart items from database
+    '''
+    data = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    index = 0
+    for item in cart["dish"]:
+        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(item),))
+        rawQuery = cursor.fetchone()
+        rawQuery["quantity"] = cart["quantity"][index]
+        index += 1
+        data.append(rawQuery)
+
+    return data
+
+def getCartInfo(cart, vipStatus):
+    '''
+    Gets cart info based on customer's cart
+    '''
+    info = {}
+    subtotal = 0
+    for row in cart:
+        subtotal += row["quantity"]*row["price"]
+
+    # Calculate the subtotal, tax, and total
+    info["subtotal"] = subtotal
+    info["tax"] = round(subtotal*0.08875, 2)
+    if vipStatus == 1:
+        info["discount"] = round(subtotal*0.05, 2)
+    else:
+        info["discount"] = 0.00
+    info["total"] = round(subtotal + info["tax"] - info["discount"], 2)
+    return info
+
+def getDishCount(db, dish_id):
+    '''
+    Gets dish count in database
+    '''
+    # checks if dish exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+    dish = cursor.fetchone()
+    cursor.close()
+
+    if dish:
+        return dish["count"]
+
+def setDishCount(db, dish_id, num):
+    '''
+    Updates dish count in database
+    '''
+    # checks if dish exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+    dish = cursor.fetchone()
+
+    if dish:
+        cursor.execute('UPDATE dish SET count = %s WHERE dish_id = %s', (str(num), str(dish_id),))
+        db.connection.commit()
+
+    cursor.close()
 
 def retrieveDispute(db):
     userDetails = request.form
@@ -421,7 +495,6 @@ def retrieveComplaint(db):
 
     return True
 
-
 def loadDisputes(db):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -445,8 +518,6 @@ def loadPastDeliveries(db):
     results = cursor.fetchall()
     cursor.close()
     return results
-
-
 
 def loadEntrees(db):
     results = []
@@ -486,7 +557,6 @@ def loadDesserts(db):
     print(results)
     cursor.close()
     return results
-
 
 def loadDrinks(db):
     results = []
