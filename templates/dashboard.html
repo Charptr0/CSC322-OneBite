@@ -15,15 +15,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_dashboard.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap  Delivery -->
     {% if userType == "delivery" %}
         <link rel="stylesheet" href="css/bootstrap.min.css">
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
     {% endif %}
-
-    <!-- for userType == "delivery" -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
 
     <!-- for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,9 +33,11 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     
     {% if userType == "chef" %}
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
     {% endif %}
 
     
@@ -2419,61 +2422,25 @@
                                         <tr>
                                             <th>Date</th>
                                             <th>Author (ID, Name)</th>
-                                            <th>Original Complaint</th>
-                                            <th>Recipient</th>
+                                            <!-- <th>Original Complaint</th> -->
+                                            <!-- <th>Recipient</th> -->
                                             <th>Dispute Claim</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <!-- <th>Status</th>
+                                            <th>Actions</th> -->
                                         </tr>
-                                        <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>1111, Alex Doe</li></td>
-                                            <td><li>The food was horrible.</li></td>
-                                            <td><li>Chef 1</li></td>
-                                            <td><li>This claim will be disputed bc...</li></td>
-                                            <td><li>Unresolved</li></td>
+                                    </tr>
+                                        {% for info in rows %}
+                                            <td>{{ info["dispute_date"].strftime('%m-%d-%Y') }}</td>
+                                            <td>{{ info["dispute_id"] }}, {{ info["first_name"] }}</td>
+                                            <td>{{ info["dispute_content"] }}</td>
                                             <td>
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
                                                 <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>1111, Alex Doe</li></td>
-                                            <td><li>The food was horrible.</li></td>
-                                            <td><li>Chef 1</li></td>
-                                            <td><li>This claim will be disputed bc...</li></td>
-                                            <td><li>Resolved</li></td>
-                                           <td>
-                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
-                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>2222, David Mart</li></td>
-                                            <td><li>The delivery was late ...</li></td>
-                                            <td><li>Delivery 1</li></td>
-                                            <td><li>This claim will be disputed bc...</li></td>
-                                            <td><li>Unresolved</li></td>
-                                           <td>
-                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
-                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>2222, David Mart</li></td>
-                                            <td><li>The delivery was late ...</li></td>
-                                            <td><li>Delivery 1</li></td>
-                                            <td><li>This claim will be disputed bc...</li></td>
-                                            <td><li>Resolved</li></td>
-                                           <td>
-                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
-                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
-                                           </td>
-                                        </tr>
+                                        {% endfor %}
+                                    </tr>
                                     </table>
+
                                 </div>
                                 <a href="#" id="disputed-comments-load" class="see-all-button">See All</a>
                             </div>
@@ -2720,11 +2687,11 @@
                         <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
                     <button class="cheftablinks" onclick="openTab(event, 'ChefDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
-                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditAppetizers')"><i class='bx bxs-baguette' ></i>Edit Appetizers</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
-                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditDrinks')"><i class='bx bxs-drink'></i>Edit Drinks</button>
+                    <button class="cheftablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a></button>
                 </div>
                 
                 <section class = "chef-home-section">
@@ -2734,7 +2701,7 @@
                             <span class="chef-dashboard">Dashboard</span>
                         </div>
                         <div class="chef-welcome d-block mx-auto">
-                            Welcome, Chef PeMaJe GiViSe
+                            Welcome, Chef {{ user.firstName}} {{ user.lastName }}
                         </div>
                         <div class="chef-logout">
                         
@@ -2748,81 +2715,138 @@
                 </div>
 
                 <div id = "EditAppetizers" class = "cheftabcontent">
-                    <!-- <section class = "chef-items"> -->
-                        <div class="appetizer-items">
-                            <h1 class = "menu-item-heading">
-                                APPETIZERS
-                            </h1>
-                            <div class = "menu-group d-block mx-auto">
-                                <div class = "menu-item ">
-                                    <div class = "menu-id">one</div>
-                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                    <div class="item-name">
-                                        Item 1 Name
+                    <div class="appetizer-items">
+                        <h1 class = "menu-item-heading">
+                            APPETIZERS
+                        </h1>
+                        <hr class="solid">
+                        
+                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#add-modal"><i class='bx bx-add-to-queue' ></i>Add Appetizer</button>
+                        <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id = "modal-title">Adding Item</h5>
+                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+
                                     </div>
-                                    <div class = "menu-item-description">
-                                        Condimentum lacus orci netus. 
-                                    </div>
-                                    <div class="item-price">$5.99</div>
-                                    <div class = "buttons">
-                                        <button class = "edit-btn">Edit</button>
-                                        <button class = "remove-btn">Remove</button>
-                                    </div>
-                                </div>
-                    
-                                <div class = "menu-item ">
-                                    <div class = "menu-id">one</div>
-                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                    <div class="item-name">
-                                        Item 1 Name
-                                    </div>
-                                    <div class = "menu-item-description">
-                                        Condimentum lacus orci netus. 
-                                    </div>
-                                    <div class="item-price">$5.99</div>
-                                    <div class = "buttons">
-                                        <button class = "edit-btn">Edit</button>
-                                        <button class = "remove-btn">Remove</button>
-                                    </div>
-                                </div>
-                    
-                                <div class = "menu-item ">
-                                    <div class = "menu-id">one</div>
-                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                    <div class="item-name">
-                                        Item 1 Name
-                                    </div>
-                                    <div class = "menu-item-description">
-                                        Condimentum lacus orci netus. 
-                                    </div>
-                                    <div class="item-price">$5.99</div>
-                                    <div class = "buttons">
-                                        <button class = "edit-btn">Edit</button>
-                                        <button class = "remove-btn">Remove</button>
+
+                                    <div class="modal-body">
+                                        <form action="" method="POST" >
+                                            <div class="form-group">
+                                                <label for="chefid">Chef ID</label>
+                                                <input type="chefid" name="chefid" class="form-control" id="chefid" value="{{ user.id }}" placeholder="{{ user.id }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dishid">Dish Type</label>
+                                                <input type="dishtype" name="dishtype" class="form-control" id="dishtype" value="appetizer" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="customeFile">Upload Image</label>
+                                                <input type="imagename" name="image" class="form-control" id="customfile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-fname" class = "form-label">Item Name:</label>
+                                                <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-lname" class = "form-label">Description:</label>
+                                                <textarea name="description" class="form-control" id="description" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Price</label>
+                                                <input type="price" name="price" class="form-control" id="modal-price" placeholder="$0.00" min="0.00" max="10000.00">
+                                            </div> 
+                                    
+                                            <div class="modal-footer">
+                                                <input name="addsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                
-                                <div class = "menu-item ">
-                                    <div class = "menu-id">one</div>
-                                    <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                    <div class="item-name">
-                                        Item 1 Name
-                                    </div>
-                                    <div class = "menu-item-description">
-                                        Condimentum lacus orci netus. 
-                                    </div>
-                                    <div class="item-price">$5.99</div>
-                                    <div class = "buttons">
-                                        <button id = "edit-button" class = "edit-btn">Edit</button>
-                    
-                                        <button class = "remove-btn">Remove</button>
-                                    </div>
-                                </div>
-                    
                             </div>
+
                         </div>
-                    
-                    <!-- </section> -->
+
+                        <div class="tablecontainer d-block mx-auto">
+                            <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th>Dish ID</th>
+                                        <th>Dish Image</th>
+                                        <th>Dish Name</th>
+                                        <th>Dish Description</th>
+                                        <th>Dish Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                 </thead>
+                                    <tbody>
+                                        {% for info in appetizers %}
+                                        <tr>
+                                            <td class="text-center">{{ info['dish_id'] }}</td>
+                                            <td class="images w-25">
+                                                <img src="{{ info['img'] }} " class="img-fluid img-thumbnail" class="foodimages"> 
+                                            </td>
+                                            <td class="text-center">{{ info['name'] }}</td>
+                                            <td class="text-center">{{ info['description'] }} </td>
+                                            <td class="text-center">${{ info['price'] }} </td>
+                                            <td class="text-center">
+                                                <div class = "buttons">
+                                       
+                                                    <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                                                    <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
+                                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="" method = "POST">
+                                                                        <div class="form-group">
+                                                                            <label for="dishid">Dish ID</label>
+                                                                            <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="customeFile">Upload New Image</label>
+                                                                            <input type="file" name="newimage" class="form-control" id="customfile">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-fname" class = "form-label">Edit Item Name:</label>
+                                                                            <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-lname" class = "form-label">Edit Description:</label>
+                                                                            <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editprice">Edit Price</label>
+                                                                            <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
+                                                                        </div>
+                                                                
+                                                                        <div class="modal-footer">
+                                                                            <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <form action="" method="POST">
+                                                        <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                       
+                    </div>
                 </div>
 
                 <div id = "EditEntrees" class = "cheftabcontent">
@@ -2831,72 +2855,83 @@
                         <h1 class = "menu-item-heading">
                             Entrees
                         </h1>
-                        <div class = "menu-group d-block mx-auto">
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button class = "edit-btn">Edit</button>
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button class = "edit-btn">Edit</button>
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button class = "edit-btn">Edit</button>
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                            
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button id = "edit-button" class = "edit-btn">Edit</button>
-                
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                
+                        <hr class="solid">
+                        <div class="tablecontainer d-block mx-auto">
+                            <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th>Dish ID</th>
+                                        <th>Dish Image</th>
+                                        <th>Dish Name</th>
+                                        <th>Dish Description</th>
+                                        <th>Dish Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                 </thead>
+                                    <tbody>
+                                        {% for info in entree %}
+                                        <tr>
+                                            <td class="text-center">{{ info['dish_id'] }}</td>
+                                            <td class="images w-25">
+                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail" class="foodimages"> 
+                                            </td>
+                                            <td class="text-center">{{ info['name'] }}</td>
+                                            <td class="text-center">{{ info['description'] }} </td>
+                                            <td class="text-center">${{ info['price'] }} </td>
+                                            <td class="text-center">
+                                                <div class = "buttons">
+                                       
+                                                    <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                                                    <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
+                                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="" method = "POST">
+                                                                        <div class="form-group">
+                                                                            <label for="dishid">Dish ID</label>
+                                                                            <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="customeFile">Upload New Image</label>
+                                                                            <input type="file" name="newimage" class="form-control" id="customfile">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-fname" class = "form-label">Edit Item Name:</label>
+                                                                            <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-lname" class = "form-label">Edit Description:</label>
+                                                                            <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editprice">Edit Price</label>
+                                                                            <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
+                                                                        </div>
+                                                                
+                                                                        <div class="modal-footer">
+                                                                            <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <form action="" method="POST">
+                                                        <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -2907,96 +2942,182 @@
                         <h1 class = "menu-item-heading">
                             Desserts
                         </h1>
-                        <div class = "menu-group d-block mx-auto">
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button class = "edit-btn">Edit</button>
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button class = "edit-btn">Edit</button>
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button class = "edit-btn">Edit</button>
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                            
-                            <div class = "menu-item ">
-                                <div class = "menu-id">one</div>
-                                <img class = "item-image" src="static\assets\test.jpg" alt="">
-                                <div class="item-name">
-                                    Item 1 Name
-                                </div>
-                                <div class = "menu-item-description">
-                                    Condimentum lacus orci netus. 
-                                </div>
-                                <div class="item-price">$5.99</div>
-                                <div class = "buttons">
-                                    <button id = "edit-button" class = "edit-btn">Edit</button>
-                
-                                    <button class = "remove-btn">Remove</button>
-                                </div>
-                            </div>
-                
+                        <hr class="solid">
+                        <div class="tablecontainer d-block mx-auto">
+                            <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th>Dish ID</th>
+                                        <th>Dish Image</th>
+                                        <th>Dish Name</th>
+                                        <th>Dish Description</th>
+                                        <th>Dish Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                 </thead>
+                                    <tbody>
+                                        {% for info in desserts %}
+                                        <tr>
+                                            <td class="text-center">{{ info['dish_id'] }}</td>
+                                            <td class="images w-25">
+                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail" class="foodimages"> 
+                                            </td>
+                                            <td class="text-center">{{ info['name'] }}</td>
+                                            <td class="text-center">{{ info['description'] }} </td>
+                                            <td class="text-center">${{ info['price'] }} </td>
+                                            <td class="text-center">
+                                                <div class = "buttons">
+                                       
+                                                    <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                                                    <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
+                                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="" method = "POST">
+                                                                        <div class="form-group">
+                                                                            <label for="dishid">Dish ID</label>
+                                                                            <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="customeFile">Upload New Image</label>
+                                                                            <input type="file" name="newimage" class="form-control" id="customfile">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-fname" class = "form-label">Edit Item Name:</label>
+                                                                            <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-lname" class = "form-label">Edit Description:</label>
+                                                                            <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editprice">Edit Price</label>
+                                                                            <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
+                                                                        </div>
+                                                                
+                                                                        <div class="modal-footer">
+                                                                            <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <form action="" method="POST">
+                                                        <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                     
                 </div>
-                <!-- POPUP MODAL -->
-                <div class="bg-modal">
-                    <div class="modal-content">
-                        <div class="form-popup" id="myForm">
-                            <form action="/action_page.php" class="form-container">
-                              <h1>Update Item</h1>
-                          
-                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
-                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
-                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
-                              <input type="text" placeholder="Enter Price" name="itemprice" required>
-                
-                
-                              <button type="submit" class="btn">Update</button>
-                              <button type="button" class="btn-cancel" onclick="closeForm()">+</button>
-                            </form>
-                          </div>    
+
+                <div id = "EditDrinks" class = "cheftabcontent">
+                    <div class="drink-items">
+                        <h1 class = "menu-item-heading">
+                            Drinks
+                        </h1>
+                        <hr class="solid">
+                        <div class="tablecontainer d-block mx-auto">
+                            <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th>Drink ID</th>
+                                        <th>Drink Image</th>
+                                        <th>Drink Name</th>
+                                        <th>Drink Description</th>
+                                        <th>Drink Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                 </thead>
+                                    <tbody>
+                                        {% for info in drinks %}
+                                        <tr>
+                                            <td class="text-center">{{ info['dish_id'] }}</td>
+                                            <td class="images w-25">
+                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail" class="foodimages"> 
+                                            </td>
+                                            <td class="text-center">{{ info['name'] }}</td>
+                                            <td class="text-center">{{ info['description'] }} </td>
+                                            <td class="text-center">${{ info['price'] }} </td>
+                                            <td class="text-center">
+                                                <div class = "buttons">
+                                       
+                                                    <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                                                    <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
+                                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="" method = "POST">
+                                                                        <div class="form-group">
+                                                                            <label for="dishid">Dish ID</label>
+                                                                            <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="customeFile">Upload New Image</label>
+                                                                            <input type="file" name="newimage" class="form-control" id="customfile">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-fname" class = "form-label">Edit Item Name:</label>
+                                                                            <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="modal-lname" class = "form-label">Edit Description:</label>
+                                                                            <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editprice">Edit Price</label>
+                                                                            <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
+                                                                        </div>
+                                                                
+                                                                        <div class="modal-footer">
+                                                                            <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <form action="" method="POST">
+                                                        <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                       
                     </div>
                 </div>
+               
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                                
+                <script src='bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' type='text/javascript'></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
                 <script>
                     let chefsidebar = document.querySelector(".chefsidebar");
                     let chefsidebarBtn = document.querySelector(".chefsidebarBtn");
@@ -3034,13 +3155,13 @@
                     }
                     var fadeTime = 300;
 
-                    document.querySelector('.edit-btn').addEventListener('click',function(){
-                        document.querySelector('.bg-modal').style.display = "flex";
-                    });
+                    // document.querySelector('.edit-btn').addEventListener('click',function(){
+                    //     document.querySelector('.bg-modal').style.display = "flex";
+                    // });
 
-                    document.querySelector('.btn-cancel').addEventListener('click',function(){
-                        document.querySelector('.bg-modal').style.display = "none";
-                    });
+                    // document.querySelector('.btn-cancel').addEventListener('click',function(){
+                    //     document.querySelector('.bg-modal').style.display = "none";
+                    // });
 
                 </script>
 
@@ -3051,8 +3172,7 @@
                         <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
                     <button class="deliverytablinks" onclick="openTab(event, 'Dashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
-                    <button class="deliverytablinks" type = "button" onclick="location.href='{{ url_for('homePage') }}';" ><i class="bi bi-house-fill"></i>Home</button>
-                    <button class="deliverytablinks" onclick="openTab(event, 'Past_Deliveries')"><i class='bx bxs-package'></i>Past Deliveries</button>
+                    <button class="deliverytablinks" onclick="openTab(event, 'Current_deliveries')"><i class='bx bxs-package'></i>Deliveries</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
@@ -3067,7 +3187,7 @@
                             <span class="delivery-dashboard">Dashboard</span>
                         </div>
                         <div class="delivery-welcome d-block mx-auto">
-                            Welcome, Deliverer PeMaJe GiViSe
+                            Welcome, Deliverer {{ user.firstName}} {{ user.lastName }}
                         </div>
                         <div class="delivery-logout">
                         
@@ -3079,19 +3199,23 @@
                 <div id = "Dashboard" class = "deliverytabcontent">
                     <div class="alert warning-alert d-block mx-auto">
                         <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryWarnings')">
-                            <h3 class = "text"><i class='bx bx-error'></i>WARNINGS: 3</h3>
+                            <h3 class = "text"><i class='bx bx-error'></i>WARNINGS:</h3>
+                            <h2 class = "num-of-warnings">{{ user.warnings }}</h2>
+                            
                         </button>
                     </div>
                 
                     <div class="alert warning-alert d-block mx-auto">
                         <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryCompliments')">
-                            <h3 class = "text"><i class='bx bx-wink-smile'></i>COMPLIMENTS: 3</h3>
+                            <h3 class = "text"><i class='bx bx-wink-smile'></i>COMPLIMENTS:</h3>
+                            <h2 class = "num-of-compliments">{{ user.compliments }}</h2>
                         </button>
                     </div>
                 
                     <div class="alert warning-alert d-block mx-auto">
                         <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryComplaints')">
-                            <h3 class = "text"><i class='bx bx-angry' ></i>COMPLAINTS: 3</h3>
+                            <h3 class = "text"><i class='bx bx-angry' ></i>COMPLAINTS:</h3>
+                            <h2 class = "num-of-complaints">{{ user.complaints }}</h2>
                         </button>
                     </div>
                 </div>
@@ -3145,41 +3269,100 @@
                             <td>Did not deliver food</td>
                             <td>I waited for hours and the food never came. I starved to death this day.</td>
                             <td> 
-                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                <!-- <section class="bg-light" > -->
+                                    <button class = "dispute-btn d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                    <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="" method = "post">
+                                                        <div class="form-group">
+                                                            <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                            <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                            <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                            <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="date">Enter Date:</label>
+                                                            <div class="input-group date" class="datepicker" data-provide="datepicker">
+                                                                <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
+                                                                <span class="input-group-addon" for="txtdate">
+                                                                    <span id ="calender-btn" class="btn btn-default">
+                                                                        <i class='bx bxs-calendar'></i> 
+                                                                    </span> 
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                          <!-- <div class="modal-footer"> -->
+                                                            <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
+                                                        <!-- </div> -->
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- </section> -->
+
                             </td>
+                            
                         </tr>
 
-                          <tr>
+                          <!-- <tr>
                             <th scope="row">1</th>
                             <td>Did not deliver food</td>
                             <td>I waited for hours and the food never came. I starved to death this day.</td>
                             <td> 
-                                <button type="button" class = "dispute-btn"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                <section class="bg-light" >
+                                    <button class = "dispute-btn" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                    <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="" method = "POST">
+                                                        <div class="form-group">
+                                                            <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                            <input type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                            <input type="lname" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                            <textarea class="form-control" id="deliverydisputebox" rows="3"></textarea>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type = "submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </td>
-                          </tr>
+
+                          </tr> -->
 
                         </tbody>
                     </table>
+
                 </div>
 
-                <div class="dispute-modal">
-                    <div class="dispute-modal-content">
-                        <div class="form-popup" id="myForm">
-                            <form action="/action_page.php" class="form-container">
-                              <h1>Update Item</h1>
-                          
-                              <input type="text" placeholder="Enter Item Id" name="itemid" required>
-                              <input type="text" placeholder="Enter Item Name" name="itemname" required>
-                              <input type="text" placeholder="Enter Description" name="itemdescription" required>
-                              <input type="text" placeholder="Enter Price" name="itemprice" required>
-                
-                
-                              <button type="submit" class="btn">Update</button>
-                              <button type="button" class="dispute-btn-cancel" onclick="closeForm()">+</button>
-                            </form>
-                          </div>    
-                    </div>
-                </div>
 
                 <div id = "DeliveryWarnings" class = "deliverytabcontent">
                     <table class="table">
@@ -3211,7 +3394,7 @@
                 </div>
                 
                 
-                <div id = "Past_Deliveries" class = "deliverytabcontent">
+                <div id = "Current_deliveries" class = "deliverytabcontent">
                     <section class = "past-delivery-section">
                     
                         <div class="delivery-home-content">
@@ -3246,6 +3429,48 @@
                                 <div class="delivery-box">
                                     <div class="delivery-left">
                                         <div class="delivery-number">Delivery Location for Delivery # ( Order ID )</div>
+                                        
+                                        <button class = "complain-btn" data-bs-toggle="modal" data-bs-target="#complain-modal"><i class='bx bxs-angry'></i>Complain</button>
+                                        <div class="modal fade" id = "complain-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class = "modal-title" id = "modal-title">Complaint Form</h5>
+                                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method = "POST">
+                                                            <div class="form-group">
+                                                                <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                                <input name="firstname" type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                                <input name="lastname" type="lname" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="complaintdisputebox">Enter Description of Complaint:</label>
+                                                                <textarea name="complaintbox" class="form-control" id="deliverycomplainbox" cols="20" rows="5" placeholder="Complaining b/c..."></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="date">Enter Date:</label>
+                                                                <div class="input-group date" class="datepicker" data-provide="datepicker">
+                                                                    <input name ="complaindate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
+                                                                    <span class="input-group-addon" for="txtdate">
+                                                                        <span id ="calender-btn" class="btn btn-default">
+                                                                            <i class='bx bxs-calendar'></i> 
+                                                                        </span> 
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input name="complaintsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <hr>
                                         <div class="delivery-customer-info">
                                             <div class="delivery-customer-name">Customer Name: Peggie</div>
@@ -3255,7 +3480,8 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="tablecontainer">
+                        
+                    <div class="tablecontainer d-block mx-auto">
                         <h4 class = "text-center">Past Deliveries</h4>
                         <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
                             <thead>
@@ -3265,71 +3491,29 @@
                                     <th>Date</th>
                                     <th>SubTotal</th>
                                 </tr>
-                                <tbody>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apple Jeans</td>
-                                        <td>july 17,2001</td>
-                                    </tr>
-                                </tbody>
                             </thead>
+                            <tbody>
+                                {% for info in rows %}
+                                <tr>
+                                    <td>#{{ info["order_id"] }}</td>
+                                    <td>{{ info["first_name"] }} {{ info["last_name"] }}</td>
+                                    <td>{{ info["delivery_date"].strftime('%m-%d-%Y') }}</td>
+                                    <td>${{ info["subtotal"] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
                         </table>
                     </div>
                     </section>
                 </div>
                 
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script src='bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' type='text/javascript'></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
                 <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
                 <script>
                     let deliverysidebar = document.querySelector(".deliverysidebar");
                     let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
@@ -3354,18 +3538,18 @@
                 
                     }
 
-
-                    document.querySelector('.dispute-btn').addEventListener('click',function(){
-                        document.querySelector('.dispute-modal').style.display = "flex";
+                    $('#form').submit(function(e) {
+                        $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+                        $('#messages_content').html('<h4>MESSAGE HERE</h4>');
+                        $('#modal').modal('show');
+                        e.preventDefault();
                     });
 
-                    document.querySelector('.dispute-btn-cancel').addEventListener('click',function(){
-                        document.querySelector('.dispute-modal').style.display = "none";
-                    });
-
-
+                  
                 </script>
-                
+                <script type = "text/javascript">
+                    $("#datepicker").datepicker("setDate", new Date());
+                </script>
             {% endif %}
         {% endif %}
     {% endif %}
