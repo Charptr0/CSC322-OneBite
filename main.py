@@ -460,7 +460,9 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
-    return render_template("dashboard.html", user=user, userType=user.userType)
+    CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
+
+    return render_template("dashboard.html", user=user, userType=user.userType, chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS)
 
 @app.route("/dashboard-discussions/")
 def dashboardDiscussions():
