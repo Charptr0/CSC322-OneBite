@@ -159,7 +159,65 @@ navbar, nav * {
     justify-content: center;
     align-items: center;
 }
+
+.forumButton {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #FF0042;
+    font-weight: bolder;
+    cursor: pointer;
+}
 /* end customer dashboard homepage */
+
+/* forum page */
+.postButton {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #FF0042;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.backButton {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #FF0042;
+    text-decoration: underline;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+#appetizers-post1 {
+    display: none;
+}
+#appetizers-post2 {
+    display: none;
+}
+#entree-post1 {
+    display: none;
+}
+#entree-post2 {
+    display: none;
+}
+#drinks-post1 {
+    display: none;
+}
+#drinks-post2 {
+    display: none;
+}
+/* end forum page */
 
 
 /* customer comments page */
@@ -171,7 +229,8 @@ navbar, nav * {
 #user-comments select[type='Subject'],
 #user-comments input[type='text'],
 #user-comments textarea {
-    margin-bottom: 10px;
+    margin-left: 0;
+    margin-bottom: 20px;
     display: block;
     width: 93%;
 
@@ -211,6 +270,10 @@ navbar, nav * {
 .customersidebar.active ~ .customer-home-section{
     width: calc(100% - 60px);
     left: 60px;
+}
+
+.customersidebar.active .customertablinks:hover{
+    background: none;
 }
 
 .customer-home-section{

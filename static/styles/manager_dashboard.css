@@ -109,11 +109,11 @@ navbar, nav * {
     width: 550px;
     margin: 0 20px;
     position: relative;
-    color: #969696;
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    font-weight: 500;
+    color: #ff0000;
+    /* display: block;
+    align-items: center; */
+    font-size: 30px !important;
+    font-weight: 500 !important;
 }
 
 .manager-home-section .manager-nav .manager-dashboard{
@@ -852,6 +852,10 @@ navbar, nav * {
 .managersidebar.active ~ .manager-home-section{
     width: calc(100% - 60px);
     left: 60px;
+}
+
+.managersidebar.active .managertablinks:hover{
+    background: none;
 }
 
 .manager-home-section{

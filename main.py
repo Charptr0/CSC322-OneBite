@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, Markup
+from re import A
 from database import *
 from dish import Dish
 from order import Order
@@ -30,7 +31,7 @@ def isUserStillInSession():
     
     return (False, None)
 
-@app.route("/")
+@app.route("/",  methods = ['GET', 'POST'])
 def homePage():
     '''
     Route to the home page
@@ -38,9 +39,11 @@ def homePage():
     userExist, user = isUserStillInSession()
     if userExist:
         if user.userType == 'customer':
+            if user.warnings > 0:
+                flash(Markup("You have {0} warning(s), please check your <a href='/dashboard' class='alert-link' style='background-color: transparent;'>dashboard</a>".format(user.warnings)), category = "error")
             return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(mysql), popularDishes=Dish.getPopularDishes(mysql), ratedDishes=Dish.getHighestRatedDishes(mysql))
         else:
-            return render_template("dashboard.html", user=user, userType=user.userType)
+            return redirect(url_for("dashboard"))
 
     return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(mysql), ratedDishes=Dish.getHighestRatedDishes(mysql))
 
@@ -554,7 +557,7 @@ def orders():
 
     return render_template("orders.html", user=user, recentOrder = RECENTORDER, recentDetails = RECENTDETAILS, pastOrders = PASTORDERS, pastDetails = PASTDETAILS)
 
-@app.route("/dashboard/")
+@app.route("/dashboard/",  methods = ['GET', 'POST'])
 def dashboard():
     '''
     Route to the dashboard page
@@ -566,56 +569,38 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
+    if request.method == 'POST':
+        if "disputesubmit" in request.form:
+            retrieveDispute(mysql)
+        if "complaintsubmit" in request.form:
+            retrieveComplaint(mysql)
+        if "editsubmit" in request.form:
+            print("test\n\n")
+            edititem(mysql)
+        if "removeitem" in request.form:
+            removeitem(mysql)
+        if "addsubmit" in request.form:
+            additem(mysql)
+            
+    if user.userType == "manager":
+        rows=loadDisputes(mysql)
+        # print(rows)
+        CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS)
+    if user.userType == "delivery":
+        rows=loadPastDeliveries(mysql)
+        print(rows)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows)
+    if user.userType == "chef":
+        entree=loadEntrees(mysql)
+        appetizers=loadAppt(mysql)
+        desserts=loadDesserts(mysql)
+        drinks=loadDrinks(mysql)
+        # print(entree)
+        # print(appetizers)
+        # print(desserts)
+        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks)
     return render_template("dashboard.html", user=user, userType=user.userType)
-
-@app.route("/forum/")
-def forum():
-    '''
-    Route to the forum home page
-    '''
-    return render_template("forum_home.html")
-
-@app.route("/forum_chef/")
-def forumChef():
-    '''
-    Route to the forum chef page
-    '''
-    return render_template("forum_chef.html")
-
-@app.route("/forum_staff/")
-def forumStaff():
-    '''
-    Route to the forum staff page
-    '''
-    return render_template("forum_staff.html")
-
-@app.route("/forum_appetizer/")
-def forumAppetizer():
-    '''
-    Route to the forum appetizer page
-    '''
-    return render_template("forum_appetizer.html")
-
-@app.route("/forum_entree/")
-def forumEntree():
-    '''
-    Route to the forum entree page
-    '''
-    return render_template("forum_entree.html")
-
-@app.route("/forum_drinks/")
-def forumDrinks():
-    '''
-    Route to the forum drinks page
-    '''
-    return render_template("forum_drinks.html")
-
-@app.route("/forum_post/")
-def forumPost():
-    '''
-    Route to the forum post page
-    '''
-    return render_template("forum_post.html")
         
 # Run the app
 if __name__ == "__main__":
