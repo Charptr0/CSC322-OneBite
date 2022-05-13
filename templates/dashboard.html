@@ -379,7 +379,6 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
-                <script src="../forum.js"></script>
             </div>
 
             <div id="appetizers-post2">
@@ -471,7 +470,6 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
-                <script src="../forum.js"></script>
             </div>
 
             <div id="entree-post1">
@@ -563,7 +561,6 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
-                <script src="../forum.js"></script>
             </div>
 
             <div id="entree-post2">
@@ -655,7 +652,6 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
-                <script src="../forum.js"></script>
             </div>
 
             <div id="drinks-post1">
@@ -747,7 +743,6 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
-                <script src="../forum.js"></script>
             </div>
 
             <div id="drinks-post2">
@@ -839,7 +834,6 @@
                         <button type="submit">Submit</button>
                     </div>
                 </div>
-                <script src="../forum.js"></script>
             </div>
             <!-- end post pages -->
         </section>
@@ -1068,6 +1062,19 @@
         });
         // end forum moving from pages
 
+
+        //Comment
+        function showComment(){
+            var commentArea = document.getElementById("comment-area");
+            //commentArea.classList.remove("hide");
+            commentArea.setAttribute("style","display:block");
+        }
+
+        //Reply
+        function showReply(){
+            var replyArea = document.getElementById("reply-area");
+            replyArea.classList.remove("hide");
+        }
     </script>      
     
     {% else %}
@@ -1555,65 +1562,6 @@
                         <div class="cover">
                             <h2 class="maintitle">Discussion Forum</h2>
                         </div>
-                        <!-- <div class="mainForumContainer">
-                            <div class="container">
-                                <div class="subforum">
-                                    <div class="subforum-title">
-                                        <h1 class="forumTitles">Menu Items</h1>
-                                    </div>
-                                    <div class="subforum-row">
-                                        <div class="subforum-icon subforum-column center">
-                                            <i class="fa fa-cheese center"></i>
-                                        </div>
-                                        <div class="subforum-description subforum-column">
-                                            <button class="forumButton" onclick="openTab2(event, 'ForumAppetizers')">Appetizers</button>
-                                            <p>Talk about your favorite appetizers</p>
-                                        </div>
-                                        <div class="subforum-stats subforum-column center">
-                                                <span>24 Posts | 12 Topics</span>
-                                        </div>
-                                        <div class="subforum-info subforum-column">
-                                            <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                            <br>on <small>date</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="subforum-row">
-                                        <div class="subforum-icon subforum-column center">
-                                            <i class="fa fa-cutlery center"></i>
-                                        </div>
-                                        <div class="subforum-description subforum-column">
-                                            <button class="forumButton" onclick="openTab2(event, 'ForumEntree')">Entree</button>
-                                            <p>Talk about your favorite entrees</p>
-                                        </div>
-                                        <div class="subforum-stats subforum-column center">
-                                            <span>24 Posts | 12 Topics</span>
-                                        </div>
-                                        <div class="subforum-info subforum-column">
-                                            <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                            <br>on <small>date</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="subforum-row">
-                                        <div class="subforum-icon subforum-column center">
-                                            <i class="fa fa-coffee center"></i>
-                                        </div>
-                                        <div class="subforum-description subforum-column">
-                                            <button class="forumButton" onclick="openTab2(event, 'ForumDrinks')">Drinks</button>
-                                            <p>Talk about your favorite drinks</p>
-                                        </div>
-                                        <div class="subforum-stats subforum-column center">
-                                            <span>24 Posts | 12 Topics</span>
-                                        </div>
-                                        <div class="subforum-info subforum-column">
-                                            <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                            <br>on <small>date</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="cover">
                             <h2 class="topictitle">Appetizers</h2>
                         </div>
@@ -1848,7 +1796,6 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
                     </div>
 
                     <div id="appetizers-post2">
@@ -1940,7 +1887,6 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
                     </div>
 
                     <div id="entree-post1">
@@ -2032,7 +1978,6 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
                     </div>
 
                     <div id="entree-post2">
@@ -2124,7 +2069,6 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
                     </div>
 
                     <div id="drinks-post1">
@@ -2216,7 +2160,6 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
                     </div>
 
                     <div id="drinks-post2">
@@ -2308,7 +2251,6 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
                     </div>
                     <!-- end post pages -->
                 </section>
@@ -2578,7 +2520,7 @@
                     // end of dismiss button
                 // buttons for customer comments page
 
-
+                // forum page
                  // forum moving from pages
                 var managerNextPage = document.querySelector('#managerNextPage');
 
@@ -2712,6 +2654,21 @@
                     document.getElementById('mainForumPage').style.display = 'block';
                 });
                 // end forum moving from pages
+
+                //Comment
+                function showComment(){
+                    var commentArea = document.getElementById("comment-area");
+                    //commentArea.classList.remove("hide");
+                    commentArea.setAttribute("style","display:block");
+                }
+
+                //Reply
+                function showReply(){
+                    var replyArea = document.getElementById("reply-area");
+                    replyArea.classList.remove("hide");
+                }
+
+                // end forum page
             </script>
         {% else %}
             {% if userType == "chef" %}
