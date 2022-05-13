@@ -1,46 +1,111 @@
-
-.Container{
-    width: auto;
-    height: auto;
-    margin: 1rem auto;
-    padding: 1rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr 3fr);
-    justify-content: center;
-    grid-gap: 1rem;
-    align-items: start;
+.collapsible {
+    background-color: rgb(221, 221, 221);
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border-width: 1px;
+    border-color: #7a7a7a;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
-.subItem{
-}
-.gridTitle{
-    font-size: 40px;
-}
-
-.gridImg {
-    display: inline-grid;
-    height: 300px;
-    width: 300px;
-    margin: 0;
-    image-rendering: high-quality;
+  
+.active, .collapsible:hover {
+    background-color: rgb(176, 176, 176);
 }
 
-.item-attribute {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 20px;
+.active {
+    margin-bottom: 0px;
 }
 
-.food-name {
-    font-size: 35px;
-    margin: 0;
+.inprogress, .completed {
+    margin-bottom: 10px;
 }
-.cancelButton{
-    width: 200px;
-    height: 40px;
-    /*text-align: center;*/
-    /*align-items: center;*/
+  
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
 }
-.editOrderButton{
-    width: 200px;
-    height: 40px;
+
+.header-content {
+    display: flex;
+    background: transparent;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.order-content {
+    display: flex;
+    background: transparent;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.order-col1 {
+    flex: 1;
+    text-align: center;
+    background: inherit;
+}
+
+.order-col2 {
+    flex: 2;
+    background: inherit;
+}
+
+.whole-container {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-title {
+    font-size: 1.8em;
+}
+
+.info-content {
+    background: transparent;
+}
+
+.info-row {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: auto;
+    margin-right: 1em;
+    width: 30%;
+    background: inherit;
+}
+
+.align-left {
+    flex: 1;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background: inherit;
+}
+
+.align-right {
+    flex: 1;
+    text-align: right;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background: inherit;
+}
+
+.info-total {
+    font-weight: 700;
+    font-size: 1.3em;
+    margin-bottom: 8px;
+}
+
+@media screen and (max-width: 700px)
+{
+    .info-row {
+        width: 80%;
+    }
 }

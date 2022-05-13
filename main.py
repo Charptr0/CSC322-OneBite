@@ -543,27 +543,16 @@ def orders():
     '''
     Route to the orders page
     '''
-# Get all the orders from the db
-
-    # CURRENTORDERS = Dish.getCurrentOrders(None)
-    # PASTORDERS = Dish.getPastOrders(None)
-    # POPULARS = Dish.getPopulars(None)
-
     userExist, user = isUserStillInSession()
     if not userExist:
         return redirect(url_for("loginPage"))
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
-    else:
-        return render_template("orders.html")
 
+    RECENTORDER, RECENTDETAILS = Order.getMostRecentOrder(mysql, user.id)
+    PASTORDERS, PASTDETAILS = Order.getPastOrders(mysql, user.id)
 
-    # User is not signed in
-    #if not userExist:
-        #flash("Please Log In", category="error")
-        #return redirect(url_for("loginPage"))
-
-    return render_template("orders.html", user=user)
+    return render_template("orders.html", user=user, recentOrder = RECENTORDER, recentDetails = RECENTDETAILS, pastOrders = PASTORDERS, pastDetails = PASTDETAILS)
 
 @app.route("/dashboard/")
 def dashboard():
