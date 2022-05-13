@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, Markup
 from database import *
 from dish import Dish
 
@@ -37,6 +37,8 @@ def homePage():
     userExist, user = isUserStillInSession()
     if userExist:
         if user.userType == 'customer':
+            if user.warnings > 0:
+                flash(Markup("You have {0} warning(s), please check your <a href='/dashboard' class='alert-link' style='background-color: transparent;'>dashboard</a>".format(user.warnings)), category = "error")
             return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
         else:
             return render_template("dashboard.html", user=user, userType=user.userType)
@@ -115,8 +117,6 @@ def loginPage():
                     flash("Add funds to your account in your profile page before making your first order.")
                 elif user.address == None:
                     flash("Set delivery address in your profile page before making your first order.")
-                if user.warnings > 0:
-                    flash("You have {0} warning(s), please check our dashboard".format(user.warnings), category = "error")
                 return redirect(url_for("homePage"))
             # if user is an employee
             else:
