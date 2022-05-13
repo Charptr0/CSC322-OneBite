@@ -4,8 +4,7 @@ from database import *
 from dish import Dish
 
 app = Flask(__name__)
-
-
+ 
 mysql = None
 
 # store each user id that correspond with a user object
