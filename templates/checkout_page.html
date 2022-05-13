@@ -12,6 +12,7 @@
     <h2 class = "title">Checkout</h2>
 </div>
 
+<form action = "" method = "POST">
 <div class = "split-vertical">
     <div id = "split-left">
         <div class = "split-horizontal">
@@ -23,25 +24,25 @@
                     <label for = "delivery-type">Delivery</label>
                 </div>
                 <div id = "choose-delivery" class = "summary-container" style = "display: none;">
-                    <!-- chose to deliver to existing address -->
-                    <div id = "split-left" class = "chosen-type" style = "margin-top: 10px;">
-                        <input type = "radio" id = "existing-type" name = "order-type" value = "existing-address">
-                        <label for = "existing-type">Choose Existing Address</label>
-                    </div>
-                    <div id = "choose-existing" class = "summary-container" style = "border: none; padding-bottom: 0px; margin: 0px;">
-                        <b>Default Address:</b> 160 Convent Ave, New York, NY 10031
-                    </div>
-                    <!-- chose to deliver to a new address -->
-                    <div id = "split-right" class = "chosen-type" style = "margin-top: 15px;">
-                        <input type = "radio" id = "new-type" name = "order-type" value = "new-address" onclick = "showNew()">
-                        <label for = "new-type">Choose a New Address</label>
-                    </div>
-                    <div id = "choose-new" class = "summary-container" style = "display: none; border: none; padding-bottom: 0px; margin: 0px;">
-                        <form>
-                            <label for = "address-line"><b>Address:</b></label>
-                            <input type = "text" id = "address-line" name = "address-line" autocomplete = "off" required>
+                    {% if user.address == None %}
+                        <button class = "change-btn"><a href = "{{ url_for('profilePage') }}" style = "text-decoration: none; background: transparent;">Add Address in My Profile</a></button>
+                    {% else %}
+                        <!-- chose to deliver to existing address -->
+                        <div id = "split-left" class = "chosen-type" style = "margin-top: 10px;">
+                            <span style = "font-size: 20px; color: rgb(40,38,71);">Default Address</span>
+                            <div id = "choose-existing" class = "summary-container" style = "border: none; padding-bottom: 0px; margin: 0px;">
+                                <b style = "margin-left: 10px;"> {{ user.firstName }} {{ user.lastName }} </b> <br>
+                                <span style = "margin-left: 10px;">{{ user.address.split(',')[0] }} <br></span>
+                                <span style = "margin-left: 10px;">{{ user.address.split(',')[1] }},{{ user.address.split(',')[2] }} <br></span>
+                            </div>
+                        </div>
+                        <!-- chose to deliver to a new address -->
+                        <form action = "" method = "POST">
+                            <div id = "split-right" class = "chosen-type" style = "margin-top: 15px;">
+                                <button class = "change-btn"><a href = "{{ url_for('profilePage') }}" style = "text-decoration: none; background: transparent;">Change Address in My Profile</a></button>
+                            </div>
                         </form>
-                    </div>
+                    {% endif %}
                 </div>
                 <!-- chose pickup option -->
                 <div id = "split-right" class = "chosen-type" style = "margin-top: 15px;">
@@ -62,18 +63,21 @@
                 <table id = "summary-cart">
                     <tr class = "cart-header">
                         <th>Product Name</th>
-                        <th>Price</th>
+                        <th style = "text-align: center;">Price</th>
+                        <th style = "text-align: center;">Quantity</th>
+                        <th style = "text-align: center;">Total</th>
                     </tr>
-                    {% for dish in order %}
+                    {% for dish in cart %}
                         <tr>
-                            <td>{{dish.name}}</td>
-                            <td>${{dish.price}}</td>
-                        </tr>        
+                            <td>{{ dish['name'] }}</td>
+                            <td style = "text-align: center;">{{ "$%.2f"|format(dish['price']) }}</td>
+                            <td style = "text-align: center;">{{ dish['quantity'] }}</th>
+                            <td style = "text-align: center;">{{ "$%.2f"|format(dish['quantity']*dish['price']) }}</td>
+                        </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
-        
     </div>
 
     <div id = "split-right">
@@ -82,35 +86,38 @@
             <hr>
             <div class = "summary-info" id = "subtotal">
                 <p class = "align-left">Subtotal:</p>
-                <p class = "align-right">${{subtotal}}</p>
+                <p class = "align-right">{{ "$%.2f"|format(cartInfo['subtotal']) }}</p>
             </div>
             <div class = "summary-info" id = "sales-tax">
                 <p class = "align-left">Estimated Tax:</p>
-                <p class = "align-right">${{tax}}</p>
+                <p class = "align-right">{{ "$%.2f"|format(cartInfo['tax']) }}</p>
             </div>
-            <div class = "summary-info" id = "vip-discount">
-                <p class = "align-left">Discount:</p>
-                <p class = "align-right">${{discount}}</p>
-            </div>
+            {% if user.isVIP %}
+                <div class = "summary-info" id = "vip-discount">
+                    <p class = "align-left">Discount:</p>
+                    <p class = "align-right">{{ "$%.2f"|format(cartInfo['discount']) }}</p>
+                </div>
+            {% endif %}
             <div class = "summary-info" id = "delivery-fee" style = "display: none; ">
                 <p class = "align-left">Delivery Fee:</p>
-                <p class = "align-right">$10.00</p>
+                <p class = "align-right">To Be Determined</p>
             </div>
             <hr>
             <div class = "summary-info" id = "total">
                 <p class = "align-left" style = "font-size: 20px;">Total:</p>
-                <p class = "align-right" stlye = "font-size: 20px;">${{total}}</p>
+                <p class = "align-right" stlye = "font-size: 20px;">
+                    {{ "$%.2f"|format(cartInfo['total']) }}
+                </p>
             </div>
-            <form id = "confirm-form" method = "POST" action = "">
-                <input type = "submit" id = "confirm-button" value = "Confirm Order">
-            </form>
+            <input type = "hidden" id = "check-type" name = "check-type" value = "None">
+            <input type = "submit" id = "confirm-button" name = "checkout-submit" value = "Confirm Order">
         </div>
         <div id = "return-cart">
             <a href = "{{ url_for('cartPage')}}" style = "color: rgb(60, 60, 60);">Return to Cart</a>
         </div>
-        
     </div>
 </div>
+</form>
 
 <script>
     function showOption() {
@@ -123,20 +130,12 @@
             deliveryPop.style.display = "block";
             deliveryFee.style.display = "flex";
             pickupPop.style.display = "none";
+            document.getElementById("check-type").value = "delivery";
         } else {
             deliveryPop.style.display = "none";
             deliveryFee.style.display = "none";
             pickupPop.style.display = "block";
-        }
-    }
-
-    function showNew() {
-        var newCheck = document.getElementById("new-type");
-        var newPop = document.getElementById("choose-new");
-        if (newCheck.checked == true) {
-            newPop.style.display = "block";
-        } else {
-            newPop.style.display = "none";
+            document.getElementById("check-type").value = "pickup";
         }
     }
 </script>

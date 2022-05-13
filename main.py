@@ -402,22 +402,24 @@ def checkoutPage():
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
 
-    if request.method == 'POST':
-        return redirect(url_for("orderPlacedPage", total=request.args.get("total")))
+    cart = session.get("cart")
 
-    orders = session.get("orders")
-
-    if orders == None:
+    if cart == None:
         flash("Session timed out, please try again", category="error")
         return redirect(url_for("loginPage"))
 
-    # Get all the dishes
-    dishes = []
-    for id in orders:
-        dishes.append(Dish.getDishFromID(mysql, id))
-    
-    return render_template("checkout_page.html", user=user, order=dishes, 
-        subtotal=request.args.get("subtotal"), tax=request.args.get("tax"), total=request.args.get("total"), discount=request.args.get("discount"))
+    items = getCartItems(mysql, cart)
+    cartInfo = getCartInfo(items, user.isVIP)
+
+    if request.method == 'POST':
+        if "checkout-submit" in request.form:
+            order_type = request.form["check-type"]
+            if order_type == 'delivery' and user.address == None:
+                flash("Error: Cannot deliver to an unknown place. Please add a delivery address.", category = "error")
+            else:
+                return redirect(url_for("orderPlacedPage", order_type = order_type))
+
+    return render_template("checkout_page.html", user=user, cart=items, cartInfo=cartInfo)
 
 @app.route("/order-placed/", methods = ['GET', 'POST'])
 def orderPlacedPage():
