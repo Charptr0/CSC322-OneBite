@@ -238,12 +238,12 @@ navbar, nav * {
 /* Past Deliveries content */
 
 
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-number{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-number{
     font-size: 30px;
     font-weight: 500;
 }
 
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-box{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-box{
     border-width: 2px;
     border-color: black;
     border-style:solid;
@@ -251,7 +251,7 @@ navbar, nav * {
     margin: 50px;
 }
 
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-name-food{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-name-food{
     font-size: 20px;
     font-weight: 500;
     margin-top: -5px;
@@ -259,7 +259,7 @@ navbar, nav * {
     padding: 5px;
 }
 
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-qty{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-qty{
     font-size: 20px;
     font-weight: 500;
     margin-top: -5px;
@@ -267,16 +267,16 @@ navbar, nav * {
     padding: 5px;
 }
 
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-name-qty{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-name-qty{
     padding: 5px;
 }
 
     /* address */
 
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-customer-name{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-customer-name{
     padding: 5px;
 }
-#Past_Deliveries .past-delivery-section .delivery-number-overview-box .delivery-customer-address{
+#Current_deliveries .past-delivery-section .delivery-number-overview-box .delivery-customer-address{
     padding: 5px;
 } 
 
@@ -394,3 +394,41 @@ navbar, nav * {
 .complain-btn i{
     margin-right: 5px;
 }
+
+
+/* date */
+.datepicker td,th{
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+#calender-btn:hover{
+    background-color: #969696;
+    cursor: pointer;
+}
+
+#modal-fname:hover{
+    border-color: aqua;
+    border-width: 2px;
+    cursor: pointer;
+}
+
+#modal-lname:hover{
+    border-color: aqua;
+    border-width: 2px;
+    cursor: pointer;
+}
+
+#deliverydisputebox:hover{
+    border-color: aqua;
+    border-width: 2px;
+    cursor: pointer;
+}
+
+#txtdate:hover{
+    border-color: aqua;
+    border-width: 2px;
+    cursor: pointer;
+}
+

@@ -166,8 +166,63 @@ CREATE TABLE IF NOT EXISTS dispute (
     last_name varchar(50) NOT NULL,
     dispute_id int(11) NOT NULL AUTO_INCREMENT,
     customer_id int(11) NOT NULL,
+    dispute_date DATE NOT NULL,
     dispute_content text NOT NULL,
     primary key(dispute_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 SELECT * FROM dispute;
+
+CREATE TABLE IF NOT EXISTS complaint (
+	first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    complaint_id int(11) NOT NULL AUTO_INCREMENT,
+    customer_id int(11) NOT NULL,
+    complaint_date DATE NOT NULL,
+    complaint_content text NOT NULL,
+    primary key(complaint_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+SELECT * FROM complaint;
+
+CREATE TABLE IF NOT EXISTS compliments (
+	first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    compliment_id int(11) NOT NULL AUTO_INCREMENT,
+    customer_id int(11) NOT NULL,
+    compliment_date DATE NOT NULL,
+    compliment_content text NOT NULL,
+    primary key(compliment_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+SELECT * FROM compliment;
+
+CREATE TABLE IF NOT EXISTS PastDeliveries (
+	first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    order_id int(11) NOT NULL AUTO_INCREMENT,
+    customer_id int(11) NOT NULL,
+    delivery_date DATE NOT NULL,
+    subtotal int(11) NOT NULL,
+    primary key(order_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO PastDeliveries VALUES ("Apple", "Bottom", "1400", "1","2020-05-15","500");
+INSERT INTO PastDeliveries VALUES ("Olimpiada", "Ayaz", "1401", "2","2020-05-15","15");
+INSERT INTO PastDeliveries VALUES ("Sky", "Theudelinda", "1402", "3","2020-05-15","30");
+INSERT INTO PastDeliveries VALUES ("Rashnu", "Hortensius", "1403", "4","2020-05-15","50");
+INSERT INTO PastDeliveries VALUES ("Cadmus", "Aífe", "1404", "5","2020-05-15","15");
+INSERT INTO PastDeliveries VALUES ("Noémia", "Marie-Laure", "1405", "6","2020-05-15","50");
+INSERT INTO PastDeliveries VALUES ("Jamilah", "Guntur", "1406", "7","2020-05-15","5");
+INSERT INTO PastDeliveries VALUES ("Jānis", "Athanasia", "1407", "8","2020-05-15","12");
+INSERT INTO PastDeliveries VALUES ("Azamat", "Linn", "1408", "9","2020-05-15","244");
+INSERT INTO PastDeliveries VALUES ("Adrasteia", "Madhavi", "1409", "10","2020-05-15","44");
+INSERT INTO PastDeliveries VALUES ("Lula", "Seung", "1410", "11","2020-05-15","23");
+INSERT INTO PastDeliveries VALUES ("Hayat", "Puja", "1411", "12","2020-05-15","50");
+INSERT INTO PastDeliveries VALUES ("Lykos", "Genovefa", "1412", "13","2020-05-15","10");
+INSERT INTO PastDeliveries VALUES ("Seong-Jin", "Zulfaqar", "1413", "14","2020-05-15","7");
+INSERT INTO PastDeliveries VALUES ("Dianne", "Antoinette", "1414", "15","2020-05-15","0");
+INSERT INTO PastDeliveries VALUES ("Pratima", "Luka", "1415", "16","2020-05-15","90");
+INSERT INTO PastDeliveries VALUES ("Máel Sechlainn", "Azad", "1416", "17","2020-05-15","30");
+
+SELECT * FROM PastDeliveries;

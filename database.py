@@ -393,20 +393,150 @@ def deleteAcc(db, user):
 
 
 def retrieveDispute(db):
-    # checks if user exists in the database
     userDetails = request.form
     fname = userDetails['firstname']
     lname = userDetails['lastname']
     disputedescription = userDetails['deliverydispute']
 
-    # checks requirements for registration
     cursor = db.connection.cursor()
-
-    # account pending creation. must be approved by manager to be added to database
-    flash('Dispute Successfully Submitted!', category = 'success')
-    # inserts new account into database after approval by manager
-    cursor.execute("INSERT INTO dispute (first_name, last_name, customer_id, dispute_content) VALUES(%s, %s, %s, %s)", ('a','b',6,"disputedescription"))
+    #insert data into dispute table in database
+    cursor.execute("INSERT INTO dispute (first_name, last_name, customer_id, dispute_content, dispute_date) VALUES(%s, %s, %s, %s, CURDATE())", (fname,lname,6,disputedescription))
     db.connection.commit()
     cursor.close()
 
     return True
+
+def retrieveComplaint(db):
+    print("test")
+    userDetails = request.form
+    fname = userDetails['firstname']
+    lname = userDetails['lastname']
+    complaintdescription = userDetails['complaintbox']
+
+    cursor = db.connection.cursor()
+    #insert data into dispute table in database
+    cursor.execute("INSERT INTO complaint (first_name, last_name, customer_id, complaint_content, complaint_date) VALUES(%s, %s, %s, %s, CURDATE())", (fname,lname,6,complaintdescription))
+    db.connection.commit()
+    cursor.close()
+
+    return True
+
+
+def loadDisputes(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dispute')
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
+
+def loadPastDeliveries(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM PastDeliveries')
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
+
+
+
+def loadEntrees(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['entree'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def loadAppt(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['appetizer'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def loadDesserts(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['dessert'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+
+def loadDrinks(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['drink'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def edititem(db):
+    itemDetails = request.form
+    newimage = itemDetails['newimage']
+    itemname = itemDetails['itemname']
+    description = itemDetails['editdescription']
+    editprice = itemDetails['editprice']
+    dishid = itemDetails['dishid']
+
+    print("deeznutz\n")
+    print(dishid)
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    cursor.execute('UPDATE dish SET img = %s, name = %s, description = %s,  price = %s WHERE dish_id = %s', (newimage,itemname,description,editprice,dishid))
+    db.connection.commit()
+    cursor.close()
+
+def removeitem(db):
+    itemDetails = request.form
+    dishid = itemDetails['removeitem']
+    print(dishid)
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    cursor.execute('DELETE FROM dish WHERE dish_id=%s', [dishid] )
+    db.connection.commit()
+    cursor.close()
+
+def additem(db):
+    itemDetails = request.form
+    chefid = itemDetails['chefid']
+    itemtype = itemDetails['dishtype']
+    itemimage = itemDetails['image']
+    itemname = itemDetails['itemname']
+    itemdescription = itemDetails['description']
+    itemprice = itemDetails['price']
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    cursor.execute('INSERT INTO dish (dish_type, name, price, description, img, chef) VALUES (%s, %s, %s, %s, %s, %s)', (itemtype, itemname, itemprice, itemdescription, itemimage, chefid))
+    db.connection.commit()
+    cursor.close()
