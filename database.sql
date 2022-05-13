@@ -146,6 +146,7 @@ INSERT INTO dish VALUES (27, 'drink', 'Blackberry Lemonade', '5.75', 'Lorem ipsu
 INSERT INTO dish VALUES (28, 'drink', 'Blueberry Limeade', '5.75', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam eum error maiores laudantium odit ab sequi sed, distinctio, asperiores pariatur accusamus quas!', 'https://images.unsplash.com/photo-1504310578167-435ac09e69f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80', 3, 0, 0, 0, 1);
 SELECT * FROM dish;
 
+/* Table Dispute */
 CREATE TABLE IF NOT EXISTS dispute (
 	dispute_id int(11) NOT NULL AUTO_INCREMENT,
 	first_name varchar(50) NOT NULL,
@@ -156,8 +157,10 @@ CREATE TABLE IF NOT EXISTS dispute (
     primary key(dispute_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+/* Display Dispute */
 SELECT * FROM dispute;
 
+/* Table Complaint */
 CREATE TABLE IF NOT EXISTS complaint (
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
@@ -168,8 +171,10 @@ CREATE TABLE IF NOT EXISTS complaint (
     primary key(complaint_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+/* Display Complaint */
 SELECT * FROM complaint;
 
+/* Table Compliments */
 CREATE TABLE IF NOT EXISTS compliments (
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
@@ -180,8 +185,10 @@ CREATE TABLE IF NOT EXISTS compliments (
     primary key(compliment_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+/* Display Compliments */
 SELECT * FROM compliment;
 
+/* Table PastDeliveries */
 CREATE TABLE IF NOT EXISTS PastDeliveries (
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
@@ -210,7 +217,9 @@ INSERT INTO PastDeliveries VALUES ("Dianne", "Antoinette", "1414", "15","2020-05
 INSERT INTO PastDeliveries VALUES ("Pratima", "Luka", "1415", "16","2020-05-15","90");
 INSERT INTO PastDeliveries VALUES ("Máel Sechlainn", "Azad", "1416", "17","2020-05-15","30");
 
+/* Display Past Deliveries */
 SELECT * FROM PastDeliveries;
+
 /* Table Orders */
 CREATE TABLE IF NOT EXISTS orders (
 	order_id int(11) NOT NULL AUTO_INCREMENT,
