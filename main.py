@@ -110,11 +110,11 @@ def loginPage():
             # if user is a customer
             if user.userType == 'customer':
                 if user.address == None and user.wallet == 0:
-                    flash("Set delivery address and add funds to your account in your profile page before making your first order.")
+                    flash("IMPORTANT: Set delivery address and add funds to your account in your profile page before making your first order.", category = "warning")
                 elif user.wallet == 0:
-                    flash("Add funds to your account in your profile page before making your first order.")
+                    flash("IMPORTANT: Add funds to your account in your profile page before making your first order.", category = "warning")
                 elif user.address == None:
-                    flash("Set delivery address in your profile page before making your first order.")
+                    flash("IMPORTANT: Set delivery address in your profile page before making your first delivery order.", category = "warning")
                 if user.warnings > 0:
                     flash("You have {0} warning(s), please check our dashboard".format(user.warnings), category = "error")
                 return redirect(url_for("homePage"))
