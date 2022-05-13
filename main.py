@@ -364,6 +364,29 @@ def removeDishFromCart(id):
         
     return redirect(url_for("cartPage"))
 
+@app.route("/clear-cart/", methods = ['POST'])
+def clearCart():
+    '''
+    Empties the cart
+    '''
+    userExist, user = isUserStillInSession()
+
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+
+    if request.method == 'POST':
+        cart = session.get("cart")
+
+        if cart == None:
+            flash("Session timed out, please try again", category="error")
+            return redirect(url_for("loginPage"))
+
+        cart["dish"].clear()
+        cart["quantity"].clear()
+        session["cart"] = cart
+        
+    return redirect(url_for("cartPage"))
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():

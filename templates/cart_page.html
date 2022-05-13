@@ -17,6 +17,12 @@
         <div class = "summary-container" id = "cart-summary">
             <div class = "header-cart">
                 <h1 class = "summary-title" style = "margin-bottom: 3px;">Cart Summary</h1>
+                {% if cart %}
+                    <form class = "cart-removal" method = "POST" action = "/clear-cart/">
+                        <input type = "hidden" id = "all-dish-id" name = "dish-id" value = "">
+                        <button type = "submit" id = "remove-all" class = "remove-btn">Remove All</button>
+                    </form>
+                {% endif %}
             </div>
 
             <div id = "summary-cart">
