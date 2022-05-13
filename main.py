@@ -115,6 +115,8 @@ def loginPage():
                     flash("Add funds to your account in your profile page before making your first order.")
                 elif user.address == None:
                     flash("Set delivery address in your profile page before making your first order.")
+                if user.warnings > 0:
+                    flash("You have {0} warning(s), please check our dashboard".format(user.warnings), category = "error")
                 return redirect(url_for("homePage"))
             # if user is an employee
             else:
