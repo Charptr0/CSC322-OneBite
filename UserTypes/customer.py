@@ -1,4 +1,7 @@
 from user import User
+import MySQLdb.cursors
+from flask_mysqldb import MySQL
+from dish import *
 
 class Customer(User):
     def __init__(self, **kwargs):
@@ -14,16 +17,17 @@ class Customer(User):
         username : str
         password : str
         phoneNumber : str
-        cardNumber : str
         type : str
-        isVIP : boolean
         wallet : float
+        cardNumber : str
         address : str
         num_orders : int
         total_spent : float
         warnings : int
+        isClosed : boolean
         isBlacklisted : boolean
-        orders : array of Dishes
+        isVIP : boolean
+        free_deliveries : int
         '''
         super().__init__(**kwargs)
 
@@ -67,7 +71,15 @@ class Customer(User):
         except KeyError:
             self.isBlacklisted = 0
 
-        self.orders = []
+        try:
+            self.isClosed = kwargs["isClosed"]
+        except KeyError:
+            self.isClosed = 0
+
+        try:
+            self.free_deliveries = kwargs["free_deliveries"]
+        except KeyError:
+            self.free_deliveries = 0
 
     def setCardNumber(self, db, cardNumber = None):
         if cardNumber == None:
@@ -75,17 +87,32 @@ class Customer(User):
 
         self.cardNumber = cardNumber
 
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET cardnumber = %s WHERE customer_id = %s', (self.cardNumber, str(self.id),))
+        db.connection.commit()
+        cursor.close()
+
     def setisVIP(self, db, isVIP = None):
         if isVIP == None:
             return
 
         self.isVIP = isVIP
 
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET isVIP = %s WHERE customer_id = %s', (str(self.isVIP), str(self.id),))
+        db.connection.commit()
+        cursor.close()
+
     def setWallet(self, db, wallet = None):
         if wallet == None:
             return
 
         self.wallet = wallet
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (str(self.wallet), str(self.id),))
+        db.connection.commit()
+        cursor.close()
     
     def setAddress(self, db, address = None):
         if address == None:
@@ -99,11 +126,21 @@ class Customer(User):
 
         self.num_orders = num_orders
 
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET num_orders = %s WHERE customer_id = %s', (str(self.num_orders), str(self.id),))
+        db.connection.commit()
+        cursor.close()
+
     def setTotalSpent(self, db, total_spent = None):
         if total_spent == None:
             return
 
         self.total_spent = total_spent
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET total_spent = %s WHERE customer_id = %s', (str(self.total_spent), str(self.id),))
+        db.connection.commit()
+        cursor.close()
 
     def setWarnings(self, db, warnings = None):
         if warnings == None:
@@ -111,11 +148,43 @@ class Customer(User):
 
         self.warnings = warnings
 
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET warnings = %s WHERE customer_id = %s', (str(self.warnings), str(self.id),))
+        db.connection.commit()
+        cursor.close()
+
     def setisBlacklisted(self, db, isBlacklisted = None):
         if isBlacklisted == None:
             return
 
         self.isBlacklisted = isBlacklisted
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET isBlacklisted = %s WHERE customer_id = %s', (str(self.isBlacklisted), str(self.id),))
+        db.connection.commit()
+        cursor.close()
+
+    def setisClosed(self, db, isClosed = None):
+        if isClosed == None:
+            return
+
+        self.isClosed = isClosed
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET isClosed = %s WHERE customer_id = %s', (str(self.isClosed), str(self.id),))
+        db.connection.commit()
+        cursor.close()
+
+    def setFreeDeliveries(self, db, free_deliveries = None):
+        if free_deliveries == None:
+            return
+
+        self.free_deliveries = free_deliveries
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE customer SET free_deliveries = %s WHERE customer_id = %s', (str(self.free_deliveries), str(self.id),))
+        db.connection.commit()
+        cursor.close()
 
     def setName(self, db, firstName = None, lastName = None):
         if firstName == None or lastName == None:

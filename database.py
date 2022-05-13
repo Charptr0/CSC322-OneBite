@@ -334,15 +334,14 @@ def changeCard(db, user):
             # checks that card number length is valid
             flash('Card number is invalid. Must be 16 digits.', category = 'error')
         else:
-            cursor.execute('UPDATE customer SET cardnumber = %s WHERE customer_id = %s', (card, str(user.id),))
             flash('Successfully changed payment method.', category = 'success')
-            db.connection.commit()
-            cursor.close()
-            user.setCardNumber(user, card)
-
+            user.setCardNumber(db, card)
+            
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+    cursor.close()
 
 def chargeFunds(db, user):
     '''
@@ -364,15 +363,14 @@ def chargeFunds(db, user):
             flash('Amount to be deposited must be $0.01 or more.', category = 'error')
         else:
             funds = float(funds) + user.wallet
-            cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (str(funds), str(user.id),))
             flash('Successfully deposited more funds.', category = 'success')
-            db.connection.commit()
-            cursor.close()
-            user.setWallet(user, funds)
+            user.setWallet(db, funds)
 
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+    cursor.close()
 
 def deleteAcc(db, user):
     '''
