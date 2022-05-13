@@ -42,15 +42,6 @@ navbar, nav * {
     margin: 0;
 }
 
-.deliverytablinks a{
-    text-decoration: none;
-}
-
-.deliverytablinks a:visited {
-    text-decoration: none;
-    color: white;
-}
-
 .deliverysidebar .deliverytablinks:hover{
     background: #ACACAC;
 }

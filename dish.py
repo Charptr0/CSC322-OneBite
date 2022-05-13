@@ -1,4 +1,6 @@
 import json
+import MySQLdb.cursors
+from flask_mysqldb import MySQL
 
 class Dish():
     def __init__(self, name : str, desc : str, img : str, price : float, id : str, rating : float):
@@ -19,13 +21,13 @@ class Dish():
         self.img = img
         self.price = price
         self.id = id
-        self.rating = round(rating)
+        self.rating = round(rating, 2)
 
     def __str__(self):
         return f'Dish Name: {self.name}\n\nDish Desc: {self.desc}\n\nDish Image: {self.img}\n\nDish Price: {str(self.price)}\n'
 
     @staticmethod
-    def getAppetizers(db):
+    def getAppetizers(db : MySQL):
         '''
         Get all appetizers from a database
 
@@ -34,19 +36,21 @@ class Dish():
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = [] # raw data from the source
         data = [] # data will be returned
 
-        with open("data/appetizers.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_type = "appetizer"')
+        appetizers = cursor.fetchall()
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in appetizers:
+            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
 
-        return data            
+        cursor.close()
+
+        return data           
 
     @staticmethod
-    def getEntrees(db):
+    def getEntrees(db : MySQL):
         '''
         Get all entrees from a database
 
@@ -55,19 +59,21 @@ class Dish():
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = []
-        data = []
+        data = [] # data will be returned
 
-        with open("data/entrees.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_type = "entree"')
+        appetizers = cursor.fetchall()
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in appetizers:
+            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+
+        cursor.close()
 
         return data 
 
     @staticmethod
-    def getDeserts(db):
+    def getDeserts(db : MySQL):
         '''
         Get all deserts from a database
 
@@ -76,15 +82,16 @@ class Dish():
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = []
-        data = []
+        data = [] # data will be returned
 
-        with open("data/deserts.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_type = "dessert"')
+        appetizers = cursor.fetchall()
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in appetizers:
+            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
 
+        cursor.close()
         return data
 
     @staticmethod
@@ -97,14 +104,16 @@ class Dish():
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = []
-        data = []
+        data = [] # data will be returned
 
-        with open("data/drinks.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_type = "drink"')
+        appetizers = cursor.fetchall()
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in appetizers:
+            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+
+        cursor.close()
 
         return data
 
@@ -118,14 +127,14 @@ class Dish():
 
         returns a list of dish object from the database or json file
         '''
-        rawQuery = []
-        data = []
+        data = [] # data will be returned
 
-        with open("data/specials.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_type = "special"')
+        appetizers = cursor.fetchall()
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in appetizers:
+            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
 
         return data
 
@@ -191,3 +200,13 @@ class Dish():
             data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
 
         return data
+
+    @staticmethod
+    def getDishFromID(db : MySQL, id):
+        print(id)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (id,))
+        dish = cursor.fetchone()
+
+        cursor.close()
+        return Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"])

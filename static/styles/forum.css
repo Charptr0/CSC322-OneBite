@@ -3,10 +3,12 @@
     /*background-color: black;*/
     /*color:#FFFEFE;*/
 }
-h1{
+
+.forumTitles{
     font-size: 25px;
 }
-a{
+
+.linkForum{
     color:#FF0042;
     font-weight: bolder;
     text-decoration: none;
@@ -55,6 +57,17 @@ a{
     align-items: center;
 }
 
+.maintitle{
+    font-size: 35px;
+    text-align: center;
+}
+
+.topictitle{
+    font-size: 25px;
+    padding-left: 55px;
+    padding-top: 30px;
+}
+
 .subforum-icon i{
     font-size: 45px;
 }
@@ -62,7 +75,6 @@ a{
 .subforum-devider{
     display: none;
 }
-
 
 /* For the smartphones */
 @media screen and (max-width: 460px) {
@@ -211,6 +223,7 @@ footer{
     margin-left: 10%;
     margin-right: 10%;
     display: inline-block;
+    width: 70%;
 }
 .head{
     display: flex;
@@ -266,7 +279,7 @@ footer{
 }
 
 .comment-area input{
-    float: right;
+    float: center;
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
@@ -274,4 +287,12 @@ footer{
 
 .comment-area input:hover{
     border: solid 1px #000000;
+}
+
+#comment-area button {
+    float: right;
+}
+
+#reply-area button {
+    float: right;
 }

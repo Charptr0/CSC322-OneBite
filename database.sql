@@ -13,17 +13,16 @@ CREATE TABLE IF NOT EXISTS accounts (
   	password varchar(255) NOT NULL,
     email varchar(100) NOT NULL,
     phone varchar(10) NOT NULL,
-    cardnumber varchar(16),
     type varchar(20) DEFAULT 'customer',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Accounts */
-INSERT INTO accounts VALUES (1, 'manager', 'lmanager', 'admin', '123abcABC', 'admin@onebite.com', '1234567890', NULL, 'manager');
-INSERT INTO accounts VALUES (2, 'chef1', 'lchef1', 'chef1', '123abcABC', 'chef1@onebite.com', '1234567891', NULL, 'chef');
-INSERT INTO accounts VALUES (3, 'chef2', 'lchef2', 'chef2', '123abcABC', 'chef2@onebite.com', '1234567892', NULL, 'chef');
-INSERT INTO accounts VALUES (4, 'delivery1', 'ldelivery1', 'delivery1', '123abcABC', 'delivery1@onebite.com', '1234567893', NULL, 'delivery');
-INSERT INTO accounts VALUES (5, 'delivery2', 'ldelivery2', 'delivery2', '123abcABC', 'delivery2@onebite.com', '1234567894', NULL, 'delivery');
+INSERT INTO accounts VALUES (1, 'manager', 'lmanager', 'admin', '123abcABC', 'admin@onebite.com', '1234567890', 'manager');
+INSERT INTO accounts VALUES (2, 'chef1', 'lchef1', 'chef1', '123abcABC', 'chef1@onebite.com', '1234567891', 'chef');
+INSERT INTO accounts VALUES (3, 'chef2', 'lchef2', 'chef2', '123abcABC', 'chef2@onebite.com', '1234567892', 'chef');
+INSERT INTO accounts VALUES (4, 'delivery1', 'ldelivery1', 'delivery1', '123abcABC', 'delivery1@onebite.com', '1234567893', 'delivery');
+INSERT INTO accounts VALUES (5, 'delivery2', 'ldelivery2', 'delivery2', '123abcABC', 'delivery2@onebite.com', '1234567894', 'delivery');
 SELECT * FROM accounts;
 
 /* Table Employee */
@@ -83,36 +82,22 @@ SELECT * FROM delivery;
 /* Table Customer */
 CREATE TABLE IF NOT EXISTS customer (
 	customer_id int(11) NOT NULL AUTO_INCREMENT,
-    address text DEFAULT NULL,
     wallet float(7, 2) DEFAULT '0.00',
+    cardnumber varchar(16),
+    address text,
     num_orders int(11) DEFAULT 0,
     total_spent float(11, 2) DEFAULT '0.00',
     warnings int(11) DEFAULT 0,
-    blacklisted tinyint(1) DEFAULT 0,
-    vip tinyint(1) DEFAULT 0,
+    isClosed tinyint(1) DEFAULT 0,
+    isBlacklisted tinyint(1) DEFAULT 0,
+    isVIP tinyint(1) DEFAULT 0,
+    free_deliveries int(11) DEFAULT 0,
     PRIMARY KEY (customer_id),
     FOREIGN KEY (customer_id) REFERENCES accounts(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Customer */
-INSERT INTO customer(customer_id) 
-SELECT id FROM accounts WHERE type = 'customer';
 SELECT * FROM customer;
-
-/* Table VIPs */
-CREATE TABLE IF NOT EXISTS vip (
-	vip_id int(11) NOT NULL AUTO_INCREMENT,
-    num_orders int(11) DEFAULT 0,
-    num_free_deliveries int(11) DEFAULT 0,
-    warnings int(11) DEFAULT 0,
-    PRIMARY KEY (vip_id),
-    FOREIGN KEY (vip_id) REFERENCES customer(customer_id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-/* Display VIPs */
-INSERT INTO vip(vip_id) 
-SELECT customer_id FROM customer WHERE vip = 1;
-SELECT * FROM vip;
 
 /* Table Dishes */
 CREATE TABLE IF NOT EXISTS dish (
@@ -123,7 +108,7 @@ CREATE TABLE IF NOT EXISTS dish (
     description text NOT NULL,
 	img text NOT NULL,
     chef int(11) NOT NULL,
-    rating int(11) NOT NULL DEFAULT 0,
+    rating float NOT NULL DEFAULT 0.00,
     num_ratings int(11) NOT NULL DEFAULT 0,
     count int(11) NOT NULL DEFAULT 0,
     status tinyint(1) NOT NULL DEFAULT 1,
@@ -226,3 +211,31 @@ INSERT INTO PastDeliveries VALUES ("Pratima", "Luka", "1415", "16","2020-05-15",
 INSERT INTO PastDeliveries VALUES ("Máel Sechlainn", "Azad", "1416", "17","2020-05-15","30");
 
 SELECT * FROM PastDeliveries;
+/* Table Orders */
+CREATE TABLE IF NOT EXISTS orders (
+	order_id int(11) NOT NULL AUTO_INCREMENT,
+    customer_id int(11) NOT NULL,
+    num_items int(11) NOT NULL,
+    subtotal float NOT NULL,
+    tax float NOT NULL,
+    discount float NOT NULL,
+    delivery_fee float NOT NULL DEFAULT 0.0,
+    total float NOT NULL,
+    type varchar(50) NOT NULL,
+    status varchar(50) NOT NULL,
+    PRIMARY KEY (order_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Display Orders */
+SELECT * FROM orders;
+
+/* Table OrderDetails */
+CREATE TABLE IF NOT EXISTS orderDetails (
+	order_id int(11) NOT NULL DEFAULT 0,
+    customer_id int(11) NOT NULL,
+    dish_id int(11) NOT NULL,
+    quantity int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Display OrderDetails */
+SELECT * FROM orderDetails;
