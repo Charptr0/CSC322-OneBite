@@ -438,3 +438,30 @@ def getCartInfo(cart, vipStatus):
     info["total"] = round(subtotal + info["tax"] - info["discount"], 2)
     return info
 
+def getDishCount(db, dish_id):
+    '''
+    Gets dish count in database
+    '''
+    # checks if dish exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+    dish = cursor.fetchone()
+    cursor.close()
+
+    if dish:
+        return dish["count"]
+
+def setDishCount(db, dish_id, num):
+    '''
+    Updates dish count in database
+    '''
+    # checks if dish exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+    dish = cursor.fetchone()
+
+    if dish:
+        cursor.execute('UPDATE dish SET count = %s WHERE dish_id = %s', (str(num), str(dish_id),))
+        db.connection.commit()
+
+    cursor.close()
