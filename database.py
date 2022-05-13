@@ -378,3 +378,29 @@ def deleteAcc(db, user):
         cursor.close()
 
         return True
+
+# def retrieveUsers(db, user_type):
+#     # checks if user exists in the database
+#     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+#     cursor.execute('SELECT * FROM accounts WHERE type = %s', (user_type,))
+#     account = cursor.fetchall()
+#     db.connection.commit()
+#     cursor.close()
+    
+#     return account
+
+def retrieveUsers(db):
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM chef INNER JOIN accounts WHERE chef_id = id')
+    chef = cursor.fetchall()
+
+    cursor.execute('SELECT * FROM delivery INNER JOIN accounts WHERE delivery_id = id')
+    delivery = cursor.fetchall()
+
+    cursor.execute('SELECT * FROM customer INNER JOIN accounts WHERE customer_id = id')
+    customer = cursor.fetchall()
+
+    # cursor.execute('SELECT * FROM customer WHERE isVIP = 1')
+    # vip = cursor.fetchall()
+
+    return chef, delivery, customer
