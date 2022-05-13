@@ -435,16 +435,73 @@ def orderPlacedPage():
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
 
-    total = float(request.args.get("total"))
+    # grabbing cart session and cart info
+    cart = session.get("cart")
 
+    if cart == None:
+        flash("Session timed out, please try again", category="error")
+        return redirect(url_for("loginPage"))
+
+    items = getCartItems(mysql, cart)
+    cartInfo = getCartInfo(items, user.isVIP)
+
+    total = float(cartInfo["total"])
+    order_type = request.args.get("order_type")
+
+    # order unsuccessful
     if user.wallet < total:
-        user.warnings += 1 # Give the user an warning
-        return render_template("order_placed.html", user=user, success=False)
-    else:
-        user.wallet -= total # Subtract the amount from the wallet
-        session["orders"] = []
+        prev_isVIP = 0
+        user.setWarnings(mysql, user.warnings+1)
 
-        return render_template("order_placed.html", user=user, success=True)
+        # user becomes downgraded after receiving 2 warnings as a VIP member and has warnings reset
+        if user.isVIP == 1 and user.warnings >= 2:
+            prev_isVIP = 1
+            user.setisVIP(mysql, 0)
+            user.setWarnings(mysql, 0)
+            user.setFreeDeliveries(mysql, 0)
+            user.setNumOrders(mysql, 0)
+
+        # user becomes Blacklisted after receiving 3 warnings
+        if user.isVIP == 0 and user.warnings >= 3:
+            user.setisBlacklisted(mysql, 1)
+            # addToBlacklist(mysql, user.id)
+
+        return render_template("order_placed.html", user=user, success=False, order_type=order_type, total=total, prevVIP = prev_isVIP)
+
+    # order successful
+    else:
+        # update dish information
+        for dish in cart["dish"]:
+            index = cart["dish"].index(dish)
+            old_count = getDishCount(mysql, dish)
+            setDishCount(mysql, dish, cart["quantity"][index]+old_count)
+
+        # update user information
+        user.setWallet(mysql, user.wallet-total)
+        user.setNumOrders(mysql, user.num_orders+1)
+        user.setTotalSpent(mysql, user.total_spent+total)
+
+        # if user is VIP, receive free delivery for every 3 orders
+        if user.isVIP == 1 and user.num_orders%3 == 0:
+            user.setFreeDeliveries(mysql, user.free_deliveries+1)
+
+        # if user is VIP and has free deliveries, fee = 0 and decrease number of free deliveries remaining
+        if user.isVIP == 1 and order_type == 'delivery' and user.free_deliveries > 0:
+            user.setFreeDeliveries(mysql, user.free_deliveries-1)
+
+        # user becomes VIP after 5 orders Or after spending $100 
+        if user.isVIP == 0 and (user.num_orders > 5 or user.total_spent > 100) and user.warnings == 0:
+            user.setisVIP(mysql, 1)
+            user.setNumOrders(mysql, 0)
+
+        # insert order details into database
+        orders = Order.insertIntoOrders(mysql, user, cart, cartInfo, order_type)
+        Order.insertIntoDetails(mysql, user, orders, cart)
+
+        # clear the cart
+        session["cart"] = { "dish" : [], "quantity" : []}
+
+        return render_template("order_placed.html", user=user, success=True, order_type=order_type, total=total)
 
 
 @app.route("/profile/", methods = ['GET', 'POST'])
