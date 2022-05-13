@@ -104,7 +104,7 @@ def loginPage():
         user = getUserInDatabaseByLogin(mysql)
         if user != None: # Success
             session["user"] = user.id
-            session["orders"] = []
+            session["cart"] = { "dish" : [], "quantity" : [] }
 
             usersInSession[user.id] = user
             # if user is a customer
@@ -133,7 +133,7 @@ def logout():
     Log out a user from the session
     '''
     session.pop("user", None)
-    session.pop("orders", None)
+    session.pop("cart", None)
     flash("You have successfully signed out.", category="success")
     return redirect(url_for("loginPage"))
 
@@ -268,46 +268,65 @@ def cartPage():
         return redirect(url_for("loginPage"))
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
+    
+    cart = session.get("cart")
 
-    orders = session.get("orders")
-
-    if orders == None:
+    if cart == None:
         flash("Session timed out, please try again", category="error")
         return redirect(url_for("loginPage"))
 
-    # Get all the dishes
-    dishes = []
-    for id in orders:
-        dishes.append(Dish.getDishFromID(mysql, id))
+    items = getCartItems(mysql, cart)
+    cartInfo = getCartInfo(items, user.isVIP)
 
-    # Calculate the subtotal, tax, and total
-    subtotal = 0
-    for dish in dishes: subtotal += dish.price
-    tax = subtotal * 0.085
-    total = subtotal + tax
+    if request.method == 'POST':
+        if "cart-submit" in request.form:
+            if cartInfo["subtotal"] == 0:
+                flash("Error: Your cart is empty.", category = "error")
+            else:
+                return redirect(url_for("checkoutPage"))
 
-    if user.isVIP == 1:
-        discount = subtotal * 0.05
-        total -= discount
+    return render_template("cart_page.html", user=user, cart=items, cartInfo=cartInfo)
 
-        if request.method == 'POST':
-            if total == 0: 
-                return redirect(url_for("cartPage"))
 
-            return redirect(url_for("checkoutPage", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=round(discount, 2)))
+@app.route("/add-dish-to-cart/<id>", methods = ['POST'])
+def addDishToCart(id):
+    '''
+    Add a dish to the user cart
+    '''
+    userExist, user = isUserStillInSession()
 
-        return render_template("cart_page.html", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=round(discount, 2))
-    
-    else:
-        if request.method == 'POST':
-            if total == 0: 
-                return redirect(url_for("cartPage"))
+    # User is not signed in
+    if request.method == "POST":
+        if not userExist:
+            flash("Please Log In", category="error")
+            return redirect(url_for("loginPage"))
+        elif userExist and user.userType != 'customer':
+            return redirect(url_for("homePage"))
 
-            return redirect(url_for("checkoutPage", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=0.0))
+        else:
+            # Get cart
+            cart = session.get("cart")
 
-        return render_template("cart_page.html", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=0.0)
+            # the list cannot be found, most likely their session timed out
+            if cart == None:
+                flash("Session timed out, please try again", category="error")
+                return redirect(url_for("loginPage"))
 
-@app.route("/remove-dish-from-cart/<id>", methods = ['GET', 'POST'])
+            if id in cart["dish"]:
+                # if item already exists, increase quantity
+                index = 0
+                for item in cart["dish"]:
+                    if item == id:
+                        cart["quantity"][index] += 1
+                    index += 1
+            else:
+                # append the new dish
+                cart["dish"].append(id)
+                cart["quantity"].append(1)
+            session["cart"] = cart
+    return redirect(url_for("cartPage"))
+
+@app.route("/remove-dish-from-cart/<id>", methods = ['POST'])
 def removeDishFromCart(id):
     '''
     Remove a dish from the cart
@@ -319,16 +338,18 @@ def removeDishFromCart(id):
         return redirect(url_for("loginPage"))
 
     if request.method == 'POST':
-        orders = session.get("orders")
+        cart = session.get("cart")
 
-        if orders == None:
+        if cart == None:
             flash("Session timed out, please try again", category="error")
             return redirect(url_for("loginPage"))
 
-        orders.remove(id)
-        session["orders"] = orders
+        index = cart["dish"].index(id)
+        del cart["dish"][index]
+        del cart["quantity"][index]
+        session["cart"] = cart
         
-        return redirect(url_for("cartPage"))
+    return redirect(url_for("cartPage"))
 
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
@@ -462,22 +483,6 @@ def dashboard():
 
     return render_template("dashboard.html", user=user, userType=user.userType)
 
-@app.route("/dashboard-discussions/")
-def dashboardDiscussions():
-    '''
-    Route to the discussions page
-
-    vary between user types
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
-
-    return render_template("dashboard-discussions.html", user=user, userType=user.userType)
-
 @app.route("/forum/")
 def forum():
     '''
@@ -526,52 +531,6 @@ def forumPost():
     Route to the forum post page
     '''
     return render_template("forum_post.html")
-
-@app.route("/dashboard-comments/")
-def dashboardComments():
-    '''
-    Route to the comments page
-
-    vary between user types
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
-
-    return render_template("dashboard-comments.html", user=user, userType=user.userType)
-
-@app.route("/add-dish-to-cart/<id>", methods = ['GET', 'POST'])
-def addDishToCart(id):
-    '''
-    Add a dish to the user cart
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if request.method == "POST":
-        if not userExist:
-            flash("Please Log In", category="error")
-            return redirect(url_for("loginPage"))
-        elif userExist and user.userType != 'customer':
-            return redirect(url_for("homePage"))
-
-        else:
-            # Get orders
-            orders = session.get("orders")
-
-            # the list cannot be found, most likely their session timed out
-            if orders == None:
-                flash("Session timed out, please try again", category="error")
-                return redirect(url_for("loginPage"))
-
-            # append the new dish
-            orders.append(id)
-            session["orders"] = orders
-
-            return redirect(url_for("cartPage"))
         
 # Run the app
 if __name__ == "__main__":

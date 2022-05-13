@@ -389,4 +389,38 @@ def deleteAcc(db, user):
         db.connection.commit()
         cursor.close()
 
-        return True
+        return Truedef getCartItems(db, cart):
+    '''
+    Get cart items from database
+    '''
+    data = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    index = 0
+    for item in cart["dish"]:
+        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(item),))
+        rawQuery = cursor.fetchone()
+        rawQuery["quantity"] = cart["quantity"][index]
+        index += 1
+        data.append(rawQuery)
+
+    return data
+
+def getCartInfo(cart, vipStatus):
+    '''
+    Gets cart info based on customer's cart
+    '''
+    info = {}
+    subtotal = 0
+    for row in cart:
+        subtotal += row["quantity"]*row["price"]
+
+    # Calculate the subtotal, tax, and total
+    info["subtotal"] = subtotal
+    info["tax"] = round(subtotal*0.08875, 2)
+    if vipStatus == 1:
+        info["discount"] = round(subtotal*0.05, 2)
+    else:
+        info["discount"] = 0.00
+    info["total"] = round(subtotal + info["tax"] - info["discount"], 2)
+    return info
+
