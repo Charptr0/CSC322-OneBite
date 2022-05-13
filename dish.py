@@ -1,27 +1,36 @@
-import json
 import MySQLdb.cursors
 from flask_mysqldb import MySQL
 
 class Dish():
-    def __init__(self, name : str, desc : str, img : str, price : float, id : str, rating : float):
+    def __init__(self, id: int, type : str, name : str, price : float, desc : str, img : str, chef : int, rating : float, num_ratings : int, count : int, status : int):
         '''
         Create a dish object that stores its components
 
         Parameters
         ----------
-        name : str
-        desc : str
-        img (url): str
-        price : float
-        id : str
-        rating : float
+        id      : int
+        type    : str
+        name    : str
+        price   : float
+        desc    : str
+        img     : str (url)
+        chef    : int
+        rating  : float
+        num_ratings : int
+        count   : int
+        status  : boolean
         '''
         self.name = name
         self.desc = desc
         self.img = img
         self.price = price
         self.id = id
+        self.type = type
+        self.chef = chef
         self.rating = round(rating, 2)
+        self.num_ratings = num_ratings
+        self.count = count
+        self.status = status
 
     def __str__(self):
         return f'Dish Name: {self.name}\n\nDish Desc: {self.desc}\n\nDish Image: {self.img}\n\nDish Price: {str(self.price)}\n'
@@ -31,10 +40,7 @@ class Dish():
         '''
         Get all appetizers from a database
 
-        **FOR TESTING ONLY**
-            Get all appetizers from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish object from the database
         '''
         data = [] # data will be returned
 
@@ -43,10 +49,9 @@ class Dish():
         appetizers = cursor.fetchall()
 
         for dish in appetizers:
-            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
         cursor.close()
-
         return data           
 
     @staticmethod
@@ -54,10 +59,7 @@ class Dish():
         '''
         Get all entrees from a database
 
-        **FOR TESTING ONLY**
-            Get all entrees from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish object from the database
         '''
         data = [] # data will be returned
 
@@ -66,10 +68,9 @@ class Dish():
         appetizers = cursor.fetchall()
 
         for dish in appetizers:
-            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
         cursor.close()
-
         return data 
 
     @staticmethod
@@ -77,10 +78,7 @@ class Dish():
         '''
         Get all deserts from a database
 
-        **FOR TESTING ONLY**
-            Get all deserts from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish object from the database
         '''
         data = [] # data will be returned
 
@@ -89,20 +87,17 @@ class Dish():
         appetizers = cursor.fetchall()
 
         for dish in appetizers:
-            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
         cursor.close()
         return data
 
     @staticmethod
-    def getDrinks(db):
+    def getDrinks(db: MySQL):
         '''
         Get all drinks from a database
 
-        **FOR TESTING ONLY**
-            Get all drinks from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish object from the database
         '''
         data = [] # data will be returned
 
@@ -111,21 +106,17 @@ class Dish():
         appetizers = cursor.fetchall()
 
         for dish in appetizers:
-            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
         cursor.close()
-
         return data
 
     @staticmethod
-    def getSpecials(db):
+    def getSpecials(db: MySQL):
         '''
         Get all specials from a database
 
-        **FOR TESTING ONLY**
-            Get all specials from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish object from the database
         '''
         data = [] # data will be returned
 
@@ -134,79 +125,54 @@ class Dish():
         appetizers = cursor.fetchall()
 
         for dish in appetizers:
-            data.append(Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"]))
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
+        cursor.close()
         return data
 
     @staticmethod
-    def getCurrentOrders(db):
+    def getPopularDishes(db: MySQL):
         '''
-        Get all current order from a database
+        Get top 3 most popular dishes from a database
 
-        **FOR TESTING ONLY**
-            Get all current orders from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish objects from the database
         '''
-        rawQuery = []  # raw data from the source
         data = []  # data will be returned
 
-        with open("data/currentOrders.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish ORDER BY count DESC')
+        popular = cursor.fetchmany(3)
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in popular:
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
+        cursor.close()
         return data
 
     @staticmethod
-    def getPastOrders(db):
+    def getHighestRatedDishes(db: MySQL):
         '''
-        Get all current order from a database
+        Get top 3 highest rated from a database
 
-        **FOR TESTING ONLY**
-            Get all current orders from a json file
-
-        returns a list of dish object from the database or json file
+        returns a list of dish object from the database
         '''
-        rawQuery = []  # raw data from the source
         data = []  # data will be returned
 
-        with open("data/pastOrders.json", "r") as f:
-            rawQuery = json.load(f)
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM dish ORDER BY rating DESC')
+        popular = cursor.fetchmany(3)
 
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
+        for dish in popular:
+            data.append(Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"]))
 
-        return data
-
-    @staticmethod
-    def getPopularDishes(db):
-        '''
-        Get all current order from a database
-
-        **FOR TESTING ONLY**
-            Get all current orders from a json file
-
-        returns a list of dish object from the database or json file
-        '''
-        rawQuery = []  # raw data from the source
-        data = []  # data will be returned
-
-        with open("data/popular_dishes.json", "r") as f:
-            rawQuery = json.load(f)
-
-        for dish in rawQuery:
-            data.append(Dish(dish["name"], dish["desc"], dish["img"], dish["price"], dish["id"], dish["rating"]))
-
+        cursor.close()
         return data
 
     @staticmethod
     def getDishFromID(db : MySQL, id):
-        print(id)
         cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (id,))
+        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(id),))
         dish = cursor.fetchone()
 
         cursor.close()
-        return Dish(dish["name"], dish["description"], dish["img"], dish["price"], dish["dish_id"], dish["rating"])
+        return Dish(dish["dish_id"], dish["dish_type"], dish["name"], dish["price"], dish["description"], dish["img"], dish["chef"], dish["rating"], dish["num_ratings"], dish["count"], dish["status"])

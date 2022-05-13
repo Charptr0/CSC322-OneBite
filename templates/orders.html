@@ -11,61 +11,130 @@
 {% block mainContent %}
     <div class="cover"><h2 class="title">Your Orders</h2></div>
 
-    {% if user %}
-    <div>WIP</div>
-    {% else %}
-<!-- 
-        {% set currOrder = true %}
-        {% if currOrder == true %}
-        <h3 class="gridTitle">Your order is being prepared...</h3>
-        <div class="Container">
-            {% for currentOrder in currentOrders %}
-            <div class="subItem"><img class="gridImg" src={{ currentOrder.img }}></div>
-
-            <div class="subItem">
-                <div class="itemName"><h4 class="food-name item-attribute">{{ currentOrder.name}}</h4></div>
-                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ currentOrder.desc }}!</p></div>
-                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ currentOrder.price }}</p></div>
+    <div class = "whole-container">
+        <div class = "inprogress">
+            <h1 class = "order-title">Your Most Recent Order</h1>
+            <div class = "order-item">
+                <button type = "button" class = "collapsible">Order ID #{{ recentOrder["order_id"] }}</button>
+                <div class = "content">
+                    <div class = "header-content">
+                        <div class = "order-col1">ID</div>
+                        <div class = "order-col2">Product Name</div>
+                        <div class = "order-col1">Price</div>
+                        <div class = "order-col1">Quantity</div>
+                        <div class = "order-col1">Total</div>
+                    </div>
+                    
+                    <hr>
+                    {% for item in recentDetails %}
+                        <div class = "order-content">
+                            <div class = "order-col1">{{ item["dish_id"] }}</div>
+                            <div class = "order-col2">{{ item["name"] }}</div>
+                            <div class = "order-col1">{{ "$%.2f"|format(item["price"]) }}</div>
+                            <div class = "order-col1">{{ item["quantity"] }}</div>
+                            <div class = "order-col1">{{ "$%.2f"|format(item["price"]*item["quantity"]) }}</div>
+                        </div>
+                    {% endfor %}
+                    <hr>
+                    <div class = "info-content">
+                        <div class = "info-row">
+                            <p class = "align-left">Subtotal:</p>
+                            <p class = "align-right">{{ "$%.2f"|format(recentOrder["subtotal"]) }}</p>
+                        </div>
+                        <div class = "info-row">
+                            <p class = "align-left">Tax:</p>
+                            <p class = "align-right">{{ "$%.2f"|format(recentOrder["tax"]) }}</p>
+                        </div>
+                        <div class = "info-row">
+                            <p class = "align-left">Discount:</p>
+                            <p class = "align-right">{{ "$%.2f"|format(recentOrder["discount"]) }}</p>
+                        </div>
+                        <div class = "info-row">
+                            <p class = "align-left">Delivery:</p>
+                            <p class = "align-right">{{ "$%.2f"|format(recentOrder["delivery_fee"]) }}</p>
+                        </div>
+                        <hr class = "info-row">
+                        <div class = "info-row">
+                            <p class = "align-left info-total">Total:</p>
+                            <p class = "align-right info-total">{{ "$%.2f"|format(recentOrder["total"]) }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <div class = "completed">
+            <h1 class = "order-title">Your Completed Orders</h1>
+            {% for order in pastOrders %}
+                <div class = "order-item">
+                    <button type = "button" class = "collapsible">Order ID #{{ order["order_id"] }}</button>
+                    <div class = "content">
+                        <div class = "header-content">
+                            <div class = "order-col1">ID</div>
+                            <div class = "order-col2">Product Name</div>
+                            <div class = "order-col1">Price</div>
+                            <div class = "order-col1">Quantity</div>
+                            <div class = "order-col1">Total</div>
+                        </div>
+                        
+                        <hr>
+                        {% for orderItem in pastDetails %}
+                            {% for item in orderItem %}
+                                {% if item["order_id"] == order["order_id"] %}
+                                    <div class = "order-content">
+                                        <div class = "order-col1">{{ item["dish_id"] }}</div>
+                                        <div class = "order-col2">{{ item["name"] }}</div>
+                                        <div class = "order-col1">{{ "$%.2f"|format(item["price"]) }}</div>
+                                        <div class = "order-col1">{{ item["quantity"] }}</div>
+                                        <div class = "order-col1">{{ "$%.2f"|format(item["price"]*item["quantity"]) }}</div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        <hr>
+                        <div class = "info-content">
+                            <div class = "info-row">
+                                <p class = "align-left">Subtotal:</p>
+                                <p class = "align-right">{{ "$%.2f"|format(order["subtotal"]) }}</p>
+                            </div>
+                            <div class = "info-row">
+                                <p class = "align-left">Tax:</p>
+                                <p class = "align-right">{{ "$%.2f"|format(order["tax"]) }}</p>
+                            </div>
+                            <div class = "info-row">
+                                <p class = "align-left">Discount:</p>
+                                <p class = "align-right">{{ "$%.2f"|format(order["discount"]) }}</p>
+                            </div>
+                            <div class = "info-row">
+                                <p class = "align-left">Delivery:</p>
+                                <p class = "align-right">{{ "$%.2f"|format(order["delivery_fee"]) }}</p>
+                            </div>
+                            <hr class = "info-row">
+                            <div class = "info-row">
+                                <p class = "align-left info-total">Total:</p>
+                                <p class = "align-right info-total">{{ "$%.2f"|format(order["total"]) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
         </div>
+    </div>
+    
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
 
-            <! buttons>
-            <div style="text-align: center">
-                <button type="button" class="editOrderButton" onclick="alert('edit test')">Edit Order</button>
-            </div>
-            <div style="text-align: center">
-                <button type="button" class="cancelButton" onclick="alert('cancel test')">Cancel Order</button>
-            </div>
-
-
-        {% endif %}
-        <h3 class="gridTitle">Order history</h3>
-        <div class="Container">
-            {% for pastOrder in pastOrders %}
-            <div class="subItem"><img class="gridImg" src={{ pastOrder.img }}></div>
-
-            <div class="subItem">
-                <div class="itemName"><h4 class="food-name item-attribute">{{ pastOrder.name}}</h4></div>
-                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ pastOrder.desc }}!</p></div>
-                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ pastOrder.price }}</p></div>
-            </div>
-            {% endfor %}
-        </div>
-        <h3 class="gridTitle">Try our popular dishes</h3>
-        <div class="Container">
-            {% for popular in populars %}
-            <div class="subItem"><img class="gridImg" src={{ popular.img }}></div>
-
-            <div class="subItem">
-                <div class="itemName"><h4 class="food-name item-attribute">{{ popular.name}}</h4></div>
-                <div class="itemDes"><h4 class="item-attribute">Description:</h4><p>{{ popular.desc }}!</p></div>
-                <div class="itemDes"><h4 class="item-attribute">Price:</h4><p>${{ popular.price }}</p></div>
-            </div>
-            {% endfor %}
-        </div> -->
-    {% endif %}
-
-
-
-{% endblock mainContent%}
+    for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+        content.style.display = "none";
+        } else {
+        content.style.display = "block";
+        }
+    });
+    }
+</script>
+{% endblock %}

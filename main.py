@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, Markup
+from re import A
 from database import *
 from dish import Dish
+from order import Order
 
 app = Flask(__name__)
 
@@ -29,7 +31,7 @@ def isUserStillInSession():
     
     return (False, None)
 
-@app.route("/")
+@app.route("/",  methods = ['GET', 'POST'])
 def homePage():
     '''
     Route to the home page
@@ -37,11 +39,13 @@ def homePage():
     userExist, user = isUserStillInSession()
     if userExist:
         if user.userType == 'customer':
-            return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(None))
+            if user.warnings > 0:
+                flash(Markup("You have {0} warning(s), please check your <a href='/dashboard' class='alert-link' style='background-color: transparent;'>dashboard</a>".format(user.warnings)), category = "error")
+            return render_template("home_page.html", user=user, favDishes=user.getFavoriteDishes(mysql), popularDishes=Dish.getPopularDishes(mysql), ratedDishes=Dish.getHighestRatedDishes(mysql))
         else:
-            return render_template("dashboard.html", user=user, userType=user.userType)
+            return redirect(url_for("dashboard"))
 
-    return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(None))
+    return render_template("home_page.html", user=None, popularDishes=Dish.getPopularDishes(mysql), ratedDishes=Dish.getHighestRatedDishes(mysql))
 
 @app.route("/about/")
 def aboutPage():
@@ -104,17 +108,17 @@ def loginPage():
         user = getUserInDatabaseByLogin(mysql)
         if user != None: # Success
             session["user"] = user.id
-            session["orders"] = []
+            session["cart"] = { "dish" : [], "quantity" : [] }
 
             usersInSession[user.id] = user
             # if user is a customer
             if user.userType == 'customer':
                 if user.address == None and user.wallet == 0:
-                    flash("Set delivery address and add funds to your account in your profile page before making your first order.")
+                    flash("IMPORTANT: Set delivery address and add funds to your account in your profile page before making your first order.", category = "warning")
                 elif user.wallet == 0:
-                    flash("Add funds to your account in your profile page before making your first order.")
+                    flash("IMPORTANT: Add funds to your account in your profile page before making your first order.", category = "warning")
                 elif user.address == None:
-                    flash("Set delivery address in your profile page before making your first order.")
+                    flash("IMPORTANT: Set delivery address in your profile page before making your first delivery order.", category = "warning")
                 if user.warnings > 0:
                     flash("You have {0} warning(s), please check our dashboard".format(user.warnings), category = "error")
                 return redirect(url_for("homePage"))
@@ -133,7 +137,7 @@ def logout():
     Log out a user from the session
     '''
     session.pop("user", None)
-    session.pop("orders", None)
+    session.pop("cart", None)
     flash("You have successfully signed out.", category="success")
     return redirect(url_for("loginPage"))
 
@@ -268,46 +272,78 @@ def cartPage():
         return redirect(url_for("loginPage"))
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
+    
+    cart = session.get("cart")
 
-    orders = session.get("orders")
-
-    if orders == None:
+    if cart == None:
         flash("Session timed out, please try again", category="error")
         return redirect(url_for("loginPage"))
 
-    # Get all the dishes
-    dishes = []
-    for id in orders:
-        dishes.append(Dish.getDishFromID(mysql, id))
+    items = getCartItems(mysql, cart)
+    cartInfo = getCartInfo(items, user.isVIP)
 
-    # Calculate the subtotal, tax, and total
-    subtotal = 0
-    for dish in dishes: subtotal += dish.price
-    tax = subtotal * 0.085
-    total = subtotal + tax
-
-    if user.isVIP == 1:
-        discount = subtotal * 0.05
-        total -= discount
-
-        if request.method == 'POST':
-            if total == 0: 
+    if request.method == 'POST':
+        if "cart-submit" in request.form:
+            if cartInfo["subtotal"] == 0:
+                flash("Error: Your cart is empty.", category = "error")
+            else:
+                return redirect(url_for("checkoutPage"))
+        else:
+            dish_id = request.form["dish-id"]
+            index = cart["dish"].index(dish_id)
+            if "minus" in request.form:
+                cart = updateQuantity(cart, index, "minus")
+                session["cart"] = cart
+                if cart["quantity"][index] == 0:
+                    removeDishFromCart(dish_id)
+                return redirect(url_for("cartPage"))
+            if "plus" in request.form:
+                cart = updateQuantity(cart, index, "plus")
+                session["cart"] = cart
                 return redirect(url_for("cartPage"))
 
-            return redirect(url_for("checkoutPage", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=round(discount, 2)))
+    return render_template("cart_page.html", user=user, cart=items, cartInfo=cartInfo)
 
-        return render_template("cart_page.html", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=round(discount, 2))
-    
-    else:
-        if request.method == 'POST':
-            if total == 0: 
-                return redirect(url_for("cartPage"))
 
-            return redirect(url_for("checkoutPage", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=0.0))
+@app.route("/add-dish-to-cart/<id>", methods = ['POST'])
+def addDishToCart(id):
+    '''
+    Add a dish to the user cart
+    '''
+    userExist, user = isUserStillInSession()
 
-        return render_template("cart_page.html", user=user, order=dishes, subtotal=subtotal, tax=round(tax, 2), total=round(total, 2), discount=0.0)
+    # User is not signed in
+    if request.method == "POST":
+        if not userExist:
+            flash("Please Log In", category="error")
+            return redirect(url_for("loginPage"))
+        elif userExist and user.userType != 'customer':
+            return redirect(url_for("homePage"))
 
-@app.route("/remove-dish-from-cart/<id>", methods = ['GET', 'POST'])
+        else:
+            # Get cart
+            cart = session.get("cart")
+
+            # the list cannot be found, most likely their session timed out
+            if cart == None:
+                flash("Session timed out, please try again", category="error")
+                return redirect(url_for("loginPage"))
+
+            if id in cart["dish"]:
+                # if item already exists, increase quantity
+                index = 0
+                for item in cart["dish"]:
+                    if item == id:
+                        cart["quantity"][index] += 1
+                    index += 1
+            else:
+                # append the new dish
+                cart["dish"].append(id)
+                cart["quantity"].append(1)
+            session["cart"] = cart
+    return redirect(url_for("cartPage"))
+
+@app.route("/remove-dish-from-cart/<id>", methods = ['POST'])
 def removeDishFromCart(id):
     '''
     Remove a dish from the cart
@@ -319,17 +355,42 @@ def removeDishFromCart(id):
         return redirect(url_for("loginPage"))
 
     if request.method == 'POST':
-        orders = session.get("orders")
+        cart = session.get("cart")
 
-        if orders == None:
+        if cart == None:
             flash("Session timed out, please try again", category="error")
             return redirect(url_for("loginPage"))
 
-        orders.remove(id)
-        session["orders"] = orders
+        index = cart["dish"].index(id)
+        del cart["dish"][index]
+        del cart["quantity"][index]
+        session["cart"] = cart
         
-        return redirect(url_for("cartPage"))
+    return redirect(url_for("cartPage"))
 
+@app.route("/clear-cart/", methods = ['POST'])
+def clearCart():
+    '''
+    Empties the cart
+    '''
+    userExist, user = isUserStillInSession()
+
+    if not userExist:
+        flash("Please Log In.", category="error")
+        return redirect(url_for("loginPage"))
+
+    if request.method == 'POST':
+        cart = session.get("cart")
+
+        if cart == None:
+            flash("Session timed out, please try again", category="error")
+            return redirect(url_for("loginPage"))
+
+        cart["dish"].clear()
+        cart["quantity"].clear()
+        session["cart"] = cart
+        
+    return redirect(url_for("cartPage"))
     
 @app.route("/checkout/", methods = ['GET', 'POST'])
 def checkoutPage():
@@ -345,22 +406,24 @@ def checkoutPage():
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
 
-    if request.method == 'POST':
-        return redirect(url_for("orderPlacedPage", total=request.args.get("total")))
+    cart = session.get("cart")
 
-    orders = session.get("orders")
-
-    if orders == None:
+    if cart == None:
         flash("Session timed out, please try again", category="error")
         return redirect(url_for("loginPage"))
 
-    # Get all the dishes
-    dishes = []
-    for id in orders:
-        dishes.append(Dish.getDishFromID(mysql, id))
-    
-    return render_template("checkout_page.html", user=user, order=dishes, 
-        subtotal=request.args.get("subtotal"), tax=request.args.get("tax"), total=request.args.get("total"), discount=request.args.get("discount"))
+    items = getCartItems(mysql, cart)
+    cartInfo = getCartInfo(items, user.isVIP)
+
+    if request.method == 'POST':
+        if "checkout-submit" in request.form:
+            order_type = request.form["check-type"]
+            if order_type == 'delivery' and user.address == None:
+                flash("Error: Cannot deliver to an unknown place. Please add a delivery address.", category = "error")
+            else:
+                return redirect(url_for("orderPlacedPage", order_type = order_type))
+
+    return render_template("checkout_page.html", user=user, cart=items, cartInfo=cartInfo)
 
 @app.route("/order-placed/", methods = ['GET', 'POST'])
 def orderPlacedPage():
@@ -376,16 +439,73 @@ def orderPlacedPage():
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
 
-    total = float(request.args.get("total"))
+    # grabbing cart session and cart info
+    cart = session.get("cart")
 
+    if cart == None:
+        flash("Session timed out, please try again", category="error")
+        return redirect(url_for("loginPage"))
+
+    items = getCartItems(mysql, cart)
+    cartInfo = getCartInfo(items, user.isVIP)
+
+    total = float(cartInfo["total"])
+    order_type = request.args.get("order_type")
+
+    # order unsuccessful
     if user.wallet < total:
-        user.warnings += 1 # Give the user an warning
-        return render_template("order_placed.html", user=user, success=False)
-    else:
-        user.wallet -= total # Subtract the amount from the wallet
-        session["orders"] = []
+        prev_isVIP = 0
+        user.setWarnings(mysql, user.warnings+1)
 
-        return render_template("order_placed.html", user=user, success=True)
+        # user becomes downgraded after receiving 2 warnings as a VIP member and has warnings reset
+        if user.isVIP == 1 and user.warnings >= 2:
+            prev_isVIP = 1
+            user.setisVIP(mysql, 0)
+            user.setWarnings(mysql, 0)
+            user.setFreeDeliveries(mysql, 0)
+            user.setNumOrders(mysql, 0)
+
+        # user becomes Blacklisted after receiving 3 warnings
+        if user.isVIP == 0 and user.warnings >= 3:
+            user.setisBlacklisted(mysql, 1)
+            # addToBlacklist(mysql, user.id)
+
+        return render_template("order_placed.html", user=user, success=False, order_type=order_type, total=total, prevVIP = prev_isVIP)
+
+    # order successful
+    else:
+        # update dish information
+        for dish in cart["dish"]:
+            index = cart["dish"].index(dish)
+            old_count = getDishCount(mysql, dish)
+            setDishCount(mysql, dish, cart["quantity"][index]+old_count)
+
+        # update user information
+        user.setWallet(mysql, user.wallet-total)
+        user.setNumOrders(mysql, user.num_orders+1)
+        user.setTotalSpent(mysql, user.total_spent+total)
+
+        # if user is VIP, receive free delivery for every 3 orders
+        if user.isVIP == 1 and user.num_orders%3 == 0:
+            user.setFreeDeliveries(mysql, user.free_deliveries+1)
+
+        # if user is VIP and has free deliveries, fee = 0 and decrease number of free deliveries remaining
+        if user.isVIP == 1 and order_type == 'delivery' and user.free_deliveries > 0:
+            user.setFreeDeliveries(mysql, user.free_deliveries-1)
+
+        # user becomes VIP after 5 orders Or after spending $100 
+        if user.isVIP == 0 and (user.num_orders > 5 or user.total_spent > 100) and user.warnings == 0:
+            user.setisVIP(mysql, 1)
+            user.setNumOrders(mysql, 0)
+
+        # insert order details into database
+        orders = Order.insertIntoOrders(mysql, user, cart, cartInfo, order_type)
+        Order.insertIntoDetails(mysql, user, orders, cart)
+
+        # clear the cart
+        session["cart"] = { "dish" : [], "quantity" : []}
+
+        return render_template("order_placed.html", user=user, success=True, order_type=order_type, total=total)
 
 
 @app.route("/profile/", methods = ['GET', 'POST'])
@@ -426,29 +546,18 @@ def orders():
     '''
     Route to the orders page
     '''
-# Get all the orders from the db
-
-    # CURRENTORDERS = Dish.getCurrentOrders(None)
-    # PASTORDERS = Dish.getPastOrders(None)
-    # POPULARS = Dish.getPopulars(None)
-
     userExist, user = isUserStillInSession()
     if not userExist:
         return redirect(url_for("loginPage"))
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
-    else:
-        return render_template("orders.html")
 
+    RECENTORDER, RECENTDETAILS = Order.getMostRecentOrder(mysql, user.id)
+    PASTORDERS, PASTDETAILS = Order.getPastOrders(mysql, user.id)
 
-    # User is not signed in
-    #if not userExist:
-        #flash("Please Log In", category="error")
-        #return redirect(url_for("loginPage"))
+    return render_template("orders.html", user=user, recentOrder = RECENTORDER, recentDetails = RECENTDETAILS, pastOrders = PASTORDERS, pastDetails = PASTDETAILS)
 
-    return render_template("orders.html", user=user)
-
-@app.route("/dashboard/")
+@app.route("/dashboard/",  methods = ['GET', 'POST'])
 def dashboard():
     '''
     Route to the dashboard page
@@ -460,120 +569,38 @@ def dashboard():
         flash("Please Log In", category="error")
         return redirect(url_for("loginPage"))
 
-    CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
-
-    return render_template("dashboard.html", user=user, userType=user.userType, chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS)
-
-@app.route("/dashboard-discussions/")
-def dashboardDiscussions():
-    '''
-    Route to the discussions page
-
-    vary between user types
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
-
-    return render_template("dashboard-discussions.html", user=user, userType=user.userType)
-
-@app.route("/forum/")
-def forum():
-    '''
-    Route to the forum home page
-    '''
-    return render_template("forum_home.html")
-
-@app.route("/forum_chef/")
-def forumChef():
-    '''
-    Route to the forum chef page
-    '''
-    return render_template("forum_chef.html")
-
-@app.route("/forum_staff/")
-def forumStaff():
-    '''
-    Route to the forum staff page
-    '''
-    return render_template("forum_staff.html")
-
-@app.route("/forum_appetizer/")
-def forumAppetizer():
-    '''
-    Route to the forum appetizer page
-    '''
-    return render_template("forum_appetizer.html")
-
-@app.route("/forum_entree/")
-def forumEntree():
-    '''
-    Route to the forum entree page
-    '''
-    return render_template("forum_entree.html")
-
-@app.route("/forum_drinks/")
-def forumDrinks():
-    '''
-    Route to the forum drinks page
-    '''
-    return render_template("forum_drinks.html")
-
-@app.route("/forum_post/")
-def forumPost():
-    '''
-    Route to the forum post page
-    '''
-    return render_template("forum_post.html")
-
-@app.route("/dashboard-comments/")
-def dashboardComments():
-    '''
-    Route to the comments page
-
-    vary between user types
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if not userExist:
-        flash("Please Log In", category="error")
-        return redirect(url_for("loginPage"))
-
-    return render_template("dashboard-comments.html", user=user, userType=user.userType)
-
-@app.route("/add-dish-to-cart/<id>", methods = ['GET', 'POST'])
-def addDishToCart(id):
-    '''
-    Add a dish to the user cart
-    '''
-    userExist, user = isUserStillInSession()
-
-    # User is not signed in
-    if request.method == "POST":
-        if not userExist:
-            flash("Please Log In", category="error")
-            return redirect(url_for("loginPage"))
-        elif userExist and user.userType != 'customer':
-            return redirect(url_for("homePage"))
-
-        else:
-            # Get orders
-            orders = session.get("orders")
-
-            # the list cannot be found, most likely their session timed out
-            if orders == None:
-                flash("Session timed out, please try again", category="error")
-                return redirect(url_for("loginPage"))
-
-            # append the new dish
-            orders.append(id)
-            session["orders"] = orders
-
-            return redirect(url_for("cartPage"))
+    if request.method == 'POST':
+        if "disputesubmit" in request.form:
+            retrieveDispute(mysql)
+        if "complaintsubmit" in request.form:
+            retrieveComplaint(mysql)
+        if "editsubmit" in request.form:
+            print("test\n\n")
+            edititem(mysql)
+        if "removeitem" in request.form:
+            removeitem(mysql)
+        if "addsubmit" in request.form:
+            additem(mysql)
+            
+    if user.userType == "manager":
+        rows=loadDisputes(mysql)
+        # print(rows)
+        CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS)
+    if user.userType == "delivery":
+        rows=loadPastDeliveries(mysql)
+        print(rows)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows)
+    if user.userType == "chef":
+        entree=loadEntrees(mysql)
+        appetizers=loadAppt(mysql)
+        desserts=loadDesserts(mysql)
+        drinks=loadDrinks(mysql)
+        # print(entree)
+        # print(appetizers)
+        # print(desserts)
+        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks)
+    return render_template("dashboard.html", user=user, userType=user.userType)
         
 # Run the app
 if __name__ == "__main__":

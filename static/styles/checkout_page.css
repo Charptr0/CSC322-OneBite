@@ -41,6 +41,18 @@
     font-size: 27px;
 }
 
+.change-btn {
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 15px; 
+    color: rgb(40,38,71);
+    font-weight: 400;
+}
+
+.change-btn:hover {
+    background-color: #eee;
+}
+
 /* centers summary info within the container */
 .summary-info {
     display: flex;
@@ -93,26 +105,6 @@ label[for = "pickup-type"] {
     color: rgb(40,38,71);
 }
 
-label[for = "existing-type"] { 
-    font-size: 20px; 
-    background:inherit;
-    color: rgb(40,38,71);
-}
-
-label[for = "new-type"] { 
-    font-size: 20px; 
-    background:inherit;
-    color: rgb(40,38,71);
-}
-
-#address-line {
-    width: 85%;
-    border-radius: 5px;
-    padding-left: 5px;
-    padding-top: 5px;
-    border-color: #ccc;
-}
-
 #return-cart {
     text-align: center;
     padding: 0px;
@@ -135,7 +127,7 @@ label[for = "new-type"] {
     color: rgb(85, 107, 107);
 }
 
-@media screen and (max-width: 600px)
+@media screen and (max-width: 950px)
 {
     .split-vertical {
         flex-direction: column;

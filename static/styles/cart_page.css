@@ -12,6 +12,18 @@
     flex: 1;
 }
 
+.flex-container {
+    display: flex;
+}
+
+.flex1 {
+    flex: 1
+}
+
+.flex4 {
+    flex: 4
+}
+
 /* container for cart and order summaries */
 .summary-container {
     border: 1px solid #ccc;
@@ -21,6 +33,13 @@
 
 .summary-title {
     font-size: 27px;
+}
+
+.empty-cart {
+    color: rgb(127, 130, 130);
+    font-weight: 500;
+    font-size: 60px;
+    text-align: center;
 }
 
 /* centers summary info within the container */
@@ -96,7 +115,8 @@
 }
 
 .cart-image {
-    width: 100%;
+    width: 120px;
+    height: 175px;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
@@ -108,6 +128,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     width: 10%;
     text-align: center;
     border: none;
+    margin-top: 3px;
 }
 
 .plusminus-btn {

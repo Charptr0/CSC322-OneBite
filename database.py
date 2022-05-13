@@ -54,8 +54,10 @@ def convertUser(account, acc_type):
             num_orders=acc_type["num_orders"],
             total_spent=acc_type["total_spent"],
             warnings=acc_type["warnings"],
+            isClosed=acc_type["isClosed"],
             isBlacklisted=acc_type["isBlacklisted"],
-            isVIP=acc_type["isVIP"]
+            isVIP=acc_type["isVIP"],
+            free_deliveries=acc_type["free_deliveries"]
         )
     if account["type"] == 'manager':
         return Manager(
@@ -71,6 +73,12 @@ def convertUser(account, acc_type):
     if account["type"] == 'chef':
         return Staff(
             id=account["id"],
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
             salary=acc_type["salary"],
             compliments=acc_type["num_compliment"],
             complaints=acc_type["num_complaint"],
@@ -81,6 +89,12 @@ def convertUser(account, acc_type):
     if account["type"] == 'delivery':
         return Staff(
             id=account["id"],
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
             salary=acc_type["salary"],
             compliments=acc_type["num_compliment"],
             complaints=acc_type["num_complaint"],
@@ -320,15 +334,14 @@ def changeCard(db, user):
             # checks that card number length is valid
             flash('Card number is invalid. Must be 16 digits.', category = 'error')
         else:
-            cursor.execute('UPDATE customer SET cardnumber = %s WHERE customer_id = %s', (card, str(user.id),))
             flash('Successfully changed payment method.', category = 'success')
-            db.connection.commit()
-            cursor.close()
-            user.setCardNumber(user, card)
-
+            user.setCardNumber(db, card)
+            
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+    cursor.close()
 
 def chargeFunds(db, user):
     '''
@@ -350,15 +363,14 @@ def chargeFunds(db, user):
             flash('Amount to be deposited must be $0.01 or more.', category = 'error')
         else:
             funds = float(funds) + user.wallet
-            cursor.execute('UPDATE customer SET wallet = %s WHERE customer_id = %s', (str(funds), str(user.id),))
             flash('Successfully deposited more funds.', category = 'success')
-            db.connection.commit()
-            cursor.close()
-            user.setWallet(user, funds)
+            user.setWallet(db, funds)
 
             return True
     else:
         flash('Email/username does not exist.', category = 'error')
+
+    cursor.close()
 
 def deleteAcc(db, user):
     '''
@@ -379,15 +391,225 @@ def deleteAcc(db, user):
 
         return True
 
-# def retrieveUsers(db, user_type):
-#     # checks if user exists in the database
-#     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-#     cursor.execute('SELECT * FROM accounts WHERE type = %s', (user_type,))
-#     account = cursor.fetchall()
-#     db.connection.commit()
-#     cursor.close()
+def updateQuantity(cart, index, action):
+    '''
+    Updates quantity in cart
+    '''
+    # decrease item quantity by 1
+    if action == "minus":
+        cart["quantity"][index] -= 1
+    # increase item quantity by 1
+    elif action == "plus":
+        cart["quantity"][index] += 1
+    return cart
+
+def getCartItems(db, cart):
+    '''
+    Get cart items from database
+    '''
+    data = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    index = 0
+    for item in cart["dish"]:
+        cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(item),))
+        rawQuery = cursor.fetchone()
+        rawQuery["quantity"] = cart["quantity"][index]
+        index += 1
+        data.append(rawQuery)
+
+    return data
+
+def getCartInfo(cart, vipStatus):
+    '''
+    Gets cart info based on customer's cart
+    '''
+    info = {}
+    subtotal = 0
+    for row in cart:
+        subtotal += row["quantity"]*row["price"]
+
+    # Calculate the subtotal, tax, and total
+    info["subtotal"] = subtotal
+    info["tax"] = round(subtotal*0.08875, 2)
+    if vipStatus == 1:
+        info["discount"] = round(subtotal*0.05, 2)
+    else:
+        info["discount"] = 0.00
+    info["total"] = round(subtotal + info["tax"] - info["discount"], 2)
+    return info
+
+def getDishCount(db, dish_id):
+    '''
+    Gets dish count in database
+    '''
+    # checks if dish exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+    dish = cursor.fetchone()
+    cursor.close()
+
+    if dish:
+        return dish["count"]
+
+def setDishCount(db, dish_id, num):
+    '''
+    Updates dish count in database
+    '''
+    # checks if dish exists in the database
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_id = %s', (str(dish_id),))
+    dish = cursor.fetchone()
+
+    if dish:
+        cursor.execute('UPDATE dish SET count = %s WHERE dish_id = %s', (str(num), str(dish_id),))
+        db.connection.commit()
+
+    cursor.close()
+
+def retrieveDispute(db):
+    userDetails = request.form
+    fname = userDetails['firstname']
+    lname = userDetails['lastname']
+    disputedescription = userDetails['deliverydispute']
+
+    cursor = db.connection.cursor()
+    #insert data into dispute table in database
+    cursor.execute("INSERT INTO dispute (first_name, last_name, customer_id, dispute_content, dispute_date) VALUES(%s, %s, %s, %s, CURDATE())", (fname,lname,6,disputedescription))
+    db.connection.commit()
+    cursor.close()
+
+    return True
+
+def retrieveComplaint(db):
+    print("test")
+    userDetails = request.form
+    fname = userDetails['firstname']
+    lname = userDetails['lastname']
+    complaintdescription = userDetails['complaintbox']
+
+    cursor = db.connection.cursor()
+    #insert data into dispute table in database
+    cursor.execute("INSERT INTO complaint (first_name, last_name, customer_id, complaint_content, complaint_date) VALUES(%s, %s, %s, %s, CURDATE())", (fname,lname,6,complaintdescription))
+    db.connection.commit()
+    cursor.close()
+
+    return True
+
+def loadDisputes(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dispute')
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
+
+def loadPastDeliveries(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM PastDeliveries')
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
+
+def loadEntrees(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['entree'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def loadAppt(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['appetizer'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def loadDesserts(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['dessert'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def loadDrinks(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['drink'])
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def edititem(db):
+    itemDetails = request.form
+    newimage = itemDetails['newimage']
+    itemname = itemDetails['itemname']
+    description = itemDetails['editdescription']
+    editprice = itemDetails['editprice']
+    dishid = itemDetails['dishid']
+
+    print("deeznutz\n")
+    print(dishid)
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
     
-#     return account
+    cursor.execute('UPDATE dish SET img = %s, name = %s, description = %s,  price = %s WHERE dish_id = %s', (newimage,itemname,description,editprice,dishid))
+    db.connection.commit()
+    cursor.close()
+
+def removeitem(db):
+    itemDetails = request.form
+    dishid = itemDetails['removeitem']
+    print(dishid)
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    cursor.execute('DELETE FROM dish WHERE dish_id=%s', [dishid] )
+    db.connection.commit()
+    cursor.close()
+
+def additem(db):
+    itemDetails = request.form
+    chefid = itemDetails['chefid']
+    itemtype = itemDetails['dishtype']
+    itemimage = itemDetails['image']
+    itemname = itemDetails['itemname']
+    itemdescription = itemDetails['description']
+    itemprice = itemDetails['price']
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    cursor.execute('INSERT INTO dish (dish_type, name, price, description, img, chef) VALUES (%s, %s, %s, %s, %s, %s)', (itemtype, itemname, itemprice, itemdescription, itemimage, chefid))
+    db.connection.commit()
+    cursor.close()
 
 def retrieveUsers(db):
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
