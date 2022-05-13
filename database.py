@@ -54,8 +54,10 @@ def convertUser(account, acc_type):
             num_orders=acc_type["num_orders"],
             total_spent=acc_type["total_spent"],
             warnings=acc_type["warnings"],
+            isClosed=acc_type["isClosed"],
             isBlacklisted=acc_type["isBlacklisted"],
-            isVIP=acc_type["isVIP"]
+            isVIP=acc_type["isVIP"],
+            free_deliveries=acc_type["free_deliveries"]
         )
     if account["type"] == 'manager':
         return Manager(
@@ -71,6 +73,12 @@ def convertUser(account, acc_type):
     if account["type"] == 'chef':
         return Staff(
             id=account["id"],
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
             salary=acc_type["salary"],
             compliments=acc_type["num_compliment"],
             complaints=acc_type["num_complaint"],
@@ -81,6 +89,12 @@ def convertUser(account, acc_type):
     if account["type"] == 'delivery':
         return Staff(
             id=account["id"],
+            firstName=account["fname"],
+            lastName=account["lname"],
+            email=account["email"],
+            username=account["username"],
+            password=account["password"],
+            phoneNumber=account["phone"],
             salary=acc_type["salary"],
             compliments=acc_type["num_compliment"],
             complaints=acc_type["num_complaint"],

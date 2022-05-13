@@ -88,29 +88,16 @@ CREATE TABLE IF NOT EXISTS customer (
     num_orders int(11) DEFAULT 0,
     total_spent float(11, 2) DEFAULT '0.00',
     warnings int(11) DEFAULT 0,
+    isClosed tinyint(1) DEFAULT 0,
     isBlacklisted tinyint(1) DEFAULT 0,
     isVIP tinyint(1) DEFAULT 0,
+    free_deliveries int(11) DEFAULT 0,
     PRIMARY KEY (customer_id),
     FOREIGN KEY (customer_id) REFERENCES accounts(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Customer */
 SELECT * FROM customer;
-
-/* Table VIPs */
-CREATE TABLE IF NOT EXISTS vip (
-	vip_id int(11) NOT NULL AUTO_INCREMENT,
-    num_orders int(11) DEFAULT 0,
-    num_free_deliveries int(11) DEFAULT 0,
-    warnings int(11) DEFAULT 0,
-    PRIMARY KEY (vip_id),
-    FOREIGN KEY (vip_id) REFERENCES customer(customer_id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-/* Display VIPs */
-INSERT INTO vip(vip_id) 
-SELECT customer_id FROM customer WHERE isVIP = 1;
-SELECT * FROM vip;
 
 /* Table Dishes */
 CREATE TABLE IF NOT EXISTS dish (
@@ -121,7 +108,7 @@ CREATE TABLE IF NOT EXISTS dish (
     description text NOT NULL,
 	img text NOT NULL,
     chef int(11) NOT NULL,
-    rating int(11) NOT NULL DEFAULT 0,
+    rating float NOT NULL DEFAULT 0.00,
     num_ratings int(11) NOT NULL DEFAULT 0,
     count int(11) NOT NULL DEFAULT 0,
     status tinyint(1) NOT NULL DEFAULT 1,
