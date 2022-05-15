@@ -42,6 +42,11 @@
     text-align: center;
 }
 
+.title-thin {
+    font-weight: 100;
+    font-size: 20px;
+}
+
 /* centers summary info within the container */
 .summary-info {
     display: flex;

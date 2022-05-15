@@ -425,10 +425,13 @@ def getCartInfo(cart, vipStatus):
     '''
     info = {}
     subtotal = 0
+    num_items = 0
     for row in cart:
         subtotal += row["quantity"]*row["price"]
+        num_items += row["quantity"]
 
     # Calculate the subtotal, tax, and total
+    info["num_items"] = num_items
     info["subtotal"] = subtotal
     info["tax"] = round(subtotal*0.08875, 2)
     if vipStatus == 1:
@@ -436,6 +439,7 @@ def getCartInfo(cart, vipStatus):
     else:
         info["discount"] = 0.00
     info["total"] = round(subtotal + info["tax"] - info["discount"], 2)
+    
     return info
 
 def getDishCount(db, dish_id):
