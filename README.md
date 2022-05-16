@@ -10,7 +10,7 @@ Develop an on-line restaurant order and delivery system so that the restaurant c
 ### User Objects
 
 1. Employees
-    - [ ] At least two chefs who independently decide the menus and make the dish
+    - [x] At least two chefs who independently decide the menus and make the dish
     - [X] At least two delivery people for food delivery
     - [X] One manager who process customer registrations, handles customer compliments and complaints, hire/fire/raise/cut pay for chef(s) and delivery people
 
