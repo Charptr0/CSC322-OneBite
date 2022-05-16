@@ -10,7 +10,7 @@ Develop an on-line restaurant order and delivery system so that the restaurant c
 ### User Objects
 
 1. Employees
-    - [ ] At least two chefs who independently decide the menus and make the dish
+    - [x] At least two chefs who independently decide the menus and make the dish
     - [X] At least two delivery people for food delivery
     - [X] One manager who process customer registrations, handles customer compliments and complaints, hire/fire/raise/cut pay for chef(s) and delivery people
 
@@ -36,8 +36,8 @@ dish and price
         - He/She can only complain/compliment the chef
     - [X] By restaurant delivery
 - [ ] A customer can file complaints/compliments to chef of the food s/he purchased and deliver person who delivered the dish or other customers who didn’t behave in the discussion forums.
-- [ ] Delivery person can complain/compliment customers s/he delivered dishes, all complaints/compliments are handled by the manager 
-- [ ] The complained person has the right to dispute the complaint, the manager made the final call to dismiss the
+- [x] Delivery person can complain/compliment customers s/he delivered dishes, all complaints/compliments are handled by the manager 
+- [x] The complained person has the right to dispute the complaint, the manager made the final call to dismiss the
 complaint or let the warning stay and inform the impacted parties 
 - [ ] Customers/delivery people whose complaints are decided to be without merit by the manager will receive one
 additional warning.
