@@ -5,8 +5,7 @@ from dish import Dish
 from order import Order
 
 app = Flask(__name__)
-
-
+ 
 mysql = None
 
 # store each user id that correspond with a user object
@@ -430,6 +429,14 @@ def orderPlacedPage():
     '''
     Route to order confirmation/order failure
     '''
+
+    if request.method == 'POST':
+        if "disputesubmit" in request.form:
+            retrieveDispute(mysql)
+        if "complaintsubmit" in request.form:
+            retrieveComplaint(mysql)
+        if "complimentsubmit" in request.form:
+            retrieveCompliment(mysql)
     userExist, user = isUserStillInSession()
 
     # User is not signed in
@@ -574,6 +581,8 @@ def dashboard():
             retrieveDispute(mysql)
         if "complaintsubmit" in request.form:
             retrieveComplaint(mysql)
+        if "complimentsubmit" in request.form:
+            retrieveCompliment(mysql)
         if "editsubmit" in request.form:
             print("test\n\n")
             edititem(mysql)
@@ -581,25 +590,31 @@ def dashboard():
             removeitem(mysql)
         if "addsubmit" in request.form:
             additem(mysql)
+        if "givewarning" in request.form:
+            addwarning(mysql)
             
     if user.userType == "manager":
         rows=loadDisputes(mysql)
-        # print(rows)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
         return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS)
+
     if user.userType == "delivery":
         rows=loadPastDeliveries(mysql)
-        print(rows)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows)
+        compliments=loadCompliments(mysql,user)
+        complaints=loadComplaints(mysql,user)
+        warnings=loadWarnings(mysql,user)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,compliments=compliments, complaints=complaints,warnings=warnings)
+        
     if user.userType == "chef":
         entree=loadEntrees(mysql)
         appetizers=loadAppt(mysql)
         desserts=loadDesserts(mysql)
         drinks=loadDrinks(mysql)
-        # print(entree)
-        # print(appetizers)
-        # print(desserts)
-        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks)
+        menu=loadMenu(mysql)
+        compliments=loadCompliments(mysql,user)
+        complaints=loadComplaints(mysql,user)
+        warnings=loadWarnings(mysql,user)
+        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks,menu=menu, compliments=compliments, complaints=complaints, warnings=warnings)
     return render_template("dashboard.html", user=user, userType=user.userType)
         
 # Run the app

@@ -148,15 +148,17 @@ SELECT * FROM dish;
 
 /* Table Dispute */
 CREATE TABLE IF NOT EXISTS dispute (
-	dispute_id int(11) NOT NULL AUTO_INCREMENT,
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
-    customer_id int(11) NOT NULL,
+	dispute_id int(11) NOT NULL AUTO_INCREMENT,
+    complainer_id int(11) NOT NULL,
+    disputer_id int(11) NOT NULL,
     dispute_date DATE NOT NULL,
     dispute_content text NOT NULL,
     primary key(dispute_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+INSERT INTO dispute VALUES ('chef1', '1', '5,', '4', '2020-10-30', 'trash');
 /* Display Dispute */
 SELECT * FROM dispute;
 
@@ -165,25 +167,33 @@ CREATE TABLE IF NOT EXISTS complaint (
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
     complaint_id int(11) NOT NULL AUTO_INCREMENT,
-    customer_id int(11) NOT NULL,
+    complainer_id int(11) NOT NULL,
+    receiver_id int(11) NOT NULL,
     complaint_date DATE NOT NULL,
     complaint_content text NOT NULL,
     primary key(complaint_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+INSERT INTO complaint VALUES ('apple', 'jeans', '1','5','4','2022-5-17','smelly deliverer');
 /* Display Complaint */
 SELECT * FROM complaint;
 
 /* Table Compliments */
-CREATE TABLE IF NOT EXISTS compliments (
+CREATE TABLE IF NOT EXISTS compliment (
 	first_name varchar(50) NOT NULL,
     last_name varchar(50) NOT NULL,
     compliment_id int(11) NOT NULL AUTO_INCREMENT,
-    customer_id int(11) NOT NULL,
+    complimenter_id int(11) NOT NULL,
+    receiver_id int(11) NOT NULL,
     compliment_date DATE NOT NULL,
     compliment_content text NOT NULL,
     primary key(compliment_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO compliment VALUES('apple', 'bottom', '1', '10', '4', '2022-1-10', 'test compliment for deliverer 4');
+INSERT INTO compliment VALUES('apple', 'bottom', '2', '10', '5', '2022-1-10', 'test compliment for deliverer 5');
+INSERT INTO compliment VALUES('apple', 'bottom', '3', '10', '2', '2022-1-10', 'test compliment for chef 1');
+INSERT INTO compliment VALUES('apple', 'bottom', '4', '10', '2', '2022-1-10', 'test compliment for chef 1');
 
 /* Display Compliments */
 SELECT * FROM compliment;
