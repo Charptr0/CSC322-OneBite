@@ -257,7 +257,7 @@ class Customer(User):
             cursor.execute('SELECT chef FROM dish WHERE dish_id = %s', (str(dish_id),))
             chef_id = cursor.fetchone()
             recipient_id = chef_id["chef"]
-            cursor.execute('INSERT INTO compliments(first_name, last_name, customer_id, recipient_id, compliment_date, compliment_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
+            cursor.execute('INSERT INTO compliments(first_name, last_name, complainer_id, receiver_id, compliment_date, compliment_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
 
         if "complaint-dish-submit" in request.form:
             comment = "complaint"
@@ -267,7 +267,7 @@ class Customer(User):
             cursor.execute('SELECT chef FROM dish WHERE dish_id = %s', (str(dish_id),))
             chef_id = cursor.fetchone()
             recipient_id = chef_id["chef"]
-            cursor.execute('INSERT INTO complaint(first_name, last_name, customer_id, recipient_id, complaint_date, complaint_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
+            cursor.execute('INSERT INTO complaint(first_name, last_name, complainer_id, receiver_id, complaint_date, complaint_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
 
         if "compliment-delivery-submit" in request.form:
             comment = "compliment"
@@ -277,7 +277,7 @@ class Customer(User):
             cursor.execute('SELECT delivery_id FROM orders WHERE order_id = %s', (str(order_id),))
             delivery_id = cursor.fetchone()
             recipient_id = delivery_id["delivery_id"]
-            cursor.execute('INSERT INTO compliments(first_name, last_name, customer_id, recipient_id, compliment_date, compliment_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
+            cursor.execute('INSERT INTO compliments(first_name, last_name, complainer_id, receiver_id, compliment_date, compliment_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
             
         if "complaint-delivery-submit" in request.form:
             comment = "complaint"
@@ -287,7 +287,7 @@ class Customer(User):
             cursor.execute('SELECT delivery_id FROM orders WHERE order_id = %s', (str(order_id),))
             delivery_id = cursor.fetchone()
             recipient_id = delivery_id["delivery_id"]
-            cursor.execute('INSERT INTO complaint(first_name, last_name, customer_id, recipient_id, complaint_date, complaint_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
+            cursor.execute('INSERT INTO complaint(first_name, last_name, complainer_id, receiver_id, complaint_date, complaint_content) VALUES (%s, %s, %s, %s, %s, %s)', (self.firstName, self.lastName, str(self.id), str(recipient_id), dt, content))
 
         print(comment, content)
 
