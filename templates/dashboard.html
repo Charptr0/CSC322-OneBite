@@ -1287,6 +1287,8 @@
                                             <td>{{ info["disputer_id"] }}</td>
                                             <td>
                                                 <form action="" method="POST">
+                                                    <input type="hidden" name="commentType" value="dispute">
+                                                    <input type="hidden" name="id" value="{{ info['disputer_id'] }}">
                                                     <input type="hidden" id="usertype" name="usertype" value="unknown">
                                                     <button name="givewarning" value = "{{ info['disputer_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                                 </form>
@@ -1297,6 +1299,7 @@
                                             <td>
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
                                                 <form action="" method ="POST">
+                                                    
                                                     <input type="hidden" name="commentType" value="dispute">
                                                     <input type="hidden" name="id" value="{{ info['dispute_id'] }}">
                                                     <button type="submit" id = "dismiss" name ="removecomment" class="actionButton"><i class='fa-solid fa-circle-xmark' ></i></button>
@@ -1335,14 +1338,12 @@
                                         <td>{{ forum["forumwarning_author"] }}</td>
                                         <td>{{ forum["forumwarning_accused"] }}</td>
                                         <td>{{ forum["forumwarning_content"] }}</td>
-                                        {% for customer in customers: %}
                                         <td>
                                             <form action="" method="POST">                                                      
                                                 <input type="hidden" id="usertype" name="usertype" value="customer">
                                                 <button name="giveforumwarning" value = "{{ forum['reported_id'] }}" id = "giveforumwarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                             </form>
                                         </td>
-                                        {% endfor %}
                                     </tr>
                                     {% endfor %}
                                     </table>
