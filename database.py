@@ -829,7 +829,7 @@ def retrieveForumWarnings(db):
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute("INSERT INTO forumwarnings (forumwarning_author, forumwarning_accused, user_id, reported_id, forumwarning_content, forumwarning_date) VALUES(%s, %s, %s, %s, %s, CURDATE())", (warningAuthor,warningAccused,6,6,warningdescription))
+    cursor.execute("INSERT INTO forumwarnings (forumwarning_author, forumwarning_accused, user_id, reported_id, forumwarning_content, forumwarning_date) VALUES(%s, %s, %s, %s, %s, CURDATE())", (warningAuthor,warningAccused,7,6,warningdescription))
     db.connection.commit()
     cursor.close()
 
