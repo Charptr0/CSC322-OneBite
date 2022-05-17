@@ -660,6 +660,8 @@ def dashboard():
             retrievePostComment(mysql)
         if "givewarning" in request.form:
             addwarning(mysql)
+        if "warningsubmit" in request.form:
+            retrieveForumWarnings(mysql)
             
     if user.userType == "manager":
         if request.method == 'POST':
@@ -668,10 +670,11 @@ def dashboard():
         rows=loadDisputes(mysql)
         posts=loadPost(mysql)
         postcomments=loadPostComments(mysql)
+        forumwarnings=loadForumWarnings(mysql)
         # print(rows)
         DELIVERYBIDS = Order.getBid(mysql)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, forumwarnings=forumwarnings)
 
     if user.userType == "delivery":
         if request.method == 'POST':
