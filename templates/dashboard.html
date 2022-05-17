@@ -1036,8 +1036,8 @@
                                                 <br>
                                                 {% for customer in customers: %}
                                                     <form action="" method="POST">
-                                                        <input type="hidden" id="usertype" name="usertype" value="unknown">
-                                                        <button name="givewarning" class="report-user" value = "{{ post['user_id'] }}" id = "givewarning">Report this user</button>
+                                                        <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                        <button name="giveforumwarning" class="report-user" value = "{{ post['user_id'] }}" id = "giveforumwarning">Report this user</button>
                                                     </form>
                                                 {% endfor %}
                                             </div>
@@ -1061,8 +1061,8 @@
                                                     <br>
                                                     {% for customer in customers: %}
                                                         <form action="" method="POST">
-                                                            <input type="hidden" id="usertype" name="usertype" value="unknown">
-                                                            <button name="givewarning" class="report-user" value = "{{ postcomment['user_id'] }}" id = "givewarning">Report this user</button>
+                                                            <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                            <button name="giveforumwarning" class="report-user" value = "{{ postcomment['user_id'] }}" id = "giveforumwarning">Report this user</button>
                                                         </form>
                                                     {% endfor %}
                                                 </div>
@@ -1077,6 +1077,9 @@
                                     <h1>Comment</h1>
 
                                     <form class="form-container" id="postform" method="post">
+                                        <label for="post_author" class="required">ID:</label>
+                                        <input type="text" name="userID" required="required" value="1">
+
                                         <label for="post_author" class="required">Name:</label>
                                         <input type="text" name="postcommentauthor" required="required" value="Manager">
 
@@ -1328,8 +1331,8 @@
                                         {% for customer in customers: %}
                                         <td>
                                             <form action="" method="POST">                                                      
-                                                <input type="hidden" id="usertype" name="usertype" value="unknown">
-                                                <button name="givewarning" value = "{{ forum['reported_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                <button name="giveforumwarning" value = "{{ forum['reported_id'] }}" id = "giveforumwarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                             </form>
                                         </td>
                                         {% endfor %}
