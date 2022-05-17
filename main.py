@@ -113,6 +113,20 @@ def loginPage():
             usersInSession[user.id] = user
             # if user is a customer
             if user.userType == 'customer':
+                # user becomes downgraded after receiving 2 warnings as a VIP member and has warnings reset
+                if user.isVIP == 1 and user.warnings >= 2:
+                    user.setisVIP(mysql, 0)
+                    user.setWarnings(mysql, 0)
+                    user.setFreeDeliveries(mysql, 0)
+                    user.setNumOrders(mysql, 0)
+
+                # user becomes Blacklisted after receiving 3 warnings
+                if user.isVIP == 0 and user.warnings >= 3:
+                    user.setisBlacklisted(mysql, 1)
+                    session.pop("user", None)
+                    session.pop("cart", None)
+                    flash("Your account has been blacklisted for receiving 3 or more warnings.", category = 'error')
+                    return redirect(url_for("loginPage"))
                 if user.address == None and user.wallet == 0:
                     flash("IMPORTANT: Set delivery address and add funds to your account in your profile page before making your first order.", category = "warning")
                 elif user.wallet == 0:
@@ -683,7 +697,7 @@ def dashboard():
         DELIVERYBIDS = Order.getBid(mysql, user)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
         PREVIOUSCUSTOMERS = retrievePrevious(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, forumwarnings=forumwarnings, previousCustomers = PREVIOUSCUSTOMERS)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, forumwarnings=forumwarnings, previousCustomers = PREVIOUSCUSTOMERS, compliments=compliments, complaints= complaints)
 
     if user.userType == "delivery":
         if request.method == 'POST':
