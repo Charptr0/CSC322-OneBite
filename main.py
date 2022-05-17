@@ -468,7 +468,10 @@ def orderPlacedPage():
         # user becomes Blacklisted after receiving 3 warnings
         if user.isVIP == 0 and user.warnings >= 3:
             user.setisBlacklisted(mysql, 1)
-            # addToBlacklist(mysql, user.id)
+            session.pop("user", None)
+            session.pop("cart", None)
+            flash("Your account has been blacklisted for receiving 3 or more warnings.", category = 'error')
+            return redirect(url_for("loginPage"))
 
         return render_template("order_placed.html", user=user, success=False, order_type=order_type, total=total, prevVIP = prev_isVIP)
 
