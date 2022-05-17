@@ -673,6 +673,8 @@ def dashboard():
                 clearDeposit(mysql)
             if "deleteaccount" in request.form:
                 deleteAccount(mysql)
+            if "givewarning" in request.form:
+                addwarning(mysql)
         rows=loadDisputes(mysql)
         posts=loadPost(mysql)
         postcomments=loadPostComments(mysql)
