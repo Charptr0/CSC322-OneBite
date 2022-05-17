@@ -891,7 +891,7 @@ display: none;
 }
 
     /* table buttons */
-#CustomerComments .manager-dashboard-section .actionButton {
+/* #CustomerComments .manager-dashboard-section .actionButton {
     background: transparent;
     border: none;
     padding: 15px;
@@ -912,9 +912,9 @@ display: none;
     background-color: #B22B27;
 }
 
-#CustomerComments .manager-dashboard-section .actionButton i {
+.actionButton i {
     background: transparent;
-}
+} */
         /* table buttons */
     /* end forum warnings table */
 /* end manager customer comments page */

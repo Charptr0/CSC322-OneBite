@@ -153,7 +153,6 @@ CREATE TABLE IF NOT EXISTS dispute (
     last_name varchar(50) NOT NULL,
 	dispute_id int(11) NOT NULL AUTO_INCREMENT,
     complainer_id int(11) NOT NULL,
-    complaint_content text NOT NULL,
     disputer_id int(11) NOT NULL,
     dispute_date DATE NOT NULL,
     dispute_content text NOT NULL,
