@@ -1085,6 +1085,7 @@
                 <button class="managertablinks" onclick="openTab1(event, 'Discussions')"><i class='fa-regular fa-comments'></i>Forum</button>
                 <button class="managertablinks" onclick="openTab1(event, 'CustomerComments')"><i class='fa-regular fa-message'></i>Customer Comments</button>
                 <button class="managertablinks" type = "button" onclick="location.href='{{ url_for('logout') }}';"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+                <button class="managertablinks" onclick="openTab1(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
             </div>
 
             <section class = "manager-home-section">
@@ -2452,6 +2453,52 @@
 
             <!-- end customer comments page -->
 
+            <!-- delivery bidding page -->
+            <div id = "DeliveryBidding" class = "managertabcontent">
+                <table class="table" id="assign-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Total</th>
+                        <th scope="col"># of Bids</th>
+                        <th scope="col">Current Bid</th>
+                        <th scope="col">Placed By</th>
+                        <th scope="col">Assign Bid</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in deliverybids %}
+                        <tr>
+                            <th scope="row">{{ customer["order_id"] }}</th>
+                            <td>{{ customer["fname"] }} {{ customer["lname"] }}</td>
+                            <td>{{ "$%.2f"|format(customer["total"]) }}</td>
+                            <td>{{ customer["num_bids"] }}</td>
+                            <td>{{ "$%.2f"|format(customer["current_bid"]) }}</td>
+                            <td>
+                                {% if customer["delivery_id"] == 0 %}
+                                    No Bid Placed
+                                {% else %}
+                                    Deliverer#{{ customer["delivery_id"] }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if customer["delivery_id"] == 0 %}
+                                    No Bid Placed
+                                {% else %}
+                                    <form action = "" method = "post">
+                                        <input type = "hidden" id = "order_id" name = "order_id" value = "{{ customer['order_id'] }}">
+                                        <input type = "hidden" id = "delivery_id" name = "delivery_id" value = "{{ customer['delivery_id'] }}">
+                                        <input type = "submit" id = "assign-submit" name = "assign-submit" value = "Assign">
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script>
@@ -3506,6 +3553,46 @@
                         </table>
                     </div>
                     </section>
+                </div>
+
+                <div id = "DeliveryBidding" class = "deliverytabcontent">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone #</th>
+                            <th scope="col">Total</th>
+                            <th scope="col"># of Bids</th>
+                            <th scope="col">Current Bid</th>
+                            <th scope="col">Place Your Bid</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for customer in deliverybids %}
+                            <tr>
+                                <th scope="row">{{ customer["order_id"] }}</th>
+                                <td>{{ customer["fname"] }} {{ customer["lname"] }}</td>
+                                <td>{{ customer["address"] }}</td>
+                                <td>{{ customer["phone"] }}</td>
+                                <td>{{ "$%.2f"|format(customer["total"]) }}</td>
+                                <td>{{ customer["num_bids"] }}</td>
+                                <td>{{ "$%.2f"|format(customer["current_bid"]) }}</td>
+                                <td>
+                                    <form action = "" method = "post">
+                                        <input type = "hidden" id = "order_bid" name = "order_bid" value = "{{ customer['order_id'] }}">
+                                        <input type = "hidden" id = "num_bid" name = "num_bid" value = "{{ customer['num_bids'] }}">
+                                        <input type = "hidden" id = "old_bid" name = "old_bid" value = "{{ customer['current_bid'] }}">
+                                        <input type = "hidden" id = "delivery_id" name = "delivery_id" value = "{{ user.id }}">
+                                        <input type = "number" step = "0.01" id = "bid" name = "bid" placeholder = "{{ '$%.2f'|format(customer['current_bid']+0.01) }}" autocomplete = "off" required min="0">
+                                        <input type = "submit" id = "bid-submit" name = "bid-submit">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
                 
                 <script src='bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' type='text/javascript'></script>

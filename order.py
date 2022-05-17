@@ -135,3 +135,39 @@ class Order():
         cursor.close()
         return deliveries
 
+    @staticmethod
+    def placeBid(db : MySQL):
+        '''
+        Place bid for order in database
+        '''
+        bidDetails = request.form
+        order_bid = bidDetails["order_bid"]
+        num_bid = int(bidDetails["num_bid"])+1
+        bid = float(bidDetails["bid"])
+        old_bid = float(bidDetails["old_bid"])
+        delivery_id = bidDetails["delivery_id"]
+
+        if bid < old_bid:
+            return False
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE deliveryBid SET num_bids = %s, current_bid = %s, delivery_id = %s WHERE order_id = %s', (str(num_bid), str(bid), str(delivery_id), str(order_bid),))
+        db.connection.commit()
+        cursor.close()
+
+        return True
+
+    @staticmethod
+    def assignBid(db : MySQL):
+        '''
+        Assign bid to delivery personnel
+        '''
+        bidDetails = request.form
+        delivery_id = bidDetails["delivery_id"]
+        order_id = bidDetails["order_id"]
+
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE orders SET delivery_id = %s, status = 0', (str(delivery_id),))
+        cursor.execute('DELETE FROM deliveryBid WHERE order_id = %s', (str(order_id)))
+        db.connection.commit()
+        cursor.close()

@@ -645,14 +645,25 @@ def dashboard():
             additem(mysql)
             
     if user.userType == "manager":
+        if request.method == 'POST':
+            if "assign-submit" in request.form:
+                Order.assignBid(mysql)
         rows=loadDisputes(mysql)
         # print(rows)
+        DELIVERYBIDS = Order.getBid(mysql)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, deliverybids = DELIVERYBIDS)
     if user.userType == "delivery":
+        if request.method == 'POST':
+            if "bid-submit" in request.form:
+                if Order.placeBid(mysql):
+                    flash('Bid placement successful.', category = "success")
+                else:
+                    flash('Bid placement failed. You must bid a higher delivery price.', category = "error")
         rows=loadPastDeliveries(mysql)
         print(rows)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows)
+        DELIVERYBIDS = Order.getBid(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows, deliverybids = DELIVERYBIDS)
     if user.userType == "chef":
         entree=loadEntrees(mysql)
         appetizers=loadAppt(mysql)

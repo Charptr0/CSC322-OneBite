@@ -14,15 +14,15 @@ CREATE TABLE IF NOT EXISTS accounts (
     email varchar(100) NOT NULL,
     phone varchar(10) NOT NULL,
     type varchar(20) DEFAULT 'customer',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Accounts */
-INSERT INTO accounts VALUES (1, 'manager', 'lmanager', 'admin', '123abcABC', 'admin@onebite.com', '1234567890', 'manager');
-INSERT INTO accounts VALUES (2, 'chef1', 'lchef1', 'chef1', '123abcABC', 'chef1@onebite.com', '1234567891', 'chef');
-INSERT INTO accounts VALUES (3, 'chef2', 'lchef2', 'chef2', '123abcABC', 'chef2@onebite.com', '1234567892', 'chef');
-INSERT INTO accounts VALUES (4, 'delivery1', 'ldelivery1', 'delivery1', '123abcABC', 'delivery1@onebite.com', '1234567893', 'delivery');
-INSERT INTO accounts VALUES (5, 'delivery2', 'ldelivery2', 'delivery2', '123abcABC', 'delivery2@onebite.com', '1234567894', 'delivery');
+INSERT INTO accounts VALUES (1, 'Dennis O.', 'Johnson', 'admin', '123abcABC', 'admin@onebite.com', '1234567890', 'manager');
+INSERT INTO accounts VALUES (2, 'Melinda F.', 'Thompson', 'chef1', '123abcABC', 'chef1@onebite.com', '1234567891', 'chef');
+INSERT INTO accounts VALUES (3, 'Thomas S.', 'Brooks', 'chef2', '123abcABC', 'chef2@onebite.com', '1234567892', 'chef');
+INSERT INTO accounts VALUES (4, 'Sandra', 'Pickett', 'delivery1', '123abcABC', 'delivery1@onebite.com', '1234567893', 'delivery');
+INSERT INTO accounts VALUES (5, 'Brock', 'Apple', 'delivery2', '123abcABC', 'delivery2@onebite.com', '1234567894', 'delivery');
 SELECT * FROM accounts;
 
 /* Table Employee */
@@ -166,6 +166,7 @@ CREATE TABLE IF NOT EXISTS complaint (
     last_name varchar(50) NOT NULL,
     complaint_id int(11) NOT NULL AUTO_INCREMENT,
     customer_id int(11) NOT NULL,
+    recipient_id int(11) NOT NULL,
     complaint_date DATE NOT NULL,
     complaint_content text NOT NULL,
     primary key(complaint_id)
@@ -180,13 +181,14 @@ CREATE TABLE IF NOT EXISTS compliments (
     last_name varchar(50) NOT NULL,
     compliment_id int(11) NOT NULL AUTO_INCREMENT,
     customer_id int(11) NOT NULL,
+    recipient_id int(11) NOT NULL,
     compliment_date DATE NOT NULL,
     compliment_content text NOT NULL,
     primary key(compliment_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Compliments */
-SELECT * FROM compliment;
+SELECT * FROM compliments;
 
 /* Table PastDeliveries */
 CREATE TABLE IF NOT EXISTS PastDeliveries (
@@ -230,8 +232,11 @@ CREATE TABLE IF NOT EXISTS orders (
     discount float NOT NULL,
     delivery_fee float NOT NULL DEFAULT 0.0,
     total float NOT NULL,
+    datetime varchar(50) NOT NULL,
     type varchar(50) NOT NULL,
-    status varchar(50) NOT NULL,
+    status tinyint(1) NOT NULL DEFAULT 0,
+    isFree tinyint(1) NOT NULL DEFAULT 0,
+    delivery_id int(11) NOT NULL DEFAULT 0,
     PRIMARY KEY (order_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -248,3 +253,15 @@ CREATE TABLE IF NOT EXISTS orderDetails (
 
 /* Display OrderDetails */
 SELECT * FROM orderDetails;
+
+/* Table DeliveryBid */
+CREATE TABLE IF NOT EXISTS deliveryBid (
+	order_id int(11) NOT NULL,
+    customer_id int(11) NOT NULL,
+    num_bids int(11) NOT NULL DEFAULT 0,
+    current_bid float NOT NULL DEFAULT 0.0,
+    delivery_id int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Display DeliveryBid */
+SELECT * FROM deliveryBid;
