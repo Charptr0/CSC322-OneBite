@@ -781,10 +781,11 @@ def retrievePost(db):
     postAuthor = userDetails['author']
     postTitle = userDetails['Title']
     postdescription = userDetails['post-comment']
+    userid = userDetails['userID']
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute('INSERT INTO post (post_author, post_title, post_content, post_date) VALUES(%s, %s, %s, CURDATE())', [postAuthor, postTitle, postdescription])
+    cursor.execute('INSERT INTO post (post_author, post_title, post_content, customer_id, post_date) VALUES(%s, %s, %s, %s, CURDATE())', (postAuthor, postTitle, postdescription, userid))
     db.connection.commit()
     cursor.close()
 
@@ -802,10 +803,11 @@ def retrievePostComment(db):
     userDetails = request.form
     postcommentauthor = userDetails['postcommentauthor']
     postcommentcontent = userDetails['comment-box']
+    userid = userDetails['userID']
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute("INSERT INTO postcomments (postcomment_author, postcomment_content, postcomment_date) VALUES(%s, %s, CURDATE())", (postcommentauthor, postcommentcontent))
+    cursor.execute("INSERT INTO postcomments (postcomment_author, postcomment_content, user_id, postcomment_date) VALUES(%s, %s, %s, CURDATE())", (postcommentauthor, postcommentcontent, userid))
     db.connection.commit()
     cursor.close()
 
@@ -819,24 +821,24 @@ def loadPostComments(db):
     cursor.close()
     return results
 
-def retrieveComment(db):
+def retrieveForumWarnings(db):
     userDetails = request.form
-    fname = userDetails['first-name']
-    lname = userDetails['last-name']
-    commentdescription = userDetails['customer-comment']
+    warningAuthor = userDetails['warningAuthor']
+    warningAccused = userDetails['warningAccused']
+    warningdescription = userDetails['warning-comment']
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute("INSERT INTO comments (first_name, last_name, customer_id, comment_content, comment_date) VALUES(%s, %s, %s, %s, CURDATE())", (fname,lname,6,commentdescription))
+    cursor.execute("INSERT INTO forumwarnings (forumwarning_author, forumwarning_accused, user_id, reported_id, forumwarning_content, forumwarning_date) VALUES(%s, %s, %s, %s, %s, CURDATE())", (warningAuthor,warningAccused,6,6,warningdescription))
     db.connection.commit()
     cursor.close()
 
     return True
 
-def loadComments(db):
+def loadForumWarnings(db):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM comments')
+    cursor.execute('SELECT * FROM forumwarnings')
     results = cursor.fetchall()
     cursor.close()
     return results

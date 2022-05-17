@@ -78,7 +78,6 @@
         </div>
         <a href = "{{ url_for('homePage') }}" style = "text-decoration: none;"><button class = "customertablinks" type = "button"><i class="fa-solid fa-home"></i>Return to OneBite</button></a>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerDashboard')"><i class='bx bx-grid-alt'></i>Discussions</button>
-        <button class="customertablinks" onclick="openTab2(event, 'Comments')"><i class='fa-regular fa-message'></i>Comments</button>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
         <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "customertablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
@@ -102,7 +101,7 @@
         <section class = "customer-dashboard-section">
             <!-- main forum content -->
             <div id="mainForumPage">
-                <div class="forum-title-wrapper">
+                <div class="forum-title">
                     <h2 class="maintitle">Discussion Forum</h2>
                 </div>
 
@@ -135,8 +134,11 @@
                     <h1>Create A New Post</h1>
 
                     <form class="form-container" id="postform" method="post">
+                        <label for="post_author" class="required">ID:</label>
+                        <input name="userID" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
+
                         <label for="post_author" class="required">Name:</label>
-                        <input type="text" name="author" required="required" placeholder="ex: Jane Doe">
+                        <input type="text" name="author" required="required" value ="{{ user['firstName'] }} {{ user['lastName'] }}" readonly>
 
                         <label for="Title" class="required">Post Title:</label>
                         <input type="title" name="Title" required="required" placeholder="ex: My Favorite Dish">
@@ -178,7 +180,22 @@
                                                 Posted on: {{ post["post_date"] }}
                                                 </div>
                                                 <br>
-                                                <button class="report-user" onclick="reportUser()">Report this user</button>
+                                                <button onclick="openReportForm()" class="report-user" id="report-user">Report this user</button>
+                                                    <div class="reportform-popup" id="reportForm">
+                                                        <form class="reportform-container" id="postform" method="post">
+                                                            <label for="post_author" class="required">Your Name:</label>
+                                                            <input type="text" name="warningAuthor" required="required" value="{{ user['firstName'] }} {{ user['lastName'] }}" readonly>
+
+                                                            <label for="post_author" class="required">You are reporting:</label>
+                                                            <input type="text" name="warningAccused" required="required" placeholder="ex: Jane Doe">
+                                                                    
+                                                            <label for="post" class="required">Reason:</label>
+                                                            <textarea name="warning-comment" required="required" placeholder="Type your reason here..."></textarea>
+
+                                                            <button type="submit" name="warningsubmit" class="btn">Submit</button>
+                                                            <button type="button" class="btn cancel" onclick="closeReportForm()">Close</button>
+                                                        </form>
+                                                    </div>
                                             </div>
                                         </div>
                                 </div>
@@ -198,7 +215,22 @@
                                                     Posted on: {{ postcomment["postcomment_date"] }}
                                                     </div>
                                                     <br>
-                                                    <button class="report-user" onclick="reportUser()">Report this user</button>
+                                                    <button onclick="openReportForm1()" class="report-user" id="report-user">Report this user</button>
+                                                    <div class="reportform-popup" id="reportForm1">
+                                                        <form class="reportform-container" id="postform" method="post">
+                                                            <label for="post_author" class="required">Your Name:</label>
+                                                            <input type="text" name="warningAuthor" required="required" value="{{ user['firstName'] }} {{ user['lastName'] }}" readonly>
+
+                                                            <label for="post_author" class="required">You are reporting:</label>
+                                                            <input type="text" name="warningAccused" required="required" placeholder="ex: Jane Doe">
+                                                                    
+                                                            <label for="post" class="required">Reason:</label>
+                                                            <textarea name="warning-comment" required="required" placeholder="Type your reason here..."></textarea>
+
+                                                            <button type="submit" name="warningsubmit" class="btn">Submit</button>
+                                                            <button type="button" class="btn cancel" onclick="closeReportForm1()">Close</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,8 +243,11 @@
                                     <h1>Comment</h1>
 
                                     <form class="form-container" id="postform" method="post">
+                                        <label for="post_author" class="required">ID:</label>
+                                        <input name="userID" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
+
                                         <label for="post_author" class="required">Name:</label>
-                                        <input type="text" name="postcommentauthor" required="required" placeholder="ex: Jane Doe">
+                                        <input type="text" name="postcommentauthor" required="required" value ="{{ user['firstName'] }} {{ user['lastName'] }}" readonly>
 
                                         <label for="post" class="required">Comment:</label>
                                         <textarea name="comment-box" required="required" placeholder="comment here ..."></textarea>
@@ -231,51 +266,6 @@
         </section>
     </div>
     <!-- end main forum page -->
-
-    <!-- comments page -->
-    <div id = "Comments" class = "customertabcontent">
-        <section class="customer-dashboard-section" id="user-comments">
-            <div id="comments-form">
-                <h3>Leave a Message</h3>
-
-                <form class="user-comments" id="commentform" method="post">
-                    <label for="comment_author" class="required">First Name:</label>
-                    <input type="text" name="first-name" id="comment_author" value="" tabindex="1" required="required">
-                    <label for="comment_author" class="required">Last Name:</label>
-                    <input type="text" name="last-name" id="comment_author" value="" tabindex="1" required="required">
-
-                    <label for="Type" class="required">Type:</label>
-                    <select type="Type" name="Type" id="Type" value="" tabindex="2" required="required">
-                        <option value="compliment">Compliment</option>
-                        <option value="complaint">Complaint</option>
-                    </select>
-
-                    <label for="Subject" class="required">Subject:</label>
-                    <select type="Subject" name="Subject" id="Subject" value="" tabindex="3" required="required">
-                        <optgroup label="Chefs">
-                            <option value="chef1">Chef 1</option>
-                            <option value="chef2">Chef 2</option>
-                        </optgroup>
-                        <optgroup label="Deliverer">
-                            <option value="deliverer1">Deliverer 1</option>
-                            <option value="deliverer2">Deliverer 2</option>
-                        </optgroup>
-                    </select>
-
-                    <label for="comment" class="required">Comment:</label>
-                    <textarea name="customer-comment" id="comment" rows="10" tabindex="4"  required="required" placeholder="Type your comment here..."></textarea>
-
-                    <button name="commentsubmit" type="submit">Submit</button>
-                </form>
-            </div>
-            <div id="thankyou">
-                <h3>Thanks for filling out the form!</h3>
-                <p>You will receive a response in approximately 2-3 business days.</p>
-                <button id="nextStep">Close</button>
-            </div>
-        </section>
-    </div>
-    <!-- end comments page -->
 
     <div id = "CustomerCompliments" class = "customertabcontent">
         <table class="table table-bordered">
@@ -410,18 +400,21 @@
             }
         }
 
-        function reportUser() {
-            if (confirm("Are you sure you want to report this user?")) {
-                // warning sent to manager
-            }
         
-        }
+
+
         // open popup form
         function openPost() {
             document.getElementById("myPost").style.display = "block";
         }
         function openComment() {
             document.getElementById("myComment").style.display = "block";
+        }
+        function openReportForm() {
+            document.getElementById("reportForm").style.display = "block";
+        }
+        function openReportForm1() {
+            document.getElementById("reportForm1").style.display = "block";
         }
 
         // close popup form
@@ -430,6 +423,12 @@
         }
         function closeComment() {
             document.getElementById("myComment").style.display = "none";
+        }
+        function closeReportForm() {
+            document.getElementById("reportForm").style.display = "none";
+        }
+        function closeReportForm1() {
+            document.getElementById("reportForm1").style.display = "none";
         }
 
         // sidenav function           
@@ -483,7 +482,7 @@
                 <button class="managertablinks" onclick="openTab1(event, 'CustomerAccounts')"><i class='fa-regular fa-user'></i>Customer Accounts</button>
                 <button class="managertablinks" onclick="openTab1(event, 'EmployeeAccounts')"><i class='fa-regular fa-id-badge'></i>Employee Accounts</button>
                 <button class="managertablinks" onclick="openTab1(event, 'Discussions')"><i class='fa-regular fa-comments'></i>Discussions</button>
-                <button class="managertablinks" onclick="openTab1(event, 'CustomerComments')"><i class='fa-regular fa-message'></i>Customer Comments</button>
+                <button class="managertablinks" onclick="openTab1(event, 'CustomerComments')"><i class='fa-regular fa-message'></i>Comments</button>
                 <button class="managertablinks" onclick="openTab1(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
                 <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "managertablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
             </div>
@@ -631,7 +630,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Orders</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">5</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -642,7 +641,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Customers</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">1</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -653,7 +652,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Profit</div>
-                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-number">$100</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -968,6 +967,9 @@
                     <h1>Create A New Post</h1>
 
                     <form class="form-container" id="postform" method="post">
+                        <label for="post_author" class="required">ID:</label>
+                        <input type="text" name="userID" required="required" value="1">
+
                         <label for="post_author" class="required">Name:</label>
                         <input type="text" name="author" required="required" value="Manager">
 
@@ -1011,7 +1013,12 @@
                                                 Posted on: {{ post["post_date"] }}
                                                 </div>
                                                 <br>
-                                                <button class="report-user" onclick="reportUser()">Report this user</button>
+                                                {% for customer in customers: %}
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                        <button name="givewarning" class="report-user" value = "{{ post['user_id'] }}" id = "givewarning">Report this user</button>
+                                                    </form>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                 </div>
@@ -1031,7 +1038,12 @@
                                                     Posted on: {{ postcomment["postcomment_date"] }}
                                                     </div>
                                                     <br>
-                                                    <button class="report-user" onclick="reportUser()">Report this user</button>
+                                                    {% for customer in customers: %}
+                                                        <form action="" method="POST">
+                                                            <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                            <button name="givewarning" class="report-user" value = "{{ postcomment['user_id'] }}" id = "givewarning">Report this user</button>
+                                                        </form>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
@@ -1078,7 +1090,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Orders</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">5</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -1089,7 +1101,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Customers</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">1</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -1100,7 +1112,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Profit</div>
-                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-number">$100</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -1259,6 +1271,45 @@
                                         </tr>
                                         {% endfor %}
                                    
+                                    </table>
+
+                                </div>
+                                <a href="#" id="disputed-comments-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Discussion Warnings</h3></div>
+                                <div class="manager-order-details">
+                                    <table id="discussion-warnings-table" class="discussion-warnings-table">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Warning ID</th>
+                                            <th>Reporter</th>
+                                            <th>Reported</th>
+                                            <th>Reason</th>
+                                            <th>Give Warning</th>
+                                        </tr>
+                                    </tr>
+                                    {% for forum in forumwarnings: %}
+                                        <td>{{ forum["forumwarning_date"].strftime('%m-%d-%Y') }}</td>
+                                        <td>{{ forum["forumwarning_id"] }}</td>
+                                        <td>{{ forum["forumwarning_author"] }}</td>
+                                        <td>{{ forum["forumwarning_accused"] }}</td>
+                                        <td>{{ forum["forumwarning_content"] }}</td>
+                                        <td>
+                                        {% for customer in customers: %}
+                                            <form action="" method="POST">                                                      
+                                                <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                <button name="givewarning" value = "{{ forum['reported_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                            </form>
+                                        {% endfor %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
                                     </table>
 
                                 </div>
