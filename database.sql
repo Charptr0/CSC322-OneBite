@@ -248,3 +248,54 @@ CREATE TABLE IF NOT EXISTS orderDetails (
 
 /* Display OrderDetails */
 SELECT * FROM orderDetails;
+
+/* Table Posts */
+CREATE TABLE IF NOT EXISTS post (
+post_id int(11) NOT NULL AUTO_INCREMENT,
+post_author varchar(255) NOT NULL,
+post_content TEXT NOT NULL,
+post_date DATE NOT NULL,
+post_title varchar(50) NOT NULL,
+PRIMARY KEY (post_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO post VALUES (1, "Manager", "Please be respectful to all users. Enjoy!", "2020-05-15","Welcome to OneBite!");
+INSERT INTO post VALUES (2, "Manager", "Tell us how you feel about our Appetizers!", "2020-05-16","Your Fav Appetizers?");
+INSERT INTO post VALUES (3, "Manager", "Tell us how you feel about our Entrees!", "2020-05-16","Your Fav Entrees?");
+INSERT INTO post VALUES (4, "Manager", "Tell us how you feel about our Drinks!", "2020-05-16","Your Fav Drinks?");
+
+/* Display Posts */
+INSERT INTO post(post_author) 
+SELECT username FROM accounts WHERE type = 'manager' or type = 'customer';
+SELECT * FROM post;
+
+/* Table Comments */
+CREATE TABLE IF NOT EXISTS comments (
+	comment_id int(11) NOT NULL AUTO_INCREMENT,
+	first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    customer_id int(11) NOT NULL,
+    comment_date DATE NOT NULL,
+    comment_content text NOT NULL,
+    primary key(comment_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Display Comments */
+SELECT * FROM comments;
+
+/* Table Post Comments */
+CREATE TABLE IF NOT EXISTS postcomments (
+postcomment_id int(11) NOT NULL AUTO_INCREMENT,
+postcomment_author varchar(255) NOT NULL,
+postcomment_content TEXT NOT NULL,
+postcomment_date DATE NOT NULL,
+PRIMARY KEY (postcomment_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO postcomments VALUES (1, "User1", "first", "2020-05-16");
+INSERT INTO postcomments VALUES (2, "User2", "second", "2020-05-16");
+
+/* Display Post Comments */
+INSERT INTO postcomments(postcomment_author) 
+SELECT username FROM accounts;
+SELECT * FROM postcomments;

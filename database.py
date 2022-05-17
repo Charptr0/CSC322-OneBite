@@ -622,7 +622,78 @@ def retrieveUsers(db):
     cursor.execute('SELECT * FROM customer INNER JOIN accounts WHERE customer_id = id')
     customer = cursor.fetchall()
 
-    # cursor.execute('SELECT * FROM customer WHERE isVIP = 1')
-    # vip = cursor.fetchall()
-
     return chef, delivery, customer
+
+def retrievePost(db):
+    userDetails = request.form
+    postAuthor = userDetails['author']
+    postTitle = userDetails['Title']
+    postdescription = userDetails['post-comment']
+
+    cursor = db.connection.cursor()
+    #insert data into dispute table in database
+    cursor.execute('INSERT INTO post (post_author, post_title, post_content, post_date) VALUES(%s, %s, %s, CURDATE())', [postAuthor, postTitle, postdescription])
+    db.connection.commit()
+    cursor.close()
+
+    return True
+
+def loadPost(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM post')
+    
+    results = cursor.fetchall()
+    cursor.close()
+    return results
+
+def retrievePostComment(db):
+    userDetails = request.form
+    postcommentauthor = userDetails['postcommentauthor']
+    postcommentcontent = userDetails['comment-box']
+
+    cursor = db.connection.cursor()
+    #insert data into dispute table in database
+    cursor.execute("INSERT INTO postcomments (postcomment_author, postcomment_content, postcomment_date) VALUES(%s, %s, CURDATE())", (postcommentauthor, postcommentcontent))
+    db.connection.commit()
+    cursor.close()
+
+    return True
+
+def loadPostComments(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM postcomments')
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
+
+def retrieveComment(db):
+    userDetails = request.form
+    fname = userDetails['first-name']
+    lname = userDetails['last-name']
+    commentdescription = userDetails['customer-comment']
+
+    cursor = db.connection.cursor()
+    #insert data into dispute table in database
+    cursor.execute("INSERT INTO comments (first_name, last_name, customer_id, comment_content, comment_date) VALUES(%s, %s, %s, %s, CURDATE())", (fname,lname,6,commentdescription))
+    db.connection.commit()
+    cursor.close()
+
+    return True
+
+def loadComments(db):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM comments')
+    # for row in cursor.fetchall():
+    #     print('row = %r' % (row,))
+    # cursor.execute('SELECT COUNT(*) dispute')
+    # print(cursor.execute('SELECT COUNT(*) dispute'))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
