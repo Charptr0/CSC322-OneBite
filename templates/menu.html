@@ -31,6 +31,7 @@
                                 <span class="fa fa-star"></span>
                             {% endif %}
                         {% endfor %}
+                        ({{special.num_ratings}})
                     </div>
                     <div class="itemDes">
                         <form method="post" action="/add-dish-to-cart/{{ special.id }}">
@@ -58,6 +59,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{appetizer.num_ratings}})
                 </div>
                 <div class="itemDes">
                     <form method="post" action="/add-dish-to-cart/{{ appetizer.id }}">
@@ -85,6 +87,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{entree.num_ratings}})
                 </div>
                 <div class="itemDes">
                     <form method="post" action="/add-dish-to-cart/{{ entree.id }}">
@@ -112,6 +115,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{desert.num_ratings}})
                 </div>
                 <div class="itemDes">
                     <form method="post" action="/add-dish-to-cart/{{ desert.id }}">
@@ -139,6 +143,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{drink.num_ratings}})
                 </div>
                 <div class="itemDes">
                     <form method="post" action="/add-dish-to-cart/{{ drink.id }}">
@@ -168,6 +173,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{appetizer.num_ratings}})
                 </div>
             </div>
         {% endfor %}
@@ -190,6 +196,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{entree.num_ratings}})
                 </div>
             </div>
         {% endfor %}
@@ -212,6 +219,7 @@
                             <span class="fa fa-star"></span>
                         {% endif %}
                     {% endfor %}
+                    ({{desert.num_ratings}})
                 </div>
             </div>
         {% endfor %}
@@ -235,6 +243,7 @@
                                 <span class="fa fa-star"></span>
                             {% endif %}
                         {% endfor %}
+                        ({{drink.num_ratings}})
                     </div>
                 </div>
             </div>
