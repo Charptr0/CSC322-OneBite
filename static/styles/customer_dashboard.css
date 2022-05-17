@@ -11,6 +11,10 @@ navbar, nav * {
     color: #ACACAC;
 }
 
+#user-nav, #footer, #credits, footer {
+    display: none;
+}
+
 .logo{ /* Resize Logo */
     width: 240px;
     height: auto;
@@ -40,7 +44,6 @@ navbar, nav * {
     font-size: 18px;
     font-weight: 400;
     white-space: nowrap;
-    font-family: 'Times New Roman', Times, serif;
     margin: 0;
 }
 
@@ -50,7 +53,6 @@ navbar, nav * {
 }
 
 .customersidebar .customertablinks i{
-    /* background: red; */
     min-width: 50px;
     text-align: center;
     color: #fff;
@@ -101,7 +103,7 @@ navbar, nav * {
 .customer-home-section .customer-nav .customer-sidebar-button i{
     font-size: 35px;
     margin-right: 10px;
-    color: #969696;
+    color: #646464;
 }
 
 .customer-home-section .customer-nav .customer-welcome{
@@ -109,7 +111,7 @@ navbar, nav * {
     width: 550px;
     margin: 0 20px;
     position: relative;
-    color: #969696;
+    color: #646464;
     display: flex;
     align-items: center;
     font-size: 24px;
@@ -117,7 +119,7 @@ navbar, nav * {
 }
 
 .customer-home-section .customer-nav .customer-dashboard{
-    color: #969696;
+    color: #646464;
 } 
 /* end customer home section navigation bar css */
 

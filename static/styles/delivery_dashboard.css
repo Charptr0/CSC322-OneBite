@@ -38,7 +38,6 @@ navbar, nav * {
     font-size: 18px;
     font-weight: 400;
     white-space: nowrap;
-    font-family: 'Times New Roman', Times, serif;
     margin: 0;
 }
 
@@ -96,7 +95,7 @@ navbar, nav * {
 .delivery-home-section .delivery-nav .delivery-sidebar-button i{
     font-size: 35px;
     margin-right: 10px;
-    color: #969696;
+    color: #646464;
 }
 
 .delivery-home-section .delivery-nav .delivery-welcome{
@@ -104,7 +103,7 @@ navbar, nav * {
     width: 550px;
     margin: 0 20px;
     position: relative;
-    color: #ff0000;
+    color: #646464;
     /* display: block;
     align-items: center; */
     font-size: 30px !important;
@@ -112,7 +111,7 @@ navbar, nav * {
 }
 
 .delivery-home-section .delivery-nav .delivery-dashboard{
-    color: #969696;
+    color: #646464;
 } 
 
 
@@ -183,15 +182,8 @@ navbar, nav * {
     display: flex;
     flex-direction: row;
     border-radius:5px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-    margin-top: 50px;
+    margin-left: 235px;
     border-radius: .375rem;
-    width: calc(100% - 240px);
-}
-
-.alert:hover{
-    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-    transform: translateY(-0.25em);
 }
 
 .warning-alert .text{
@@ -423,3 +415,15 @@ navbar, nav * {
     cursor: pointer;
 }
 
+#bid {
+    width: 70px;
+    border-radius: 3px;
+}
+
+#bid-submit {
+    border-radius: 3px;
+    background-color: rgb(70, 110, 255);
+    border-width: 1px;
+    border-color: rgb(140, 165, 255);
+    color: white;
+}
