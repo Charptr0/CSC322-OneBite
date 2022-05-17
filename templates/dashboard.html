@@ -676,7 +676,6 @@
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Username</th>
-                                            <th>Password</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Card Number</th>
@@ -689,7 +688,6 @@
                                                 <td><li>{{ customer["fname"] }}</li></td>
                                                 <td><li>{{ customer["lname"] }}</li></td>
                                                 <td><li>{{ customer["username"] }}</li></td>
-                                                <td><li>{{ customer["password"] }}</li></td>
                                                 <td><li>{{ customer["email"] }}</li></td>
                                                 <td><li>{{ customer["phone"] }}</li></td>
                                                 <td><li>{{ customer["cardnumber"] }}</li></td>
@@ -731,23 +729,41 @@
                                             <th>Balance</th>
                                             <th>Warnings</th>
                                             <th>Type</th>
-                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
+                                        {% for customer in previousCustomers %}
                                         <tr>
-                                           <td><li>11111</li></td>
-                                           <td><li>Doe</li></td>
-                                           <td><li>alexDoe@gmail.com</li></td>
-                                           <td><li>alexDoe123</li></td>
-                                           <td><li>$5.90</li></td>
-                                           <td><li>3</li></td>
-                                           <td><li>Blacklisted</li></td>
-                                           <td><li>Resolved</li></td>
-                                           <td>
-                                                <button id = "cleardeposit" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-                                                <button id = "deleteaccount" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                            <td><li>{{ customer["customer_id"] }}</li></td>
+                                            <td><li>{{ customer["lname"] }}</li></td>
+                                            <td><li>{{ customer["email"] }}</li></td>
+                                            <td><li>{{ customer["username"] }}</li></td>
+                                            <td><li>{{ "$%.2f"|format(customer["wallet"]) }}</li></td>
+                                            <td><li>{{ customer["warnings"] }}</li></td>
+                                            <td><li>
+                                                {% if customer["isBlacklisted"] == 1 %}
+                                                    Blacklisted
+                                                {% elif customer["isClosed"] == 1 %}
+                                                    Closed
+                                                {% endif %}
+                                            </li></td>
+                                            <td>
+                                                <form action = "" method = "post" id = "cleardeposit">
+                                                    <input type = "hidden" id = "customer_id" name = "customer_id" value = "{{ customer['customer_id'] }}">
+                                                    <input type = "hidden" if = "lost_type" name = "lost_type" value = "closed">
+                                                    <button id = "cleardeposit" name = "cleardeposit" value = "{{ customer['customer_id'] }}" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                                                </form>
+                                                <form action = "" method = "post" id = "deleteaccount">
+                                                    <input type = "hidden" id = "customer_id" name = "customer_id" value = "{{ customer['customer_id'] }}">
+                                                    {% if customer["isBlacklisted"] == 1 %}
+                                                        <input type = "hidden" if = "lost_type" name = "lost_type" value = "blacklisted">
+                                                    {% elif customer["isClosed"] == 1 %}
+                                                        <input type = "hidden" if = "lost_type" name = "lost_type" value = "closed">
+                                                    {% endif %}
+                                                    <button id = "deleteaccount" name = "deleteaccount" value = "{{ customer['customer_id'] }}" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
                                 <a href="#" id="lost-customers-load" class="see-all-button">See All</a>

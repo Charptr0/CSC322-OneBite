@@ -669,6 +669,10 @@ def dashboard():
         if request.method == 'POST':
             if "assign-submit" in request.form:
                 Order.assignBid(mysql)
+            if "cleardeposit" in request.form:
+                clearDeposit(mysql)
+            if "deleteaccount" in request.form:
+                deleteAccount(mysql)
         rows=loadDisputes(mysql)
         posts=loadPost(mysql)
         postcomments=loadPostComments(mysql)
@@ -678,7 +682,8 @@ def dashboard():
         # print(rows)
         DELIVERYBIDS = Order.getBid(mysql, user)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, forumwarnings=forumwarnings)
+        PREVIOUSCUSTOMERS = retrievePrevious(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, forumwarnings=forumwarnings, previousCustomers = PREVIOUSCUSTOMERS)
 
     if user.userType == "delivery":
         if request.method == 'POST':
