@@ -771,6 +771,8 @@ def addwarning(db):
     if commentType == "dispute":
         cursor.execute('DELETE FROM dispute WHERE dispute_id = %s', commentID)
         db.connection.commit()
+    if commentType == "":
+        print("donothing")
     cursor.close()
     return True
 
@@ -783,7 +785,7 @@ def retrievePost(db):
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute('INSERT INTO post (post_author, post_title, post_content, customer_id, post_date) VALUES(%s, %s, %s, %s, CURDATE())', (postAuthor, postTitle, postdescription, userid))
+    cursor.execute('INSERT INTO post (post_author, post_title, post_content, user_id, post_date) VALUES(%s, %s, %s, %s, CURDATE())', (postAuthor, postTitle, postdescription, userid))
     db.connection.commit()
     cursor.close()
 

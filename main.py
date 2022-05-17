@@ -652,8 +652,6 @@ def dashboard():
             removeitem(mysql)
         if "addsubmit" in request.form:
             additem(mysql)
-        if "commentsubmit" in request.form:
-            retrieveComment(mysql)
         if "postsubmit" in request.form:
             retrievePost(mysql)
         if "postcommentsubmit" in request.form:
@@ -673,6 +671,8 @@ def dashboard():
                 clearDeposit(mysql)
             if "deleteaccount" in request.form:
                 deleteAccount(mysql)
+            if "givewarning" in request.form:
+                addwarning(mysql)
         rows=loadDisputes(mysql)
         posts=loadPost(mysql)
         postcomments=loadPostComments(mysql)
