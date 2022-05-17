@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, Markup
 from re import A
+from datetime import datetime
 from database import *
 from dish import Dish
 from order import Order
@@ -492,9 +493,11 @@ def orderPlacedPage():
         if user.isVIP == 1 and user.num_orders%3 == 0:
             user.setFreeDeliveries(mysql, user.free_deliveries+1)
 
+        isFree = 0
         # if user is VIP and has free deliveries, fee = 0 and decrease number of free deliveries remaining
         if user.isVIP == 1 and order_type == 'delivery' and user.free_deliveries > 0:
             user.setFreeDeliveries(mysql, user.free_deliveries-1)
+            isFree = 1
 
         # user becomes VIP after 5 orders Or after spending $100 
         if user.isVIP == 0 and (user.num_orders > 5 or user.total_spent > 100) and user.warnings == 0:
@@ -502,7 +505,10 @@ def orderPlacedPage():
             user.setNumOrders(mysql, 0)
 
         # insert order details into database
-        orders = Order.insertIntoOrders(mysql, user, cart, cartInfo, order_type)
+        now = datetime.now()
+        # mm/dd/YY H:M:S
+        dt = now.strftime("%m/%d/%Y %H:%M:%S")
+        orders = Order.insertIntoOrders(mysql, user, cartInfo, order_type, dt, isFree)
         Order.insertIntoDetails(mysql, user, orders, cart)
 
         # clear the cart
@@ -544,7 +550,7 @@ def profilePage():
                 return redirect('/logout/')
     return render_template("profile_page.html", user=user)
 
-@app.route("/orders/")
+@app.route("/orders/", methods = ['GET', 'POST'])
 def orders():
     '''
     Route to the orders page
@@ -555,10 +561,63 @@ def orders():
     elif userExist and user.userType != 'customer':
         return redirect(url_for("homePage"))
 
-    RECENTORDER, RECENTDETAILS = Order.getMostRecentOrder(mysql, user.id)
+    RECENTORDERS, RECENTDETAILS = Order.getMostRecentOrder(mysql, user.id)
     PASTORDERS, PASTDETAILS = Order.getPastOrders(mysql, user.id)
 
-    return render_template("orders.html", user=user, recentOrder = RECENTORDER, recentDetails = RECENTDETAILS, pastOrders = PASTORDERS, pastDetails = PASTDETAILS)
+    if request.method == 'POST':
+        if "compliment-dish" in request.form:
+            # fetch form data
+            userDetails = request.form
+            order_id = userDetails['order_id']
+            dish_id = userDetails['dish_id']
+            dish_name = userDetails['dish_name']
+            return redirect(url_for("commentForm", comment_type = "compliment-chef", order_id = order_id, dish_id = dish_id, dish_name = dish_name))
+        if "complaint-dish" in request.form:
+            # fetch form data
+            userDetails = request.form
+            order_id = userDetails['order_id']
+            dish_id = userDetails['dish_id']
+            dish_name = userDetails['dish_name']
+            return redirect(url_for("commentForm", comment_type = "complaint-chef", order_id = order_id, dish_id = dish_id, dish_name = dish_name))
+        if "compliment-delivery" in request.form:
+            # fetch form data
+            userDetails = request.form
+            order_id = userDetails['order_id']
+            return redirect(url_for("commentForm", comment_type = "compliment-delivery", order_id = order_id))
+        if "complaint-delivery" in request.form:
+            # fetch form data
+            userDetails = request.form
+            order_id = userDetails['order_id']
+            return redirect(url_for("commentForm", comment_type = "complaint-delivery", order_id = order_id))
+
+    return render_template("orders.html", user=user, recentOrders = RECENTORDERS, recentDetails = RECENTDETAILS, pastOrders = PASTORDERS, pastDetails = PASTDETAILS)
+
+@app.route("/comment-form/", methods = ['GET', 'POST'])
+def commentForm():
+    '''
+    Route to compliment/complaint form
+    '''
+    userExist, user = isUserStillInSession()
+    if not userExist:
+        return redirect(url_for("loginPage"))
+    elif userExist and user.userType != 'customer':
+        return redirect(url_for("homePage"))
+
+    if request.method == 'POST':
+        now = datetime.now()
+        dt = now.strftime("%Y-%m-%d")
+        user.makeComment(mysql, dt)
+        flash('Successfully submitted.', category = 'success')
+        return redirect(url_for('orders'))
+
+    comment_type = request.args.get("comment_type")
+    order_id = request.args.get("order_id")
+    if comment_type == "compliment-chef" or comment_type == "complaint-chef":
+        dish_id = request.args.get("dish_id")
+        dish_name = request.args.get("dish_name")
+        return render_template("comment_form.html", user=user, comment_type = comment_type, order_id = order_id, dish_id = dish_id, dish_name = dish_name)
+    else:
+        return render_template("comment_form.html", user=user, comment_type = comment_type, order_id = order_id)
 
 @app.route("/dashboard/",  methods = ['GET', 'POST'])
 def dashboard():
