@@ -59,7 +59,7 @@
 
         <div class = "split-bottom">
             <div class = "summary-container" id = "cart-summary">
-                <h1 class = "summary-title" style = "margin-bottom: 3px;">Cart Summary</h1>
+                <h1 class = "summary-title" style = "margin-bottom: 3px;">Cart Summary <span class = "title-thin">({{ cartInfo['num_items'] }} items)</span></h1>
                 <table id = "summary-cart">
                     <tr class = "cart-header">
                         <th>Product Name</th>
@@ -82,7 +82,7 @@
 
     <div id = "split-right">
         <div class = "summary-container" id = "order-summary" style = "margin-bottom: 0px;">
-            <h1 class = "summary-title">Order Summary</h1>
+            <h1 class = "summary-title">Order Summary <span class = "title-thin">({{ cartInfo['num_items'] }} items)</span></h1>
             <hr>
             <div class = "summary-info" id = "subtotal">
                 <p class = "align-left">Subtotal:</p>

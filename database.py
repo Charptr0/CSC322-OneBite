@@ -126,8 +126,13 @@ def getUserInDatabaseByLogin(db):
         if account["type"] == 'customer':
             cursor.execute('SELECT * FROM customer WHERE customer_id = %s', (str(account["id"]),))
             customer = cursor.fetchone()
-            flash('Logged in successfully!', category = 'success')
-            return convertUser(account, customer)
+            if customer["isClosed"] == 1:
+                flash('Account was recently closed.', category = 'error')
+            elif customer["isBlacklisted"] == 1:
+                flash('Account is blacklisted.', category = 'error')
+            else:
+                flash('Logged in successfully!', category = 'success')
+                return convertUser(account, customer)
         if account["type"] == 'manager':
             cursor.execute('SELECT * FROM employee WHERE employee_id = %s', (str(account["id"]),))
             manager = cursor.fetchone()
@@ -196,13 +201,21 @@ def verifyNewUser(db):
     card = userDetails['cardnum']
 
     # checks requirements for registration
-    cursor = db.connection.cursor()
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
     account = cursor.fetchone()
+
     if account:
-        # username must be unique
-        flash('Username already exists.', category = 'error')
-        return False
+        if account["type"] == 'customer':
+            cursor.execute('SELECT * FROM customer WHERE customer_id = %s', (str(account["id"]),))
+            customer = cursor.fetchone()
+            # customer is blacklisted
+            if customer["isBlacklisted"] == 1:
+                flash('Account was blacklisted. You can no longer register.', category = 'error')
+        else:
+            # username must be unique
+            flash('Username already exists.', category = 'error')
+            return False
 
     elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
         # email must be valid
@@ -374,7 +387,7 @@ def chargeFunds(db, user):
 
 def deleteAcc(db, user):
     '''
-    Deletes account from database
+    Set account to closed in database
     '''
 
     # checks if user exists in the database
@@ -384,8 +397,9 @@ def deleteAcc(db, user):
 
     # if account exists in the database
     if account:
-        cursor.execute('DELETE FROM customer WHERE customer_id = %s', (str(user.id)))
-        cursor.execute('DELETE FROM accounts WHERE id = %s', (str(user.id)))
+        user.setisClosed(db, 1)
+        # cursor.execute('DELETE FROM customer WHERE customer_id = %s', (str(user.id)))
+        # cursor.execute('DELETE FROM accounts WHERE id = %s', (str(user.id)))
         db.connection.commit()
         cursor.close()
 
@@ -425,10 +439,13 @@ def getCartInfo(cart, vipStatus):
     '''
     info = {}
     subtotal = 0
+    num_items = 0
     for row in cart:
         subtotal += row["quantity"]*row["price"]
+        num_items += row["quantity"]
 
     # Calculate the subtotal, tax, and total
+    info["num_items"] = num_items
     info["subtotal"] = subtotal
     info["tax"] = round(subtotal*0.08875, 2)
     if vipStatus == 1:
@@ -436,6 +453,7 @@ def getCartInfo(cart, vipStatus):
     else:
         info["discount"] = 0.00
     info["total"] = round(subtotal + info["tax"] - info["discount"], 2)
+
     return info
 
 def getDishCount(db, dish_id):
