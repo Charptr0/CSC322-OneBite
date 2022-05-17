@@ -78,7 +78,6 @@
         </div>
         <a href = "{{ url_for('homePage') }}" style = "text-decoration: none;"><button class = "customertablinks" type = "button"><i class="fa-solid fa-home"></i>Return to OneBite</button></a>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerDashboard')"><i class='bx bx-grid-alt'></i>Discussions</button>
-        <button class="customertablinks" onclick="openTab2(event, 'Comments')"><i class='fa-regular fa-message'></i>Comments</button>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
         <button class="customertablinks" onclick="openTab2(event, 'CustomerComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
         <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "customertablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
@@ -102,7 +101,7 @@
         <section class = "customer-dashboard-section">
             <!-- main forum content -->
             <div id="mainForumPage">
-                <div class="forum-title-wrapper">
+                <div class="forum-title">
                     <h2 class="maintitle">Discussion Forum</h2>
                 </div>
 
@@ -231,51 +230,6 @@
         </section>
     </div>
     <!-- end main forum page -->
-
-    <!-- comments page -->
-    <div id = "Comments" class = "customertabcontent">
-        <section class="customer-dashboard-section" id="user-comments">
-            <div id="comments-form">
-                <h3>Leave a Message</h3>
-
-                <form class="user-comments" id="commentform" method="post">
-                    <label for="comment_author" class="required">First Name:</label>
-                    <input type="text" name="first-name" id="comment_author" value="" tabindex="1" required="required">
-                    <label for="comment_author" class="required">Last Name:</label>
-                    <input type="text" name="last-name" id="comment_author" value="" tabindex="1" required="required">
-
-                    <label for="Type" class="required">Type:</label>
-                    <select type="Type" name="Type" id="Type" value="" tabindex="2" required="required">
-                        <option value="compliment">Compliment</option>
-                        <option value="complaint">Complaint</option>
-                    </select>
-
-                    <label for="Subject" class="required">Subject:</label>
-                    <select type="Subject" name="Subject" id="Subject" value="" tabindex="3" required="required">
-                        <optgroup label="Chefs">
-                            <option value="chef1">Chef 1</option>
-                            <option value="chef2">Chef 2</option>
-                        </optgroup>
-                        <optgroup label="Deliverer">
-                            <option value="deliverer1">Deliverer 1</option>
-                            <option value="deliverer2">Deliverer 2</option>
-                        </optgroup>
-                    </select>
-
-                    <label for="comment" class="required">Comment:</label>
-                    <textarea name="customer-comment" id="comment" rows="10" tabindex="4"  required="required" placeholder="Type your comment here..."></textarea>
-
-                    <button name="commentsubmit" type="submit">Submit</button>
-                </form>
-            </div>
-            <div id="thankyou">
-                <h3>Thanks for filling out the form!</h3>
-                <p>You will receive a response in approximately 2-3 business days.</p>
-                <button id="nextStep">Close</button>
-            </div>
-        </section>
-    </div>
-    <!-- end comments page -->
 
     <div id = "CustomerCompliments" class = "customertabcontent">
         <table class="table table-bordered">

@@ -290,23 +290,7 @@ INSERT INTO post VALUES (3, "Manager", "Tell us how you feel about our Entrees!"
 INSERT INTO post VALUES (4, "Manager", "Tell us how you feel about our Drinks!", "2020-05-16","Your Fav Drinks?");
 
 /* Display Posts */
-INSERT INTO post(post_author) 
-SELECT username FROM accounts WHERE type = 'manager' or type = 'customer';
 SELECT * FROM post;
-
-/* Table Comments */
-CREATE TABLE IF NOT EXISTS comments (
-	comment_id int(11) NOT NULL AUTO_INCREMENT,
-	first_name varchar(50) NOT NULL,
-    last_name varchar(50) NOT NULL,
-    customer_id int(11) NOT NULL,
-    comment_date DATE NOT NULL,
-    comment_content text NOT NULL,
-    primary key(comment_id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-/* Display Comments */
-SELECT * FROM comments;
 
 /* Table Post Comments */
 CREATE TABLE IF NOT EXISTS postcomments (
@@ -321,6 +305,4 @@ INSERT INTO postcomments VALUES (1, "User1", "first", "2020-05-16");
 INSERT INTO postcomments VALUES (2, "User2", "second", "2020-05-16");
 
 /* Display Post Comments */
-INSERT INTO postcomments(postcomment_author) 
-SELECT username FROM accounts;
 SELECT * FROM postcomments;
