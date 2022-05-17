@@ -590,8 +590,22 @@ def dashboard():
             removeitem(mysql)
         if "addsubmit" in request.form:
             additem(mysql)
+        if "commentsubmit" in request.form:
+            retrieveComment(mysql)
+        if "postsubmit" in request.form:
+            retrievePost(mysql)
+        if "postcommentsubmit" in request.form:
+            retrievePostComment(mysql)
         if "givewarning" in request.form:
             addwarning(mysql)
+            
+    if user.userType == "manager":
+        rows=loadDisputes(mysql)
+        posts=loadPost(mysql)
+        postcomments=loadPostComments(mysql)
+        # print(rows)
+        CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments)
             
     if user.userType == "manager":
         rows=loadDisputes(mysql)
@@ -615,8 +629,31 @@ def dashboard():
         complaints=loadComplaints(mysql,user)
         warnings=loadWarnings(mysql,user)
         return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks,menu=menu, compliments=compliments, complaints=complaints, warnings=warnings)
+    
+    if user.userType == "customer":
+        posts=loadPost(mysql)
+        postcomments=loadPostComments(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, posts=posts, postcomments=postcomments)
     return render_template("dashboard.html", user=user, userType=user.userType)
-        
+
+@app.route("/index")
+def index():
+    '''
+    Route to profile page
+    '''
+    userExist, user = isUserStillInSession()
+
+    return render_template("index.html", user=user)
+
+@app.route("/thread")
+def thread():
+    '''
+    Route to profile page
+    '''
+    userExist, user = isUserStillInSession()
+
+    return render_template("thread.html", user=user)
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database

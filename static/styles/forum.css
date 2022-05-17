@@ -18,39 +18,6 @@
     padding: 20px;
 }
 
-.subforum{
-    margin-top:10px;
-    display: grid;
-    /*background-color: black;*/
-    border-radius: 5px;
-    padding: 10px;
-}
-
-.subforum-title{
-    background-color:white;
-    padding: 10px;
-    border-radius: 5px;
-    margin:4px;
-}
-
-.subforum-row{
-    display: grid;
-    grid-template-columns: 7% 60% 13% 20%;
-    border-radius: 5px;
-    margin: 1px;
-}
-
-.subforum-column{
-    padding: 10px;
-    margin:4px;
-    border-radius: 5px;
-    background-color:#FFFEFE;
-}
-
-.subforum-description *{
-    margin-block: 0;
-}
-
 .center{
     display: flex;
     justify-content: center;
@@ -62,19 +29,18 @@
     text-align: center;
 }
 
-.topictitle{
+.foodtitle{
     font-size: 25px;
     padding-left: 55px;
     padding-top: 30px;
 }
 
-.subforum-icon i{
-    font-size: 45px;
+.forum-title{
+    font-size: 25px;
+    padding-left: 55px;
+    padding-top: 30px;
 }
 
-.subforum-devider{
-    display: none;
-}
 
 /* For the smartphones */
 @media screen and (max-width: 460px) {
@@ -82,22 +48,6 @@
         margin: 10px;
         padding: 10px;
     }
-
-    .subforum-row{
-        display: grid;
-        grid-template-columns: 25% 75%;
-        grid-template-rows: 65% 35%;
-    }
-
-    .subforum-devider{
-        display: block;
-        border: 0;
-        height: 1px;
-        background-image: linear-gradient(to right, rgba(190, 190, 190, 0), rgba(255, 255, 255, 0.75), rgba(190, 190, 190, 0));
-    }
-
-
-
   }
 
 /* For the tablets */
@@ -105,15 +55,6 @@
     .container{
         margin: 15px;
         padding: 15px;
-    }
-
-    .subforum-row{
-        display: grid;
-        grid-template-columns: 10% 60% 10% 20%;
-    }
-
-    .subforum-icon i{
-        font-size: 35px;
     }
 
     html{
@@ -125,12 +66,6 @@
     }
 
   }
-
-footer{
-    /*margin-top: 20px;*/
-    padding: 20px;
-    background-color:rgb(34,34,34);
-}
 
 
 /* posts table's head  */
@@ -195,24 +130,6 @@ footer{
 .table-row .last-reply{
     flex: 15%;
 }
-/* Pagination*/
-
-.pagination{
-    padding: 20px;
-    font-size: 15px;
-    text-align: center;
-}
-
-.pagination a{
-    color: black;
-    margin-inline: 5px;
-    padding: 5px 10px;
-    border: solid 0.5px black;
-}
-
-.pagination a:hover{
-    opacity: 0.5;
-}
 
 
 /* ########################################### */
@@ -242,31 +159,23 @@ footer{
     flex: 80%;
 }
 
-.body{
+.comments-body{
     display: flex;
     background-color: white;
     padding: 10px;
     margin-top: 5px;
 }
 
-.body .authors .username{
+.comments-body .authors .username{
     font-size: 20px;
 }
 
-.body .authors img{
+.comments-body .authors img{
     max-width: 50px;
     max-height: 80px;
 }
 
-.body .content .comment button{
-    border: 2px black;
-    padding:10px;
-    font-weight: bolder;
-    cursor: pointer;
-    float: right;
-}
-
-/* comment section */
+/* section */
 .comment-area{
     margin-bottom:50px;
 }
