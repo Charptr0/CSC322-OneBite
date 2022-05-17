@@ -652,8 +652,6 @@ def dashboard():
             removeitem(mysql)
         if "addsubmit" in request.form:
             additem(mysql)
-        if "commentsubmit" in request.form:
-            retrieveComment(mysql)
         if "postsubmit" in request.form:
             retrievePost(mysql)
         if "postcommentsubmit" in request.form:
