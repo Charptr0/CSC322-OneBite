@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/forum.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
 
     <!-- for userType == "manager" -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dashboard.css') }}">
 
     <!-- for userType == "chef" -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_dashboard.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/delivery_dashboard.css') }}">
+    {% if userType == "manager" %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/manager_dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
 
+    {% endif %}
     <!-- Bootstrap  Delivery -->
     {% if userType == "delivery" %}
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -26,6 +34,14 @@
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
     {% endif %}
 
+    {% if userType == "customer" %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/customer_dashboard.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/forum.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+    {% endif %}
     <!-- for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
@@ -61,11 +77,10 @@
             <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
         </div>
         <a href = "{{ url_for('homePage') }}" style = "text-decoration: none;"><button class = "customertablinks" type = "button"><i class="fa-solid fa-home"></i>Return to OneBite</button></a>
-        <button class="customertablinks" onclick="openTab2(event, 'CustomerDashboard')"><i class='bx bx-grid-alt'></i>Forum</button>
-        <!-- <button class="customertablinks" onclick="openTab2(event, 'ForumAppetizers')"><i class="fa fa-cheese"></i>Forum Appetizers</button>
-        <button class="customertablinks" onclick="openTab2(event, 'ForumEntree')"><i class='fa fa-cutlery'></i>Forum Entree</button>
-        <button class="customertablinks" onclick="openTab2(event, 'ForumDrinks')"><i class='fa fa-coffee'></i>Forum Drinks</button> -->
+        <button class="customertablinks" onclick="openTab2(event, 'CustomerDashboard')"><i class='bx bx-grid-alt'></i>Discussions</button>
         <button class="customertablinks" onclick="openTab2(event, 'Comments')"><i class='fa-regular fa-message'></i>Comments</button>
+        <button class="customertablinks" onclick="openTab2(event, 'CustomerCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
+        <button class="customertablinks" onclick="openTab2(event, 'CustomerComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
         <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "customertablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
     </div>
 
@@ -87,769 +102,135 @@
         <section class = "customer-dashboard-section">
             <!-- main forum content -->
             <div id="mainForumPage">
-                <div class="cover">
+                <div class="forum-title-wrapper">
                     <h2 class="maintitle">Discussion Forum</h2>
                 </div>
-                <!-- <div class="mainForumContainer">
-                    <div class="container">
-                        <div class="subforum">
-                            <div class="subforum-title">
-                                <h1 class="forumTitles">Menu Items</h1>
-                            </div>
-                            <div class="subforum-row">
-                                <div class="subforum-icon subforum-column center">
-                                    <i class="fa fa-cheese center"></i>
-                                </div>
-                                <div class="subforum-description subforum-column">
-                                    <button class="forumButton" onclick="openTab2(event, 'ForumAppetizers')">Appetizers</button>
-                                    <p>Talk about your favorite appetizers</p>
-                                </div>
-                                <div class="subforum-stats subforum-column center">
-                                        <span>24 Posts | 12 Topics</span>
-                                </div>
-                                <div class="subforum-info subforum-column">
-                                    <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                    <br>on <small>date</small>
-                                </div>
-                            </div>
 
-                            <div class="subforum-row">
-                                <div class="subforum-icon subforum-column center">
-                                    <i class="fa fa-cutlery center"></i>
-                                </div>
-                                <div class="subforum-description subforum-column">
-                                    <button class="forumButton" onclick="openTab2(event, 'ForumEntree')">Entree</button>
-                                    <p>Talk about your favorite entrees</p>
-                                </div>
-                                <div class="subforum-stats subforum-column center">
-                                    <span>24 Posts | 12 Topics</span>
-                                </div>
-                                <div class="subforum-info subforum-column">
-                                    <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                    <br>on <small>date</small>
-                                </div>
-                            </div>
-
-                            <div class="subforum-row">
-                                <div class="subforum-icon subforum-column center">
-                                    <i class="fa fa-coffee center"></i>
-                                </div>
-                                <div class="subforum-description subforum-column">
-                                    <button class="forumButton" onclick="openTab2(event, 'ForumDrinks')">Drinks</button>
-                                    <p>Talk about your favorite drinks</p>
-                                </div>
-                                <div class="subforum-stats subforum-column center">
-                                    <span>24 Posts | 12 Topics</span>
-                                </div>
-                                <div class="subforum-info subforum-column">
-                                    <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                    <br>on <small>date</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="cover">
-                    <h2 class="topictitle">Appetizers</h2>
-                </div>
                 <div class="mainForumContainer">
                     <div class="posts-table">
                         <div class="table-head">
                             <div class="subjects">Title</div>
-                            <div class="replies">Replies/Views</div>
-                            <div class="last-reply">Last Reply</div>
+                            <div class="last-reply">Created</div>
                         </div>
 
-                        <div class="table-row">
-                            <div class="status"><i class="fa fa-cheese"></i></div>
-                            <div class="subjects">
-                                <button class="postButton" id="nextPage">Post 1</button>
-                                <br>
-                                <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                            </div>
-                            <div class="replies">
-                                2 replies <br> 15 views
-                            </div>
+                        {% for post in posts: %}
+                            <div class="table-row">
+                                <div class="status"><i class="fa fa-cutlery"></i></div>
+                                <div class="subjects">
+                                    <button class="postButton" id="nextPage">{{ post["post_title"] }}</button>
+                                    <br>
+                                    <span>Started by <b><a class="linkForum" href="">{{ post["post_author"] }}</a></b>.</span>
+                                </div>
 
-                            <div class="last-reply">
-                                date
-                             <br>By <b><a class="linkForum" href="">User</a></b>
+                                <div class="last-reply">
+                                    {{ post["post_date"] }}
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="table-row">
-                            <div class="status"><i class="fa fa-cheese"></i></div>
-                            <div class="subjects">
-                                <button class="postButton" id="nextPage1">Post 2</button>
-                                <br>
-                                <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                            </div>
-                            <div class="replies">
-                                2 replies <br> 15 views
-                            </div>
-
-                            <div class="last-reply">
-                                date
-                                <br>By <b><a class="linkForum" href="">User</a></b>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
+                <button class="open-button" onclick="openPost()">Create a Post</button>
 
-                <div class="cover">
-                    <h2 class="topictitle">Entree</h2>
-                </div>
-                <div class="mainForumContainer">
-                    <div class="posts-table">
-                        <div class="table-head">
-                            <div class="subjects">Title</div>
-                            <div class="replies">Replies/Views</div>
-                            <div class="last-reply">Last Reply</div>
-                        </div>
+                <div class="form-popup" id="myPost">
+                    <h1>Create A New Post</h1>
 
-                        <div class="table-row">
-                            <div class="status"><i class="fa fa-cutlery"></i></div>
-                            <div class="subjects">
-                                <button class="postButton" id="nextPage2">Post 1</button>
-                                <br>
-                                <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                            </div>
-                            <div class="replies">
-                                2 replies <br> 15 views
-                            </div>
+                    <form class="form-container" id="postform" method="post">
+                        <label for="post_author" class="required">Name:</label>
+                        <input type="text" name="author" required="required" placeholder="ex: Jane Doe">
 
-                            <div class="last-reply">
-                                date
-                                <br>By <b><a class="linkForum" href="">User</a></b>
-                            </div>
-                        </div>
+                        <label for="Title" class="required">Post Title:</label>
+                        <input type="title" name="Title" required="required" placeholder="ex: My Favorite Dish">
+                            
+                        <label for="post" class="required">Post Comment:</label>
+                        <textarea name="post-comment" required="required" placeholder="Type your post here..."></textarea>
 
-                        <div class="table-row">
-                            <div class="status"><i class="fa fa-cutlery"></i></div>
-                            <div class="subjects">
-                                <button class="postButton" id="nextPage3">Post 2</button>
-                                <br>
-                                <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                            </div>
-                            <div class="replies">
-                                2 replies <br> 15 views
-                            </div>
-
-                            <div class="last-reply">
-                                date
-                                <br>By <b><a class="linkForum" href="">User</a></b>
-                            </div>
-                        </div>
-                    </div>
+                        <button type="submit" name="postsubmit" class="btn">Submit</button>
+                        <button type="button" class="btn cancel" onclick="closePost()">Close</button>
+                    </form>
                 </div>
 
-                <div class="cover">
-                    <h2 class="topictitle">Drinks</h2>
-                </div>
-                <div class="mainForumContainer">
-                    <div class="posts-table">
-                        <div class="table-head">
-                            <div class="subjects">Title</div>
-                            <div class="replies">Replies/Views</div>
-                            <div class="last-reply">Last Reply</div>
+                <div id="myPostModal" class="postmodal">
+                    <!-- Modal content -->
+                    <div class="postmodal-content">
+                        <span class="close">&times;</span>
+                        {% for post in posts: %}
+                        <div class="forum-title-wrapper">
+                            <h2 class="forum-title"><i class="fa fa-cutlery"></i> {{ post["post_title"] }}</h2>
                         </div>
+                        <div class="forumContainer">
+                            <div class="forumPost">
+                                <!--Topic Section-->
+                                <div class="topic-container">
+                                    <!--Original thread-->
+                                        <div class="head">
+                                            <div class="authors">Author</div>
+                                        </div>
 
-                        <div class="table-row">
-                            <div class="status"><i class="fa fa-coffee"></i></div>
-                            <div class="subjects">
-                                <button class="postButton" id="nextPage4">Post 1</button>
-                                <br>
-                                <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                            </div>
-                            <div class="replies">
-                                2 replies <br> 15 views
-                            </div>
+                                        <div class="comments-body">
+                                            <div class="authors">
+                                                <div class="username"><a class="linkForum" href="">{{ post["post_author"] }}</a></div>
+                                                <img src="../static/assets/defaultimg.jpg" alt="">
+                                            </div>
+                                            <div class="content">
+                                                {{ post["post_content"] }}
+                                                <hr>
+                                                <div class="post-date">
+                                                Posted on: {{ post["post_date"] }}
+                                                </div>
+                                                <br>
+                                                <button class="report-user" onclick="reportUser()">Report this user</button>
+                                            </div>
+                                        </div>
+                                </div>
 
-                            <div class="last-reply">
-                                date
-                                <br>By <b><a class="linkForum" href="">User</a></b>
+                                <div class="already-commented">
+                                    {% for postcomment in postcomments: %}
+                                        <div class="comments-container">
+                                            <div class="comments-body">
+                                                <div class="authors">
+                                                    <div class="username"><a class="linkForum" href="">{{ postcomment["postcomment_author"] }}</a></div>
+                                                    <img src="../static/assets/defaultimg.jpg" alt="">
+                                                </div>
+                                                <div class="content">
+                                                    {{ postcomment["postcomment_content"] }}
+                                                    <hr>
+                                                    <div class="post-date">
+                                                    Posted on: {{ postcomment["postcomment_date"] }}
+                                                    </div>
+                                                    <br>
+                                                    <button class="report-user" onclick="reportUser()">Report this user</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <button class="postcomment-button" onclick="openComment()">Comment</button>
+
+                                <div class="postcomment-popup" id="myComment">
+                                    <h1>Comment</h1>
+
+                                    <form class="form-container" id="postform" method="post">
+                                        <label for="post_author" class="required">Name:</label>
+                                        <input type="text" name="postcommentauthor" required="required" placeholder="ex: Jane Doe">
+
+                                        <label for="post" class="required">Comment:</label>
+                                        <textarea name="comment-box" required="required" placeholder="comment here ..."></textarea>
+
+                                        <button type="submit" name="postcommentsubmit" class="btn">Submit</button>
+                                        <button type="button" class="btn cancel" onclick="closeComment()">Close</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="table-row">
-                            <div class="status"><i class="fa fa-coffee"></i></div>
-                            <div class="subjects">
-                                <button class="postButton" id="nextPage5">Post 2</button>
-                                <br>
-                                <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                            </div>
-                            <div class="replies">
-                                2 replies <br> 15 views
-                            </div>
-
-                            <div class="last-reply">
-                                date
-                                <br>By <b><a class="linkForum" href="">User</a></b>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
             <!-- end main forum content -->
-
-
-            <!-- post pages -->
-            <div id="appetizers-post1">
-                <button class="backButton" id="goBack">Back</button>
-                <div class="cover">
-                    <h2 class="title">Discussion Forum: Post</h2>
-                </div>
-                <div class="forumPost">
-                    <!--Topic Section-->
-                    <div class="topic-container">
-                        <!--Original thread-->
-                        <div class="head">
-                            <div class="authors">Author</div>
-                            <div class="content" style="font-size: 20px">Title of post</div>
-                        </div>
-
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">Username</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 45</div>
-                            </div>
-                            <div class="content">
-                                random txt
-
-                                <hr>
-                                Posted on: date
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showComment()">Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Comment Area-->
-                    <div class="comment-area hide" id="comment-area">
-                        <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <!--Comments Section-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user2</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment of the above random topic.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-
-                    <!--Another Comment With replies-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user3</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-                </div>
-                <script src="../forum.js"></script>
-            </div>
-
-            <div id="appetizers-post2">
-                <button class="backButton" id="goBack1">Back</button>
-                <div class="cover">
-                    <h2 class="title">Discussion Forum: Post</h2>
-                </div>
-                <div class="forumPost">
-                    <!--Topic Section-->
-                    <div class="topic-container">
-                        <!--Original thread-->
-                        <div class="head">
-                            <div class="authors">Author</div>
-                            <div class="content" style="font-size: 20px">Title of post</div>
-                        </div>
-
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">Username</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 45</div>
-                            </div>
-                            <div class="content">
-                                random txt
-
-                                <hr>
-                                Posted on: date
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showComment()">Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Comment Area-->
-                    <div class="comment-area hide" id="comment-area">
-                        <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <!--Comments Section-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user2</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment of the above random topic.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-
-                    <!--Another Comment With replies-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user3</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-                </div>
-                <script src="../forum.js"></script>
-            </div>
-
-            <div id="entree-post1">
-                <button class="backButton" id="goBack2">Back</button>
-                <div class="cover">
-                    <h2 class="title">Discussion Forum: Post</h2>
-                </div>
-                <div class="forumPost">
-                    <!--Topic Section-->
-                    <div class="topic-container">
-                        <!--Original thread-->
-                        <div class="head">
-                            <div class="authors">Author</div>
-                            <div class="content" style="font-size: 20px">Title of post</div>
-                        </div>
-
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">Username</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 45</div>
-                            </div>
-                            <div class="content">
-                                random txt
-
-                                <hr>
-                                Posted on: date
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showComment()">Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Comment Area-->
-                    <div class="comment-area hide" id="comment-area">
-                        <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <!--Comments Section-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user2</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment of the above random topic.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-
-                    <!--Another Comment With replies-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user3</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-                </div>
-                <script src="../forum.js"></script>
-            </div>
-
-            <div id="entree-post2">
-                <button class="backButton" id="goBack3">Back</button>
-                <div class="cover">
-                    <h2 class="title">Discussion Forum: Post</h2>
-                </div>
-                <div class="forumPost">
-                    <!--Topic Section-->
-                    <div class="topic-container">
-                        <!--Original thread-->
-                        <div class="head">
-                            <div class="authors">Author</div>
-                            <div class="content" style="font-size: 20px">Title of post</div>
-                        </div>
-
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">Username</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 45</div>
-                            </div>
-                            <div class="content">
-                                random txt
-
-                                <hr>
-                                Posted on: date
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showComment()">Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Comment Area-->
-                    <div class="comment-area hide" id="comment-area">
-                        <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <!--Comments Section-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user2</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment of the above random topic.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-
-                    <!--Another Comment With replies-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user3</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-                </div>
-                <script src="../forum.js"></script>
-            </div>
-
-            <div id="drinks-post1">
-                <button class="backButton" id="goBack4">Back</button>
-                <div class="cover">
-                    <h2 class="title">Discussion Forum: Post</h2>
-                </div>
-                <div class="forumPost">
-                    <!--Topic Section-->
-                    <div class="topic-container">
-                        <!--Original thread-->
-                        <div class="head">
-                            <div class="authors">Author</div>
-                            <div class="content" style="font-size: 20px">Title of post</div>
-                        </div>
-
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">Username</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 45</div>
-                            </div>
-                            <div class="content">
-                                random txt
-
-                                <hr>
-                                Posted on: date
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showComment()">Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Comment Area-->
-                    <div class="comment-area hide" id="comment-area">
-                        <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <!--Comments Section-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user2</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment of the above random topic.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-
-                    <!--Another Comment With replies-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user3</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-                </div>
-                <script src="../forum.js"></script>
-            </div>
-
-            <div id="drinks-post2">
-                <button class="backButton" id="goBack5">Back</button>
-                <div class="cover">
-                    <h2 class="title">Discussion Forum: Post</h2>
-                </div>
-                <div class="forumPost">
-                    <!--Topic Section-->
-                    <div class="topic-container">
-                        <!--Original thread-->
-                        <div class="head">
-                            <div class="authors">Author</div>
-                            <div class="content" style="font-size: 20px">Title of post</div>
-                        </div>
-
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">Username</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 45</div>
-                            </div>
-                            <div class="content">
-                                random txt
-
-                                <hr>
-                                Posted on: date
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showComment()">Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Comment Area-->
-                    <div class="comment-area hide" id="comment-area">
-                        <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <!--Comments Section-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user2</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment of the above random topic.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-
-
-                    <!--Another Comment With replies-->
-                    <div class="comments-container">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a class="linkForum" href="">user3</a></div>
-                                <div>usertype</div>
-                                <img src="../static/assets/defaultimg.jpg" alt="">
-                                <div>Posts: 455</div>
-                            </div>
-                            <div class="content">
-                                Just a comment.
-                                <br>
-                                <div class="comment">
-                                    <button onclick="showReply()">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Reply Area-->
-                    <div class="comment-area hide" id="reply-area">
-                        <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                        <button type="submit">Submit</button>
-                    </div>
-                </div>
-                <script src="../forum.js"></script>
-            </div>
-            <!-- end post pages -->
         </section>
     </div>
     <!-- end main forum page -->
-
 
     <!-- comments page -->
     <div id = "Comments" class = "customertabcontent">
@@ -858,8 +239,10 @@
                 <h3>Leave a Message</h3>
 
                 <form class="user-comments" id="commentform" method="post">
-                    <label for="comment_author" class="required">Name:</label>
-                    <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required">
+                    <label for="comment_author" class="required">First Name:</label>
+                    <input type="text" name="first-name" id="comment_author" value="" tabindex="1" required="required">
+                    <label for="comment_author" class="required">Last Name:</label>
+                    <input type="text" name="last-name" id="comment_author" value="" tabindex="1" required="required">
 
                     <label for="Type" class="required">Type:</label>
                     <select type="Type" name="Type" id="Type" value="" tabindex="2" required="required">
@@ -880,23 +263,174 @@
                     </select>
 
                     <label for="comment" class="required">Comment:</label>
-                    <textarea name="comment" id="comment" rows="10" tabindex="4"  required="required" placeholder="Type your comment here..."></textarea>
+                    <textarea name="customer-comment" id="comment" rows="10" tabindex="4"  required="required" placeholder="Type your comment here..."></textarea>
 
-                    <button id="nextStep">Submit</button>
-                    <!-- <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
-                    <input name="submit" type="submit" value="Submit comment" /> -->
+                    <button name="commentsubmit" type="submit">Submit</button>
                 </form>
             </div>
             <div id="thankyou">
                 <h3>Thanks for filling out the form!</h3>
                 <p>You will receive a response in approximately 2-3 business days.</p>
-                <button type="submit">Close</button>
+                <button id="nextStep">Close</button>
             </div>
         </section>
     </div>
     <!-- end comments page -->
 
+    <div id = "CustomerCompliments" class = "customertabcontent">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Compliment ID</th>
+                <th scope="col">Description Of Compliment</th>
+     
+              </tr>
+            </thead>
+            <tbody>
+                {% for info in compliments %}
+                <tr>
+                    <td>{{ info['compliment_id'] }}</td>
+                    <td>{{ info['compliment_content'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+    <div id = "CustomerComplaints" class = "customertabcontent">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Complaint ID</th>
+                <th scope="col">Description Of Complaint</th>
+                <th scope="col">Dispute</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+            {% for info in complaints %}
+                <tr>
+                    <td>{{ info['complaint_id'] }}</td>
+                    <td>{{ info['complaint_content'] }}</td>
+                    <td> 
+                        <!-- <section class="bg-light" > -->
+                            <button class = "dispute-btn d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                            <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                            <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="" method = "post">
+                                                <div class="form-group">
+                                                    <label for="userid">Your User ID:</label>
+                                                    <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                    <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                    <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                    <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="date">Enter Date:</label>
+                                                    <div class="input-group date" class="datepicker" data-provide="datepicker">
+                                                        <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
+                                                        <span class="input-group-addon" for="txtdate">
+                                                            <span id ="calender-btn" class="btn btn-default">
+                                                                <i class='bx bxs-calendar'></i> 
+                                                            </span> 
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="modal-footer"> -->
+                                                    <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
+                                                <!-- </div> -->
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- </section> -->
+
+                    </td>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script>
+        // to stop the refresh from looping info into database
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+
+        // Get the modal
+        var postmodal = document.getElementById("myPostModal");
+
+        // Get the button that opens the modal
+        var customerbtn = document.getElementById("nextPage");
+        var customerbtn1 = document.getElementById("nextPage");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        customerbtn.onclick = function() {
+            postmodal.style.display = "block";
+        }
+        customerbtn1.onclick = function() {
+            postmodal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            postmodal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == postmodal) {
+            postmodal.style.display = "none";
+            }
+        }
+
+        function reportUser() {
+            if (confirm("Are you sure you want to report this user?")) {
+                // warning sent to manager
+            }
+        
+        }
+        // open popup form
+        function openPost() {
+            document.getElementById("myPost").style.display = "block";
+        }
+        function openComment() {
+            document.getElementById("myComment").style.display = "block";
+        }
+
+        // close popup form
+        function closePost() {
+            document.getElementById("myPost").style.display = "none";
+        }
+        function closeComment() {
+            document.getElementById("myComment").style.display = "none";
+        }
+
         // sidenav function           
             let customersidebar = document.querySelector(".customersidebar");
             let customersidebarBtn = document.querySelector(".customersidebarBtn");
@@ -930,150 +464,14 @@
         nextStep.addEventListener('click', function (e) {
             e.preventDefault();
             // Hide first view
-            document.getElementById('comments-form').style.display = 'none';
+            document.getElementById('thankyou').style.display = 'none';
 
             // Show thank you message element
-            document.getElementById('thankyou').style.display = 'block';
+            document.getElementById('comments-form').style.display = 'block';
         });
         // end thanks page
-
-
-        // forum moving from pages
-        var nextPage = document.querySelector('#nextPage');
-
-        nextPage.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('mainForumPage').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('appetizers-post1').style.display = 'block';
-        });
-
-        var goBack = document.querySelector('#goBack');
-
-        goBack.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('appetizers-post1').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('mainForumPage').style.display = 'block';
-        });
-
-        var nextPage1 = document.querySelector('#nextPage1');
-
-        nextPage1.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('mainForumPage').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('appetizers-post2').style.display = 'block';
-        });
-
-        var goBack1 = document.querySelector('#goBack1');
-
-        goBack1.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('appetizers-post2').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('mainForumPage').style.display = 'block';
-        });
-
-        var nextPage2 = document.querySelector('#nextPage2');
-
-        nextPage2.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('mainForumPage').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('entree-post1').style.display = 'block';
-        });
-
-        var goBack2 = document.querySelector('#goBack2');
-
-        goBack2.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('entree-post1').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('mainForumPage').style.display = 'block';
-        });
-
-        var nextPage3 = document.querySelector('#nextPage3');
-
-        nextPage3.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('mainForumPage').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('entree-post2').style.display = 'block';
-        });
-
-        var goBack3 = document.querySelector('#goBack3');
-
-        goBack3.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('entree-post2').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('mainForumPage').style.display = 'block';
-        });
-
-        var nextPage4 = document.querySelector('#nextPage4');
-
-        nextPage4.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('mainForumPage').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('drinks-post1').style.display = 'block';
-        });
-
-        var goBack4 = document.querySelector('#goBack4');
-
-        goBack4.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('drinks-post1').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('mainForumPage').style.display = 'block';
-        });
-
-        var nextPage5 = document.querySelector('#nextPage5');
-
-        nextPage5.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('mainForumPage').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('drinks-post2').style.display = 'block';
-        });
-
-        var goBack5 = document.querySelector('#goBack5');
-
-        goBack5.addEventListener('click', function (e) {
-            e.preventDefault();
-            // Hide first view
-            document.getElementById('drinks-post2').style.display = 'none';
-
-            // Show thank you message element
-            document.getElementById('mainForumPage').style.display = 'block';
-        });
-        // end forum moving from pages
-
-    </script>      
-    
+    </script>
+       
     {% else %}
         {% if userType == "manager" %}
             <div class="managersidebar">
@@ -1083,7 +481,7 @@
                 <button class="managertablinks" onclick="openTab1(event, 'mDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
                 <button class="managertablinks" onclick="openTab1(event, 'CustomerAccounts')"><i class='fa-regular fa-user'></i>Customer Accounts</button>
                 <button class="managertablinks" onclick="openTab1(event, 'EmployeeAccounts')"><i class='fa-regular fa-id-badge'></i>Employee Accounts</button>
-                <button class="managertablinks" onclick="openTab1(event, 'Discussions')"><i class='fa-regular fa-comments'></i>Forum</button>
+                <button class="managertablinks" onclick="openTab1(event, 'Discussions')"><i class='fa-regular fa-comments'></i>Discussions</button>
                 <button class="managertablinks" onclick="openTab1(event, 'CustomerComments')"><i class='fa-regular fa-message'></i>Customer Comments</button>
                 <button class="managertablinks" onclick="openTab1(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
                 <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "managertablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
@@ -1280,9 +678,10 @@
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Card Number</th>
+                                            <th>VIP</th>
                                             <th>Give Warning</th>
                                         </tr>
-                                        {% for customer in customers: %}
+                                        {% for customer in customers %}
                                             <tr>
                                                 <td><li>{{ customer["id"] }}</li></td>
                                                 <td><li>{{ customer["fname"] }}</li></td>
@@ -1293,7 +692,17 @@
                                                 <td><li>{{ customer["phone"] }}</li></td>
                                                 <td><li>{{ customer["cardnumber"] }}</li></td>
                                                 <td>
-                                                    <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                    {% if customer.isVIP == 1 %}
+                                                        <input type="checkbox" checked>
+                                                    {% else %}
+                                                        <input type="checkbox" unchecked>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" id="usertype" name="usertype" value="customer">
+                                                        <button name="givewarning" value = "{{ customer['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -1304,44 +713,6 @@
                         </div>
                     </div>
 
-                    <div class="manger-home-content">
-                        <div class="orders-boxes">
-                            <div class="recent-order manager-box">
-                                <div class="manager-title"><h3>VIP Customers</h3></div>
-                                <div class="manager-order-details">
-                                    <table id="VIP-customers" class="VIP-customers-table">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                            <th>Password</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Card Number</th>
-                                            <th>Give Warning</th>
-                                        </tr>
-                                        <!-- {% for vip in vips: %}
-                                            <tr>
-                                                <td><li>{{ vip["id"] }}</li></td>
-                                                <td><li>{{ vip["fname"] }}</li></td>
-                                                <td><li>{{ vip["lname"] }}</li></td>
-                                                <td><li>{{ vip["username"] }}</li></td>
-                                                <td><li>{{ vip["password"] }}</li></td>
-                                                <td><li>{{ vip["email"] }}</li></td>
-                                                <td><li>{{ vip["phone"] }}</li></td>
-                                                <td><li>{{ vip["cardnumber"] }}</li></td>
-                                                <td>
-                                                    <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
-                                                </td>
-                                            </tr>
-                                        {% endfor %} -->
-                                    </table>
-                                </div>
-                                <a href="#" id="vip-load" class="see-all-button">See All</a>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="manger-home-content">
                         <div class="orders-boxes">
@@ -1461,7 +832,10 @@
                                                 <td><li>{{ chef["warnings"] }}</li></td>
                                                 <td><li>{{ chef["demotions"] }}</li></td>
                                                 <td>
-                                                    <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" id="usertype" name="usertype" value="chef">
+                                                        <button name="givewarning" value = "{{ chef['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -1503,7 +877,10 @@
                                                 <td><li>{{ delivery["warnings"] }}</li></td>
                                                 <td><li>{{ delivery["demotions"] }}</li></td>
                                                 <td>
-                                                    <button id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" id="usertype" name="usertype" value="delivery">
+                                                        <button name="givewarning" value = "{{ delivery['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -1556,766 +933,132 @@
                     </div>
 
                     <!-- main forum content -->
-                    <div id="mainForumPage">
-                        <div class="cover">
-                            <h2 class="maintitle">Discussion Forum</h2>
+            <div id="mainForumPage">
+                <div class="forum-title-wrapper">
+                    <h2 class="maintitle">Discussion Forum</h2>
+                </div>
+
+                <div class="mainForumContainer">
+                    <div class="posts-table">
+                        <div class="table-head">
+                            <div class="subjects">Title</div>
+                            <div class="last-reply">Created</div>
                         </div>
-                        <!-- <div class="mainForumContainer">
-                            <div class="container">
-                                <div class="subforum">
-                                    <div class="subforum-title">
-                                        <h1 class="forumTitles">Menu Items</h1>
-                                    </div>
-                                    <div class="subforum-row">
-                                        <div class="subforum-icon subforum-column center">
-                                            <i class="fa fa-cheese center"></i>
-                                        </div>
-                                        <div class="subforum-description subforum-column">
-                                            <button class="forumButton" onclick="openTab2(event, 'ForumAppetizers')">Appetizers</button>
-                                            <p>Talk about your favorite appetizers</p>
-                                        </div>
-                                        <div class="subforum-stats subforum-column center">
-                                                <span>24 Posts | 12 Topics</span>
-                                        </div>
-                                        <div class="subforum-info subforum-column">
-                                            <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                            <br>on <small>date</small>
-                                        </div>
-                                    </div>
 
-                                    <div class="subforum-row">
-                                        <div class="subforum-icon subforum-column center">
-                                            <i class="fa fa-cutlery center"></i>
-                                        </div>
-                                        <div class="subforum-description subforum-column">
-                                            <button class="forumButton" onclick="openTab2(event, 'ForumEntree')">Entree</button>
-                                            <p>Talk about your favorite entrees</p>
-                                        </div>
-                                        <div class="subforum-stats subforum-column center">
-                                            <span>24 Posts | 12 Topics</span>
-                                        </div>
-                                        <div class="subforum-info subforum-column">
-                                            <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                            <br>on <small>date</small>
-                                        </div>
-                                    </div>
+                        {% for post in posts: %}
+                            <div class="table-row">
+                                <div class="status"><i class="fa fa-cutlery"></i></div>
+                                <div class="subjects">
+                                    <button class="postButton" id="nextPage">{{ post["post_title"] }}</button>
+                                    <br>
+                                    <span>Started by <b><a class="linkForum" href="">{{ post["post_author"] }}</a></b>.</span>
+                                </div>
 
-                                    <div class="subforum-row">
-                                        <div class="subforum-icon subforum-column center">
-                                            <i class="fa fa-coffee center"></i>
-                                        </div>
-                                        <div class="subforum-description subforum-column">
-                                            <button class="forumButton" onclick="openTab2(event, 'ForumDrinks')">Drinks</button>
-                                            <p>Talk about your favorite drinks</p>
-                                        </div>
-                                        <div class="subforum-stats subforum-column center">
-                                            <span>24 Posts | 12 Topics</span>
-                                        </div>
-                                        <div class="subforum-info subforum-column">
-                                            <b><a class="linkForum" href="">Last post</a></b> by <a class="linkForum" href="">JustAUser</a>
-                                            <br>on <small>date</small>
-                                        </div>
-                                    </div>
+                                <div class="last-reply">
+                                    {{ post["post_date"] }}
                                 </div>
                             </div>
-                        </div> -->
-                        <div class="cover">
-                            <h2 class="topictitle">Appetizers</h2>
-                        </div>
-                        <div class="mainForumContainer">
-                            <div class="posts-table">
-                                <div class="table-head">
-                                    <div class="subjects">Title</div>
-                                    <div class="replies">Replies/Views</div>
-                                    <div class="last-reply">Last Reply</div>
-                                </div>
-
-                                <div class="table-row">
-                                    <div class="status"><i class="fa fa-cheese"></i></div>
-                                    <div class="subjects">
-                                        <button class="postButton" id="managerNextPage">Post 1</button>
-                                        <br>
-                                        <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                                    </div>
-                                    <div class="replies">
-                                        2 replies <br> 15 views
-                                    </div>
-
-                                    <div class="last-reply">
-                                        date
-                                     <br>By <b><a class="linkForum" href="">User</a></b>
-                                    </div>
-                                </div>
-
-                                <div class="table-row">
-                                    <div class="status"><i class="fa fa-cheese"></i></div>
-                                    <div class="subjects">
-                                        <button class="postButton" id="managerNextPage1">Post 2</button>
-                                        <br>
-                                        <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                                    </div>
-                                    <div class="replies">
-                                        2 replies <br> 15 views
-                                    </div>
-
-                                    <div class="last-reply">
-                                        date
-                                        <br>By <b><a class="linkForum" href="">User</a></b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="cover">
-                            <h2 class="topictitle">Entree</h2>
-                        </div>
-                        <div class="mainForumContainer">
-                            <div class="posts-table">
-                                <div class="table-head">
-                                    <div class="subjects">Title</div>
-                                    <div class="replies">Replies/Views</div>
-                                    <div class="last-reply">Last Reply</div>
-                                </div>
-
-                                <div class="table-row">
-                                    <div class="status"><i class="fa fa-cutlery"></i></div>
-                                    <div class="subjects">
-                                        <button class="postButton" id="managerNextPage2">Post 1</button>
-                                        <br>
-                                        <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                                    </div>
-                                    <div class="replies">
-                                        2 replies <br> 15 views
-                                    </div>
-
-                                    <div class="last-reply">
-                                        date
-                                        <br>By <b><a class="linkForum" href="">User</a></b>
-                                    </div>
-                                </div>
-
-                                <div class="table-row">
-                                    <div class="status"><i class="fa fa-cutlery"></i></div>
-                                    <div class="subjects">
-                                        <button class="postButton" id="managerNextPage3">Post 2</button>
-                                        <br>
-                                        <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                                    </div>
-                                    <div class="replies">
-                                        2 replies <br> 15 views
-                                    </div>
-
-                                    <div class="last-reply">
-                                        date
-                                        <br>By <b><a class="linkForum" href="">User</a></b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="cover">
-                            <h2 class="topictitle">Drinks</h2>
-                        </div>
-                        <div class="mainForumContainer">
-                            <div class="posts-table">
-                                <div class="table-head">
-                                    <div class="subjects">Title</div>
-                                    <div class="replies">Replies/Views</div>
-                                    <div class="last-reply">Last Reply</div>
-                                </div>
-
-                                <div class="table-row">
-                                    <div class="status"><i class="fa fa-coffee"></i></div>
-                                    <div class="subjects">
-                                        <button class="postButton" id="managerNextPage4">Post 1</button>
-                                        <br>
-                                        <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                                    </div>
-                                    <div class="replies">
-                                        2 replies <br> 15 views
-                                    </div>
-
-                                    <div class="last-reply">
-                                        date
-                                        <br>By <b><a class="linkForum" href="">User</a></b>
-                                    </div>
-                                </div>
-
-                                <div class="table-row">
-                                    <div class="status"><i class="fa fa-coffee"></i></div>
-                                    <div class="subjects">
-                                        <button class="postButton" id="managerNextPage5">Post 2</button>
-                                        <br>
-                                        <span>Started by <b><a class="linkForum" href="">User</a></b> .</span>
-                                    </div>
-                                    <div class="replies">
-                                        2 replies <br> 15 views
-                                    </div>
-
-                                    <div class="last-reply">
-                                        date
-                                        <br>By <b><a class="linkForum" href="">User</a></b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <!-- end main forum content -->
+                </div>
+                <button class="open-button" onclick="openPost1()">Create a Post</button>
 
+                <div class="form-popup" id="managerPost">
+                    <h1>Create A New Post</h1>
 
-                    <!-- post pages -->
-                    <div id="appetizers-post1">
-                        <button class="backButton" id="managerGoBack">Back</button>
-                        <div class="cover">
-                            <h2 class="title">Discussion Forum: Post</h2>
+                    <form class="form-container" id="postform" method="post">
+                        <label for="post_author" class="required">Name:</label>
+                        <input type="text" name="author" required="required" value="Manager">
+
+                        <label for="Title" class="required">Post Title:</label>
+                        <input type="title" name="Title" required="required" placeholder="ex: My Favorite Dish">
+                            
+                        <label for="post" class="required">Post Comment:</label>
+                        <textarea name="post-comment" required="required" placeholder="Type your post here..."></textarea>
+
+                        <button type="submit" name="postsubmit" class="btn">Submit</button>
+                        <button type="button" class="btn cancel" onclick="closePost1()">Close</button>
+                    </form>
+                </div>
+
+                <div id="managerPostModal" class="postmodal">
+                    <!-- Modal content -->
+                    <div class="postmodal-content">
+                        <span class="close">&times;</span>
+                        {% for post in posts: %}
+                        <div class="forum-title-wrapper">
+                            <h2 class="forum-title"><i class="fa fa-cutlery"></i> {{ post["post_title"] }}</h2>
                         </div>
-                        <div class="forumPost">
-                            <!--Topic Section-->
-                            <div class="topic-container">
-                                <!--Original thread-->
-                                <div class="head">
-                                    <div class="authors">Author</div>
-                                    <div class="content" style="font-size: 20px">Title of post</div>
-                                </div>
-
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">Username</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 45</div>
-                                    </div>
-                                    <div class="content">
-                                        random txt
-
-                                        <hr>
-                                        Posted on: date
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showComment()">Comment</button>
+                        <div class="forumContainer">
+                            <div class="forumPost">
+                                <!--Topic Section-->
+                                <div class="topic-container">
+                                    <!--Original thread-->
+                                        <div class="head">
+                                            <div class="authors">Author</div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!--Comment Area-->
-                            <div class="comment-area hide" id="comment-area">
-                                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-                            <!--Comments Section-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user2</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment of the above random topic.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
+                                        <div class="comments-body">
+                                            <div class="authors">
+                                                <div class="username"><a class="linkForum" href="">{{ post["post_author"] }}</a></div>
+                                                <img src="../static/assets/defaultimg.jpg" alt="">
+                                            </div>
+                                            <div class="content">
+                                                {{ post["post_content"] }}
+                                                <hr>
+                                                <div class="post-date">
+                                                Posted on: {{ post["post_date"] }}
+                                                </div>
+                                                <br>
+                                                <button class="report-user" onclick="reportUser()">Report this user</button>
+                                            </div>
                                         </div>
-                                    </div>
                                 </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
 
-
-                            <!--Another Comment With replies-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user3</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
+                                <div class="already-commented">
+                                    {% for postcomment in postcomments: %}
+                                        <div class="comments-container">
+                                            <div class="comments-body">
+                                                <div class="authors">
+                                                    <div class="username"><a class="linkForum" href="">{{ postcomment["postcomment_author"] }}</a></div>
+                                                    <img src="../static/assets/defaultimg.jpg" alt="">
+                                                </div>
+                                                <div class="content">
+                                                    {{ postcomment["postcomment_content"] }}
+                                                    <hr>
+                                                    <div class="post-date">
+                                                    Posted on: {{ postcomment["postcomment_date"] }}
+                                                    </div>
+                                                    <br>
+                                                    <button class="report-user" onclick="reportUser()">Report this user</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
+
+                                <button class="postcomment-button" onclick="openComment1()">Comment</button>
+
+                                <div class="postcomment-popup" id="managerComment">
+                                    <h1>Comment</h1>
+
+                                    <form class="form-container" id="postform" method="post">
+                                        <label for="post_author" class="required">Name:</label>
+                                        <input type="text" name="postcommentauthor" required="required" value="Manager">
+
+                                        <label for="post" class="required">Comment:</label>
+                                        <textarea name="comment-box" required="required" placeholder="comment here ..."></textarea>
+
+                                        <button type="submit" name="postcommentsubmit" class="btn">Submit</button>
+                                        <button type="button" class="btn cancel" onclick="closeComment1()">Close</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                        <script src="../forum.js"></script>
+                        {% endfor %}
                     </div>
-
-                    <div id="appetizers-post2">
-                        <button class="backButton" id="managerGoBack1">Back</button>
-                        <div class="cover">
-                            <h2 class="title">Discussion Forum: Post</h2>
-                        </div>
-                        <div class="forumPost">
-                            <!--Topic Section-->
-                            <div class="topic-container">
-                                <!--Original thread-->
-                                <div class="head">
-                                    <div class="authors">Author</div>
-                                    <div class="content" style="font-size: 20px">Title of post</div>
-                                </div>
-
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">Username</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 45</div>
-                                    </div>
-                                    <div class="content">
-                                        random txt
-
-                                        <hr>
-                                        Posted on: date
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showComment()">Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Comment Area-->
-                            <div class="comment-area hide" id="comment-area">
-                                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-                            <!--Comments Section-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user2</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment of the above random topic.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-
-                            <!--Another Comment With replies-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user3</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-                        </div>
-                        <script src="../forum.js"></script>
-                    </div>
-
-                    <div id="entree-post1">
-                        <button class="backButton" id="managerGoBack2">Back</button>
-                        <div class="cover">
-                            <h2 class="title">Discussion Forum: Post</h2>
-                        </div>
-                        <div class="forumPost">
-                            <!--Topic Section-->
-                            <div class="topic-container">
-                                <!--Original thread-->
-                                <div class="head">
-                                    <div class="authors">Author</div>
-                                    <div class="content" style="font-size: 20px">Title of post</div>
-                                </div>
-
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">Username</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 45</div>
-                                    </div>
-                                    <div class="content">
-                                        random txt
-
-                                        <hr>
-                                        Posted on: date
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showComment()">Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Comment Area-->
-                            <div class="comment-area hide" id="comment-area">
-                                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-                            <!--Comments Section-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user2</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment of the above random topic.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-
-                            <!--Another Comment With replies-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user3</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-                        </div>
-                        <script src="../forum.js"></script>
-                    </div>
-
-                    <div id="entree-post2">
-                        <button class="backButton" id="managerGoBack3">Back</button>
-                        <div class="cover">
-                            <h2 class="title">Discussion Forum: Post</h2>
-                        </div>
-                        <div class="forumPost">
-                            <!--Topic Section-->
-                            <div class="topic-container">
-                                <!--Original thread-->
-                                <div class="head">
-                                    <div class="authors">Author</div>
-                                    <div class="content" style="font-size: 20px">Title of post</div>
-                                </div>
-
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">Username</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 45</div>
-                                    </div>
-                                    <div class="content">
-                                        random txt
-
-                                        <hr>
-                                        Posted on: date
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showComment()">Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Comment Area-->
-                            <div class="comment-area hide" id="comment-area">
-                                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-                            <!--Comments Section-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user2</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment of the above random topic.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-
-                            <!--Another Comment With replies-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user3</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-                        </div>
-                        <script src="../forum.js"></script>
-                    </div>
-
-                    <div id="drinks-post1">
-                        <button class="backButton" id="managerGoBack4">Back</button>
-                        <div class="cover">
-                            <h2 class="title">Discussion Forum: Post</h2>
-                        </div>
-                        <div class="forumPost">
-                            <!--Topic Section-->
-                            <div class="topic-container">
-                                <!--Original thread-->
-                                <div class="head">
-                                    <div class="authors">Author</div>
-                                    <div class="content" style="font-size: 20px">Title of post</div>
-                                </div>
-
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">Username</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 45</div>
-                                    </div>
-                                    <div class="content">
-                                        random txt
-
-                                        <hr>
-                                        Posted on: date
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showComment()">Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Comment Area-->
-                            <div class="comment-area hide" id="comment-area">
-                                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-                            <!--Comments Section-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user2</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment of the above random topic.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-
-                            <!--Another Comment With replies-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user3</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-                        </div>
-                        <script src="../forum.js"></script>
-                    </div>
-
-                    <div id="drinks-post2">
-                        <button class="backButton" id="managerGoBack5">Back</button>
-                        <div class="cover">
-                            <h2 class="title">Discussion Forum: Post</h2>
-                        </div>
-                        <div class="forumPost">
-                            <!--Topic Section-->
-                            <div class="topic-container">
-                                <!--Original thread-->
-                                <div class="head">
-                                    <div class="authors">Author</div>
-                                    <div class="content" style="font-size: 20px">Title of post</div>
-                                </div>
-
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">Username</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 45</div>
-                                    </div>
-                                    <div class="content">
-                                        random txt
-
-                                        <hr>
-                                        Posted on: date
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showComment()">Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Comment Area-->
-                            <div class="comment-area hide" id="comment-area">
-                                <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-                            <!--Comments Section-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user2</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment of the above random topic.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-
-
-                            <!--Another Comment With replies-->
-                            <div class="comments-container">
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a class="linkForum" href="">user3</a></div>
-                                        <div>usertype</div>
-                                        <img src="../static/assets/defaultimg.jpg" alt="">
-                                        <div>Posts: 455</div>
-                                    </div>
-                                    <div class="content">
-                                        Just a comment.
-                                        <br>
-                                        <div class="comment">
-                                            <button onclick="showReply()">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Reply Area-->
-                            <div class="comment-area hide" id="reply-area">
-                                <textarea name="reply" id="" placeholder="reply here ... "></textarea>
-                                <button type="submit">Submit</button>
-                            </div>
-                        </div>
-                        <script src="../forum.js"></script>
-                    </div>
-                    <!-- end post pages -->
+                </div>
+            </div>
                 </section>
             </div>
             <!-- end main forum page -->                     
@@ -2451,7 +1194,6 @@
                                            
                 </section>
             </div>
-
             <!-- end customer comments page -->
 
             <!-- delivery bidding page -->
@@ -2503,6 +1245,11 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script>
+                if ( window.history.replaceState ) {
+                    window.history.replaceState( null, null, window.location.href );
+                }
+
+                $("input:checkbox").click(function() { return false; });
                 // see all button
                 $('table tr:nth-child(n+1):nth-child(-n+4)').addClass('active');
 
@@ -2593,140 +1340,65 @@
                     // end of dismiss button
                 // buttons for customer comments page
 
+                // forum page
+        
+                // to stop the refresh from looping info into database
+                if ( window.history.replaceState ) {
+                    window.history.replaceState( null, null, window.location.href );
+                }
 
-                 // forum moving from pages
-                var managerNextPage = document.querySelector('#managerNextPage');
+                // Get the modal
+                var managerpostmodal = document.getElementById("managerPostModal");
 
-                managerNextPage.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('mainForumPage').style.display = 'none';
+                // Get the button that opens the modal
+                var managerbtn = document.getElementById("nextPage");
+                var managerbtn1 = document.getElementById("nextPage");
 
-                    // Show thank you message element
-                    document.getElementById('appetizers-post1').style.display = 'block';
-                });
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
 
-                var managerGoBack = document.querySelector('#managerGoBack');
+                // When the user clicks the button, open the modal 
+                managerbtn.onclick = function() {
+                    managerpostmodal.style.display = "block";
+                }
+                managerbtn1.onclick = function() {
+                    managerpostmodal.style.display = "block";
+                }
 
-                managerGoBack.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('appetizers-post1').style.display = 'none';
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    managerpostmodal.style.display = "none";
+                }
 
-                    // Show thank you message element
-                    document.getElementById('mainForumPage').style.display = 'block';
-                });
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == managerpostmodal) {
+                    managerpostmodal.style.display = "none";
+                    }
+                }
 
-                var managerNextPage1 = document.querySelector('#managerNextPage1');
+                function reportUser() {
+                    if (confirm("Are you sure you want to report this user?")) {
+                        // warning sent to manager
+                    }
+                
+                }
+                // open popup form
+                function openPost1() {
+                    document.getElementById("managerPost").style.display = "block";
+                }
+                function openComment1() {
+                    document.getElementById("managerComment").style.display = "block";
+                }
 
-                managerNextPage1.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('mainForumPage').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('appetizers-post2').style.display = 'block';
-                });
-
-                var managerGoBack1 = document.querySelector('#managerGoBack1');
-
-                managerGoBack1.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('appetizers-post2').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('mainForumPage').style.display = 'block';
-                });
-
-                var managerNextPage2 = document.querySelector('#managerNextPage2');
-
-                managerNextPage2.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('mainForumPage').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('entree-post1').style.display = 'block';
-                });
-
-                var managerGoBack2 = document.querySelector('#managerGoBack2');
-
-                managerGoBack2.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('entree-post1').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('mainForumPage').style.display = 'block';
-                });
-
-                var managerNextPage3 = document.querySelector('#managerNextPage3');
-
-                managerNextPage3.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('mainForumPage').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('entree-post2').style.display = 'block';
-                });
-
-                var managerGoBack3 = document.querySelector('#managerGoBack3');
-
-                managerGoBack3.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('entree-post2').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('mainForumPage').style.display = 'block';
-                });
-
-                var managerNextPage4 = document.querySelector('#managerNextPage4');
-
-                managerNextPage4.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('mainForumPage').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('drinks-post1').style.display = 'block';
-                });
-
-                var managerGoBack4 = document.querySelector('#managerGoBack4');
-
-                managerGoBack4.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('drinks-post1').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('mainForumPage').style.display = 'block';
-                });
-
-                var managerNextPage5 = document.querySelector('#managerNextPage5');
-
-                managerNextPage5.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('mainForumPage').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('drinks-post2').style.display = 'block';
-                });
-
-                var managerGoBack5 = document.querySelector('#managerGoBack5');
-
-                managerGoBack5.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('drinks-post2').style.display = 'none';
-
-                    // Show thank you message element
-                    document.getElementById('mainForumPage').style.display = 'block';
-                });
-                // end forum moving from pages
+                // close popup form
+                function closePost1() {
+                    document.getElementById("managerPost").style.display = "none";
+                }
+                function closeComment1() {
+                    document.getElementById("managerComment").style.display = "none";
+                }
+                // end forum page
             </script>
         {% else %}
             {% if userType == "chef" %}
@@ -2739,6 +1411,8 @@
                     <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditDrinks')"><i class='bx bxs-drink'></i>Edit Drinks</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'ChefCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'ChefComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
                     <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "cheftablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
                 </div>
                 
@@ -2759,7 +1433,73 @@
 
                                 
                 <div id = "ChefDashboard" class = "cheftabcontent">
-                    d
+                    <div class="chef-home-content">
+                        <div class="overview-boxes">
+                            <div class="box">
+                                <div class="right-side">
+                                    <div class="box-topic">Warnings</div>
+                                    <div class="number">{{ user.warnings }}</div>
+                                    </div>
+                                        <i class='bx bxs-alarm-exclamation' ></i>
+                                    </div>
+                                <div class="box">
+                                    <div class="right-side">
+                                        <div class="box-topic">Compliments</div>
+                                        <div class="number">{{ user.compliments }}</div>
+                                    </div>
+                                    <i class='bx bx-happy-beaming happy' ></i>
+                                </div>
+                                <div class="box">
+                                    <div class="right-side">
+                                        <div class="box-topic">Complaints</div>
+                                        <div class="number">{{ user.complaints }}</div>
+                                    </div>
+                                    <i class='bx bx-sad sad' ></i>
+                                </div>
+                        </div>
+                        <div class="sales-boxes">
+                            <div class="recent-sales box">
+                                <div class="waviy">
+                                    <span style="--i:1">Y</span>
+                                    <span style="--i:2">O</span>
+                                    <span style="--i:3">U</span>
+                                    <span style="--i:4">R</span>
+                                    <span style="--i:5"></span>
+                                    <span style="--i:6">M</span>
+                                    <span style="--i:7">E</span>
+                                    <span style="--i:8">N</span>
+                                    <span style="--i:10">U</span>
+                                 
+                                   </div>
+                                <div class="sales-details" >
+                                    <table table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                                        <thead>
+                                            <tr>
+                                                <th>Dish</th>
+                                                <th>Dish Image</th>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for info in menu %}
+                                            <tr>
+                                                <td>{{ info['dish_type'] }}</td>
+                                                <td class="images w-25 text-center">
+                                                    <img src="{{ info['img'] }} " class="img-fluid img-responsive img-thumbnail" class="foodimages" > 
+                                                </td>
+                                                <td>{{ info['name'] }}</td>
+                                                <td>{{ info['description'] }}</td>
+                                                <td>${{ info['price'] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id = "EditAppetizers" class = "cheftabcontent">
@@ -2769,12 +1509,12 @@
                         </h1>
                         <hr class="solid">
                         
-                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#add-modal"><i class='bx bx-add-to-queue' ></i>Add Appetizer</button>
-                        <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#addappetizer-modal"><i class='bx bx-add-to-queue' ></i>Add Appetizer</button>
+                        <div class="modal fade" id="addappetizer-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id = "modal-title">Adding Item</h5>
+                                        <h5 class="modal-title" id = "modal-title">Adding Appetizer</h5>
                                         <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
 
                                     </div>
@@ -2828,68 +1568,67 @@
                                         <th>Actions</th>
                                     </tr>
                                  </thead>
-                                    <tbody>
-                                        {% for info in appetizers %}
-                                        <tr>
-                                            <td class="text-center">{{ info['dish_id'] }}</td>
-                                            <td class="images w-25">
-                                                <img src="{{ info['img'] }} " class="img-fluid img-thumbnail" class="foodimages"> 
-                                            </td>
-                                            <td class="text-center">{{ info['name'] }}</td>
-                                            <td class="text-center">{{ info['description'] }} </td>
-                                            <td class="text-center">${{ info['price'] }} </td>
-                                            <td class="text-center">
-                                                <div class = "buttons">
-                                       
-                                                    <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
-                                                    <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
-                                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="" method = "POST">
-                                                                        <div class="form-group">
-                                                                            <label for="dishid">Dish ID</label>
-                                                                            <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="customeFile">Upload New Image</label>
-                                                                            <input type="file" name="newimage" class="form-control" id="customfile">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="modal-fname" class = "form-label">Edit Item Name:</label>
-                                                                            <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="modal-lname" class = "form-label">Edit Description:</label>
-                                                                            <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="editprice">Edit Price</label>
-                                                                            <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
-                                                                        </div>
-                                                                
-                                                                        <div class="modal-footer">
-                                                                            <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                <tbody>
+                                    {% for info in appetizers %}
+                                    <tr>
+                                        <td class="text-center">{{ info['dish_id'] }}</td>
+                                        <td class="images w-25 text-center">
+                                            <img src="{{ info['img'] }} " class="img-fluid img-thumbnail img-responsive" class="foodimages"> 
+                                        </td>
+                                        <td class="text-center">{{ info['name'] }}</td>
+                                        <td class="text-center">{{ info['description'] }} </td>
+                                        <td class="text-center">${{ info['price'] }} </td>
+                                        <td class="text-center">
+                                            <div class = "buttons">
+                                                <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                                                <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
+                                                                <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="" method = "POST">
+                                                                    <div class="form-group">
+                                                                        <label for="dishid">Dish ID</label>
+                                                                        <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="customeFile">Upload New Image</label>
+                                                                        <input type="file" name="newimage" class="form-control" id="customfile">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="modal-fname" class = "form-label">Edit Item Name:</label>
+                                                                        <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="modal-lname" class = "form-label">Edit Description:</label>
+                                                                        <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="editprice">Edit Price</label>
+                                                                        <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
+                                                                    </div>
+                                                            
+                                                                    <div class="modal-footer">
+                                                                        <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <form action="" method="POST">
-                                                        <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
-                                                    </form>
                                                 </div>
-                                            </td>
-                                            
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
+
+                                                <form action="" method="POST">
+                                                    <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
                                 </thead>
                             </table>
                         </div>
@@ -2901,9 +1640,57 @@
                     
                     <div class="entrees-items">
                         <h1 class = "menu-item-heading">
-                            Entrees
+                            ENTREES
                         </h1>
                         <hr class="solid">
+
+                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#addentree-modal"><i class='bx bx-add-to-queue' ></i>Add Entree</button>
+                        <div class="modal fade" id="addentree-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id = "modal-title">Adding Entree</h5>
+                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form action="" method="POST" >
+                                            <div class="form-group">
+                                                <label for="chefid">Chef ID</label>
+                                                <input type="chefid" name="chefid" class="form-control" id="chefid" value="{{ user.id }}" placeholder="{{ user.id }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dishid">Dish Type</label>
+                                                <input type="dishtype" name="dishtype" class="form-control" id="dishtype" value="entree" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="customeFile">Upload Image</label>
+                                                <input type="imagename" name="image" class="form-control" id="customfile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-fname" class = "form-label">Item Name:</label>
+                                                <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-lname" class = "form-label">Description:</label>
+                                                <textarea name="description" class="form-control" id="description" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Price</label>
+                                                <input type="price" name="price" class="form-control" id="modal-price" placeholder="$0.00" min="0.00" max="10000.00">
+                                            </div> 
+                                    
+                                            <div class="modal-footer">
+                                                <input name="addsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="tablecontainer d-block mx-auto">
                             <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
                                 <thead>
@@ -2920,8 +1707,8 @@
                                         {% for info in entree %}
                                         <tr>
                                             <td class="text-center">{{ info['dish_id'] }}</td>
-                                            <td class="images w-25">
-                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail" class="foodimages"> 
+                                            <td class="images w-25 text-center">
+                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail img-responsive" class="foodimages"> 
                                             </td>
                                             <td class="text-center">{{ info['name'] }}</td>
                                             <td class="text-center">{{ info['description'] }} </td>
@@ -2988,9 +1775,55 @@
                 <div id = "EditDesserts" class = "cheftabcontent">
                     <div class="dessert-items">
                         <h1 class = "menu-item-heading">
-                            Desserts
+                            DESSERTS
                         </h1>
                         <hr class="solid">
+                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#adddessert-modal"><i class='bx bx-add-to-queue' ></i>Add Dessert</button>
+                        <div class="modal fade" id="adddessert-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id = "modal-title">Adding Dessert</h5>
+                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form action="" method="POST" >
+                                            <div class="form-group">
+                                                <label for="chefid">Chef ID</label>
+                                                <input type="chefid" name="chefid" class="form-control" id="chefid" value="{{ user.id }}" placeholder="{{ user.id }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dishid">Dish Type</label>
+                                                <input type="dishtype" name="dishtype" class="form-control" id="dishtype" value="dessert" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="customeFile">Upload Image</label>
+                                                <input type="imagename" name="image" class="form-control" id="customfile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-fname" class = "form-label">Item Name:</label>
+                                                <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-lname" class = "form-label">Description:</label>
+                                                <textarea name="description" class="form-control" id="description" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Price</label>
+                                                <input type="price" name="price" class="form-control" id="modal-price" placeholder="$0.00" min="0.00" max="10000.00">
+                                            </div> 
+                                    
+                                            <div class="modal-footer">
+                                                <input name="addsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                         <div class="tablecontainer d-block mx-auto">
                             <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
                                 <thead>
@@ -3007,8 +1840,8 @@
                                         {% for info in desserts %}
                                         <tr>
                                             <td class="text-center">{{ info['dish_id'] }}</td>
-                                            <td class="images w-25">
-                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail" class="foodimages"> 
+                                            <td class="images w-25 text-center">
+                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail img-responsive" class="foodimages"> 
                                             </td>
                                             <td class="text-center">{{ info['name'] }}</td>
                                             <td class="text-center">{{ info['description'] }} </td>
@@ -3075,9 +1908,55 @@
                 <div id = "EditDrinks" class = "cheftabcontent">
                     <div class="drink-items">
                         <h1 class = "menu-item-heading">
-                            Drinks
+                            DRINKS
                         </h1>
                         <hr class="solid">
+                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#adddrink-modal"><i class='bx bx-add-to-queue' ></i>Add Drink</button>
+                        <div class="modal fade" id="adddrink-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id = "modal-title">Adding Drink</h5>
+                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form action="" method="POST" >
+                                            <div class="form-group">
+                                                <label for="chefid">Chef ID</label>
+                                                <input type="chefid" name="chefid" class="form-control" id="chefid" value="{{ user.id }}" placeholder="{{ user.id }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dishid">Dish Type</label>
+                                                <input type="dishtype" name="dishtype" class="form-control" id="dishtype" value="drink" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="customeFile">Upload Image</label>
+                                                <input type="imagename" name="image" class="form-control" id="customfile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-fname" class = "form-label">Item Name:</label>
+                                                <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-lname" class = "form-label">Description:</label>
+                                                <textarea name="description" class="form-control" id="description" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Price</label>
+                                                <input type="price" name="price" class="form-control" id="modal-price" placeholder="$0.00" min="0.00" max="10000.00">
+                                            </div> 
+                                    
+                                            <div class="modal-footer">
+                                                <input name="addsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                         <div class="tablecontainer d-block mx-auto">
                             <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
                                 <thead>
@@ -3094,8 +1973,8 @@
                                         {% for info in drinks %}
                                         <tr>
                                             <td class="text-center">{{ info['dish_id'] }}</td>
-                                            <td class="images w-25">
-                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail" class="foodimages"> 
+                                            <td class="images w-25 text-center">
+                                                <img src=" {{ info['img'] }}" class="img-fluid img-thumbnail img-responsive" class="foodimages"> 
                                             </td>
                                             <td class="text-center">{{ info['name'] }}</td>
                                             <td class="text-center">{{ info['description'] }} </td>
@@ -3158,6 +2037,97 @@
                        
                     </div>
                 </div>
+
+                <div id = "ChefCompliments" class = "cheftabcontent">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">Compliment ID</th>
+                            <th scope="col">Description Of Compliment</th>
+                 
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for info in compliments %}
+                            <tr>
+                                <td>{{ info['compliment_id'] }}</td>
+                                <td>{{ info['compliment_content'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+                
+                <div id = "ChefComplaints" class = "cheftabcontent">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">Complaint ID</th>
+                            <th scope="col">Description Of Complaint</th>
+                            <th scope="col">Dispute</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for info in complaints %}
+                            <tr>
+                                <td>{{ info['complaint_id'] }}</td>
+                                <td>{{ info['complaint_content'] }}</td>
+                                <td> 
+                                    <!-- <section class="bg-light" > -->
+                                        <button class = "dispute-btn d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                        <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method = "post">
+                                                            <div class="form-group">
+                                                                <label for="userid">Your User ID:</label>
+                                                                <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                                <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                                <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                                <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="date">Enter Date:</label>
+                                                                <div class="input-group date" class="datepicker" data-provide="datepicker">
+                                                                    <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
+                                                                    <span class="input-group-addon" for="txtdate">
+                                                                        <span id ="calender-btn" class="btn btn-default">
+                                                                            <i class='bx bxs-calendar'></i> 
+                                                                        </span> 
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="modal-footer"> -->
+                                                                <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
+                                                            <!-- </div> -->
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- </section> -->
+
+                                </td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
                
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                                 
@@ -3166,6 +2136,11 @@
                 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
                 <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
+                <script>
+                    if ( window.history.replaceState ) {
+                        window.history.replaceState( null, null, window.location.href );
+                    }
+                </script>
                 <script>
                     let chefsidebar = document.querySelector(".chefsidebar");
                     let chefsidebarBtn = document.querySelector(".chefsidebarBtn");
@@ -3246,7 +2221,7 @@
                 
                 <div id = "Dashboard" class = "deliverytabcontent">
                     <div class="alert warning-alert d-block mx-auto">
-                        <button class = "dashboard-buttons" onclick="openTab(event, 'DeliveryWarnings')">
+                        <button class = "dashboard-buttons">
                             <h3 class = "text"><i class='bx bx-error'></i>WARNINGS:</h3>
                             <h2 class = "num-of-warnings">{{ user.warnings }}</h2>
                             
@@ -3270,175 +2245,93 @@
                 
                 
                 <div id = "DeliveryCompliments" class = "deliverytabcontent">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th scope="col">Compliment #</th>
-                            <th scope="col">Reason For Compliment</th>
+                            <th scope="col">Compliment ID</th>
                             <th scope="col">Description Of Compliment</th>
                  
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Did not deliver food</td>
-                            <td>Otto</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Did not deliver food</td>
-                            <td>Thornton</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Did not deliver food</td>
-                            <td>the Bird</td>
-                          </tr>
+                            {% for info in compliments %}
+                            <tr>
+                                <td>{{ info['compliment_id'] }}</td>
+                                <td>{{ info['compliment_content'] }}</td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                       </table>
                 </div>
                 
                 <div id = "DeliveryComplaints" class = "deliverytabcontent">
-                    <table class="table ">
+                    <table class="table table-bordered">
                         <thead>
                           <tr>
                             <th scope="col">Complaint ID</th>
-                            <th scope="col">Reason For Complaint</th>
                             <th scope="col">Description Of Complaint</th>
                             <th scope="col">Dispute</th>
                             
                           </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Did not deliver food</td>
-                            <td>I waited for hours and the food never came. I starved to death this day.</td>
-                            <td> 
-                                <!-- <section class="bg-light" > -->
-                                    <button class = "dispute-btn d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
-                                    <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
-                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="" method = "post">
-                                                        <div class="form-group">
-                                                            <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
-                                                            <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
-                                                            <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="deliverydisputebox">Enter Dispute Description:</label>
-                                                            <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="date">Enter Date:</label>
-                                                            <div class="input-group date" class="datepicker" data-provide="datepicker">
-                                                                <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
-                                                                <span class="input-group-addon" for="txtdate">
-                                                                    <span id ="calender-btn" class="btn btn-default">
-                                                                        <i class='bx bxs-calendar'></i> 
-                                                                    </span> 
-                                                                </span>
+                        {% for info in complaints %}
+                            <tr>
+                                <td>{{ info['complaint_id'] }}</td>
+                                <td>{{ info['complaint_content'] }}</td>
+                                <td> 
+                                    <!-- <section class="bg-light" > -->
+                                        <button class = "dispute-btn d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
+                                        <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method = "post">
+                                                            <div class="form-group">
+                                                                <label for="userid">Your User ID:</label>
+                                                                <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
                                                             </div>
-                                                        </div>
-                                                          <!-- <div class="modal-footer"> -->
-                                                            <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
-                                                        <!-- </div> -->
-                                                    </form>
+                                                            <div class="form-group">
+                                                                <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                                <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                                <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                                <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="date">Enter Date:</label>
+                                                                <div class="input-group date" class="datepicker" data-provide="datepicker">
+                                                                    <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
+                                                                    <span class="input-group-addon" for="txtdate">
+                                                                        <span id ="calender-btn" class="btn btn-default">
+                                                                            <i class='bx bxs-calendar'></i> 
+                                                                        </span> 
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="modal-footer"> -->
+                                                                <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
+                                                            <!-- </div> -->
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <!-- </section> -->
-
-                            </td>
-                            
-                        </tr>
-
-                          <!-- <tr>
-                            <th scope="row">1</th>
-                            <td>Did not deliver food</td>
-                            <td>I waited for hours and the food never came. I starved to death this day.</td>
-                            <td> 
-                                <section class="bg-light" >
-                                    <button class = "dispute-btn" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
-                                    <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
-                                                    <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="" method = "POST">
-                                                        <div class="form-group">
-                                                            <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
-                                                            <input type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
-                                                            <input type="lname" class = "form-control" id = "modal-lname" placeholder="Last Name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="deliverydisputebox">Enter Dispute Description:</label>
-                                                            <textarea class="form-control" id="deliverydisputebox" rows="3"></textarea>
-                                                          </div>
-                                                          <div class="modal-footer">
-                                                            <button type = "submit" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </td>
-
-                          </tr> -->
+                                </td>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
-
-                <div id = "DeliveryWarnings" class = "deliverytabcontent">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Warnings #</th>
-                            <th scope="col">Reason For Warning</th>
-                            <th scope="col">Description Of Warning</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Did not deliver food</td>
-                            <td>Otto</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Did not deliver food</td>
-                            <td>Thornton</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Did not deliver food</td>
-                            <td>the Bird</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
                 
                 <div id = "Current_deliveries" class = "deliverytabcontent">
                     <section class = "past-delivery-section">
@@ -3485,7 +2378,15 @@
                                                         <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="" method = "POST">
+                                                        <form action="" method = "POST" >
+                                                            <div class="form-group">
+                                                                <label for="modal-userid" class = "form-label">Your User ID:</label>
+                                                                <input name="userid" type="userid" class = "form-control" id = "modal-userid" value="{{ user['id'] }}" readonly>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="modal-receiverid" class = "form-label">Complaint Receiver ID:</label>
+                                                                <input name="receiverid" type="receiverid" class = "form-control" id = "modal-receiverid" value="6" readonly>
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
                                                                 <input name="firstname" type="fname" class = "form-control" id = "modal-fname" placeholder="First Name">
@@ -3600,6 +2501,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
                 <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+                
                 <script>
                     let deliverysidebar = document.querySelector(".deliverysidebar");
                     let deliverysidebarBtn = document.querySelector(".deliverysidebarBtn");
@@ -3635,6 +2537,11 @@
                 </script>
                 <script type = "text/javascript">
                     $("#datepicker").datepicker("setDate", new Date());
+                </script>
+                <script>
+                    if ( window.history.replaceState ) {
+                        window.history.replaceState( null, null, window.location.href );
+                    }
                 </script>
             {% endif %}
         {% endif %}

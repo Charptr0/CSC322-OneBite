@@ -27,7 +27,7 @@ class Dish():
         self.id = id
         self.type = type
         self.chef = chef
-        self.rating = round(rating, 2)
+        self.rating = round(rating)
         self.num_ratings = num_ratings
         self.count = count
         self.status = status

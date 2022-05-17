@@ -6,8 +6,7 @@ from dish import Dish
 from order import Order
 
 app = Flask(__name__)
-
-
+ 
 mysql = None
 
 # store each user id that correspond with a user object
@@ -431,6 +430,14 @@ def orderPlacedPage():
     '''
     Route to order confirmation/order failure
     '''
+
+    if request.method == 'POST':
+        if "disputesubmit" in request.form:
+            retrieveDispute(mysql)
+        if "complaintsubmit" in request.form:
+            retrieveComplaint(mysql)
+        if "complimentsubmit" in request.form:
+            retrieveCompliment(mysql)
     userExist, user = isUserStillInSession()
 
     # User is not signed in
@@ -636,6 +643,8 @@ def dashboard():
             retrieveDispute(mysql)
         if "complaintsubmit" in request.form:
             retrieveComplaint(mysql)
+        if "complimentsubmit" in request.form:
+            retrieveCompliment(mysql)
         if "editsubmit" in request.form:
             print("test\n\n")
             edititem(mysql)
@@ -643,16 +652,27 @@ def dashboard():
             removeitem(mysql)
         if "addsubmit" in request.form:
             additem(mysql)
+        if "commentsubmit" in request.form:
+            retrieveComment(mysql)
+        if "postsubmit" in request.form:
+            retrievePost(mysql)
+        if "postcommentsubmit" in request.form:
+            retrievePostComment(mysql)
+        if "givewarning" in request.form:
+            addwarning(mysql)
             
     if user.userType == "manager":
         if request.method == 'POST':
             if "assign-submit" in request.form:
                 Order.assignBid(mysql)
         rows=loadDisputes(mysql)
+        posts=loadPost(mysql)
+        postcomments=loadPostComments(mysql)
         # print(rows)
         DELIVERYBIDS = Order.getBid(mysql)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, deliverybids = DELIVERYBIDS)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS)
+
     if user.userType == "delivery":
         if request.method == 'POST':
             if "bid-submit" in request.form:
@@ -661,20 +681,47 @@ def dashboard():
                 else:
                     flash('Bid placement failed. You must bid a higher delivery price.', category = "error")
         rows=loadPastDeliveries(mysql)
-        print(rows)
+        compliments=loadCompliments(mysql,user)
+        complaints=loadComplaints(mysql,user)
+        warnings=loadWarnings(mysql,user)
         DELIVERYBIDS = Order.getBid(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows, deliverybids = DELIVERYBIDS)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,compliments=compliments, complaints=complaints,warnings=warnings, deliverybids = DELIVERYBIDS)
+        
     if user.userType == "chef":
         entree=loadEntrees(mysql)
         appetizers=loadAppt(mysql)
         desserts=loadDesserts(mysql)
         drinks=loadDrinks(mysql)
-        # print(entree)
-        # print(appetizers)
-        # print(desserts)
-        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks)
+        menu=loadMenu(mysql)
+        compliments=loadCompliments(mysql,user)
+        complaints=loadComplaints(mysql,user)
+        warnings=loadWarnings(mysql,user)
+        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks,menu=menu, compliments=compliments, complaints=complaints, warnings=warnings)
+    
+    if user.userType == "customer":
+        posts=loadPost(mysql)
+        postcomments=loadPostComments(mysql)
+        return render_template("dashboard.html", user=user, userType=user.userType, posts=posts, postcomments=postcomments)
     return render_template("dashboard.html", user=user, userType=user.userType)
-        
+
+@app.route("/index")
+def index():
+    '''
+    Route to profile page
+    '''
+    userExist, user = isUserStillInSession()
+
+    return render_template("index.html", user=user)
+
+@app.route("/thread")
+def thread():
+    '''
+    Route to profile page
+    '''
+    userExist, user = isUserStillInSession()
+
+    return render_template("thread.html", user=user)
+
 # Run the app
 if __name__ == "__main__":
     mysql = databaseInit(app) # Setup the database

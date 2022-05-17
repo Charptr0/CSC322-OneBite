@@ -46,6 +46,7 @@ navbar, nav * {
 .managersidebar .managertablinks:hover{
     background: #ACACAC;
     cursor: pointer;
+    
 }
 
 .managersidebar .managertablinks i{
@@ -56,7 +57,15 @@ navbar, nav * {
     font-size: 18px;
     padding-right: 5px;
 }
+.managersidebar.active i{
+    min-width: 45px;
+    margin-right: 15px;
+    transition: all 0.5s ease;
+}
 
+.managersidebar.active .managertablinks{
+    color:rgba(255, 0, 0, 0);
+}
 .managersidebar.active .logo{
     width: 60px;
     height: auto;
@@ -855,6 +864,7 @@ navbar, nav * {
 
 .managersidebar.active .managertablinks:hover{
     background: none;
+    color: transparent;
 }
 
 .manager-home-section{
