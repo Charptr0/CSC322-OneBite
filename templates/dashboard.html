@@ -703,6 +703,7 @@
                                                         <input type="hidden" name="commentType" value="">
                                                         <input type="hidden" name="id" value="">
                                                         <input type="hidden" id="usertype" name="usertype" value="customer">
+
                                                         <button name="givewarning" value = "{{ customer['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                                     </form>
                                                 </td>
@@ -1043,7 +1044,7 @@
                                                 {% for customer in customers: %}
                                                     <form action="" method="POST">
                                                         <input type="hidden" id="usertype" name="usertype" value="customer">
-                                                        <button name="givewarning" class="report-user" value = "{{ post['user_id'] }}" id = "givewarning">Report this user</button>
+                                                        <button name="giveforumwarning" class="report-user" value = "{{ post['user_id'] }}" id = "giveforumwarning">Report this user</button>
                                                     </form>
                                                 {% endfor %}
                                             </div>
@@ -1068,7 +1069,7 @@
                                                     {% for customer in customers: %}
                                                         <form action="" method="POST">
                                                             <input type="hidden" id="usertype" name="usertype" value="customer">
-                                                            <button name="givewarning" class="report-user" value = "{{ postcomment['user_id'] }}" id = "givewarning">Report this user</button>
+                                                            <button name="giveforumwarning" class="report-user" value = "{{ postcomment['user_id'] }}" id = "giveforumwarning">Report this user</button>
                                                         </form>
                                                     {% endfor %}
                                                 </div>
@@ -1338,7 +1339,7 @@
                                         <td>
                                             <form action="" method="POST">                                                      
                                                 <input type="hidden" id="usertype" name="usertype" value="customer">
-                                                <button name="givewarning" value = "{{ forum['reported_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                <button name="giveforumwarning" value = "{{ forum['reported_id'] }}" id = "giveforumwarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                             </form>
                                         </td>
                                         {% endfor %}

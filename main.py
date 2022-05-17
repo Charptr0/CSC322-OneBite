@@ -658,6 +658,8 @@ def dashboard():
             retrievePostComment(mysql)
         if "givewarning" in request.form:
             addwarning(mysql)
+        if "giveforumwarning" in request.form:
+            addforumwarning(mysql)
         if "removecomment" in request.form:
             removeComment(mysql)
         if "warningsubmit" in request.form:

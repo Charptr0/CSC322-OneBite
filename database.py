@@ -776,6 +776,24 @@ def addwarning(db):
     cursor.close()
     return True
 
+def addforumwarning(db):
+    details = request.form
+    usertype = details['usertype']
+    userid = details['giveforumwarning']
+    print(usertype,userid)
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    if usertype == "customer":
+       cursor.execute('UPDATE customer SET warnings = warnings + 1 WHERE customer_id = %s', userid)
+       db.connection.commit()
+    if usertype == "chef":
+       cursor.execute('UPDATE chef SET warnings = warnings + 1 WHERE chef_id = %s', userid)
+       db.connection.commit()
+    if usertype == "delivery":
+       cursor.execute('UPDATE delivery SET warnings = warnings + 1 WHERE delivery_id = %s', userid)
+       db.connection.commit()
+    cursor.close()
+    return True
+
 def retrievePost(db):
     userDetails = request.form
     postAuthor = userDetails['author']
@@ -829,7 +847,7 @@ def retrieveForumWarnings(db):
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute("INSERT INTO forumwarnings (forumwarning_author, forumwarning_accused, user_id, reported_id, forumwarning_content, forumwarning_date) VALUES(%s, %s, %s, %s, %s, CURDATE())", (warningAuthor,warningAccused,6,6,warningdescription))
+    cursor.execute("INSERT INTO forumwarnings (forumwarning_author, forumwarning_accused, user_id, reported_id, forumwarning_content, forumwarning_date) VALUES(%s, %s, %s, %s, %s, CURDATE())", (warningAuthor,warningAccused,7,6,warningdescription))
     db.connection.commit()
     cursor.close()
 
