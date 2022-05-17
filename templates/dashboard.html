@@ -510,7 +510,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Orders</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">5</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -521,7 +521,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Customers</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">1</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -532,7 +532,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Profit</div>
-                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-number">$100</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -786,7 +786,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Orders</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">5</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -797,7 +797,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Customers</div>
-                                    <div class="manager-number">5,000</div>
+                                    <div class="manager-number">1</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -808,7 +808,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Total Profit</div>
-                                    <div class="manager-number">$10,000</div>
+                                    <div class="manager-number">$100</div>
                                     <div class="manager-indicator">
                                         <i class='bx bx-up-arrow-alt'></i>
                                         <span class="manager-text">Up from yesterday</span>
@@ -946,7 +946,7 @@
                             <div class="manager-box">
                                 <div class="manager-right">
                                     <div class="manager-box-topic">Customers Online</div>
-                                    <div class="manager-number">23</div>
+                                    <div class="manager-number">1</div>
                                 </div>
                                     <i class='bx bx-cart cart three' ></i>
                             </div>
@@ -1325,14 +1325,14 @@
                                         <td>{{ forum["forumwarning_author"] }}</td>
                                         <td>{{ forum["forumwarning_accused"] }}</td>
                                         <td>{{ forum["forumwarning_content"] }}</td>
-                                        <td>
                                         {% for customer in customers: %}
+                                        <td>
                                             <form action="" method="POST">                                                      
                                                 <input type="hidden" id="usertype" name="usertype" value="customer">
                                                 <button name="givewarning" value = "{{ forum['reported_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                             </form>
-                                        {% endfor %}
                                         </td>
+                                        {% endfor %}
                                     </tr>
                                     {% endfor %}
                                     </table>
