@@ -398,8 +398,6 @@ def deleteAcc(db, user):
     # if account exists in the database
     if account:
         user.setisClosed(db, 1)
-        # cursor.execute('DELETE FROM customer WHERE customer_id = %s', (str(user.id)))
-        # cursor.execute('DELETE FROM accounts WHERE id = %s', (str(user.id)))
         db.connection.commit()
         cursor.close()
 
@@ -862,3 +860,59 @@ def removeComment(db):
         db.connection.commit()
         cursor.close()
     return True
+
+def retrievePrevious(db):
+    '''
+    Gets customers that are blacklisted/closed acc
+    '''
+
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM customer INNER JOIN accounts ON customer.customer_id = accounts.id WHERE (isBlacklisted = 1 OR isClosed = 1) AND status = 1')
+    customers = cursor.fetchall()
+    cursor.close()
+    return customers
+
+def clearDeposit(db):
+    '''
+    Clear deposit from customer who left the system
+    '''
+    customer_id = request.form['customer_id']
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM customer WHERE customer_id = %s', (str(customer_id),))
+    account = cursor.fetchone()
+
+    # if account exists in the database
+    if account:
+        cursor.execute('UPDATE customer SET wallet = 0')
+        user = getUserInDatabaseByID(db, customer_id)
+        user.setWallet(0)
+    db.connection.commit()
+    cursor.close()
+
+def deleteAccount(db):
+    '''
+    Delete account of customer who left the system
+    '''
+    customer_id = request.form['customer_id']
+    lost_type = request.form['lost_type']
+
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    if lost_type == "blacklisted":
+        cursor.execute('UPDATE customer SET status = 0 WHERE customer_id = %s AND isBlacklisted = 1', (str(customer_id)))
+    else:
+        cursor.execute('DELETE FROM forumwarnings WHERE user_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM postcomments WHERE user_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM post WHERE user_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM deliveryBid WHERE customer_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM orderDetails WHERE customer_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM orders WHERE customer_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM PastDeliveries WHERE customer_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM compliment WHERE receiver_id = %s OR complimenter_id = %s', (str(customer_id), str(customer_id),))
+        cursor.execute('DELETE FROM complaint WHERE receiver_id = %s OR complainer_id = %s', (str(customer_id), str(customer_id),))
+        cursor.execute('DELETE FROM dispute WHERE disputer_id = %s OR complainer_id = %s', (str(customer_id), str(customer_id),))
+        cursor.execute('DELETE FROM customer WHERE customer_id = %s', (str(customer_id),))
+        cursor.execute('DELETE FROM accounts WHERE id = %s', (str(customer_id),))
+        print("thos")
+
+    db.connection.commit()
+    cursor.close()

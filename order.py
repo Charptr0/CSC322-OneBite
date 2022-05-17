@@ -45,7 +45,7 @@ class Order():
         Inserts new order into a database
         '''
         status = 0
-        if order_type == 'pickup':
+        if order_type == 'pickup' or isFree == 1:
             status = 1
         cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('INSERT INTO orders (customer_id, num_items, subtotal, tax, discount, total, datetime, type, status, isFree) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', 
@@ -53,7 +53,11 @@ class Order():
         cursor.execute('SELECT order_id FROM orders WHERE customer_id = %s ORDER BY order_id DESC', (str(user.id),))
         order_id = cursor.fetchone()
         if isFree == 0 and order_type == 'delivery':
-            cursor.execute('INSERT INTO deliveryBid(order_id, customer_id) VALUES (%s, %s)', (str(order_id["order_id"]), str(user.id),))
+            cursor.execute('SELECT delivery_id FROM delivery')
+            personnel = cursor.fetchall()
+            for person in personnel:
+                cursor.execute('INSERT INTO deliveryBid(order_id, customer_id, delivery_id) VALUES (%s, %s, %s)', (str(order_id["order_id"]), str(user.id), str(person["delivery_id"])))
+                print(person)
         db.connection.commit()
         cursor.close()
 
@@ -127,16 +131,20 @@ class Order():
         return Order(order["order_id"], order["customer_id"], order["num_items"], order["subtotal"], order["tax"], order["discount"], 0.0, order["total"], order["type"], order["status"])
 
     @staticmethod
-    def getBid(db : MySQL):
+    def getBid(db : MySQL, user):
         cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM deliveryBid INNER JOIN orders ON orders.order_id = deliveryBid.order_id INNER JOIN customer ON orders.customer_id = customer.customer_id INNER JOIN accounts ON orders.customer_id = accounts.id WHERE orders.isFree = 0 and orders.status = 0')
-        deliveries = cursor.fetchall()
+        if user.userType == 'manager':
+            cursor.execute('SELECT * FROM deliveryBid INNER JOIN orders ON orders.order_id = deliveryBid.order_id INNER JOIN customer ON orders.customer_id = customer.customer_id INNER JOIN accounts ON orders.customer_id = accounts.id WHERE orders.isFree = 0 AND orders.status = 0 AND deliveryBid.delivery_bid <> 0')
+            deliveries = cursor.fetchall()
+        else:
+            cursor.execute('SELECT * FROM deliveryBid INNER JOIN orders ON orders.order_id = deliveryBid.order_id INNER JOIN customer ON orders.customer_id = customer.customer_id INNER JOIN accounts ON orders.customer_id = accounts.id WHERE orders.isFree = 0 AND orders.status = 0 AND deliveryBid.delivery_id = %s', (str(user.id),))
+            deliveries = cursor.fetchall()
 
         cursor.close()
         return deliveries
 
     @staticmethod
-    def placeBid(db : MySQL):
+    def placeBid(db : MySQL, user):
         '''
         Place bid for order in database
         '''
@@ -147,11 +155,12 @@ class Order():
         old_bid = float(bidDetails["old_bid"])
         delivery_id = bidDetails["delivery_id"]
 
-        if bid < old_bid:
+        if old_bid != 0 and bid > old_bid:
             return False
 
         cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('UPDATE deliveryBid SET num_bids = %s, current_bid = %s, delivery_id = %s WHERE order_id = %s', (str(num_bid), str(bid), str(delivery_id), str(order_bid),))
+        cursor.execute('UPDATE deliveryBid SET num_bids = %s, current_bid = %s, delivery_bid = %s, delivery_id = %s WHERE order_id = %s AND delivery_id = %s', (str(num_bid), str(bid), str(bid), str(delivery_id), str(order_bid), str(user.id)))
+        cursor.execute('UPDATE deliveryBid SET num_bids = %s, current_bid = %s WHERE order_id = %s AND delivery_id <> %s', (str(num_bid), str(bid), str(order_bid), str(user.id)))
         db.connection.commit()
         cursor.close()
 
@@ -163,11 +172,41 @@ class Order():
         Assign bid to delivery personnel
         '''
         bidDetails = request.form
+        delivery_bid = bidDetails["delivery_bid"]
         delivery_id = bidDetails["delivery_id"]
         order_id = bidDetails["order_id"]
+        total = float(bidDetails["total"]) + float(bidDetails["delivery_bid"])
 
         cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('UPDATE orders SET delivery_id = %s, status = 0', (str(delivery_id),))
+        cursor.execute('UPDATE orders SET total = %s, delivery_fee = %s, delivery_id = %s, status = 1 WHERE order_id = %s', (str(total), str(delivery_bid), str(delivery_id), str(order_id)))
         cursor.execute('DELETE FROM deliveryBid WHERE order_id = %s', (str(order_id)))
+
+        # assigns warning to deliverer if not deliver past 5
+        cursor.execute('SELECT * FROM orders WHERE type = %s AND status = 1 ORDER BY order_id DESC', ("delivery",))
+        results = cursor.fetchmany(5)
+        cursor.execute('SELECT * FROM delivery')
+        personnel = cursor.fetchall()
+        if len(results) < 5:
+            pass
+        else:
+            num_delivered = 0
+            for person in personnel:
+                for order in results:
+                    if order["delivery_id"] == person["delivery_id"]:
+                        num_delivered += 1
+                if num_delivered == 0:
+                    warnings = int(person["warnings"]) + 1
+                    cursor.execute('UPDATE delivery SET warnings = %s WHERE delivery_id = %s', (str(warnings), str(person["delivery_id"])))
+            
         db.connection.commit()
         cursor.close()
+
+    @staticmethod
+    def getRecentDelivery(db, user):
+        '''
+        Grabs most recent delivery done by personnel
+        '''
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM orders INNER JOIN customer ON orders.customer_id = customer.customer_id INNER JOIN accounts ON orders.customer_id = accounts.id WHERE orders.delivery_id = %s ORDER BY orders.order_id DESC', (str(user.id)))
+        order = cursor.fetchone()
+        return order

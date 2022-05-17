@@ -676,7 +676,6 @@
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Username</th>
-                                            <th>Password</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Card Number</th>
@@ -689,7 +688,6 @@
                                                 <td><li>{{ customer["fname"] }}</li></td>
                                                 <td><li>{{ customer["lname"] }}</li></td>
                                                 <td><li>{{ customer["username"] }}</li></td>
-                                                <td><li>{{ customer["password"] }}</li></td>
                                                 <td><li>{{ customer["email"] }}</li></td>
                                                 <td><li>{{ customer["phone"] }}</li></td>
                                                 <td><li>{{ customer["cardnumber"] }}</li></td>
@@ -731,23 +729,41 @@
                                             <th>Balance</th>
                                             <th>Warnings</th>
                                             <th>Type</th>
-                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
+                                        {% for customer in previousCustomers %}
                                         <tr>
-                                           <td><li>11111</li></td>
-                                           <td><li>Doe</li></td>
-                                           <td><li>alexDoe@gmail.com</li></td>
-                                           <td><li>alexDoe123</li></td>
-                                           <td><li>$5.90</li></td>
-                                           <td><li>3</li></td>
-                                           <td><li>Blacklisted</li></td>
-                                           <td><li>Resolved</li></td>
-                                           <td>
-                                                <button id = "cleardeposit" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-                                                <button id = "deleteaccount" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                            <td><li>{{ customer["customer_id"] }}</li></td>
+                                            <td><li>{{ customer["lname"] }}</li></td>
+                                            <td><li>{{ customer["email"] }}</li></td>
+                                            <td><li>{{ customer["username"] }}</li></td>
+                                            <td><li>{{ "$%.2f"|format(customer["wallet"]) }}</li></td>
+                                            <td><li>{{ customer["warnings"] }}</li></td>
+                                            <td><li>
+                                                {% if customer["isBlacklisted"] == 1 %}
+                                                    Blacklisted
+                                                {% elif customer["isClosed"] == 1 %}
+                                                    Closed
+                                                {% endif %}
+                                            </li></td>
+                                            <td>
+                                                <form action = "" method = "post" id = "cleardeposit">
+                                                    <input type = "hidden" id = "customer_id" name = "customer_id" value = "{{ customer['customer_id'] }}">
+                                                    <input type = "hidden" if = "lost_type" name = "lost_type" value = "closed">
+                                                    <button id = "cleardeposit" name = "cleardeposit" value = "{{ customer['customer_id'] }}" class="actionButton"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                                                </form>
+                                                <form action = "" method = "post" id = "deleteaccount">
+                                                    <input type = "hidden" id = "customer_id" name = "customer_id" value = "{{ customer['customer_id'] }}">
+                                                    {% if customer["isBlacklisted"] == 1 %}
+                                                        <input type = "hidden" if = "lost_type" name = "lost_type" value = "blacklisted">
+                                                    {% elif customer["isClosed"] == 1 %}
+                                                        <input type = "hidden" if = "lost_type" name = "lost_type" value = "closed">
+                                                    {% endif %}
+                                                    <button id = "deleteaccount" name = "deleteaccount" value = "{{ customer['customer_id'] }}" class="actionButton"><i class="fa-solid fa-trash-can"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
                                 <a href="#" id="lost-customers-load" class="see-all-button">See All</a>
@@ -1343,6 +1359,7 @@
                         <th scope="col">Current Bid</th>
                         <th scope="col">Placed By</th>
                         <th scope="col">Assign Bid</th>
+                        <th scope="col">Comment</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1352,7 +1369,7 @@
                             <td>{{ customer["fname"] }} {{ customer["lname"] }}</td>
                             <td>{{ "$%.2f"|format(customer["total"]) }}</td>
                             <td>{{ customer["num_bids"] }}</td>
-                            <td>{{ "$%.2f"|format(customer["current_bid"]) }}</td>
+                            <td>{{ "$%.2f"|format(customer["delivery_bid"]) }}</td>
                             <td>
                                 {% if customer["delivery_id"] == 0 %}
                                     No Bid Placed
@@ -1367,9 +1384,14 @@
                                     <form action = "" method = "post">
                                         <input type = "hidden" id = "order_id" name = "order_id" value = "{{ customer['order_id'] }}">
                                         <input type = "hidden" id = "delivery_id" name = "delivery_id" value = "{{ customer['delivery_id'] }}">
+                                        <input type = "hidden" id = "delivery_bid" name = "delivery_bid" value = "{{ customer['delivery_bid'] }}">
+                                        <input type = "hidden" id = "total" name = "total" value = "{{ customer['total'] }}">
                                         <input type = "submit" id = "assign-submit" name = "assign-submit" value = "Assign">
                                     </form>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <input type = "text" id = "del-justify" name = "del-justify">
                             </td>
                         </tr>
                         {% endfor %}
@@ -2607,39 +2629,12 @@
                 
                 <div id = "Current_deliveries" class = "deliverytabcontent">
                     <section class = "past-delivery-section">
-                    
                         <div class="delivery-home-content">
                             <div class="delivery-number-overview-box">
+                                {% if recentDelivery %}
                                 <div class="delivery-box">
                                     <div class="delivery-left">
-                                        <div class="delivery-number">Delivery # ( Order ID )</div>
-                                        <hr>
-                                        <div class="delivery-items">
-                                            <div class="delivery-name-qty">
-                                                <div class="delivery-name-food">Name</div>
-                                                <div class="delivery-qty">QTY</div>
-                                            </div>
-                                            <div class="delivery-name-qty">
-                                                <div class="delivery-name-food">Name</div>
-                                                <div class="delivery-qty">QTY</div>
-                                            </div>
-                                            <div class="delivery-name-qty">
-                                                <div class="delivery-name-food">Name</div>
-                                                <div class="delivery-qty">QTY</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    
-                    
-                        <div class="delivery-home-content">
-                            <div class="delivery-number-overview-box">
-                                <div class="delivery-box">
-                                    <div class="delivery-left">
-                                        <div class="delivery-number">Delivery Location for Delivery # ( Order ID )</div>
+                                        <div class="delivery-number">Delivery Location for Delivery # {{ recentDelivery["order_id"] }}</div>
                                         
                                         <button class = "complain-btn" data-bs-toggle="modal" data-bs-target="#complain-modal"><i class='bx bxs-angry'></i>Complain</button>
                                         <div class="modal fade" id = "complain-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
@@ -2657,7 +2652,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modal-receiverid" class = "form-label">Complaint Receiver ID:</label>
-                                                                <input name="receiverid" type="receiverid" class = "form-control" id = "modal-receiverid" value="6" readonly>
+                                                                <input name="receiverid" type="receiverid" class = "form-control" id = "modal-receiverid" value="{{ recentDelivery['customer_id'] }}" readonly>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
@@ -2692,11 +2687,12 @@
                                         </div>
                                         <hr>
                                         <div class="delivery-customer-info">
-                                            <div class="delivery-customer-name">Customer Name: Peggie</div>
-                                            <div class="delivery-customer-address">Customer Address: At Your Moms House 123</div>
+                                            <div class="delivery-customer-name">Customer Name: {{ recentDelivery["fname"] }} {{ recentDelivery["lname"] }}</div>
+                                            <div class="delivery-customer-address">Customer Address: {{ recentDelivery["address"] }}</div>
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                         
@@ -2757,7 +2753,11 @@
                                         <input type = "hidden" id = "num_bid" name = "num_bid" value = "{{ customer['num_bids'] }}">
                                         <input type = "hidden" id = "old_bid" name = "old_bid" value = "{{ customer['current_bid'] }}">
                                         <input type = "hidden" id = "delivery_id" name = "delivery_id" value = "{{ user.id }}">
-                                        <input type = "number" step = "0.01" id = "bid" name = "bid" placeholder = "{{ '$%.2f'|format(customer['current_bid']+0.01) }}" autocomplete = "off" required min="0">
+                                        {% if customer["current_bid"] == 0 %}
+                                            <input type = "number" step = "0.01" id = "bid" name = "bid" placeholder = "{{ '$%.2f'|format(customer['current_bid']+0.01) }}" autocomplete = "off" required min="0.01">
+                                        {% else %}
+                                        <input type = "number" step = "0.01" id = "bid" name = "bid" placeholder = "{{ '$%.2f'|format(customer['current_bid']-0.01) }}" autocomplete = "off" required min="0.01">
+                                        {% endif %}
                                         <input type = "submit" id = "bid-submit" name = "bid-submit">
                                     </form>
                                 </td>

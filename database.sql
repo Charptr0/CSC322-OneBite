@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS customer (
     isClosed tinyint(1) DEFAULT 0,
     isBlacklisted tinyint(1) DEFAULT 0,
     isVIP tinyint(1) DEFAULT 0,
+    status tinyint(1) DEFAULT 1,
     free_deliveries int(11) DEFAULT 0,
     PRIMARY KEY (customer_id),
     FOREIGN KEY (customer_id) REFERENCES accounts(id)
@@ -269,6 +270,7 @@ CREATE TABLE IF NOT EXISTS deliveryBid (
     customer_id int(11) NOT NULL,
     num_bids int(11) NOT NULL DEFAULT 0,
     current_bid float NOT NULL DEFAULT 0.0,
+    delivery_bid float NOT NULL DEFAULT 0.0,
     delivery_id int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -277,13 +279,13 @@ SELECT * FROM deliveryBid;
 
 /* Table Posts */
 CREATE TABLE IF NOT EXISTS post (
-post_id int(11) NOT NULL AUTO_INCREMENT,
-post_author varchar(255) NOT NULL,
-post_content TEXT NOT NULL,
-post_date DATE NOT NULL,
-post_title varchar(50) NOT NULL,
-user_id int(11) NOT NULL,
-PRIMARY KEY (post_id)
+	post_id int(11) NOT NULL AUTO_INCREMENT,
+	post_author varchar(255) NOT NULL,
+	post_content TEXT NOT NULL,
+	post_date DATE NOT NULL,
+	post_title varchar(50) NOT NULL,
+	user_id int(11) NOT NULL,
+	PRIMARY KEY (post_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 INSERT INTO post VALUES (1, "Manager", "Please be respectful to all users. Enjoy!", "2020-05-15","Welcome to OneBite!", 1);
@@ -298,12 +300,12 @@ SELECT * FROM post;
 
 /* Table Post Comments */
 CREATE TABLE IF NOT EXISTS postcomments (
-postcomment_id int(11) NOT NULL AUTO_INCREMENT,
-postcomment_author varchar(255) NOT NULL,
-postcomment_content TEXT NOT NULL,
-postcomment_date DATE NOT NULL,
-user_id int(11) NOT NULL,
-PRIMARY KEY (postcomment_id)
+	postcomment_id int(11) NOT NULL AUTO_INCREMENT,
+	postcomment_author varchar(255) NOT NULL,
+	postcomment_content TEXT NOT NULL,
+	postcomment_date DATE NOT NULL,
+	user_id int(11) NOT NULL,
+	PRIMARY KEY (postcomment_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- INSERT INTO postcomments VALUES (1, "User1", "first", "2020-05-16");
@@ -316,14 +318,14 @@ SELECT * FROM postcomments;
 
 /* Table Forum Warnings */
 CREATE TABLE IF NOT EXISTS forumwarnings (
-forumwarning_id int(11) NOT NULL AUTO_INCREMENT,
-forumwarning_author varchar(255) NOT NULL,
-forumwarning_accused varchar(255) NOT NULL,
-forumwarning_content TEXT NOT NULL,
-forumwarning_date DATE NOT NULL,
-user_id int(11) NOT NULL,
-reported_id int(11) NOT NULL,
-PRIMARY KEY (forumwarning_id)
+	forumwarning_id int(11) NOT NULL AUTO_INCREMENT,
+	forumwarning_author varchar(255) NOT NULL,
+	forumwarning_accused varchar(255) NOT NULL,
+	forumwarning_content TEXT NOT NULL,
+	forumwarning_date DATE NOT NULL,
+	user_id int(11) NOT NULL,
+	reported_id int(11) NOT NULL,
+	PRIMARY KEY (forumwarning_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /* Display Forum Warnings */
