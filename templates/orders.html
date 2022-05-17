@@ -71,12 +71,12 @@
                                     {% if order["isFree"] == 1 %}
                                         <div class = "info-row">
                                             <p class = "align-left">Delivery:</p>
-                                            <p class = "align-right">Your Delivery was Free.</p>
+                                            <p class = "align-right">Your Delivery is Free</p>
                                         </div>
                                     {% else %}
                                         <div class = "info-row">
                                             <p class = "align-left">Delivery:</p>
-                                            <p class = "align-right">{{ "$%.2f"|format(order["delivery_fee"]) }}</p>
+                                            <p class = "align-right">To Be Determined</p>
                                         </div>
                                     {% endif %}
                                 {% endif %}
@@ -189,6 +189,7 @@
                                     <p class = "align-right info-total">{{ "$%.2f"|format(order["total"]) }}</p>
                                 </div>
                             </div>
+                            {% if order["type"] == 'delivery' %}
                                 <div class = "btn-row transparent">
                                     <!-- compliment delivery -->
                                     <form action = "" method = "post" class = "transparent width40">
@@ -203,6 +204,7 @@
                                         <input type = "submit" name = "complaint-delivery" value = "Complain Delivery" class = "complaint-btn">
                                     </form>
                                 </div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}

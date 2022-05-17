@@ -676,22 +676,22 @@ def dashboard():
         complaints=loadComplaints(mysql,user)
         forumwarnings=loadForumWarnings(mysql)
         # print(rows)
-        DELIVERYBIDS = Order.getBid(mysql)
+        DELIVERYBIDS = Order.getBid(mysql, user)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
         return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, forumwarnings=forumwarnings)
 
     if user.userType == "delivery":
         if request.method == 'POST':
             if "bid-submit" in request.form:
-                if Order.placeBid(mysql):
+                if Order.placeBid(mysql, user):
                     flash('Bid placement successful.', category = "success")
                 else:
-                    flash('Bid placement failed. You must bid a higher delivery price.', category = "error")
+                    flash('Bid placement failed. You must bid a lower asking delivery price.', category = "error")
         rows=loadPastDeliveries(mysql)
         compliments=loadCompliments(mysql,user)
         complaints=loadComplaints(mysql,user)
         warnings=loadWarnings(mysql,user)
-        DELIVERYBIDS = Order.getBid(mysql)
+        DELIVERYBIDS = Order.getBid(mysql, user)
         return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,compliments=compliments, complaints=complaints,warnings=warnings, deliverybids = DELIVERYBIDS)
         
     if user.userType == "chef":

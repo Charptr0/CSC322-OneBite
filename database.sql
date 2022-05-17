@@ -269,6 +269,7 @@ CREATE TABLE IF NOT EXISTS deliveryBid (
     customer_id int(11) NOT NULL,
     num_bids int(11) NOT NULL DEFAULT 0,
     current_bid float NOT NULL DEFAULT 0.0,
+    delivery_bid float NOT NULL DEFAULT 0.0,
     delivery_id int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
