@@ -152,6 +152,7 @@ CREATE TABLE IF NOT EXISTS dispute (
     last_name varchar(50) NOT NULL,
 	dispute_id int(11) NOT NULL AUTO_INCREMENT,
     complainer_id int(11) NOT NULL,
+    complaint_content text NOT NULL,
     disputer_id int(11) NOT NULL,
     dispute_date DATE NOT NULL,
     dispute_content text NOT NULL,
@@ -190,13 +191,13 @@ CREATE TABLE IF NOT EXISTS compliment (
     primary key(compliment_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO compliment VALUES('apple', 'bottom', '1', '10', '4', '2022-1-10', 'test compliment for deliverer 4');
+INSERT INTO compliment VALUES('apple', 'bottom', '1', '3', '4', '2022-1-10', 'test compliment for deliverer 4');
 INSERT INTO compliment VALUES('apple', 'bottom', '2', '10', '5', '2022-1-10', 'test compliment for deliverer 5');
 INSERT INTO compliment VALUES('apple', 'bottom', '3', '10', '2', '2022-1-10', 'test compliment for chef 1');
 INSERT INTO compliment VALUES('apple', 'bottom', '4', '10', '2', '2022-1-10', 'test compliment for chef 1');
 
 /* Display Compliments */
-SELECT * FROM compliments;
+SELECT * FROM compliment;
 
 /* Table PastDeliveries */
 CREATE TABLE IF NOT EXISTS PastDeliveries (
