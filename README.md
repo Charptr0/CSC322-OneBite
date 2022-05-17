@@ -15,8 +15,8 @@ Develop an on-line restaurant order and delivery system so that the restaurant c
     - [X] One manager who process customer registrations, handles customer compliments and complaints, hire/fire/raise/cut pay for chef(s) and delivery people
 
 2. Customers
-    - [ ] Registered customers who can browse/search, order and vote(lowest 1 star to highest 5 stars) delivered (on food and delivery quality/manners individually)
-    - [ ] Can start/participate a discussion topic on chefs dishes/delivery people
+    - [X] Registered customers who can browse/search, order and vote(lowest 1 star to highest 5 stars) delivered (on food and delivery quality/manners individually)
+    - [X] Can start/participate a discussion topic on chefs dishes/delivery people
     - [X] Registered customers becomes a VIP after spending more than $100 or 5 orders
     - [X] As a VIP registered customers without complaints, they will receive 5% discount of their ordinary orders and 1 free delivery for every 3 orders, have access to specially developed dishes, and their complaints/compliments are counted twice as important as ordinary ones
 
@@ -32,26 +32,26 @@ dish and price
 - [X] Based on the history of their prior choices, different registered customer/VIP will have different top 3 listing dishes. 
 - [X] For new customers or visitors, the top 3 most popular dishes and top 3 highest rated dishes are listed on the first page
 - [X] A customer can choose to 
-    - [ ] Pick up the dishes in person 
+    - [X] Pick up the dishes in person 
         - He/She can only complain/compliment the chef
     - [X] By restaurant delivery
-- [ ] A customer can file complaints/compliments to chef of the food s/he purchased and deliver person who delivered the dish or other customers who didn’t behave in the discussion forums.
+- [X] A customer can file complaints/compliments to chef of the food s/he purchased and deliver person who delivered the dish or other customers who didn’t behave in the discussion forums.
 - [x] Delivery person can complain/compliment customers s/he delivered dishes, all complaints/compliments are handled by the manager 
 - [x] The complained person has the right to dispute the complaint, the manager made the final call to dismiss the
 complaint or let the warning stay and inform the impacted parties 
-- [ ] Customers/delivery people whose complaints are decided to be without merit by the manager will receive one
+- [X] Customers/delivery people whose complaints are decided to be without merit by the manager will receive one
 additional warning.
 - [X] Registered customers having 3 warnings are de-registered. 
 - [X] VIPs having 2 warnings are put back to registered customers (with warnings cleared). 
 - [X] The warnings should be displayed in the page when the customer logs in
 - [X] Every customer should deposit some money to the system. If the price of the order is more expensive than the deposited money in the account, the order is rejected and the
 customer receives one warning automatically for being reckless
-- [ ] Customers who are kicked out of the system or choose to quit the system will be handled by the manager: 
-    - [ ] clear the deposit and close the account. And kicked-out customer is on the blacklist of the restaurant: cannot register any more
+- [X] Customers who are kicked out of the system or choose to quit the system will be handled by the manager: 
+    - [X] clear the deposit and close the account. And kicked-out customer is on the blacklist of the restaurant: cannot register any more
 - [ ] The chef whose dishes received consistently low ratings (<2) or 3 complaints, will be demoted (less salary), a chef demoted twice is fired. Conversely, a chef whose dishes receive high ratings (>4) or 3 compliments, will receive a bonus. 
-- [ ] One compliment can be used to cancel one complaint. The delivery people are handled the same way
-- [ ] The delivery people will compete to deliver the order by bidding, the manager assigns the order from bidding results: the one with lowest delivery price is generally chosen 
-- [ ] if the one with higher asking price is chosen, the manager should write a memo in the system as justifications. The delivery person who didn’t deliver any in the past 5 orders will automatically receive one warning
+- [X] One compliment can be used to cancel one complaint. The delivery people are handled the same way
+- [X] The delivery people will compete to deliver the order by bidding, the manager assigns the order from bidding results: the one with lowest delivery price is generally chosen 
+- [X] if the one with higher asking price is chosen, the manager should write a memo in the system as justifications. The delivery person who didn’t deliver any in the past 5 orders will automatically receive one warning
 
 ## Extra Features
-TBD
+- [X] Web-based application
