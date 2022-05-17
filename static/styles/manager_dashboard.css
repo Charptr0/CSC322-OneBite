@@ -851,6 +851,84 @@ navbar, nav * {
         }
         /* table buttons */
     /* end disputed comments table */
+
+    /* forum warnings table */
+    #discussion-warnings-table{
+        border-collapse: collapse;
+        width: calc(100% - 240px);
+        left: 240px;
+    }
+
+    #discussion-warnings-table tr {
+    display: none;
+    }
+
+    #discussion-warnings-table tr.active {
+        display: table-row;
+    }
+
+    #discussion-warnings-table td, #discussion-warnings-table th{
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        list-style: none;
+        margin: 8px 0;
+        background: transparent;
+    }
+
+    #discussion-warnings-table td li{
+        background: transparent;
+    }
+
+    #discussion-warnings-table td li a{
+        text-decoration: none;
+        background: transparent;
+    }
+
+    #discussion-warnings-table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+
+    #discussion-warnings-table tr:hover{
+        background-color: #ACACAC;
+    }
+
+    #discussion-warnings-table th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-size: 20px;
+        font-weight: 1000;
+        text-align: left;
+        background-color: transparent;
+        color: black;
+    }
+
+        /* table buttons */
+        #CustomerComments .manager-dashboard-section .actionButton {
+            background: transparent;
+            border: none;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 40%;
+        }
+
+        #CustomerComments .manager-dashboard-section #letstay:hover {
+            background-color: #81de76;
+        }
+
+        #CustomerComments .manager-dashboard-section #dismiss:hover {
+            background-color: #B22B27;
+        }
+
+        #CustomerComments .manager-dashboard-section .actionButton i {
+            background: transparent;
+        }
+        /* table buttons */
+    /* end forum warnings table */
 /* end manager customer comments page */
 
 
