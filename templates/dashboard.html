@@ -700,7 +700,10 @@
                                                 </td>
                                                 <td>
                                                     <form action="" method="POST">
-                                                        <input type="hidden" id="usertype" name="usertype" value="unknown">
+                                                        <input type="hidden" name="commentType" value="">
+                                                        <input type="hidden" name="id" value="">
+                                                        <input type="hidden" id="usertype" name="usertype" value="customer">
+
                                                         <button name="givewarning" value = "{{ customer['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                                     </form>
                                                 </td>
@@ -853,6 +856,8 @@
                                                 <td><li>{{ chef["demotions"] }}</li></td>
                                                 <td>
                                                     <form action="" method="POST">
+                                                        <input type="hidden" name="commentType" value="">
+                                                        <input type="hidden" name="id" value="">
                                                         <input type="hidden" id="usertype" name="usertype" value="chef">
                                                         <button name="givewarning" value = "{{ chef['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                                     </form>
@@ -899,6 +904,8 @@
                                                 <td><li>{{ delivery["demotions"] }}</li></td>
                                                 <td>
                                                     <form action="" method="POST">
+                                                        <input type="hidden" name="commentType" value="">
+                                                        <input type="hidden" name="id" value="">
                                                         <input type="hidden" id="usertype" name="usertype" value="delivery">
                                                         <button name="givewarning" value = "{{ delivery['id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
                                                     </form>
