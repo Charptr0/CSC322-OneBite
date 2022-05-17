@@ -305,50 +305,51 @@
                     <td> 
                         <!-- <section class="bg-light" > -->
                             <button class = "dispute-btn d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delivery-modal"><i class="bi bi-x-octagon"></i>Dispute</button>
-                            <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
-                                            <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="" method = "post">
-                                                <div class="form-group">
-                                                    <label for="userid">Your User ID:</label>
-                                                    <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
-                                                    <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
-                                                    <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="deliverydisputebox">Enter Dispute Description:</label>
-                                                    <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="date">Enter Date:</label>
-                                                    <div class="input-group date" class="datepicker" data-provide="datepicker">
-                                                        <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
-                                                        <span class="input-group-addon" for="txtdate">
-                                                            <span id ="calender-btn" class="btn btn-default">
-                                                                <i class='bx bxs-calendar'></i> 
-                                                            </span> 
-                                                        </span>
+                                <div class="modal fade" id = "delivery-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class = "modal-title" id = "modal-title">Dispute Form</h5>
+                                                <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="" method = "post">
+                                                    <input type="hidden" id="complainerid" name="complainerid" value="{{ info['complainer_id'] }}">
+                                                    <div class="form-group">
+                                                        <label for="userid">Your User ID:</label>
+                                                        <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
                                                     </div>
-                                                </div>
-                                                <!-- <div class="modal-footer"> -->
-                                                    <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
-                                                <!-- </div> -->
-                                            </form>
+                                                    <div class="form-group">
+                                                        <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
+                                                        <input name = "firstname" type="text" class = "form-control" id = "modal-fname" placeholder="First Name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="modal-lname" class = "form-label">Enter Your Last Name:</label>
+                                                        <input name = "lastname" type="text" class = "form-control" id = "modal-lname" placeholder="Last Name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="deliverydisputebox">Enter Dispute Description:</label>
+                                                        <textarea name="deliverydispute" id="deliverydisputebox" type ="text" cols="20" rows="5" class="form-control" placeholder="Smelly..."></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="date">Enter Date:</label>
+                                                        <div class="input-group date" class="datepicker" data-provide="datepicker">
+                                                            <input name ="disputedate" onload="getDate()" id="txtdate" type="text" class = "form-control" placeholder="MM/DD/YYYY">
+                                                            <span class="input-group-addon" for="txtdate">
+                                                                <span id ="calender-btn" class="btn btn-default">
+                                                                    <i class='bx bxs-calendar'></i> 
+                                                                </span> 
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="modal-footer"> -->
+                                                        <input name = "disputesubmit" type = "submit" class="btn btn-primary d-block" value = "submit">  
+                                                    <!-- </div> -->
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         <!-- </section> -->
 
                     </td>
@@ -546,6 +547,7 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Recent Orders</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="recent-orders" class="recent-orders-table">
                                         <tr>
@@ -666,6 +668,7 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Registered Customers</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="registered-customers" class="registered-customers-table">
                                         <tr>
@@ -717,6 +720,7 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Previous Customers</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="lost-customers" class="lost-customers-table">
                                         <tr>
@@ -803,6 +807,7 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Chefs</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="chef-table" class="chef-table">
                                         <tr>
@@ -848,6 +853,7 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Delivery Workers</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="delivery-table" class="delivery-table">
                                         <tr>
@@ -1125,44 +1131,102 @@
                     <div class="manger-home-content">
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
-                                <div class="manager-title"><h3>Compliments/Complaints</h3></div>
+                                <div class="manager-title"><h3>Compliments</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
-                                    <table id="comments-table" class="comments-table">
+                                    <table id="compliment-table" class="compliment-table">
                                         <tr>
-                                            <th>Date</th>
-                                            <th>Author (ID, Name)</th>
-                                            <th>Type</th>
-                                            <th>Comment</th>
-                                            <th>Recipient (ID, Name)</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Compliment ID</th>
+                                            <th>Complimenter ID</th>
+                                            <th>Warning for Complimenter</th>
+                                            <th>Receiver ID</th>
+                                            <th>Compliment Date</th>
+                                            <th>Compliment Content</th>
+                                            <th>Actions</th>
                                         </tr>
+                                    
+                                        {% for info in compliments %}
                                         <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>1111, Alex Doe</li></td>
-                                            <td><li>Complaint</li></td>
-                                            <td><li>The food was horrible.</li></td>
-                                            <td><li>3333, Chef 1</li></td>
+                                            <td>{{ info["first_name"] }}</td>
+                                            <td>{{ info["last_name"] }}</td>
+                                            <td>{{ info["compliment_id"] }}</td>
+                                            <td>{{ info["complimenter_id"] }}</td>
+                                            <td>
+                                                <form action="" method="POST">
+                                                    <input type="hidden" id="usertype" name="usertype" value="unknown">
+                                                    <input type="hidden" name="commentType" value="compliment">
+                                                    <input type="hidden" name="id" value="{{ info['compliment_id'] }}">
+                                                    <button name="givewarning" value = "{{ info['complimenter_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>{{ info["receiver_id"] }}</td>
+                                            <td>{{ info["compliment_date"].strftime('%m-%d-%Y') }}</td>
+                                            <td>{{ info["compliment_content"] }}</td>
+                                            <td>
+                                                <form action="">
+                                                    <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
+                                                </form>
+                                                <form action="" method ="POST">
+                                                    <input type="hidden" name="commentType" value="compliment">
+                                                    <input type="hidden" name="id" value="{{ info['compliment_id'] }}">
+                                                    <button type="submit" id = "dismiss" name ="removecomment" class="actionButton"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                                </form>
+                                           </td>
                                         </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <a href="#" id="customer-comments-load" class="see-all-button">See All</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manger-home-content">
+                        <div class="orders-boxes">
+                            <div class="recent-order manager-box">
+                                <div class="manager-title"><h3>Complaints</h3></div>
+                                <hr class = "header-divider" class="solid">
+                                <div class="manager-order-details">
+                                    <table id="complaint-table" class="complaint-table">
                                         <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>1111, Alex Doe</li></td>
-                                            <td><li>Compliment</li></td>
-                                            <td><li>The food was great.</li></td>
-                                            <td><li>3333, Chef 1</li></td>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Complaint ID</th>
+                                            <th>Complainer ID</th>
+                                            <th>Warning for Complainer</th>
+                                            <th>Receiver ID</th>
+                                            <th>Complaint Date</th>
+                                            <th>Complaint Content</th>
+                                            <th>Actions</th>
                                         </tr>
+                                    
+                                        {% for info in complaints %}
                                         <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>2222, David Mart</li></td>
-                                            <td><li>Compliment</li></td>
-                                            <td><li>The delivery was great.</li></td>
-                                            <td><li>4444, Delivery 1</li></td>
+                                            <td>{{ info["first_name"] }}</td>
+                                            <td>{{ info["last_name"] }}</td>
+                                            <td>{{ info["complaint_id"] }}</td>
+                                            <td>{{ info["complainer_id"] }}</td>
+                                            <td>
+                                                <form action="" method="POST">
+                                                    <input type="hidden" id="usertype" name="usertype" value="unknown">
+                                                    <button name="givewarning" value = "{{ info['complainer_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>{{ info["receiver_id"] }}</td>
+                                            <td>{{ info["complaint_date"].strftime('%m-%d-%Y') }}</td>
+                                            <td>{{ info["complaint_content"] }}</td>
+                                            <td>
+                                                <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
+                                                <form action="" method ="POST">
+                                                    <input type="hidden" name="commentType" value="complaint">
+                                                    <input type="hidden" name="id" value="{{ info['complaint_id'] }}">
+                                                    <button type="submit" id = "dismiss" name ="removecomment" class="actionButton"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                                </form>
+                                           </td>
                                         </tr>
-                                        <tr>
-                                            <td><li>05/05/2022</li></td>
-                                            <td><li>2222, David Mart</li></td>
-                                            <td><li>Complaint</li></td>
-                                            <td><li>The delivery was late ...</li></td>
-                                            <td><li>4444, Delivery 1</li></td>
-                                        </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
                                 <a href="#" id="customer-comments-load" class="see-all-button">See All</a>
@@ -1174,28 +1238,47 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Disputed Comments</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="disputed-comments-table" class="disputed-comments-table">
                                         <tr>
                                             <th>Date</th>
-                                            <th>Author (ID, Name)</th>
-                                            <!-- <th>Original Complaint</th> -->
-                                            <!-- <th>Recipient</th> -->
+                                            <th>Complainer ID</th>
+                                            <th>Complaint Date</th>
+                                            <th>Disputer ID</th>
+                                            <th>Warning for Disputer</th>
+                                            <th>Dispute Author (ID, Name)</th>
+                                            <th>Dispute Date</th>
                                             <th>Dispute Claim</th>
-                                            <!-- <th>Status</th>
-                                            <th>Actions</th> -->
+                                            <th>Actions</th>
                                         </tr>
-                                    </tr>
+                                    
                                         {% for info in rows %}
+                                        <tr>
                                             <td>{{ info["dispute_date"].strftime('%m-%d-%Y') }}</td>
-                                            <td>{{ info["dispute_id"] }}, {{ info["first_name"] }}</td>
+                                            <td>{{ info["complainer_id"] }}</td>
+                                            <td>{{ info["complaint_date"].strftime('%m-%d-%Y') }}</td>
+                                            <td>{{ info["disputer_id"] }}</td>
+                                            <td>
+                                                <form action="" method="POST">
+                                                    <input type="hidden" id="usertype" name="usertype" value="unknown">
+                                                    <button name="givewarning" value = "{{ info['disputer_id'] }}" id = "givewarning" class="actionButton"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>{{ info["dispute_id"] }}, {{ info["first_name"] }} {{ info["last_name"] }}</td>
+                                            <td>{{ info["dispute_date"] }}</td>
                                             <td>{{ info["dispute_content"] }}</td>
                                             <td>
                                                 <button id = "letstay" class="actionButton"><i class='fa-solid fa-circle-check' ></i></button>
-                                                <button id = "dismiss" class="actionButton" onclick="removeRow(this)"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                                <form action="" method ="POST">
+                                                    <input type="hidden" name="commentType" value="dispute">
+                                                    <input type="hidden" name="id" value="{{ info['dispute_id'] }}">
+                                                    <button type="submit" id = "dismiss" name ="removecomment" class="actionButton"><i class='fa-solid fa-circle-xmark' ></i></button>
+                                                </form>
                                            </td>
+                                        </tr>
                                         {% endfor %}
-                                    </tr>
+                                   
                                     </table>
 
                                 </div>
@@ -1208,6 +1291,7 @@
                         <div class="orders-boxes">
                             <div class="recent-order manager-box">
                                 <div class="manager-title"><h3>Discussion Warnings</h3></div>
+                                <hr class = "header-divider" class="solid">
                                 <div class="manager-order-details">
                                     <table id="discussion-warnings-table" class="discussion-warnings-table">
                                         <tr>
@@ -1458,6 +1542,7 @@
                         <img class = "logo" alt="My Image" src="../static/assets/onebite_logo.png" />
                     </div>
                     <button class="cheftablinks" onclick="openTab(event, 'ChefDashboard')"><i class='bx bx-grid-alt'></i>Dashboard</button>
+                    <button class="cheftablinks" onclick="openTab(event, 'EditSpecials')"><i class='bx bxs-star'></i>Edit Specials</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditAppetizers')"><i class='bx bxs-baguette' ></i>Edit Appetizers</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditEntrees')"><i class='bx bxs-food-menu' ></i>Edit Entrees</button>
                     <button class="cheftablinks" onclick="openTab(event, 'EditDesserts')"><i class='bx bxs-popsicle'></i>Edit Desserts</button>
@@ -1550,6 +1635,140 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div id = "EditSpecials" class = "cheftabcontent">
+                    <div class="appetizer-items">
+                        <h1 class = "menu-item-heading">
+                            SPECIALS
+                        </h1>
+                        <hr class="solid">
+                        
+                        <button class="additembutton" data-bs-toggle="modal" data-bs-target="#addappetizer-modal"><i class='bx bx-add-to-queue' ></i>Add Special</button>
+                        <div class="modal fade" id="addappetizer-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id = "modal-title">Adding Special</h5>
+                                        <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form action="" method="POST" >
+                                            <div class="form-group">
+                                                <label for="chefid">Chef ID</label>
+                                                <input type="chefid" name="chefid" class="form-control" id="chefid" value="{{ user.id }}" placeholder="{{ user.id }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dishid">Dish Type</label>
+                                                <input type="dishtype" name="dishtype" class="form-control" id="dishtype" value="special" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="customeFile">Upload Image</label>
+                                                <input type="imagename" name="image" class="form-control" id="customfile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-fname" class = "form-label">Item Name:</label>
+                                                <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="modal-lname" class = "form-label">Description:</label>
+                                                <textarea name="description" class="form-control" id="description" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Price</label>
+                                                <input type="price" name="price" class="form-control" id="modal-price" placeholder="$0.00" min="0.00" max="10000.00">
+                                            </div> 
+                                    
+                                            <div class="modal-footer">
+                                                <input name="addsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tablecontainer d-block mx-auto">
+                            <table data-toggle="table" class = "table table-bordered" data-pagination = "true" data-search="true">
+                                <thead>
+                                    <tr>
+                                        <th>Dish ID</th>
+                                        <th>Dish Image</th>
+                                        <th>Dish Name</th>
+                                        <th>Dish Description</th>
+                                        <th>Dish Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                 </thead>
+                                <tbody>
+                                    {% for info in special %}
+                                    <tr>
+                                        <td class="text-center">{{ info['dish_id'] }}</td>
+                                        <td class="images w-25 text-center">
+                                            <img src="{{ info['img'] }} " class="img-fluid img-thumbnail img-responsive" class="foodimages"> 
+                                        </td>
+                                        <td class="text-center">{{ info['name'] }}</td>
+                                        <td class="text-center">{{ info['description'] }} </td>
+                                        <td class="text-center">${{ info['price'] }} </td>
+                                        <td class="text-center">
+                                            <div class = "buttons">
+                                                <button class = "edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                                                <div class="modal fade" id = "edit-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class = "modal-title" id = "modal-title">Edit Item</h5>
+                                                                <button type = "button" class="modal-delivery-button-close btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="" method = "POST">
+                                                                    <div class="form-group">
+                                                                        <label for="dishid">Dish ID</label>
+                                                                        <input type="dishid" name="dishid" class="form-control" id="dishid" value= "{{ info['dish_id'] }}" readonly="{{ info['dish_id'] }}" placeholder="{{ info['dish_id'] }}">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="customeFile">Upload New Image</label>
+                                                                        <input type="file" name="newimage" class="form-control" id="customfile">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="modal-fname" class = "form-label">Edit Item Name:</label>
+                                                                        <input name="itemname" type="itemname" class = "form-control" id = "modal-itemname" placeholder="Item Name">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="modal-lname" class = "form-label">Edit Description:</label>
+                                                                        <textarea name="editdescription" class="form-control" id="editdescription" cols="20" rows="5" placeholder="Description of food..."></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="editprice">Edit Price</label>
+                                                                        <input type="editprice" name="editprice" class="form-control" id="modal-editprice" placeholder="$0.00" min="0.00" max="10000.00">
+                                                                    </div>
+                                                            
+                                                                    <div class="modal-footer">
+                                                                        <input name="editsubmit" type = "submit" class="btn btn-primary" value="Submit">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <form action="" method="POST">
+                                                    <button name="removeitem" type = "submit" value = "{{ info['dish_id'] }}" class = "remove-btn">Remove</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                       
                     </div>
                 </div>
 
@@ -2136,6 +2355,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="" method = "post">
+                                                            <input type="hidden" id="complainerid" name="complainerid" value="{{ info['complainer_id'] }}">
                                                             <div class="form-group">
                                                                 <label for="userid">Your User ID:</label>
                                                                 <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>
@@ -2172,8 +2392,8 @@
                                             </div>
                                         </div>
                                     <!-- </section> -->
-
                                 </td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -2181,12 +2401,13 @@
                 </div>
                
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                                
+                             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>   
                 <script src='bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' type='text/javascript'></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
                 <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/bootstrap-table.min.js"></script>
+                <script src='bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' type='text/javascript'></script>
                 <script>
                     if ( window.history.replaceState ) {
                         window.history.replaceState( null, null, window.location.href );
@@ -2250,7 +2471,6 @@
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryBidding')"><i class='bx bx-money-withdraw'></i>Delivery Bidding</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryCompliments')"><i class='bx bx-wink-smile'></i>Compliments</button>
                     <button class="deliverytablinks" onclick="openTab(event, 'DeliveryComplaints')"><i class='bx bx-angry' ></i>Complaints</button>
-                    <button class="deliverytablinks" onclick="openTab(event, 'DeliveryWarnings')"><i class='bx bx-error'></i>Warnings</button>
                     <a href = "{{ url_for('logout') }}" style = "text-decoration: none;"><button class = "deliverytablinks" type = "button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></a>
                 </div>
                 
@@ -2342,6 +2562,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form action="" method = "post">
+                                                            <input type="hidden" id="complainerid" name="complainerid" value="{{ info['complainer_id'] }}">
                                                             <div class="form-group">
                                                                 <label for="userid">Your User ID:</label>
                                                                 <input name="userid" id="userid" type ="text" class="form-control" value ="{{ user['id'] }}" readonly>

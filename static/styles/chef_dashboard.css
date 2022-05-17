@@ -118,6 +118,7 @@ navbar, nav * {
 
 /* edit button */
 .edit-btn{
+    width: 80px;
     background-color: #0095ff;
     border: 1px solid transparent;
     border-radius: 3px;
@@ -161,6 +162,7 @@ navbar, nav * {
 
 /* remove button */
 .remove-btn{
+    width: 80px;
     background-color: #ff0000;
     border: 1px solid transparent;
     border-radius: 3px;
@@ -477,4 +479,15 @@ navbar, nav * {
     20% {
         transform: translateY(-20px)
     }
+}
+
+.datepicker td,th{
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+#calender-btn:hover{
+    background-color: #969696;
+    cursor: pointer;
 }

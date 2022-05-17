@@ -489,11 +489,12 @@ def retrieveDispute(db):
     fname = userDetails['firstname']
     lname = userDetails['lastname']
     disputerid = userDetails['userid']
+    complainerid = userDetails['complainerid']
     disputedescription = userDetails['deliverydispute']
 
     cursor = db.connection.cursor()
     #insert data into dispute table in database
-    cursor.execute("INSERT INTO dispute (first_name, last_name, disputer_id, complainer_id, dispute_content, dispute_date) VALUES(%s, %s, %s,%s, %s, CURDATE())", (fname,lname,disputerid,6,disputedescription))
+    cursor.execute("INSERT INTO dispute (first_name, last_name, disputer_id, complainer_id, dispute_content, dispute_date) VALUES(%s, %s, %s,%s, %s, CURDATE())", (fname,lname,disputerid,complainerid,disputedescription))
     db.connection.commit()
     cursor.close()
 
@@ -536,7 +537,7 @@ def retrieveCompliment(db):
 def loadDisputes(db):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM dispute')
+    cursor.execute('SELECT DISTINCT dispute.first_name, dispute.last_name, dispute.dispute_id, dispute.disputer_id, complaint.complainer_id, complaint.complaint_date, dispute.disputer_id, dispute.dispute_date, dispute.dispute_content FROM dispute INNER join complaint on complaint.receiver_id = dispute.disputer_id;')
     results = cursor.fetchall()
     cursor.close()
     return results
@@ -549,39 +550,56 @@ def loadPastDeliveries(db):
     cursor.close()
     return results
 
-def loadEntrees(db):
+def loadSpecials(db,user):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['entree'])
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s and chef=%s', (['special'], str(user.id)) )
     results = cursor.fetchall()
     print(results)
     cursor.close()
     return results
 
-def loadAppt(db):
+def loadEntrees(db,user):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['appetizer'])
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s and chef=%s', (['entree'], str(user.id)) )
     results = cursor.fetchall()
     print(results)
     cursor.close()
     return results
 
-def loadDesserts(db):
+def loadAppt(db,user):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['dessert'])
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s and chef=%s', (['appetizer'], str(user.id)) )
     results = cursor.fetchall()
     print(results)
     cursor.close()
     return results
 
-def loadDrinks(db):
+def loadDesserts(db,user):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM dish WHERE dish_type=%s', ['drink'])
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s and chef=%s', (['dessert'], str(user.id)) )
     results = cursor.fetchall()
     print(results)
+    cursor.close()
+    return results
+
+def loadDrinks(db,user):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE dish_type=%s and chef=%s', (['drink'], str(user.id)) )
+    results = cursor.fetchall()
+    print(results)
+    cursor.close()
+    return results
+
+def loadMenu(db,user):
+    results = []
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM dish WHERE chef=%s', (str(user.id)) )
+    results = cursor.fetchall()
     cursor.close()
     return results
 
@@ -640,14 +658,6 @@ def retrieveUsers(db):
 
     return chef, delivery, customer
 
-def loadMenu(db):
-    results = []
-    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM dish')
-    results = cursor.fetchall()
-    cursor.close()
-    return results
-
 def loadCompliments(db,user):
     results = []
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -667,6 +677,11 @@ def loadCompliments(db,user):
         print('THIS IS THE COMPLIMENT COUNT FOR CUSTOMER', count["COUNT(*)"])
         cursor.execute('UPDATE customer SET num_compliment = %s WHERE customer_id = %s', (count["COUNT(*)"], str(user.id),))
         db.connection.commit()
+    if user.userType == "manager":
+        cursor.execute('SELECT * from compliment')
+        results = cursor.fetchall()
+        cursor.close()
+        return results
     cursor.close()
 
     return results
@@ -690,6 +705,11 @@ def loadComplaints(db,user):
         print('THIS IS THE COMPLAINT COUNT FOR CUSTOMER', count["COUNT(*)"])
         cursor.execute('UPDATE customer SET num_complaint = %s WHERE customer_id = %s', (count["COUNT(*)"], str(user.id),))
         db.connection.commit()
+    if user.userType == "manager":
+        cursor.execute('SELECT * from complaint')
+        results = cursor.fetchall()
+        cursor.close()
+        return results
     cursor.close()
 
     return results
@@ -711,24 +731,48 @@ def loadWarnings(db,user):
         count = cursor.fetchone()
         print('THIS IS THE WARNING COUNT FOR CUSTOMER', count["warnings"])
         db.connection.commit()
-        cursor.close()
+    cursor.close()
     return True
 
 def addwarning(db):
     details = request.form
     usertype = details['usertype']
     userid = details['givewarning']
+    commentType = details['commentType']
+    commentID = details['id']
     print(usertype,userid)
     cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
     if usertype == "customer":
-       cursor.execute('UPDATE customer SET warnings = warnings + 1 WHERE customer_id = %s', userid)
-       db.connection.commit()
+        cursor.execute('UPDATE customer SET warnings = warnings + 1 WHERE customer_id = %s', userid)
+        db.connection.commit()
     if usertype == "chef":
-       cursor.execute('UPDATE chef SET warnings = warnings + 1 WHERE chef_id = %s', userid)
-       db.connection.commit()
+        cursor.execute('UPDATE chef SET warnings = warnings + 1 WHERE chef_id = %s', userid)
+        db.connection.commit()
     if usertype == "delivery":
-       cursor.execute('UPDATE delivery SET warnings = warnings + 1 WHERE delivery_id = %s', userid)
-       db.connection.commit()
+        cursor.execute('UPDATE delivery SET warnings = warnings + 1 WHERE delivery_id = %s', userid)
+        db.connection.commit()
+    if usertype == "unknown":
+        # chefs
+        if userid == '2' or userid == '3': 
+            cursor.execute('UPDATE chef SET warnings = warnings + 1 WHERE chef_id = %s', userid)
+            db.connection.commit()
+        # delivery
+        if userid == '4' or userid == '5':
+            cursor.execute('UPDATE delivery SET warnings = warnings + 1 WHERE delivery_id = %s', userid)
+            db.connection.commit()
+        # customers
+        if userid >= '6':
+            cursor.execute('UPDATE customer SET warnings = warnings + 1 WHERE customer_id = %s', userid)
+            db.connection.commit()
+    if commentType == "compliment":
+            cursor.execute('DELETE FROM compliment WHERE compliment_id = %s', commentID)
+            db.connection.commit()
+    if commentType == "complaint":
+        cursor.execute('DELETE FROM complaint WHERE complaint_id = %s', commentID)
+        db.connection.commit()
+    if commentType == "dispute":
+        cursor.execute('DELETE FROM dispute WHERE dispute_id = %s', commentID)
+        db.connection.commit()
     cursor.close()
     return True
 
@@ -798,3 +842,23 @@ def loadForumWarnings(db):
     results = cursor.fetchall()
     cursor.close()
     return results
+
+
+def removeComment(db):
+    cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+    userDetails = request.form
+    commentType = userDetails['commentType']
+    commentID = userDetails['id']
+    if commentType == "compliment":
+        cursor.execute('DELETE FROM compliment WHERE compliment_id = %s', commentID)
+        db.connection.commit()
+        cursor.close()
+    if commentType == "complaint":
+        cursor.execute('DELETE FROM complaint WHERE complaint_id = %s', commentID)
+        db.connection.commit()
+        cursor.close()
+    if commentType == "dispute":
+        cursor.execute('DELETE FROM dispute WHERE dispute_id = %s', commentID)
+        db.connection.commit()
+        cursor.close()
+    return True

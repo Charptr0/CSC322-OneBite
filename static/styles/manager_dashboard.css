@@ -238,7 +238,7 @@ navbar, nav * {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.manager-dashboard-section .manager-home-content .orders-boxes .manager-order-details{
+.manager-order-details{
     width: 100%;
     display: inline-block;
     align-items: center;
@@ -260,8 +260,6 @@ navbar, nav * {
 
 /* see all button */
 .manager-dashboard-section .orders-boxes .manager-box .see-all-button{
-    width: calc(100% - 240px);
-    left: 240px;
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
@@ -303,8 +301,7 @@ navbar, nav * {
 
 #recent-orders{
     border-collapse: collapse;
-    width: calc(100% - 240px);
-    left: 240px;
+    width: 100%;
 }
 
 #recent-orders td, #recent-orders th{
@@ -347,162 +344,251 @@ navbar, nav * {
 
 /* manager customer accounts page */
     /* registered-customers table */
-    #registered-customers{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
+#registered-customers{
+    border-collapse: collapse;
+    width:100%
+}
 
-    #registered-customers tr {
+#registered-customers tr {
+display: none;
+}
+
+#registered-customers tr.active {
+    display: table-row;
+}
+
+#registered-customers td, #registered-customers th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
+
+#registered-customers td li{
+    background: transparent;
+}
+
+#registered-customers td li a{
+    text-decoration: none;
+    background: transparent;
+}
+
+#registered-customers tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#registered-customers tr:hover{
+    background-color: #ACACAC;
+}
+
+#registered-customers th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
+
+/* end registered-customers table */
+
+/* lost-customers table */
+#lost-customers{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#lost-customers tr {
+display: none;
+}
+
+#lost-customers tr.active {
+    display: table-row;
+}
+
+#lost-customers td, #lost-customers th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
+
+#lost-customers td li{
+    background: transparent;
+}
+
+#lost-customers td li a{
+    text-decoration: none;
+    background: transparent;
+}
+
+#lost-customers tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#lost-customers tr:hover{
+    background-color: #ACACAC;
+}
+
+#lost-customers th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
+
+/* end lost-customers table */
+
+/* table buttons */
+#CustomerAccounts .manager-dashboard-section .actionButton {
+    background: transparent;
+    border: none;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 40%;
+}
+
+#CustomerAccounts .manager-dashboard-section #cleardeposit:hover {
+    background-color: #B22B27;
+}
+
+#CustomerAccounts .manager-dashboard-section #deleteaccount:hover {
+    background-color: #B22B27;
+}
+
+#CustomerAccounts .manager-dashboard-section #givewarning:hover {
+    background-color: red;
+}
+
+#CustomerAccounts .manager-dashboard-section .actionButton i {
+    background: transparent;
+}
+    /* end table buttons */
+/* manager customer accounts page */
+
+
+/* manager employee accounts page */
+    /* chef table */
+#chef-table .more{
     display: none;
-    }
+}
 
-    #registered-customers tr.active {
-        display: table-row;
-    }
+#chef-table{
+    border-collapse: collapse;
+    width: 100%;
+}
 
-    #registered-customers td, #registered-customers th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#chef-table tr {
+display: none;
+}
 
-    #registered-customers td li{
-        background: transparent;
-    }
+#chef-table tr.active {
+    display: table-row;
+}
 
-    #registered-customers td li a{
-        text-decoration: none;
-        background: transparent;
-    }
+#chef-table td, #chef-table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
 
-    #registered-customers tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
+#chef-table td li{
+    background: transparent;
+}
 
-    #registered-customers tr:hover{
-        background-color: #ACACAC;
-    }
+#chef-table td li a{
+    text-decoration: none;
+    background: transparent;
+}
 
-    #registered-customers th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
-
-    /* end registered-customers table */
-
-    /* vip table */
-    #VIP-customers{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
-
-    #VIP-customers tr {
+#chef-table .more{
     display: none;
-    }
+}
 
-    #VIP-customers tr.active {
-        display: table-row;
-    }
+#chef-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
 
-    #VIP-customers td, #VIP-customers th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#chef-table tr:hover{
+    background-color: #ACACAC;
+}
 
-    #VIP-customers td li{
-        background: transparent;
-    }
+#chef-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
+/* end chef table */
 
-    #VIP-customers td li a{
-        text-decoration: none;
-        background: transparent;
-    }
+/* delivery table */
+#delivery-table{
+    border-collapse: collapse;
+    width: 100%;
+}
 
-    #VIP-customers tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
+#delivery-table tr {
+display: none;
+}
 
-    #VIP-customers tr:hover{
-        background-color: #ACACAC;
-    }
+#delivery-table tr.active {
+    display: table-row;
+}
 
-    #VIP-customers th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
-    /* end vip table */
+#delivery-table td, #delivery-table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
 
-    /* lost-customers table */
-    #lost-customers{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
+#delivery-table td li{
+    background: transparent;
+}
 
-    #lost-customers tr {
-    display: none;
-    }
+#delivery-table td li a{
+    text-decoration: none;
+    background: transparent;
+}
 
-    #lost-customers tr.active {
-        display: table-row;
-    }
+#delivery-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
 
-    #lost-customers td, #lost-customers th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#delivery-table tr:hover{
+    background-color: #ACACAC;
+}
 
-    #lost-customers td li{
-        background: transparent;
-    }
+#delivery-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
+/* end delivery table */
 
-    #lost-customers td li a{
-        text-decoration: none;
-        background: transparent;
-    }
-
-    #lost-customers tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
-
-    #lost-customers tr:hover{
-        background-color: #ACACAC;
-    }
-
-    #lost-customers th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
-
-    /* end lost-customers table */
-
-    /* table buttons */
-    #CustomerAccounts .manager-dashboard-section .actionButton {
+/* table button */
+.actionButton {
         background: transparent;
         border: none;
         padding: 15px;
@@ -513,209 +599,65 @@ navbar, nav * {
         margin: 4px 2px;
         cursor: pointer;
         border-radius: 40%;
-    }
+}
 
-    #CustomerAccounts .manager-dashboard-section #cleardeposit:hover {
-        background-color: #B22B27;
-    }
-
-    #CustomerAccounts .manager-dashboard-section #deleteaccount:hover {
-        background-color: #B22B27;
-    }
-
-    #CustomerAccounts .manager-dashboard-section #givewarning:hover {
-        background-color: red;
-    }
-
-    #CustomerAccounts .manager-dashboard-section .actionButton i {
-        background: transparent;
-    }
-    /* end table buttons */
-/* manager customer accounts page */
-
-
-/* manager employee accounts page */
-    /* chef table */
-    #chef-table .more{
-        display: none;
-    }
-
-    #chef-table{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
-
-    #chef-table tr {
-    display: none;
-    }
-
-    #chef-table tr.active {
-        display: table-row;
-    }
-
-    #chef-table td, #chef-table th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
-
-    #chef-table td li{
-        background: transparent;
-    }
-
-    #chef-table td li a{
-        text-decoration: none;
-        background: transparent;
-    }
-
-    #chef-table .more{
-        display: none;
-    }
-
-    #chef-table tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
-
-    #chef-table tr:hover{
-        background-color: #ACACAC;
-    }
-
-    #chef-table th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
-    /* end chef table */
-
-    /* delivery table */
-    #delivery-table{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
-
-    #delivery-table tr {
-    display: none;
-    }
-
-    #delivery-table tr.active {
-        display: table-row;
-    }
-
-    #delivery-table td, #delivery-table th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
-
-    #delivery-table td li{
-        background: transparent;
-    }
-
-    #delivery-table td li a{
-        text-decoration: none;
-        background: transparent;
-    }
-
-    #delivery-table tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
-
-    #delivery-table tr:hover{
-        background-color: #ACACAC;
-    }
-
-    #delivery-table th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
-    /* end delivery table */
-
-    /* table button */
-    #EmployeeAccounts .manager-dashboard-section .actionButton {
-            background: transparent;
-            border: none;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 40%;
-    }
-
-    #EmployeeAccounts .manager-dashboard-section #givewarning:hover {
-        background-color: red;
-    }
+#givewarning:hover {
+    background-color: red;
+}
     /* table button */
 /* end manager employee accounts page */
 
 
 /* manager discussions page */
     /* forum table */
-    #forum-table{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
+#forum-table{
+    border-collapse: collapse;
+    width: calc(100% - 240px);
+    left: 240px;
+}
 
-    #forum-table tr {
-    display: none;
-    }
+#forum-table tr {
+display: none;
+}
 
-    #forum-table tr.active {
-        display: table-row;
-    }
+#forum-table tr.active {
+    display: table-row;
+}
 
-    #forum-table td, #forum-table th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#forum-table td, #forum-table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
 
-    #forum-table td li{
-        background: transparent;
-    }
+#forum-table td li{
+    background: transparent;
+}
 
-    #forum-table td li a{
-        text-decoration: none;
-        background: transparent;
-    }
+#forum-table td li a{
+    text-decoration: none;
+    background: transparent;
+}
 
-    #forum-table tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
+#forum-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
 
-    #forum-table tr:hover{
-        background-color: #ACACAC;
-    }
+#forum-table tr:hover{
+    background-color: #ACACAC;
+}
 
-    #forum-table th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
+#forum-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
 
     /* end forum table */
 /* manager discussions page */
@@ -723,210 +665,256 @@ navbar, nav * {
 
 /* manager customer comments page */
     /* comments table */
-    #comments-table{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
+#compliment-table{
+    border-collapse: collapse;
+    width: 100%;
+}
 
-    #comments-table tr {
-    display: none;
-    }
+#compliment_table tr {
+display: none;
+}
 
-    #comments-table tr.active {
-        display: table-row;
-    }
+#compliment_table tr.active {
+    display: table-row;
+}
 
-    #comments-table td, #comments-table th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#compliment_table td, #compliment_table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
 
-    #comments-table td li{
-        background: transparent;
-    }
+#compliment_table td li{
+    background: transparent;
+}
 
-    #comments-table td li a{
-        text-decoration: none;
-        background: transparent;
-    }
+#compliment_table td li a{
+    text-decoration: none;
+    background: transparent;
+}
 
-    #comments-table tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
+#compliment_table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
 
-    #comments-table tr:hover{
-        background-color: #ACACAC;
-    }
+#compliment_table tr:hover{
+    background-color: #ACACAC;
+}
 
-    #comments-table th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
+#compliment_table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
     /* end comments table */
 
 
+    /* Start complaint table */
+
+#complaint-table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#complaint_table tr {
+display: none;
+}
+
+#complaint_table tr.active {
+    display: table-row;
+}
+
+#complaint_table td, #complaint_table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
+
+#complaint_table td li{
+    background: transparent;
+}
+
+#complaint_table td li a{
+    text-decoration: none;
+    background: transparent;
+}
+
+#complaint_table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#complaint_table tr:hover{
+    background-color: #ACACAC;
+}
+
+#complaint_table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
+
+    /* end complaint table */
+
     /* disputed comments table */
-    #disputed-comments-table{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
+#disputed-comments-table{
+    border-collapse: collapse;
+    width: 100%;
+}
 
-    #disputed-comments-table tr {
-    display: none;
-    }
+#disputed-comments-table tr {
+display: none;
+}
 
-    #disputed-comments-table tr.active {
-        display: table-row;
-    }
+#disputed-comments-table tr.active {
+    display: table-row;
+}
 
-    #disputed-comments-table td, #disputed-comments-table th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#disputed-comments-table td, #disputed-comments-table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
 
-    #disputed-comments-table td li{
-        background: transparent;
-    }
+#disputed-comments-table td li{
+    background: transparent;
+}
 
-    #disputed-comments-table td li a{
-        text-decoration: none;
-        background: transparent;
-    }
+#disputed-comments-table td li a{
+    text-decoration: none;
+    background: transparent;
+}
 
-    #disputed-comments-table tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
+#disputed-comments-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
 
-    #disputed-comments-table tr:hover{
-        background-color: #ACACAC;
-    }
+#disputed-comments-table tr:hover{
+    background-color: #ACACAC;
+}
 
-    #disputed-comments-table th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
+#disputed-comments-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
 
         /* table buttons */
-        #CustomerComments .manager-dashboard-section .actionButton {
-            background: transparent;
-            border: none;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 40%;
-        }
+.actionButton {
+    background: transparent;
+    border: none;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 40%;
+}
 
-        #CustomerComments .manager-dashboard-section #letstay:hover {
-            background-color: #81de76;
-        }
+#letstay:hover {
+    background-color: #81de76;
+}
 
-        #CustomerComments .manager-dashboard-section #dismiss:hover {
-            background-color: #B22B27;
-        }
+#dismiss:hover {
+    background-color: #B22B27;
+}
 
-        #CustomerComments .manager-dashboard-section .actionButton i {
-            background: transparent;
-        }
+.actionButton i {
+    background: transparent;
+}
         /* table buttons */
     /* end disputed comments table */
 
     /* forum warnings table */
-    #discussion-warnings-table{
-        border-collapse: collapse;
-        width: calc(100% - 240px);
-        left: 240px;
-    }
+#discussion-warnings-table{
+    border-collapse: collapse;
+    width: 100%;
+}
 
-    #discussion-warnings-table tr {
-    display: none;
-    }
+#discussion-warnings-table tr {
+display: none;
+}
 
-    #discussion-warnings-table tr.active {
-        display: table-row;
-    }
+#discussion-warnings-table tr.active {
+    display: table-row;
+}
 
-    #discussion-warnings-table td, #discussion-warnings-table th{
-        /*border: 1px solid #ddd;*/
-        padding: 8px;
-        list-style: none;
-        margin: 8px 0;
-        background: transparent;
-    }
+#discussion-warnings-table td, #discussion-warnings-table th{
+    /*border: 1px solid #ddd;*/
+    padding: 8px;
+    list-style: none;
+    margin: 8px 0;
+    background: transparent;
+}
 
-    #discussion-warnings-table td li{
-        background: transparent;
-    }
+#discussion-warnings-table td li{
+    background: transparent;
+}
 
-    #discussion-warnings-table td li a{
-        text-decoration: none;
-        background: transparent;
-    }
+#discussion-warnings-table td li a{
+    text-decoration: none;
+    background: transparent;
+}
 
-    #discussion-warnings-table tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
+#discussion-warnings-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
 
-    #discussion-warnings-table tr:hover{
-        background-color: #ACACAC;
-    }
+#discussion-warnings-table tr:hover{
+    background-color: #ACACAC;
+}
 
-    #discussion-warnings-table th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        font-size: 20px;
-        font-weight: 1000;
-        text-align: left;
-        background-color: transparent;
-        color: black;
-    }
+#discussion-warnings-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: 1000;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+}
 
-        /* table buttons */
-        #CustomerComments .manager-dashboard-section .actionButton {
-            background: transparent;
-            border: none;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 40%;
-        }
+    /* table buttons */
+#CustomerComments .manager-dashboard-section .actionButton {
+    background: transparent;
+    border: none;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 40%;
+}
 
-        #CustomerComments .manager-dashboard-section #letstay:hover {
-            background-color: #81de76;
-        }
+#CustomerComments .manager-dashboard-section #letstay:hover {
+    background-color: #81de76;
+}
 
-        #CustomerComments .manager-dashboard-section #dismiss:hover {
-            background-color: #B22B27;
-        }
+#CustomerComments .manager-dashboard-section #dismiss:hover {
+    background-color: #B22B27;
+}
 
-        #CustomerComments .manager-dashboard-section .actionButton i {
-            background: transparent;
-        }
+#CustomerComments .manager-dashboard-section .actionButton i {
+    background: transparent;
+}
         /* table buttons */
     /* end forum warnings table */
 /* end manager customer comments page */
@@ -970,7 +958,7 @@ navbar, nav * {
 }
 
 #assign-table {
-    width: 90%;
+    width: 100%;
     text-align: center;
 }
 
@@ -1029,4 +1017,11 @@ navbar, nav * {
         left: 60px;
         width: calc(100% - 60px);
     }
+}
+
+/*dividers */
+
+
+.header-divider{
+    margin: 0;
 }
