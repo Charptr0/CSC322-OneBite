@@ -176,10 +176,27 @@ class Order():
         delivery_id = bidDetails["delivery_id"]
         order_id = bidDetails["order_id"]
         total = float(bidDetails["total"]) + float(bidDetails["delivery_bid"])
-        print(order_id)
 
         cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('UPDATE orders SET total = %s, delivery_fee = %s, delivery_id = %s, status = 1 WHERE order_id = %s', (str(total), str(delivery_bid), str(delivery_id), str(order_id)))
         cursor.execute('DELETE FROM deliveryBid WHERE order_id = %s', (str(order_id)))
+
+        # assigns warning to deliverer if not deliver past 5
+        cursor.execute('SELECT * FROM orders WHERE type = %s AND status = 1 ORDER BY order_id DESC', ("delivery",))
+        results = cursor.fetchmany(5)
+        cursor.execute('SELECT * FROM delivery')
+        personnel = cursor.fetchall()
+        if len(results) < 5:
+            pass
+        else:
+            num_delivered = 0
+            for person in personnel:
+                for order in results:
+                    if order["delivery_id"] == person["delivery_id"]:
+                        num_delivered += 1
+                if num_delivered == 0:
+                    warnings = int(person["warnings"]) + 1
+                    cursor.execute('UPDATE delivery SET warnings = %s WHERE delivery_id = %s', (str(warnings), str(person["delivery_id"])))
+            
         db.connection.commit()
         cursor.close()
