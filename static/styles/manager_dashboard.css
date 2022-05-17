@@ -962,6 +962,19 @@ display: none;
     text-align: center;
 }
 
+#assign-submit {
+    border-radius: 3px;
+    background-color: rgb(70, 110, 255);
+    border-width: 1px;
+    border-color: rgb(140, 165, 255);
+    color: white;
+}
+
+#del-justify {
+    border-radius: 3px;
+    border-width: 1px;
+}
+
 /* Responsive Media Query */
 @media (max-width: 1150px) {
     .manager-home-content .orders-boxes{
