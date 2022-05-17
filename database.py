@@ -678,8 +678,6 @@ def loadCompliments(db,user):
     if user.userType == "manager":
         cursor.execute('SELECT * from compliment')
         results = cursor.fetchall()
-        cursor.close()
-        return results
     cursor.close()
 
     return results
@@ -706,8 +704,6 @@ def loadComplaints(db,user):
     if user.userType == "manager":
         cursor.execute('SELECT * from complaint')
         results = cursor.fetchall()
-        cursor.close()
-        return results
     cursor.close()
 
     return results
