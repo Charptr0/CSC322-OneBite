@@ -1015,7 +1015,7 @@
                                                 {% for customer in customers: %}
                                                     <form action="" method="POST">
                                                         <input type="hidden" id="usertype" name="usertype" value="customer">
-                                                        <button name="givewarning" class="report-user" value = "{{ customer['user_id'] }}" id = "givewarning">Report this user</button>
+                                                        <button name="givewarning" class="report-user" value = "{{ post['user_id'] }}" id = "givewarning">Report this user</button>
                                                     </form>
                                                 {% endfor %}
                                             </div>
@@ -1040,7 +1040,7 @@
                                                     {% for customer in customers: %}
                                                         <form action="" method="POST">
                                                             <input type="hidden" id="usertype" name="usertype" value="customer">
-                                                            <button name="givewarning" class="report-user" value = "{{ postcomments['user_id'] }}" id = "givewarning">Report this user</button>
+                                                            <button name="givewarning" class="report-user" value = "{{ postcomment['user_id'] }}" id = "givewarning">Report this user</button>
                                                         </form>
                                                     {% endfor %}
                                                 </div>
