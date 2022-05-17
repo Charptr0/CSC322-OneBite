@@ -660,6 +660,8 @@ def dashboard():
             retrievePostComment(mysql)
         if "givewarning" in request.form:
             addwarning(mysql)
+        if "removecomment" in request.form:
+            removeComment(mysql)
             
     if user.userType == "manager":
         if request.method == 'POST':
@@ -668,10 +670,12 @@ def dashboard():
         rows=loadDisputes(mysql)
         posts=loadPost(mysql)
         postcomments=loadPostComments(mysql)
+        compliments=loadCompliments(mysql,user)
+        complaints=loadComplaints(mysql,user)
         # print(rows)
         DELIVERYBIDS = Order.getBid(mysql)
         CHEFS, DELIVERYS, CUSTOMERS = retrieveUsers(mysql)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,chefs=CHEFS, deliverys=DELIVERYS, customers=CUSTOMERS, posts=posts, postcomments=postcomments, deliverybids = DELIVERYBIDS, compliments=compliments, complaints=complaints)
 
     if user.userType == "delivery":
         if request.method == 'POST':
@@ -688,15 +692,16 @@ def dashboard():
         return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,compliments=compliments, complaints=complaints,warnings=warnings, deliverybids = DELIVERYBIDS)
         
     if user.userType == "chef":
-        entree=loadEntrees(mysql)
-        appetizers=loadAppt(mysql)
-        desserts=loadDesserts(mysql)
-        drinks=loadDrinks(mysql)
-        menu=loadMenu(mysql)
+        entree=loadEntrees(mysql,user)
+        appetizers=loadAppt(mysql,user)
+        desserts=loadDesserts(mysql,user)
+        drinks=loadDrinks(mysql,user)
+        menu=loadMenu(mysql,user)
+        special=loadSpecials(mysql,user)
         compliments=loadCompliments(mysql,user)
         complaints=loadComplaints(mysql,user)
         warnings=loadWarnings(mysql,user)
-        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks,menu=menu, compliments=compliments, complaints=complaints, warnings=warnings)
+        return render_template("dashboard.html", user=user, userType=user.userType,entree=entree, appetizers=appetizers,desserts=desserts,drinks=drinks,menu=menu,special=special, compliments=compliments, complaints=complaints, warnings=warnings)
     
     if user.userType == "customer":
         posts=loadPost(mysql)
