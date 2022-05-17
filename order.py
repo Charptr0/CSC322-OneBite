@@ -200,3 +200,13 @@ class Order():
             
         db.connection.commit()
         cursor.close()
+
+    @staticmethod
+    def getRecentDelivery(db, user):
+        '''
+        Grabs most recent delivery done by personnel
+        '''
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM orders INNER JOIN customer ON orders.customer_id = customer.customer_id INNER JOIN accounts ON orders.customer_id = accounts.id WHERE orders.delivery_id = %s ORDER BY orders.order_id DESC', (str(user.id)))
+        order = cursor.fetchone()
+        return order

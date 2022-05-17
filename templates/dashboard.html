@@ -2629,39 +2629,12 @@
                 
                 <div id = "Current_deliveries" class = "deliverytabcontent">
                     <section class = "past-delivery-section">
-                    
                         <div class="delivery-home-content">
                             <div class="delivery-number-overview-box">
+                                {% if recentDelivery %}
                                 <div class="delivery-box">
                                     <div class="delivery-left">
-                                        <div class="delivery-number">Delivery # ( Order ID )</div>
-                                        <hr>
-                                        <div class="delivery-items">
-                                            <div class="delivery-name-qty">
-                                                <div class="delivery-name-food">Name</div>
-                                                <div class="delivery-qty">QTY</div>
-                                            </div>
-                                            <div class="delivery-name-qty">
-                                                <div class="delivery-name-food">Name</div>
-                                                <div class="delivery-qty">QTY</div>
-                                            </div>
-                                            <div class="delivery-name-qty">
-                                                <div class="delivery-name-food">Name</div>
-                                                <div class="delivery-qty">QTY</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    
-                    
-                        <div class="delivery-home-content">
-                            <div class="delivery-number-overview-box">
-                                <div class="delivery-box">
-                                    <div class="delivery-left">
-                                        <div class="delivery-number">Delivery Location for Delivery # ( Order ID )</div>
+                                        <div class="delivery-number">Delivery Location for Delivery # {{ recentDelivery["order_id"] }}</div>
                                         
                                         <button class = "complain-btn" data-bs-toggle="modal" data-bs-target="#complain-modal"><i class='bx bxs-angry'></i>Complain</button>
                                         <div class="modal fade" id = "complain-modal" tabindex="-1" aria-labelledby = "modal-title" aria-hidden="true">
@@ -2679,7 +2652,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modal-receiverid" class = "form-label">Complaint Receiver ID:</label>
-                                                                <input name="receiverid" type="receiverid" class = "form-control" id = "modal-receiverid" value="6" readonly>
+                                                                <input name="receiverid" type="receiverid" class = "form-control" id = "modal-receiverid" value="{{ recentDelivery['customer_id'] }}" readonly>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="modal-fname" class = "form-label">Enter Your First Name:</label>
@@ -2714,11 +2687,12 @@
                                         </div>
                                         <hr>
                                         <div class="delivery-customer-info">
-                                            <div class="delivery-customer-name">Customer Name: Peggie</div>
-                                            <div class="delivery-customer-address">Customer Address: At Your Moms House 123</div>
+                                            <div class="delivery-customer-name">Customer Name: {{ recentDelivery["fname"] }} {{ recentDelivery["lname"] }}</div>
+                                            <div class="delivery-customer-address">Customer Address: {{ recentDelivery["address"] }}</div>
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                         

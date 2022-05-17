@@ -697,7 +697,8 @@ def dashboard():
         complaints=loadComplaints(mysql,user)
         warnings=loadWarnings(mysql,user)
         DELIVERYBIDS = Order.getBid(mysql, user)
-        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,compliments=compliments, complaints=complaints,warnings=warnings, deliverybids = DELIVERYBIDS)
+        RECENTDELIVERY = Order.getRecentDelivery(mysql, user)
+        return render_template("dashboard.html", user=user, userType=user.userType, rows=rows,compliments=compliments, complaints=complaints,warnings=warnings, deliverybids = DELIVERYBIDS, recentDelivery = RECENTDELIVERY)
         
     if user.userType == "chef":
         entree=loadEntrees(mysql,user)
