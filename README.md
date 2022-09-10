@@ -5,6 +5,33 @@
 
 Develop an on-line restaurant order and delivery system so that the restaurant can provide menus of food, customers browse and order the food from the menu, delivery people of the restaurant deliver the food
 
+## Screenshots
+![image](https://user-images.githubusercontent.com/70610982/189460252-25f8eb80-bd81-4dac-9771-95173f683832.png)
+
+![image](https://user-images.githubusercontent.com/70610982/189460271-7c9e470c-0d06-4ce8-a45f-69fbc3406683.png)
+
+![image](https://user-images.githubusercontent.com/70610982/189460281-d94495b1-122f-4b2b-8a06-d14acb2c05ea.png)
+
+![image](https://user-images.githubusercontent.com/70610982/189460292-bc09b056-cbf0-4d3f-8cf6-16bd250e6e2d.png)
+
+
+## Diagrams
+| Name      | Diagram |
+| ----------- | ----------- |
+| General      | ![image](https://user-images.githubusercontent.com/70610982/189460479-4a1480b1-1bdd-4fee-97b9-fac5a7b25cb0.png)|
+| Delivery Personnel| ![image](https://user-images.githubusercontent.com/70610982/189460499-f2419c9a-11db-4684-ab5c-1596da12214c.png)|
+| Chef| ![image](https://user-images.githubusercontent.com/70610982/189460531-cccad779-a8aa-4f40-9bec-8a3459005049.png)|
+| Guest| ![image](https://user-images.githubusercontent.com/70610982/189460543-135e54b1-45fc-4c1d-8a3e-1c48957f19f1.png)|
+| Manager | ![image](https://user-images.githubusercontent.com/70610982/189460588-dcdaec9f-f5c4-49e2-acba-9191eaa0d7de.png)|
+| Customer | ![image](https://user-images.githubusercontent.com/70610982/189460628-4435862e-0be1-46e7-aad1-b623cad42822.png)|
+| ER | ![image](https://user-images.githubusercontent.com/70610982/189460633-b38b82c5-abd0-44f0-9265-39406b450c02.png)|
+
+
+
+
+
+
+
 ## Specifications
 
 ### User Objects
