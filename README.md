@@ -5,6 +5,9 @@
 
 Develop an on-line restaurant order and delivery system so that the restaurant can provide menus of food, customers browse and order the food from the menu, delivery people of the restaurant deliver the food
 
+## Brief Demo
+[![demo](https://img.youtube.com/vi/eyX1qqVa4O0/0.jpg)](https://www.youtube.com/watch?v=eyX1qqVa4O0)
+
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/70610982/189460252-25f8eb80-bd81-4dac-9771-95173f683832.png)
 
